@@ -1,0 +1,201 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9673298A-2E7B-4024-9261-00E4A9FF13EB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MbUnit.Framework.Tests</RootNamespace>
+    <AssemblyName>MbUnit.Framework.Tests</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MbUnit.Framework, Version=1.0.2459.29428, Culture=neutral, PublicKeyToken=5e72ecd30bc408d5">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\build\MbUnit.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.2.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files\TestDriven.NET 2.0\NUnit\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph, Version=2.21.1.0, Culture=neutral, PublicKeyToken=975e84d0c8d6464d">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\build\QuickGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Algorithms, Version=2.21.1.0, Culture=neutral, PublicKeyToken=975e84d0c8d6464d">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\build\QuickGraph.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TestFu, Version=1.0.2459.29426, Culture=neutral, PublicKeyToken=5e72ecd30bc408d5">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\build\TestFu.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Asserts\ArrayAssert_Test.cs" />
+    <Compile Include="Asserts\Assert_Test.cs" />
+    <Compile Include="Asserts\CollectionAssert_Test.cs" />
+    <Compile Include="Asserts\CombinationalFixture_Test.cs" />
+    <Compile Include="Asserts\CompilerAssert_Test.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <EmbeddedResource Include="Asserts\CsSample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Compile Include="Asserts\DataAssert_Test.cs" />
+    <Compile Include="Asserts\DurationAttributeTest.cs" />
+    <Compile Include="Asserts\FileAssert_Test.cs" />
+    <Compile Include="Asserts\IgnoreTest.cs" />
+    <Compile Include="Asserts\ReflectionAssertTest.cs" />
+    <Compile Include="Asserts\SerialAssertTest.cs" />
+    <Compile Include="Asserts\TypeAssert_Test.cs" />
+    <Compile Include="Asserts\WebAssert_Test.cs" />
+    <Compile Include="Core\CombinatorialTest1.cs" />
+    <Compile Include="Core\CombinatorialTest2.cs" />
+    <Compile Include="Core\DecoratedFixtureTest.cs" />
+    <Compile Include="Core\DifferentApartementStateFixture.cs" />
+    <Compile Include="Core\EnvironmentTest.cs" />
+    <Compile Include="Core\Filters\FixtureFilterFactory.cs" />
+    <Compile Include="Core\Filters\FixtureFilterTest.cs" />
+    <Compile Include="Core\FixtureSetUpAndTearDownTest.cs" />
+    <Compile Include="Core\Invokers\ArgumentFeederRunInvokerTest.cs" />
+    <Compile Include="Core\Invokers\ConditionalExceptionRunInvokerTest.cs" />
+    <Compile Include="Core\Invokers\ExpectedExceptionRunInvokerTest.cs" />
+    <Compile Include="Core\Invokers\FailedLoadingRunInvoker.cs" />
+    <Compile Include="Core\Invokers\IgnoreRunInvokerTest.cs" />
+    <Compile Include="Core\Invokers\MethodRunInvokerTest.cs" />
+    <Compile Include="Core\Invokers\MockRun.cs" />
+    <Compile Include="Core\Invokers\MockRunInvoker.cs" />
+    <Compile Include="Core\Invokers\RepeatRunInvokerTest.cs" />
+    <Compile Include="Core\Invokers\ThreadedRepeatRunInvokerTest.cs" />
+    <Compile Include="Core\Monitoring\DebugMonitor.cs" />
+    <Compile Include="Core\Monitoring\MemoryMonitorTest.cs" />
+    <Compile Include="Core\Monitoring\MemoryStatusTest.cs" />
+    <Compile Include="Core\Monitoring\TimeMonitorTest.cs" />
+    <Compile Include="Core\MultipleFixturePerClass.cs" />
+    <Compile Include="Core\Remoting\CustomAssemblyResolver.cs" />
+    <Compile Include="Core\Remoting\NamespaceTestTreePopulatorTest.cs" />
+    <Compile Include="Core\Remoting\RelativePathTest.cs" />
+    <Compile Include="Core\Reports\NamePretifierTest.cs" />
+    <Compile Include="Core\Reports\PropertiesFromExceptionTest.cs" />
+    <Compile Include="Core\Reports\Serialization\ReportAssemblyTest.cs" />
+    <Compile Include="Core\Reports\Serialization\ReportAssemblyVersionTest.cs" />
+    <Compile Include="Core\Reports\Serialization\ReportCounterTest.cs" />
+    <Compile Include="Core\Reports\Serialization\ReportExceptionTest.cs" />
+    <Compile Include="Core\Reports\Serialization\ReportFixtureTest.cs" />
+    <Compile Include="Core\Reports\Serialization\ReportInvokerTest.cs" />
+    <Compile Include="Core\Reports\Serialization\ReportNamespaceTest.cs" />
+    <Compile Include="Core\Reports\Serialization\ReportPropertyTest.cs" />
+    <Compile Include="Core\Reports\Serialization\ReportResultTest.cs" />
+    <Compile Include="Core\Reports\Serialization\ReportRunResultTest.cs" />
+    <Compile Include="Core\Reports\Serialization\ReportRunTest.cs" />
+    <Compile Include="Core\Reports\XslCruiseControlTest.cs" />
+    <Compile Include="Core\TestSuiteAndDelegatesTest.cs" />
+    <Compile Include="Core\XmlSerializationTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Asserts\RowTestFixture_Test.cs" />
+    <Compile Include="Asserts\TestFixtureSetUpAndTearDown_Test.cs" />
+    <Compile Include="Asserts\StringAssert_Test.cs" />
+    <Compile Include="Asserts\XmlUnitTests\DiffConfigurationTests.cs" />
+    <Compile Include="Asserts\XmlUnitTests\DifferenceTests.cs" />
+    <Compile Include="Asserts\XmlUnitTests\DiffResultTests.cs" />
+    <Compile Include="Asserts\XmlUnitTests\ValidatorTests.cs" />
+    <Compile Include="Asserts\XmlUnitTests\XmlAssertionTests.cs" />
+    <Compile Include="Asserts\XmlUnitTests\XmlDiffTests.cs" />
+    <Compile Include="Asserts\XmlUnitTests\XmlInputTests.cs" />
+    <Compile Include="Asserts\XmlUnitTests\XPathTests.cs" />
+    <Compile Include="Asserts\XmlUnitTests\XsltTests.cs" />
+    <Compile Include="Samples\FixtureSetUpThrowsTest.cs" />
+    <Compile Include="Samples\NUnitFixture.cs" />
+    <Compile Include="Samples\NUnitSerializationFixture.cs" />
+    <Compile Include="Samples\SampleCompiler.cs" />
+    <Compile Include="Samples\Samples.cs" />
+    <Compile Include="Samples\TestFixtureSample.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Asserts\XmlUnitTests\etc\animal.xsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asserts\XmlUnitTests\etc\BookXsdGenerated.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asserts\XmlUnitTests\etc\controlDetail.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asserts\XmlUnitTests\etc\controlNamespaces.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asserts\XmlUnitTests\etc\invalidBook.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asserts\XmlUnitTests\etc\test.blame.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asserts\XmlUnitTests\etc\test1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asserts\XmlUnitTests\etc\test2.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asserts\XmlUnitTests\etc\testAnimal.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asserts\XmlUnitTests\etc\testDetail.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asserts\XmlUnitTests\etc\testNamespaces.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Asserts\XmlUnitTests\etc\test.dtd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Asserts\XmlUnitTests\etc\Book.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Asserts\CsBadSample.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\AssemblyResolving\" />
+    <Folder Include="Core\Exceptions\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

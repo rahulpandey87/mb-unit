@@ -1,0 +1,46 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	
+	<PropertyGroup>
+        <MbUnitConsole>MbUnit\MbUnit.Cons\bin\Debug\MbUnit.Cons.exe</MbUnitConsole>        
+		<MSBuildExtensionsPath>$(MSBuildProjectDirectory)\bin\MSBuildExtensions</MSBuildExtensionsPath>
+		<v1_0_Properties>TargetFrameworkVersion=v1.0;MSBuildExtensionsPath=$(MSBuildExtensionsPath);CustomAfterMicrosoftCommonTargets=$(MSBuildExtensionsPath)\CrossCompile.CSharp.targets</v1_0_Properties>
+		<v1_1_Properties>TargetFrameworkVersion=v1.1;MSBuildExtensionsPath=$(MSBuildExtensionsPath);CustomAfterMicrosoftCommonTargets=$(MSBuildExtensionsPath)\CrossCompile.CSharp.targets</v1_1_Properties>
+		<v2_0_Properties>TargetFrameworkVersion=v2.0;MSBuildExtensionsPath=$(MSBuildExtensionsPath);CustomAfterMicrosoftCommonTargets=$(MSBuildExtensionsPath)\CrossCompile.CSharp.targets</v2_0_Properties>
+		<OutputPath>$(MSBuildProjectDirectory)\build</OutputPath>
+	</PropertyGroup>
+	
+	
+	<Target Name="MbUnit_AddIn" DependsOnTargets="MbUnit;MbUnit_1_1">
+		<MSBuild Projects="MbUnit\MbUnit.AddIn.sln" Targets="Clean;Rebuild" Properties="$(v1_0_Properties);OutputPath=$(OutputPath)\" />
+	</Target>
+
+	<Target Name="Build" DependsOnTargets="MbUnit_AddIn;MbUnit;MbUnit_1_1;Refly;QuickGraph;MbUnitMsBuild;MbUnit_Tests" />
+	
+	<Target Name="Refly">
+		<MSBuild Projects="Refly\Refly.sln" Targets="Clean;Rebuild" Properties="$(v1_0_Properties);OutputPath=$(OutputPath)\" />
+	</Target>
+	
+	<Target Name="QuickGraph">
+		<MSBuild Projects="QuickGraph\QuickGraph.sln" Targets="Clean;Rebuild" Properties="$(v1_0_Properties);OutputPath=$(OutputPath)\" />
+	</Target>
+	
+	<Target Name="MbUnit" DependsOnTargets="QuickGraph;Refly">
+		<MSBuild Projects="MbUnit\MbUnit.sln" Targets="Clean;Rebuild" Properties="$(v1_0_Properties);OutputPath=$(OutputPath)\" />
+	</Target>
+	
+	<Target Name="MbUnit_1_1" DependsOnTargets="MbUnit">
+		<MSBuild Projects="MbUnit\MbUnit.1.1.sln" Targets="Clean;Rebuild" Properties="$(v1_1_Properties);OutputPath=$(OutputPath)\" />
+	</Target>
+
+	<Target Name="MbUnitMsBuild" DependsOnTargets="MbUnit">
+		<MSBuild Projects="MbUnit\MbUnit.MSBuild.Tasks\MbUnit.MSBuild.Tasks.sln" Targets="Clean;Rebuild" Properties="OutputPath=$(OutputPath)\" />
+	</Target>
+
+	<Target Name="MbUnit_Tests" DependsOnTargets="MbUnit;MbUnit_1_1">
+		<MSBuild Projects="Tests\MbUnit.Framework\MbUnit.Framework.Tests.sln" Targets="Clean;Rebuild" Properties="$(v1_0_Properties);OutputPath=$(OutputPath)" />
+		<Exec Command='"$(OutputPath)\MbUnit.Cons.exe" "$(OutputPath)\MbUnit.Framework.Tests.dll" /rt:Xml /rnf:MbUnit_Tests_results /rf:"$(OutputPath)"' />
+	</Target>
+
+		
+</Project>
