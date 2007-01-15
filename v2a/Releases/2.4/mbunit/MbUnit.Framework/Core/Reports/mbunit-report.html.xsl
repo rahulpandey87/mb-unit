@@ -184,7 +184,7 @@
     MbUnit.Cons.exe -filter-type:<xsl:value-of select="@type" disable-output-escaping="yes" /> "<xsl:value-of select="ancestor::assembly/@location" disable-output-escaping="yes"/>"
     </xsl:template>
 	<xsl:template match="report-result">
-    <xsl:comment> saved from url=(0022)http://www.mbunit.org/ </xsl:comment>
+    <xsl:comment> saved from url=(0022)http://www.mbunit.com/ </xsl:comment>
 		<html>
 			<head>
 				<title>MbUnit Test Report</title>
@@ -313,7 +313,7 @@
         <xsl:call-template name="assemblies" />
 				<br/>
 				<p><img src="mbuniticon.gif"/>
-					This report was generated using <a href="http://www.mbunit.org">MbUnit</a>.
+					This report was generated using <a href="http://www.mbunit.com">MbUnit</a>.
 				</p>
 			</body>
 		</html>
