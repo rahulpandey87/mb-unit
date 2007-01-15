@@ -7,7 +7,7 @@
 <h3><span lang="en-gb">MbUnit 2.3</span></h3>
 <p>
     MbUnit 2.3 RTM is now released and available for download.<br />
-    <a href="http://prdownload.berlios.de/mbunit/MbUnit-2.3.105.exe">http://prdownload.berlios.de/mbunit/MbUnit-2.3.105.exe</a></p>
+    <a href="http://mb-unit.googlecode.com/files/MbUnit-2.3.105.exe">http://mb-unit.googlecode.com/files/MbUnit-2.3.105.exe</a></p>
     <p>
         Release notes can be found here:<br />
         <a href="http://www.mertner.com/jira/secure/ReleaseNote.jspa?projectId=10020&styleName=Html&version=10150" target="_blank">http://www.mertner.com/jira/secure/ReleaseNote.jspa?projectId=10020&styleName=Html&version=10150</a></p>
