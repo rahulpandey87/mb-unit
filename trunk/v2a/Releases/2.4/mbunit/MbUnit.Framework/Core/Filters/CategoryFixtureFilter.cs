@@ -27,32 +27,38 @@
 using System;
 using System.Xml.Serialization;
 
+using MbUnit.Framework;
+
 namespace MbUnit.Core.Filters
 {
-	using MbUnit.Framework;
-
-    [XmlRoot("Category",IsNullable=false)]
-	[Serializable]
+    /// <summary>
+    /// Filter class for FixtureCategory attribute.
+    /// </summary>
+    [Serializable, XmlRoot("Category", IsNullable = false)]
 	public sealed class CategoryFixtureFilter : PatternFixtureFilter
     {
-		public CategoryFixtureFilter()
-		{}
-
         public CategoryFixtureFilter(string pattern)
-            :base(pattern)
+            : base(pattern)
         {}
 
+        /// <summary>
+        /// Tests if a fixture has a category attribute matching a pattern.
+        /// </summary>
+        /// <param name="fixture">The fixture to test.</param>
+        /// <returns>true if the fixture has a matching category attribute, otherwise false.</returns>
         public override bool Filter(Type fixture)
         {
 			if (fixture == null)
 				throw new ArgumentNullException("fixture");
-			// get category attribute
-            FixtureCategoryAttribute cat = 
-				(FixtureCategoryAttribute)TypeHelper.TryGetFirstCustomAttribute(fixture, typeof(FixtureCategoryAttribute));
-            if (cat == null)
-                return this.Pattern.Length == 0;
-            else
-                return cat.Category.StartsWith(this.Pattern);
+			// Get category attributes
+            foreach (FixtureCategoryAttribute cat in fixture.GetCustomAttributes(typeof(FixtureCategoryAttribute), true))
+            {
+                if (cat.Category.StartsWith(this.Pattern))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
