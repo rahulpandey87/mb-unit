@@ -174,8 +174,6 @@ namespace MbUnit.Core.FrameworkBridges
                 try
                 {
                     this.Invoke(o, args);
-                    throw new ExceptionNotThrownException(this.expectedExceptionType,
-                        this.expectedExceptionMessage);
                 }
                 catch (Exception ex)
                 {
@@ -192,6 +190,7 @@ namespace MbUnit.Core.FrameworkBridges
                     else
                         return null;
                 }
+                throw new ExceptionNotThrownException(this.expectedExceptionType, this.expectedExceptionMessage);
             }
 
             protected object Invoke(Object o, System.Collections.IList args)
