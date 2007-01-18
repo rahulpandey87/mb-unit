@@ -108,7 +108,7 @@ namespace MbUnit.Core
         {
             try
             {
-                AddLog("MbUnit AutorRunner");
+                AddLog("MbUnit AutoRunner");
                 AddLog("Loading test domain");
                 // load domain
                 this.domain.Load();
@@ -132,7 +132,7 @@ namespace MbUnit.Core
 
             try
             {
-                AddLog("Found  {0} tests, running...", this.domain.TestEngine.GetTestCount().RunCount);
+                AddLog("Found {0} tests, running...", this.domain.TestEngine.GetTestCount().RunCount);
                 // attach listeners
                 if (verbose)
                 {
