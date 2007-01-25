@@ -362,7 +362,7 @@
 <xsl:template name="fixture-id"><xsl:param name="name" /><xsl:value-of select="$name" /></xsl:template>
 
 	<xsl:template name="fixture-summary">
-			<xsl:for-each select="//fixture">
+			<xsl:for-each select=".//fixture">
 			<tr class="fixtureSummary">
 			<td>
 			<a>

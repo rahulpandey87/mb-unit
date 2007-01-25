@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyCleanUp.cs" />
     <Compile Include="Asserts\ArrayAssert_Test.cs" />
     <Compile Include="Asserts\Assert_Test.cs" />
     <Compile Include="Asserts\CollectionAssert_Test.cs" />
@@ -89,6 +90,11 @@
     <Compile Include="Core\Filters\FixtureFilterFactory.cs" />
     <Compile Include="Core\Filters\FixtureFilterTest.cs" />
     <Compile Include="Core\FixtureSetUpAndTearDownTest.cs" />
+    <Compile Include="Core\Graph\AssemblyCompiler.cs" />
+    <EmbeddedResource Include="Core\Graph\ChildAssembly.cs" />
+    <EmbeddedResource Include="Core\Graph\ParentAssembly.cs" />
+    <EmbeddedResource Include="Core\Graph\SickParentAssembly.cs" />
+    <Compile Include="Core\Graph\TestDomainDependencyGraphTest.cs" />
     <Compile Include="Core\Invokers\ArgumentFeederRunInvokerTest.cs" />
     <Compile Include="Core\Invokers\ConditionalExceptionRunInvokerTest.cs" />
     <Compile Include="Core\Invokers\ExpectedExceptionRunInvokerTest.cs" />
