@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.IO;
 
 using MbUnit.Core.Remoting;
 using MbUnit.Framework;
@@ -15,7 +14,8 @@ namespace MbUnit.Framework.Tests.Core.Graph
     {
         public string[] AssemblyNames()
         {
-            return AssemblyCompiler.AssemblyPaths;
+            string path = "C:\\mbunit\\v2\\Tests\\MbUnit.Framework\\Core\\Graph\\";
+            return new String[] { path + "ParentAssembly", path + "ChildAssembly"};
         }
 
         [CombinatorialTest]
@@ -26,29 +26,28 @@ namespace MbUnit.Framework.Tests.Core.Graph
         {
             int successCount = 0;
             ArrayList names = new ArrayList();
-            names.Add(Path.GetFileNameWithoutExtension(name));
-            names.Add(Path.GetFileNameWithoutExtension(secondName));
+            names.Add(name);
+            names.Add(secondName);
+       
+            if (names.Contains("ChildAssembly"))              
+            successCount++;
+       
+            if (names.Contains("ParentAssembly"))
+                successCount++;
 
-            if (names.Contains("SickParentAssembly"))
-            {
-                if (names.Contains("ParentAssembly"))
-                    successCount++;
-            }
-            else
-            {
-                if (names.Contains("ChildAssembly"))
-                    successCount++;
-
-                if (names.Contains("ParentAssembly"))
-                    successCount++;
-            }
-            string[] files = new string[] { name, secondName };
+            string[] files = new string[] { name + ".dll", secondName + ".dll"};
 
             using (TestDomainDependencyGraph graph = TestDomainDependencyGraph.BuildGraph(files,null, MbUnit.Core.Filters.FixtureFilters.Any, true))
             {
                 ReportResult result = graph.RunTests();
                 Assert.AreEqual(successCount, result.Counter.SuccessCount);
             }
+        }
+
+        [Test]
+        public void ExecuteSickAssembly()
+        {
+            ExecuteAssemblies("ParentAssembly", "ChildAssembly");
         }
     }
 }
