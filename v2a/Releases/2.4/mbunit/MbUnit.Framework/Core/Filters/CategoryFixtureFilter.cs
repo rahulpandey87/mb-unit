@@ -37,9 +37,12 @@ namespace MbUnit.Core.Filters
     [Serializable, XmlRoot("Category", IsNullable = false)]
 	public sealed class CategoryFixtureFilter : PatternFixtureFilter
     {
+        public CategoryFixtureFilter()
+        { }
+
         public CategoryFixtureFilter(string pattern)
             : base(pattern)
-        {}
+        { }
 
         /// <summary>
         /// Tests if a fixture has a category attribute matching a pattern.
