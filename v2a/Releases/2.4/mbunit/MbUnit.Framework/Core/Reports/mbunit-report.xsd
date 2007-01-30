@@ -1,190 +1,151 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<xs:schema id="gunit-report" targetNamespace="http://tempuri.org/gunit-report.xsd" elementFormDefault="qualified"
-	xmlns="http://tempuri.org/gunit-report.xsd" xmlns:mstns="http://tempuri.org/gunit-report.xsd"
-	xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<xs:annotation>
-		<xs:documentation>
-		MbUnit Report Schema
-		</xs:documentation>
-	</xs:annotation>
-	
-	<!-- result-count-group -->
-	<xs:complexType name="report-counter">
-		<xs:attribute name="run-count" type="xs:int" use="required" form="unqualified" />
-		<xs:attribute name="success-count" type="xs:int" use="required" form="unqualified" />
-		<xs:attribute name="failure-count" type="xs:int" use="required" form="unqualified" />
-		<xs:attribute name="ignore-count" type="xs:int" use="required" form="unqualified" />
-	</xs:complexType>
-	
-	<!-- report-result -->
-	<xs:complexType name="report-result">
-		<xs:annotation>
-			<xs:documentation>
-			Root element of the MbUnit report schema.
-			</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="counter" type="report-counter" minOccurs="1" maxOccurs="1" nillable="false" /> 
-			<xs:element name="assemblies" type="report-assembly-collection" minOccurs="0" maxOccurs="1" />
-		</xs:sequence>
-		<xs:attribute name="date" type="xs:dateTime" use="required" form="unqualified" />
-	</xs:complexType>
-	
-	<!-- report-assembly -->
-	<xs:complexType name="report-assembly">
-		<xs:annotation>
-			<xs:documentation>
-			Element describing a Test Assembly.
-			</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="counter" type="report-counter" minOccurs="1" maxOccurs="1" nillable="false" /> 
-			<xs:element name="version" type="report-assembly-version" minOccurs="1" maxOccurs="1" nillable="false" />
-			<xs:element name="namespaces" type="report-namespace-collection" minOccurs="0" maxOccurs="1" />
-		</xs:sequence>
-		<xs:attribute name="name" type="xs:string" use="required" form="unqualified" />
-		<xs:attribute name="full-name" type="xs:string" use="required" form="unqualified" />
-	</xs:complexType>
-	
-	<!-- report-assembly-version -->
-	<xs:complexType name="report-assembly-version">
-		<xs:attribute name="major" type="xs:int" use="required" />
-		<xs:attribute name="minor" type="xs:int" use="required" />
-		<xs:attribute name="build" type="xs:int" use="required" />
-		<xs:attribute name="revision" type="xs:int" use="required" />
-	</xs:complexType>
-
-	<!-- report-assembly-collection -->	
-	<xs:complexType name="report-assembly-collection">
-		<xs:annotation>
-			<xs:documentation>
-			Collection of assemblyes
-			</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="assembly" type="report-assembly" minOccurs="0" maxOccurs="unbounded" />
-		</xs:sequence>
-	</xs:complexType>	
-	
-	<!-- namespace -->
-	<xs:complexType name="report-namespace">
-		<xs:annotation>
-			<xs:documentation>
-			Element describing a namespace. A namespace can have child namespace and fixtures.
-			</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="counter" type="report-counter" minOccurs="1" maxOccurs="1" nillable="false" /> 
-			<xs:element name="namespaces" type="report-namespace-collection" minOccurs="0" maxOccurs="1" />
-			<xs:element name="fixtures" type="report-fixture-collection" minOccurs="0" maxOccurs="1" />
-		</xs:sequence>
-		<xs:attribute name="name" type="xs:string" use="required" form="unqualified" />
-	</xs:complexType>
-			
-	<!-- report-namespace-collection -->		
-	<xs:complexType name="report-namespace-collection">
-		<xs:annotation>
-			<xs:documentation>
-			Collection of namespace
-			</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="namespace" type="report-namespace" minOccurs="0" maxOccurs="unbounded" />
-		</xs:sequence>
-	</xs:complexType>
-	
-	<!-- report-fixture-collection -->			
-	<xs:complexType name="report-fixture-collection">
-		<xs:annotation>
-			<xs:documentation>
-			Collection of fixtures
-			</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="fixture" type="report-fixture" minOccurs="0" maxOccurs="unbounded" />
-		</xs:sequence>
-	</xs:complexType>
-	
-	<!-- report-invoker-collection -->			
-	<xs:complexType name="report-invoker-collection">
-		<xs:annotation>
-			<xs:documentation>
-			Collection of invokers
-			</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="invoker" type="report-invoker" minOccurs="0" maxOccurs="unbounded" />
-		</xs:sequence>
-	</xs:complexType>
-	
-	<!-- report-invoker -->			
-	<xs:complexType name="report-invoker">
-		<xs:annotation>
-			<xs:documentation>
-			Element representing an invoker
-			</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1" />
-		</xs:sequence>		
-		<xs:attribute name="name" type="xs:string" use="required" form="unqualified" />
-		<xs:attribute name="type" type="xs:string" use="required" form="unqualified" />
-	</xs:complexType>
-	
-	<!-- report-fixture -->			
-	<xs:complexType name="report-fixture">
-		<xs:sequence>
-			<xs:element name="counter" type="report-counter" minOccurs="1" maxOccurs="1"  nillable="false" /> 
-			<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1" />
-			<xs:element name="runs" type="report-run-collection" minOccurs="1" maxOccurs="1" />
-		</xs:sequence>
-		<xs:attribute name="name" type="xs:string" use="required" form="unqualified" />
-		<xs:attribute name="type" type="xs:string" use="required" form="unqualified" />
-	</xs:complexType>
-	
-	<!-- report-run-collection -->				
-	<xs:complexType name="report-run-collection">
-		<xs:sequence>
-			<xs:element name="run" type="report-run" minOccurs="0" maxOccurs="unbounded" />
-		</xs:sequence>
-	</xs:complexType>
-	
-	<!-- report-run-result -->					
-	<xs:simpleType name="report-run-result">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="success" />
-			<xs:enumeration value="failure" />
-			<xs:enumeration value="ignore" />
-			<xs:enumeration value="notrun" />
-		</xs:restriction>
-	</xs:simpleType>
-	
-	<!-- report-run -->						
-	<xs:complexType name="report-run">
-		<xs:sequence>
-			<xs:element name="invokers" type="report-invoker-collection" minOccurs="1" maxOccurs="1" />
-			<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"  nillable="true" />
-			<xs:element name="console-out" type="xs:string" minOccurs="0" maxOccurs="1"  nillable="true" />
-			<xs:element name="console-error" type="xs:string" minOccurs="0" maxOccurs="1"  nillable="true" />
-			<xs:element name="exception" type="report-exception" minOccurs="0" maxOccurs="1"  nillable="true" />
-		</xs:sequence>
-		<xs:attribute name="name" type="xs:string" use="required" form="unqualified" />
-		<xs:attribute name="result" type="report-run-result" use="required" form="unqualified" />
-		<xs:attribute name="duration" type="xs:double" use="required" form="unqualified" />
-		<xs:attribute name="memory" type="xs:long" use="required" form="unqualified" />
-	</xs:complexType>
-	
-	<!-- report-exception -->							
-	<xs:complexType name="report-exception">
-		<xs:sequence>
-			<xs:element name="message" type="xs:string" minOccurs="1" maxOccurs="1" />
-			<xs:element name="source" type="xs:string" minOccurs="1" maxOccurs="1" />
-			<xs:element name="stack-trace" type="xs:string" minOccurs="1" maxOccurs="1" />
-			<xs:element name="exception" type="report-exception" minOccurs="0" maxOccurs="1"  nillable="true"  />
-		</xs:sequence>
-		<xs:attribute name="type" type="xs:string" use="required" form="unqualified" />
-	</xs:complexType>
-	
-	<!-- report-result -->							
-	<xs:element name="report-result" type="report-result" />
-</xs:schema>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+  <xs:element name="report-result">
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element name="counter">
+          <xs:complexType>
+            <xs:attribute name="duration" type="xs:decimal" use="required" />
+            <xs:attribute name="run-count" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="success-count" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="failure-count" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="ignore-count" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="skip-count" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="assert-count" type="xs:unsignedByte" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="assemblies">
+          <xs:complexType mixed="true">
+            <xs:sequence>
+              <xs:element name="assembly">
+                <xs:complexType mixed="true">
+                  <xs:sequence>
+                    <xs:element name="counter">
+                      <xs:complexType>
+                        <xs:attribute name="duration" type="xs:decimal" use="required" />
+                        <xs:attribute name="run-count" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="success-count" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="failure-count" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="ignore-count" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="skip-count" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="assert-count" type="xs:unsignedByte" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="version">
+                      <xs:complexType>
+                        <xs:attribute name="major" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="minor" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="build" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="revision" type="xs:unsignedByte" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="namespaces">
+                      <xs:complexType mixed="true">
+                        <xs:sequence>
+                          <xs:element name="namespace">
+                            <xs:complexType mixed="true">
+                              <xs:sequence>
+                                <xs:element name="counter">
+                                  <xs:complexType>
+                                    <xs:attribute name="duration" type="xs:decimal" use="required" />
+                                    <xs:attribute name="run-count" type="xs:unsignedByte" use="required" />
+                                    <xs:attribute name="success-count" type="xs:unsignedByte" use="required" />
+                                    <xs:attribute name="failure-count" type="xs:unsignedByte" use="required" />
+                                    <xs:attribute name="ignore-count" type="xs:unsignedByte" use="required" />
+                                    <xs:attribute name="skip-count" type="xs:unsignedByte" use="required" />
+                                    <xs:attribute name="assert-count" type="xs:unsignedByte" use="required" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="namespaces" />
+                                <xs:element name="fixtures">
+                                  <xs:complexType mixed="true">
+                                    <xs:sequence>
+                                      <xs:element name="fixture">
+                                        <xs:complexType mixed="true">
+                                          <xs:sequence>
+                                            <xs:element name="counter">
+                                              <xs:complexType>
+                                                <xs:attribute name="duration" type="xs:decimal" use="required" />
+                                                <xs:attribute name="run-count" type="xs:unsignedByte" use="required" />
+                                                <xs:attribute name="success-count" type="xs:unsignedByte" use="required" />
+                                                <xs:attribute name="failure-count" type="xs:unsignedByte" use="required" />
+                                                <xs:attribute name="ignore-count" type="xs:unsignedByte" use="required" />
+                                                <xs:attribute name="skip-count" type="xs:unsignedByte" use="required" />
+                                                <xs:attribute name="assert-count" type="xs:unsignedByte" use="required" />
+                                              </xs:complexType>
+                                            </xs:element>
+                                            <xs:element name="description" />
+                                            <xs:element name="runs">
+                                              <xs:complexType mixed="true">
+                                                <xs:sequence>
+                                                  <xs:element maxOccurs="unbounded" name="run">
+                                                    <xs:complexType mixed="true">
+                                                      <xs:sequence>
+                                                        <xs:element name="invokers" />
+                                                        <xs:element name="warnings" />
+                                                        <xs:element name="asserts" />
+                                                        <xs:element name="Description" />
+                                                        <xs:element name="console-out" />
+                                                        <xs:element name="console-error" />
+                                                        <xs:element minOccurs="0" name="exception">
+                                                          <xs:complexType mixed="true">
+                                                            <xs:sequence>
+                                                              <xs:element name="properties">
+                                                                <xs:complexType>
+                                                                  <xs:sequence>
+                                                                    <xs:element maxOccurs="unbounded" name="property">
+                                                                      <xs:complexType>
+                                                                        <xs:attribute name="name" type="xs:string" use="required" />
+                                                                        <xs:attribute name="value" type="xs:string" use="required" />
+                                                                      </xs:complexType>
+                                                                    </xs:element>
+                                                                  </xs:sequence>
+                                                                </xs:complexType>
+                                                              </xs:element>
+                                                              <xs:element name="message" />
+                                                              <xs:element name="source" type="xs:string" />
+                                                              <xs:element name="stack-trace" type="xs:string" />
+                                                            </xs:sequence>
+                                                            <xs:attribute name="type" type="xs:string" use="required" />
+                                                          </xs:complexType>
+                                                        </xs:element>
+                                                      </xs:sequence>
+                                                      <xs:attribute name="name" type="xs:string" use="required" />
+                                                      <xs:attribute name="result" type="xs:string" use="required" />
+                                                      <xs:attribute name="assert-count" type="xs:unsignedByte" use="required" />
+                                                      <xs:attribute name="duration" type="xs:decimal" use="required" />
+                                                      <xs:attribute name="memory" type="xs:unsignedShort" use="required" />
+                                                    </xs:complexType>
+                                                  </xs:element>
+                                                </xs:sequence>
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                          <xs:attribute name="name" type="xs:string" use="required" />
+                                          <xs:attribute name="type" type="xs:string" use="required" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute name="name" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                  <xs:attribute name="location" type="xs:string" use="required" />
+                  <xs:attribute name="full-name" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="date" type="xs:dateTime" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xsd:schema>
