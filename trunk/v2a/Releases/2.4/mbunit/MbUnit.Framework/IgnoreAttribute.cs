@@ -1,6 +1,4 @@
-// MbUnit Test Framework
-// 
-// Copyright (c) 2004 Jonathan de Halleux
+// Copyright (c) 2007 mbunit.com
 //
 // This software is provided 'as-is', without any express or implied warranty. 
 // 
@@ -21,8 +19,8 @@
 //		3. This notice may not be removed or altered from any source 
 //		distribution.
 //		
-//		MbUnit HomePage: http://www.mbunit.org
-//		Author: Jonathan de Halleux
+//		MbUnit HomePage: http://www.mbunit.com
+
 using MbUnit.Core.Framework;
 using System;
 using MbUnit.Core.Invokers;
@@ -40,6 +38,11 @@ namespace MbUnit.Framework
     {
 		public IgnoreAttribute(string description)
 			:base(description)
+		{}
+
+
+		public IgnoreAttribute()
+			:base("")
 		{}
 
 		public override IRunInvoker GetInvoker(MbUnit.Core.Invokers.IRunInvoker wrapper) 
