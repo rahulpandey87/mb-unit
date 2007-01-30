@@ -111,17 +111,34 @@ namespace MbUnit.AddIn
         /// </summary> 
         private Assembly AssemblyResolveHandler(object sender, ResolveEventArgs e)
         {
+            //try
+            //{
+            //    string[] assemblyDetail = e.Name.Split(',');
+            //    string assemblyBasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            //    Assembly assembly = Assembly.LoadFrom(assemblyBasePath + @"\" + assemblyDetail[0] + ".dll");
+            //    return assembly;
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new ApplicationException("Failed resolving assembly", ex);
+            //}
+            Assembly assembly = null;
             try
             {
-                string[] assemblyDetail = e.Name.Split(',');
+                string[] assemblyNames = e.Name.Split(',');
                 string assemblyBasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                Assembly assembly = Assembly.LoadFrom(assemblyBasePath + @"\" + assemblyDetail[0] + ".dll");
-                return assembly;
+                string assemblyFile = Path.Combine(assemblyBasePath, assemblyNames[0] + ".dll");
+                assembly = Assembly.LoadFrom(assemblyFile);
+            }
+            catch (FileNotFoundException)
+            {
+                assembly = null;
             }
             catch (Exception ex)
             {
                 throw new ApplicationException("Failed resolving assembly", ex);
             }
+            return assembly;
         } 
 
         protected TestRunState Run(
