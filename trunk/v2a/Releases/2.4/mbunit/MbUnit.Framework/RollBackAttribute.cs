@@ -18,16 +18,32 @@ namespace MbUnit.Framework
 	[AttributeUsage(AttributeTargets.Method,AllowMultiple=false,Inherited=true)]	
 	public sealed class RollBackAttribute : DecoratorPatternAttribute
 	{
+
+        public int TimeOutValue = 0;
+
+        public void RollBackAttribute()
+        {
+
+        }
+
+        public void RollBackAttribute(int timeOutValue)
+        {
+            TimeOutValue = timeOutValue;
+        }
+
 		public override IRunInvoker GetInvoker(IRunInvoker invoker)
 		{
-			return new RollBackRunInvoker(invoker);
+			return new RollBackRunInvoker(invoker, TimeOutValue);
 		}
 
 		private class RollBackRunInvoker : DecoratorRunInvoker
 		{
-			public RollBackRunInvoker(IRunInvoker invoker)
-				:base(invoker)
-			{}
+            public int TimeOutValue = 0;
+
+            public RollBackRunInvoker(IRunInvoker invoker, int timeOutValue) : base(invoker)
+            {
+                TimeOutValue = timeOutValue;
+            }
 
 			public override object Execute(object o, System.Collections.IList args)
 			{
@@ -70,9 +86,14 @@ namespace MbUnit.Framework
 			{
 				ServiceConfig config = new ServiceConfig();
 				config.TrackingEnabled = true;
-				config.TrackingAppName = "Nunit Transaction Test Case";
+				config.TrackingAppName = "MbUnit Transaction Test Case";
 				config.TrackingComponentName = this.Invoker.Name;
-				config.Transaction = TransactionOption.Required;                     
+				config.Transaction = TransactionOption.Required;
+
+                if (TimeOutValue != 0)
+                {
+                    config.TransactionTimeout = TimeOutValue;
+                }
 
 				return config;
 			}
