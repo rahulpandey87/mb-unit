@@ -42,7 +42,7 @@ namespace MbUnit.Framework
             {
                 if (TimeOut != 0)
                 {
-                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew, timeOut))
+                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew, TimeOut))
                     {
                         return base.Invoker.Execute(o, args);
                     }
