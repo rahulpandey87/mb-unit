@@ -12,48 +12,39 @@ namespace MbUnit.Framework
     public sealed class RollBack2Attribute : DecoratorPatternAttribute
     {
 
-        public int TimeOutValue = 0;
+        private TimeSpan TimeOut = new TimeSpan(1, 0, 0);
 
         public void RollBackAttribute2()
         {
 
         }
 
-        public void RollBackAttribute2(int timeOutValue)
+        public void RollBackAttribute2(TimeSpan timeOutValue)
         {
-            TimeOutValue = timeOutValue;
+            TimeOut = timeOutValue;
         }
 
         public override IRunInvoker GetInvoker(IRunInvoker invoker)
         {
-            return new RollBackRunInvoker(invoker, TimeOutValue);       
+            return new RollBackRunInvoker(invoker, TimeOut);       
         }
 
         private class RollBackRunInvoker : DecoratorRunInvoker
         {
-            private int TimeOut = 0;
+            private TimeSpan TimeOut;
 
-            public RollBackRunInvoker(IRunInvoker invoker, int timeOut) : base(invoker) 
+            public RollBackRunInvoker(IRunInvoker invoker, TimeSpan timeOut) : base(invoker) 
             {
                 TimeOut = timeOut;
             }
 
             public override object Execute(object o, IList args)
-            {
-                if (TimeOut != 0)
+            {             
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew, TimeOut))
                 {
-                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew, TimeOut))
-                    {
-                        return base.Invoker.Execute(o, args);
-                    }
-                }
-                else
-                {
-                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                    {
-                        return base.Invoker.Execute(o, args);
-                    }
-                }
+                    return base.Invoker.Execute(o, args);
+                }               
+              
             }
         }
     }
