@@ -21,12 +21,12 @@ namespace MbUnit.Framework
 
         public int TimeOutValue = 0;
 
-        public void RollBackAttribute()
+        public RollBackAttribute()
         {
 
         }
 
-        public void RollBackAttribute(int timeOutValue)
+        public RollBackAttribute(int timeOutValue)
         {
             TimeOutValue = timeOutValue;
         }
