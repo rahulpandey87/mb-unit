@@ -248,7 +248,7 @@ namespace MbUnit.AddIn
 
                 if (file != "")
                 {
-                    Uri uri = new Uri("file:" + Path.GetFullPath(file));
+                    Uri uri = new Uri("file:" + Path.GetFullPath(file).Replace("\\", "/"));
                     testListener.TestResultsUrl(uri.AbsoluteUri);
                 }
                 else
