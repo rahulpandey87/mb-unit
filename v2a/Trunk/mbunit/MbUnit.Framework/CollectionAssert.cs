@@ -762,16 +762,8 @@ namespace MbUnit.Framework
         /// <param name="args">Arguments to be used in formatting the message</param>
         public static void Contains(ICollection collection, Object actual, string message, params object[] args)
         {
-            bool found = false;
-
-            foreach (object o in collection)
-            {
-                if (o == actual)
-                {
-                    found = true;
-                    break;
-                }
-            }
+            IList list = new ArrayList(collection);
+            bool found = list.Contains(actual);
 
             if (!found)
             {
