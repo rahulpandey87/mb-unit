@@ -179,6 +179,9 @@ namespace MbUnit.Core.Remoting
 			if (node==null)
 				throw new ArgumentNullException("node");
 
+            // explicit test run
+            this.FixtureRunner.IsExplicit = true;
+
             // get test tree node
 			TestTreeNode testNode = this.guidNodes[node.TestIdentifier];
 

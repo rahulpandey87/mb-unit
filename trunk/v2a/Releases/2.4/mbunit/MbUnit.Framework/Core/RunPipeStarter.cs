@@ -114,7 +114,7 @@ namespace MbUnit.Core
             this.abortPending = true;
         }
 
-        public void Run(Object fixture)
+        public void Run(Object fixture, bool IsExplicit)
         {
             if (fixture == null)
                 throw new ArgumentNullException("fixture");
@@ -131,6 +131,9 @@ namespace MbUnit.Core
             {
                 if (!v.HasInvoker)
                     continue;
+
+                if (v.Invoker is ExplicitRunInvoker && !IsExplicit)
+                    testException = new IgnoreRunException("Explicit selection required.");
 
                 // if exception has already been throwed, execute non test only
                 if (testException != null)

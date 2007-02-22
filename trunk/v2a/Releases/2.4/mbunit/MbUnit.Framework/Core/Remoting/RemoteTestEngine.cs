@@ -241,6 +241,10 @@ namespace MbUnit.Core.Remoting
 
         public virtual void RunPipes()
         {
+            if (!(this.Explorer.Filter is AnyFixtureFilter))
+            {
+                this.FixtureRunner.IsExplicit = true;
+            }
             this.FixtureRunner.Run(this.Explorer, this.Report);
         }
 
