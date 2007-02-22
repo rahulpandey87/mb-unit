@@ -170,6 +170,7 @@
     <Compile Include="Core\Framework\ConditionalExceptionAttributeTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\Framework\ExplicitTest.cs" />
     <Compile Include="Core\Framework\FixtureIgnoreTest.cs" />
     <Compile Include="Core\Framework\DurationAttributeTest.cs">
       <SubType>Code</SubType>
@@ -375,7 +376,7 @@
     <Folder Include="Core\Exceptions\" />
     <Folder Include="Properties\" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />  
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
