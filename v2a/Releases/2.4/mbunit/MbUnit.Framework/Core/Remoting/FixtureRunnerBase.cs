@@ -49,6 +49,19 @@ namespace MbUnit.Core.Remoting
         private volatile object syncRoot = new object();
         private volatile bool abortPending = false;
         private volatile RunPipeStarter currentPipeStarter = null;
+        private bool isexplicit;
+
+        public bool IsExplicit
+        {
+            get
+            {
+                return this.isexplicit;
+            }
+            set
+            {
+                this.isexplicit = value;
+            }
+        }
 
         protected FixtureExplorer Explorer
         {
@@ -338,7 +351,7 @@ namespace MbUnit.Core.Remoting
                     if (this.IsAbortPending)
                         return ReportRunResult.Failure;
                     this.CurrentPipeStarter = starter;
-                    starter.Run(fixtureInstance);
+                    starter.Run(fixtureInstance, this.IsExplicit);
                     OnRunResult(new ReportRunEventArgs(starter.Result));
                     if (starter.Result.Result != ReportRunResult.Success && result != ReportRunResult.Failure)
                         result = starter.Result.Result;
