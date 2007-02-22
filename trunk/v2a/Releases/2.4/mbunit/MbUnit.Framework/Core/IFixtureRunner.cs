@@ -38,6 +38,7 @@ namespace MbUnit.Core
     {
         IFixtureFilter FixtureFilter { get;set;}
         IRunPipeFilter RunPipeFilter { get;set;}
+        bool IsExplicit { get;set; }
 
         event ReportSetUpAndTearDownEventHandler AssemblySetUp;
         event ReportSetUpAndTearDownEventHandler AssemblyTearDown;
