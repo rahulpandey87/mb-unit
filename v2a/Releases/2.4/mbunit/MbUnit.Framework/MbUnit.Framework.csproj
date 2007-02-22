@@ -172,6 +172,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\Exceptions\InnerExceptionTypeMismatchException.cs" />
+    <Compile Include="Core\Invokers\ExplicitRunInvoker.cs" />
     <Compile Include="Core\Runs\CombinatorialRun.cs" />
     <Compile Include="ConditionalExceptionAttribute.cs" />
     <Compile Include="ConsoleTester.cs" />
@@ -432,6 +433,7 @@
     <Compile Include="DependsOnAttribute.cs" />
     <Compile Include="DurationAttribute.cs" />
     <Compile Include="ExpectedExceptionAttribute.cs" />
+    <Compile Include="ExplicitAttribute.cs" />
     <Compile Include="FactoryAttribute.cs" />
     <Compile Include="FileAssert.cs" />
     <Compile Include="FillAttribute.cs" />
