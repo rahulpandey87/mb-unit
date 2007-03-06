@@ -98,48 +98,7 @@ namespace MbUnit.Forms
 
 			this.SetStyle(ControlStyles.DoubleBuffer,true);
 			this.SetStyle(ControlStyles.ResizeRedraw,true);
-
-      this.typeTree.TreeViewNodeSorter = new TreeViewSorter();
-    }
-
-    /// <summary>
-    /// A simple sorter designed for use with a "TreeView" class, the 
-    /// "TreeViewNodeSorter" property. This will sort alphabetically based on
-    /// the text of the tree node.
-    /// </summary>
-    private sealed class TreeViewSorter : IComparer
-    {
-      #region Constructor
-      public TreeViewSorter()
-      {
-      }
-      #endregion
-      #region IComparer Members
-      public int Compare(object x, object y)
-      {
-        int result = 0;
-
-        //only check if they aren't the same instance
-        if (object.ReferenceEquals(x, y) == false)
-        {
-          if (x is TreeNode && y is TreeNode)
-          {
-            TreeNode xt = (TreeNode)x;
-            TreeNode yt = (TreeNode)y;
-
-            result = xt.Text.CompareTo(yt.Text);
-          }
-          //we don't know what they are, use the default comparer
-          else
-          {
-            result = Comparer.Default.Compare(x, y);
-          }
-        }
-
-        return result;
-      }
-      #endregion
-    }
+		}
 
 		/// <summary> 
 		/// Clean up any resources being used.
@@ -543,11 +502,6 @@ namespace MbUnit.Forms
 			OnTreeCleared();
 		}
 
-    public void SortTree()
-    {
-      this.typeTree.Sort();
-    }
-
 		public void PopulateTree()
 		{
 			try
@@ -563,8 +517,7 @@ namespace MbUnit.Forms
 				this.MessageOnStatusBar("Populate tree");
 				this.typeTree.Invoke(new MethodInvoker(this.typeTree.BeginUpdate));
 				this.TestDomains.PopulateChildTree(this.typeTree,this.Facade);
-        this.Invoke(new DefaultDelegate(this.SortTree));
-        this.typeTree.Invoke(new MethodInvoker(this.typeTree.EndUpdate));
+				this.typeTree.Invoke(new MethodInvoker(this.typeTree.EndUpdate));
 				this.MessageOnStatusBar("Tree populated");
 				this.state.Load();
 				this.MessageOnStatusBar("Previous state loaded");
