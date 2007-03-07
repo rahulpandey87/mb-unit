@@ -26,6 +26,7 @@
 using System;
 using System.Collections;
 using System.Collections.Specialized;
+using System.Xml;
 
 using QuickGraph;
 using QuickGraph.Representations;
@@ -295,15 +296,36 @@ namespace MbUnit.Core.Graph
                     graph.AssemblyPaths.AddRange(assemblyPaths);
                 foreach (string testAssembly in testAssemblies)
                 {
-                    if (loadedAssemblies.Contains(testAssembly))
-                        continue;
+                    if (testAssembly.EndsWith(".mbunit"))
+                    {
+                        XmlDocument xdoc = new XmlDocument();
+                        xdoc.Load(testAssembly);
+                        XmlNodeList nodes = xdoc.SelectNodes("MbUnitProject/assemblies/assembly");
+                        foreach (XmlNode xnode in nodes)
+                        {
+                            if (loadedAssemblies.Contains(xnode.InnerText))
+                                continue;
 
-                    TestDomain domain = new TestDomain(testAssembly);
+                            TestDomain domain = new TestDomain(xnode.InnerText);
 
-                    domain.Filter = fixtureFilter;
-                    domain.RunPipeFilter = runPipeFilter;
-                    graph.AddDomain(domain);
-                    loadedAssemblies.Add(testAssembly, null);
+                            domain.Filter = fixtureFilter;
+                            domain.RunPipeFilter = runPipeFilter;
+                            graph.AddDomain(domain);
+                            loadedAssemblies.Add(xnode.InnerText, null);
+                        }
+                    }
+                    else
+                    {
+                        if (loadedAssemblies.Contains(testAssembly))
+                            continue;
+
+                        TestDomain domain = new TestDomain(testAssembly);
+
+                        domain.Filter = fixtureFilter;
+                        domain.RunPipeFilter = runPipeFilter;
+                        graph.AddDomain(domain);
+                        loadedAssemblies.Add(testAssembly, null);
+                    }
                 }
                 graph.CreateDependencies();
 
