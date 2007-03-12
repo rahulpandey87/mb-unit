@@ -33,7 +33,7 @@ using System.Reflection;
 using MbUnit.Core.Collections;
 using MbUnit.Core.Invokers;
 using MbUnit.Core.Reports;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 using System.IO;
 using MbUnit.Core.Exceptions;
 using MbUnit.Core.Monitoring;

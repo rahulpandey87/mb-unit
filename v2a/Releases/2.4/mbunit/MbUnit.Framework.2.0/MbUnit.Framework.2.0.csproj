@@ -41,6 +41,7 @@
     <Compile Include="AssemblyInfoAdditional.cs" />
     <Compile Include="AssemblyInfoKey.cs" />
     <Compile Include="Attributes\RollbackAttribute.cs" />
+    <Compile Include="Reflection\ReflectionException.cs" />
     <Compile Include="Reflection\ReflectorInstance.cs" />
     <Compile Include="Reflection\ReflectorStatic.cs" />
   </ItemGroup>

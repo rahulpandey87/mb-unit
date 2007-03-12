@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MbUnit.Framework.2.0", "MbUnit.Framework.2.0.csproj", "{15501EC2-F625-41C5-A1BF-3B17069C4F5B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reflection", "..\MbUnit.Tests\Framework2.0\Reflection\Reflection.csproj", "{10AFCA02-9C32-4578-B71A-30CBCF760876}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{15501EC2-F625-41C5-A1BF-3B17069C4F5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15501EC2-F625-41C5-A1BF-3B17069C4F5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15501EC2-F625-41C5-A1BF-3B17069C4F5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10AFCA02-9C32-4578-B71A-30CBCF760876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10AFCA02-9C32-4578-B71A-30CBCF760876}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10AFCA02-9C32-4578-B71A-30CBCF760876}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10AFCA02-9C32-4578-B71A-30CBCF760876}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
