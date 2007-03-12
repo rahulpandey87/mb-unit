@@ -39,6 +39,8 @@
   <ItemGroup>
     <Compile Include="Reflection\InstanceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflection\Reflector.cs" />
+    <Compile Include="Reflection\SampleClass.cs" />
     <Compile Include="Reflection\StaticTests.cs" />
     <Compile Include="Reflection\TestSample.cs" />
   </ItemGroup>
