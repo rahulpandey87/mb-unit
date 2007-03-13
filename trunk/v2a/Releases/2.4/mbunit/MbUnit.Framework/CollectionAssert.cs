@@ -766,7 +766,8 @@ namespace MbUnit.Framework
 
             foreach (object o in collection)
             {
-                if (o == actual)
+                if(o.Equals(actual))
+                //if (o == actual)
                 {
                     found = true;
                     break;
