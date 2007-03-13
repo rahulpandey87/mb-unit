@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfoAdditional.cs" />
     <Compile Include="AssemblyInfoKey.cs" />
+    <Compile Include="Asserts\GenericAssert.cs" />
     <Compile Include="Attributes\RollbackAttribute.cs" />
     <Compile Include="Reflection\ReflectionException.cs" />
     <Compile Include="Reflection\ReflectorInstance.cs" />
