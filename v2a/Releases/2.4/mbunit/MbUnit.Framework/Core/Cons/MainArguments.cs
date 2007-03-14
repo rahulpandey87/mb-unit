@@ -26,6 +26,7 @@
 
 using System;
 using System.IO;
+
 using MbUnit.Core.Cons.CommandLine;
 using MbUnit.Core.Filters;
 
@@ -90,6 +91,10 @@ namespace MbUnit.Core.Cons
 			 )]
 		public String FilterCategory = null;
 
+        [CommandLineArgument(CommandLineArgumentType.AtMostOnce, ShortName = "ec", 
+            LongName = "exclude-category", Description = "Name of categories to exclude")]
+        public String ExcludeCategory = null;
+
 		[CommandLineArgument(
 			 CommandLineArgumentType.AtMostOnce,
 			 ShortName = "fa",
@@ -114,7 +119,7 @@ namespace MbUnit.Core.Cons
 			 )]
 		public String FilterNamespace = null;
 
-/*
+        /*
 		[CommandLineArgument(
 			 CommandLineArgumentType.MultipleUnique,
 			 ShortName = "fi",
@@ -122,7 +127,7 @@ namespace MbUnit.Core.Cons
 			 Description="Name of the filtered importance"
 			 )]
 		public TestImportance[] FilterImportances = null;
-*/
+        */
 		#endregion
 
         #region Misc arguments
@@ -164,7 +169,8 @@ namespace MbUnit.Core.Cons
 				sw.WriteLine("\t{0}",type);
             sw.WriteLine("Show reports: {0}", this.ShowReports);
 
-            sw.WriteLine("Filter Category: {0}",this.FilterCategory);
+            sw.WriteLine("Filter Category: {0}", this.FilterCategory);
+            sw.WriteLine("Exclude Category: {0}", this.ExcludeCategory);
 			sw.WriteLine("Filter Author: {0}",this.FilterAuthor);
 			sw.WriteLine("Filter Namespace: {0}",this.FilterNamespace);
 			sw.WriteLine("Filter Type: {0}",this.FilterType);
@@ -177,13 +183,17 @@ namespace MbUnit.Core.Cons
 		{
 			FixtureFilterBase filter = FixtureFilters.Any;
 
-			if (this.FilterCategory!=null)
+			if (this.FilterCategory != null)
 			{
 				filter = FixtureFilters.And(
 					filter,
 					FixtureFilters.Category(this.FilterCategory)
 					);
 			}
+            else if (this.ExcludeCategory != null)
+            {
+                filter = FixtureFilters.And(filter, FixtureFilters.Category(this.ExcludeCategory, true));
+            }
 			if (this.FilterAuthor!=null)
 			{
 				filter = FixtureFilters.And(

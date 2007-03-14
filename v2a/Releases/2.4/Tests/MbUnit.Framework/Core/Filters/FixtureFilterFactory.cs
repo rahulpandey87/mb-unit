@@ -26,13 +26,31 @@ namespace MbUnit.Framework.Tests.Core.Filters
 		}
 
         [Factory]
+        public AuthorFixtureFilter MultipleAuthor
+        {
+            get
+            {
+                return FixtureFilters.Author("Bob,Mike,Jonathan de Halleux");
+            }
+        }
+
+        [Factory]
         public CategoryFixtureFilter Category
         {
 			get
 			{
-				return FixtureFilters.Category("FixtureFilters");
+				return FixtureFilters.Category("FixtureFilters.Tests");
 			}
 		}
+
+        [Factory]
+        public CategoryFixtureFilter MultipleCategory
+        {
+            get
+            {
+                return FixtureFilters.Category("A,B,FixtureFilters.Tests");
+            }
+        }
 
         [Factory]
         public NamespaceFixtureFilter Namespace
@@ -44,11 +62,20 @@ namespace MbUnit.Framework.Tests.Core.Filters
 		}
 
         [Factory]
+        public NamespaceFixtureFilter MultipleNamespace
+        {
+            get
+            {
+                return FixtureFilters.Namespace("MbUnit.Foo,MbUnit.Bar,MbUnit.Framework.Tests.Core.Filters");
+            }
+        }
+
+        [Factory]
         public NotFixtureFilter Not
         {
 			get
 			{
-				return FixtureFilters.Not(this.Author);
+                return FixtureFilters.Not(FixtureFilters.Author("Sonko"));
 			}
 		}
 

@@ -80,11 +80,22 @@ namespace MbUnit.Tests.Core.Cons
 		{
 			this.parseValue("/fc:Filter","Filter","FilterCategory");
 		}
-		[Test]
+        [Test]
 		public void ParseFilterCategoryWithLongName()
 		{
 			this.parseValue("/filter-category:Filter","Filter","FilterCategory");
 		}
+
+        [Test]
+        public void ParseExcludeCategoryWithShortName()
+        {
+            this.parseValue("/ec:Filter", "Filter", "ExcludeCategory");
+        }
+        [Test]
+        public void ParseExcludeCategoryWithLongName()
+        {
+            this.parseValue("/exclude-category:Filter", "Filter", "ExcludeCategory");
+        }
 
 		[Test]
 		public void ParseFilterNamespaceWithShortName()
