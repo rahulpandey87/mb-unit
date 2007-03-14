@@ -29,8 +29,7 @@ using System.Xml.Serialization;
 
 namespace MbUnit.Core.Filters
 {
-    [XmlRoot("Namespace", IsNullable = false)]
-	[Serializable]
+    [Serializable, XmlRoot("Namespace", IsNullable = false)]
 	public sealed class NamespaceFixtureFilter : PatternFixtureFilter
     {
         public NamespaceFixtureFilter()
@@ -44,7 +43,15 @@ namespace MbUnit.Core.Filters
         {
 			if (fixture == null)
 				throw new ArgumentNullException("fixture");
-			return fixture.Namespace.StartsWith(this.Pattern);
+
+            foreach (string p in Pattern)
+            {
+                if (fixture.Namespace.Equals(p))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

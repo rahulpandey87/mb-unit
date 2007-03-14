@@ -59,7 +59,12 @@ namespace MbUnit.Core.Filters
 
         public static CategoryFixtureFilter Category(string pattern)
         {
-            return new CategoryFixtureFilter(pattern);
+            return new CategoryFixtureFilter(pattern, false);
+        }
+
+        public static CategoryFixtureFilter Category(string pattern, bool exclude)
+        {
+            return new CategoryFixtureFilter(pattern, exclude);
         }
 
         public static NamespaceFixtureFilter Namespace(string pattern)

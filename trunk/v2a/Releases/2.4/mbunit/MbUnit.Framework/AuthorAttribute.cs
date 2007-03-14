@@ -51,12 +51,13 @@ namespace MbUnit.Framework
 		private string email = "";
 		private string homePage = "";
 
+        public AuthorAttribute(string name)
+            : this(name, "", "unspecified")
+        { }
+
 		public AuthorAttribute(string name, string email)
-		{
-			this.name = name;
-			this.email = email;
-			this.homePage = "unspecified";
-		}
+            : this(name, email, "unspecified")
+		{ }
 
 		public AuthorAttribute(string name, string email, string homePage)
 		{
@@ -100,6 +101,5 @@ namespace MbUnit.Framework
 				this.HomePage
 				);
 		}
-
 	}
 }

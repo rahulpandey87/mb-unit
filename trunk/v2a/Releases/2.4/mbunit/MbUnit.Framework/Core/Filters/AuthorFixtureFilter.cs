@@ -27,12 +27,11 @@
 using System;
 using System.Xml.Serialization;
 
+using MbUnit.Framework;
+
 namespace MbUnit.Core.Filters
 {
-	using MbUnit.Framework;
-
-    [XmlRoot("Author", IsNullable = false)]
-	[Serializable]
+    [Serializable, XmlRoot("Author", IsNullable = false)]
 	public sealed class AuthorFixtureFilter : PatternFixtureFilter
     {
 		public AuthorFixtureFilter()
@@ -46,13 +45,19 @@ namespace MbUnit.Core.Filters
         {
 			if (fixture == null)
 				throw new ArgumentNullException("fixture");
-			// get category attribute
-            AuthorAttribute author = 
-				(AuthorAttribute)TypeHelper.TryGetFirstCustomAttribute(fixture, typeof(AuthorAttribute));
-            if (author == null)
-                return false;
-            else
-                return author.Name == this.Pattern;
+
+            // Get author attributes
+            foreach (AuthorAttribute author in fixture.GetCustomAttributes(typeof(AuthorAttribute), true))
+            {
+                foreach (string p in this.Pattern)
+                {
+                    if (author.Name.Equals(p))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

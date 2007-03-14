@@ -37,12 +37,16 @@ namespace MbUnit.Core.Filters
     [Serializable, XmlRoot("Category", IsNullable = false)]
 	public sealed class CategoryFixtureFilter : PatternFixtureFilter
     {
+        private bool exclude = false;
+
         public CategoryFixtureFilter()
         { }
 
-        public CategoryFixtureFilter(string pattern)
+        public CategoryFixtureFilter(string pattern, bool exclude)
             : base(pattern)
-        { }
+        {
+            this.exclude = exclude;
+        }
 
         /// <summary>
         /// Tests if a fixture has a category attribute matching a pattern.
@@ -53,15 +57,19 @@ namespace MbUnit.Core.Filters
         {
 			if (fixture == null)
 				throw new ArgumentNullException("fixture");
+
 			// Get category attributes
             foreach (FixtureCategoryAttribute cat in fixture.GetCustomAttributes(typeof(FixtureCategoryAttribute), true))
             {
-                if (cat.Category.StartsWith(this.Pattern))
+                foreach (string p in this.Pattern)
                 {
-                    return true;
+                    if (cat.Category.Equals(p))
+                    {
+                        return !exclude;
+                    }
                 }
             }
-            return false;
+            return exclude;
         }
     }
 }

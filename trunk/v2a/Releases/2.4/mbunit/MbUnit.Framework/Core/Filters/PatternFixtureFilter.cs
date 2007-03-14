@@ -25,6 +25,7 @@
 //		Author: Jonathan de Halleux
 
 using System;
+using System.Collections;
 using System.Xml.Serialization;
 
 namespace MbUnit.Core.Filters
@@ -32,7 +33,7 @@ namespace MbUnit.Core.Filters
 	[Serializable]
 	public abstract class PatternFixtureFilter : FixtureFilterBase
     {
-        private string pattern = "";
+        private string[] pattern = null;
 
 		protected PatternFixtureFilter()
         { }
@@ -42,11 +43,11 @@ namespace MbUnit.Core.Filters
             if (pattern == null)
                 throw new ArgumentNullException("pattern");
 
-            this.pattern = pattern;
+            this.pattern = pattern.Split(',');
         }
 
         [XmlAttribute("Pattern")]
-        public virtual string Pattern
+        public virtual string[] Pattern
         {
             get
             {

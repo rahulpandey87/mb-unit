@@ -29,22 +29,29 @@ using System.Xml.Serialization;
 
 namespace MbUnit.Core.Filters
 {
-    [XmlRoot("Type",IsNullable=false)]
-	[Serializable]
+    [Serializable, XmlRoot("Type", IsNullable = false)]
 	public sealed class TypeFixtureFilter : PatternFixtureFilter
     {
 		public TypeFixtureFilter()
 		{}
 
         public TypeFixtureFilter(string pattern)
-            :base(pattern)
+            : base(pattern)
         { }
 
         public override bool Filter(Type fixture)
         {
 			if (fixture == null)
 				throw new ArgumentNullException("fixture");
-			return fixture.FullName == this.Pattern;
+
+            foreach (string p in Pattern)
+            {
+                if (fixture.FullName.Equals(p))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

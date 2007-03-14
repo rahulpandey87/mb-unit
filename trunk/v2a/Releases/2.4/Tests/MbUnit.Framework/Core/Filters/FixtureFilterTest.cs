@@ -1,17 +1,20 @@
 using System;
+
 using MbUnit.Core.Framework;
 using MbUnit.Framework;
 using MbUnit.Core.Filters;
 
 namespace MbUnit.Framework.Tests.Core.Filters
-{
-    
+{  
 	[TestFixture]
+    [FixtureCategory("A")]
 	[FixtureCategory("FixtureFilters.Tests")]
+    [Author("Fred")]
+    [Author("Jonathan de Halleux")]
 	[Importance(TestImportance.Critical)]
+    [CurrentFixture]
 	internal class DummyFixture
 	{}
-
 
     [TypeFixture(typeof(IFixtureFilter))]
     [ProviderFactory(typeof(FixtureFilterFactory), typeof(IFixtureFilter))]
@@ -27,7 +30,7 @@ namespace MbUnit.Framework.Tests.Core.Filters
 		[Test]
         public void Filter(IFixtureFilter filter)
         {
-			filter.Filter(typeof(DummyFixture));
+			Assert.IsTrue(filter.Filter(typeof(DummyFixture)));
 		}
 
 		[Test]
