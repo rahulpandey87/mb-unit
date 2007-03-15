@@ -527,22 +527,13 @@ namespace MbUnit.Framework
         /// <param name="args">Arguments to be used in formatting the message</param>
         public static void AreEquivalent(ICollection expected, ICollection actual, string message, params object[] args)
         {
-            bool found = true;
+            bool found;
             bool foundAll = true;
 
             foreach (object o in expected)
             {
-                found = false;
-
                 //do a check to see if it is in the collection already
-                foreach (object subO in actual)
-                {
-                    if (o == subO)
-                    {
-                        found = true;                        
-                        break;                        
-                    }
-                }
+                found = CheckItemInCollection(actual, o);
                                
                 if (!found)
                 {
@@ -555,17 +546,7 @@ namespace MbUnit.Framework
             {
                 foreach (object o in actual)
                 {
-                    found = false;
-
-                    //do a check to see if it is in the collection already
-                    foreach (object subO in expected)
-                    {
-                        if (o == subO)
-                        {
-                            found = true;                            
-                            break;                            
-                        }
-                    }
+                    found = CheckItemInCollection(expected, o);
 
                     if (!found)
                     {
@@ -762,17 +743,8 @@ namespace MbUnit.Framework
         /// <param name="args">Arguments to be used in formatting the message</param>
         public static void Contains(ICollection collection, Object actual, string message, params object[] args)
         {
-            bool found = false;
-
-            foreach (object o in collection)
-            {
-                if(o.Equals(actual))
-                //if (o == actual)
-                {
-                    found = true;
-                    break;
-                }
-            }
+            bool found;
+            found = CheckItemInCollection(collection, actual);
 
             if (!found)
             {
@@ -924,23 +896,12 @@ namespace MbUnit.Framework
         /// <param name="args">Arguments to be used in formatting the message</param>
         public static void IsSubsetOf(ICollection subset, ICollection superset, string message, params object[] args)
         {
-            bool found = false;
             bool foundAll = true;
 
             //All of superset are in subset
             foreach (object o in subset)
             {
-                found = false;
-
-                foreach (object supO in superset)
-                {
-                    if (o == supO)
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-
+                bool found = CheckItemInCollection(superset, o);
                 if (!found)
                 {
                     foundAll = false;
@@ -959,6 +920,18 @@ namespace MbUnit.Framework
     
         #endregion
 
+        /// <summary>
+        /// Checks an item if included in a given collection.
+        /// </summary>
+        /// <param name="collection">The collection to check from</param>
+        /// <param name="item">The item to be checked</param>
+        /// <returns>True if item is included, False otherwise</returns>
+        private static bool CheckItemInCollection(ICollection collection, object item)
+        {
+            //Reused Arraylist's implementation of Contains, uses Equals override and null checking of items
+            IList list = new ArrayList(collection);
+            return list.Contains(item);
+        }
     }
 }
 

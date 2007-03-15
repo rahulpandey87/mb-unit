@@ -164,6 +164,7 @@
     <Compile Include="Core\Framework\AssertTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\Framework\CollectionAssertTest.cs" />
     <Compile Include="Core\Framework\CompilerAssert.cs">
       <SubType>Code</SubType>
     </Compile>
