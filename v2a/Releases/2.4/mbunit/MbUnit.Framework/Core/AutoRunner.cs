@@ -50,8 +50,9 @@ namespace MbUnit.Core
 
         public AutoRunner(Assembly testAssembly)
         {
-            TypeHelper.InvokeFutureStaticMethod(
-                typeof(System.Windows.Forms.Application), "EnableVisualStyles");
+            if (Environment.OSVersion.Platform != PlatformID.Unix)
+                TypeHelper.InvokeFutureStaticMethod(
+                    typeof(System.Windows.Forms.Application), "EnableVisualStyles");
 
             this.resolver = new AssemblyResolverManager();
             this.resolver.AddMbUnitDirectories();
