@@ -35,7 +35,7 @@ namespace MbUnit.Framework
 	/// Tags test methods that are only to be run when explicitly selected.
 	/// </summary>
 	/// <include file="MbUnit.Framework.Doc.xml" path="doc/remarkss/remarks[@name='ExplicitAttribute']"/>
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public sealed class ExplicitAttribute : DecoratorPatternAttribute
     {
         public ExplicitAttribute()

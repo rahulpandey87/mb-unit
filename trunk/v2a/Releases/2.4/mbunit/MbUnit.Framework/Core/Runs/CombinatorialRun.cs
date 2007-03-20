@@ -23,11 +23,16 @@ namespace MbUnit.Core.Runs
             object fixture = null;
             try
             {
-                // Check if fixture is ignored
+                // Check if fixture is ignored or explicit
                 IgnoreAttribute ignore = null;
                 if (TypeHelper.HasCustomAttribute(t, typeof(IgnoreAttribute)))
                 {
                     ignore = TypeHelper.GetFirstCustomAttribute(t, typeof(IgnoreAttribute)) as IgnoreAttribute;
+                }
+                ExplicitAttribute expl = null;
+                if (TypeHelper.HasCustomAttribute(t, typeof(ExplicitAttribute)))
+                {
+                    expl = TypeHelper.GetFirstCustomAttribute(t, typeof(ExplicitAttribute)) as ExplicitAttribute;
                 }
 
                 foreach (MethodInfo method in TypeHelper.GetAttributedMethods(t, typeof(CombinatorialTestAttribute)))
@@ -35,7 +40,7 @@ namespace MbUnit.Core.Runs
                     if (fixture == null)
                         fixture = TypeHelper.CreateInstance(t);
 
-                    this.ReflectTestMethod(tree, parent, fixture, method, ignore);
+                    this.ReflectTestMethod(tree, parent, fixture, method, ignore, expl);
                 }
             }
             finally
@@ -51,18 +56,30 @@ namespace MbUnit.Core.Runs
             RunInvokerVertex parent, 
             object fixture, 
             MethodInfo method,
-            IgnoreAttribute ignore)
+            IgnoreAttribute ignore,
+            ExplicitAttribute expl)
         {
-            // Check if fixture or method is ignored
+            // Check if fixture/method is ignored/explicit
             if (ignore == null && TypeHelper.HasCustomAttribute(method, typeof(IgnoreAttribute)))
             {
                 ignore = TypeHelper.GetFirstCustomAttribute(method, typeof(IgnoreAttribute)) as IgnoreAttribute;
             }
+            if (expl == null && TypeHelper.HasCustomAttribute(method, typeof(ExplicitAttribute)))
+            {
+                expl = TypeHelper.GetFirstCustomAttribute(method, typeof(ExplicitAttribute)) as ExplicitAttribute;
+            }
 
+            string desc;
             if (ignore != null)
             {
                 // Do not generate unnecessary test cases
                 IgnoredLoadingRunInvoker invoker = new IgnoredLoadingRunInvoker(this, method, ignore.Description);
+                tree.AddChild(parent, invoker);
+            }
+            else if (expl != null)
+            {
+                // Do not generate unnecessary test cases
+                IgnoredLoadingRunInvoker invoker = new IgnoredLoadingRunInvoker(this, method, expl.Description);
                 tree.AddChild(parent, invoker);
             }
             else

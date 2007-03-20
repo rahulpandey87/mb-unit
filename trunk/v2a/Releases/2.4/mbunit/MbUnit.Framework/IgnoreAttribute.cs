@@ -21,19 +21,18 @@
 //		
 //		MbUnit HomePage: http://www.mbunit.com
 
-using MbUnit.Core.Framework;
 using System;
-using MbUnit.Core.Invokers;
 
+using MbUnit.Core.Framework;
+using MbUnit.Core.Invokers;
 
 namespace MbUnit.Framework 
 {
-	
 	/// <summary>
 	/// Tags test methods that are ignored.
 	/// </summary>
 	/// <include file="MbUnit.Framework.Doc.xml" path="doc/remarkss/remarks[@name='IgnoreAttribute']"/>
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public sealed class IgnoreAttribute : DecoratorPatternAttribute
     {
 		public IgnoreAttribute(string description)
