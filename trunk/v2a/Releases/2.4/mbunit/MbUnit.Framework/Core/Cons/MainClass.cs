@@ -104,25 +104,32 @@ namespace MbUnit.Core.Cons
 
         public int Main(string[] args)
         {
-            // show help
-            this.ShowHelp();
-
-            // try parsing arguments
-            try
+            // Show help, if necessary
+            if (args.Length == 0 || (args.Length == 1 && (args[0] == "/?" || args[0].ToLower() == "/help")))
             {
-                this.Parse(args);
+                ShowHelp();
+                return 0;
             }
-            catch (Exception ex)
+            else
             {
-                consoleOut.WriteLine("Error while parsing arguments:");
-                consoleOut.WriteLine(ex.Message);
-                return -2;
-            }
-            consoleOut.WriteLine("Parsed arguments:");
-            consoleOut.WriteLine(arguments);
+                // Try parsing arguments
+                try
+                {
+                    Parse(args);
+                }
+                catch (Exception ex)
+                {
+                    consoleOut.WriteLine("Error while parsing arguments:");
+                    consoleOut.WriteLine(ex.Message);
+                    return -2;
+                }
 
-            // launch main loop
-            return this.Main();
+                consoleOut.WriteLine("Parsed arguments:");
+                consoleOut.WriteLine(arguments);
+
+                // launch main loop
+                return Main();
+            }
         }
 
         public int Main()
