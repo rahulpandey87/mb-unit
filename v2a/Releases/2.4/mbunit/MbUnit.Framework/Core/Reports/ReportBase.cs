@@ -87,7 +87,7 @@ namespace MbUnit.Core.Reports
             return outputFileName;
 		}
 
-        protected static string GetAppDataPath(string outputPath)
+        public static string GetAppDataPath(string outputPath)
         {
             if (outputPath == null || outputPath.Length == 0)
             {

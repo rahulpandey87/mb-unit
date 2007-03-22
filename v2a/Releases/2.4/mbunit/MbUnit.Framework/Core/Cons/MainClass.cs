@@ -217,7 +217,7 @@ namespace MbUnit.Core.Cons
             result.UpdateCounts();
             if (parsedArgs.ReportTypes != null && parsedArgs.ReportTypes.Length > 0)
             {
-                consoleOut.WriteLine("[info] Creating reports in {0}", Path.GetFullPath(parsedArgs.ReportFolder));
+                consoleOut.WriteLine("[info] Creating reports in {0}", Path.GetFullPath(ReportBase.GetAppDataPath(parsedArgs.ReportFolder)));
                 foreach (ReportType rt in parsedArgs.ReportTypes)
                 {
                     string outputPath = null;
