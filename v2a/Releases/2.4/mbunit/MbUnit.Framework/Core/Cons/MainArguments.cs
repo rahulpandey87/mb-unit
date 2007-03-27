@@ -80,6 +80,10 @@ namespace MbUnit.Core.Cons
             Description = "Show generated reports in a window"
         )]
         public bool ShowReports = false;
+
+        [CommandLineArgument(CommandLineArgumentType.AtMostOnce, ShortName = "tr", LongName = "transform", 
+            Description = "Transform to use when generating reports")]
+        public string Transform = null;
 		#endregion
 
 		#region Filter Arguments

@@ -224,22 +224,23 @@ namespace MbUnit.Core.Cons
             result.UpdateCounts();
             if (parsedArgs.ReportTypes != null && parsedArgs.ReportTypes.Length > 0)
             {
-                consoleOut.WriteLine("[info] Creating reports in {0}", Path.GetFullPath(ReportBase.GetAppDataPath(parsedArgs.ReportFolder)));
+                parsedArgs.ReportFolder = ReportBase.GetAppDataPath(parsedArgs.ReportFolder);
+                consoleOut.WriteLine("[info] Creating reports in {0}", Path.GetFullPath(parsedArgs.ReportFolder));
                 foreach (ReportType rt in parsedArgs.ReportTypes)
                 {
                     string outputPath = null;
                     switch (rt)
                     {
                         case ReportType.Xml:
-                            outputPath = XmlReport.RenderToXml(result, parsedArgs.ReportFolder, parsedArgs.ReportNameFormat);
+                            outputPath = XmlReport.RenderToXml(result, parsedArgs.ReportFolder, parsedArgs.Transform, parsedArgs.ReportNameFormat);
                             consoleOut.WriteLine("[info] Created xml report {0}", outputPath);
                             break;
                         case ReportType.Html:
-                            outputPath = HtmlReport.RenderToHtml(result, parsedArgs.ReportFolder, parsedArgs.ReportNameFormat);
+                            outputPath = HtmlReport.RenderToHtml(result, parsedArgs.ReportFolder, parsedArgs.Transform, parsedArgs.ReportNameFormat);
                             consoleOut.WriteLine("[info] Created Html report {0}", outputPath);
                             break;
                         case ReportType.Text:
-                            outputPath = TextReport.RenderToText(result, parsedArgs.ReportFolder, parsedArgs.ReportNameFormat);
+                            outputPath = TextReport.RenderToText(result, parsedArgs.ReportFolder, parsedArgs.Transform, parsedArgs.ReportNameFormat);
                             consoleOut.WriteLine("[info] Created Text report {0}", outputPath);
                             break;
                         case ReportType.Dox:

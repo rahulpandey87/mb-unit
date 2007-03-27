@@ -33,13 +33,15 @@ using System.Reflection;
 using System.Drawing;
 using System.Drawing.Imaging;
 
+using MbUnit.Core.Reports.Serialization;
+
 namespace MbUnit.Core.Reports
 {
-	using MbUnit.Core.Reports.Serialization;
 	/// <summary>
 	/// </summary>
 	public abstract class XslTransformReport : ReportBase
 	{
+        private static XmlSerializer serializer = new XmlSerializer(typeof(ReportResult));
 		private XslTransform transform = null;
 
 		public XslTransform Transform 
@@ -55,35 +57,28 @@ namespace MbUnit.Core.Reports
 		}
 
 		protected XslTransformReport()
-		{
-			this.transform = ResourceHelper.ReportHtmlTransform;
-		}
+		{ }
 
-		public override void Render(ReportResult result, TextWriter writer)
-		{
-			if (this.transform==null) throw new ApplicationException("Transform property cannot be null");
-			// create xml report and render
-			using (StringWriter xmlWriter = new StringWriter())
-			{
-				XmlReport report = new XmlReport();
-				report.Render(result, xmlWriter);
-
-				// load xslt
-				XmlDocument doc = new XmlDocument();
-				XsltArgumentList args = new XsltArgumentList();
-
-				XmlTextWriter owriter = new XmlTextWriter(writer);
-				owriter.Formatting = Formatting.Indented;
-
-					doc.LoadXml(xmlWriter.ToString());
-					this.transform.Transform(
-						doc,
-						args,
-						owriter
-						);
-					owriter.Flush();
-					owriter.Close();
-			}
-		}
+        public override void Render(ReportResult result, TextWriter writer)
+        {
+            // create xml report and render
+            XmlTextWriter output = new XmlTextWriter(writer);
+            if (transform != null)
+            {
+                StringWriter xmlWriter = new StringWriter();
+                serializer.Serialize(xmlWriter, result);
+                
+                // load xslt
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(xmlWriter.ToString());
+                transform.Transform(doc, new XsltArgumentList(), output);
+            }
+            else
+            {
+                serializer.Serialize(output, result);
+            }
+            output.Flush();
+            output.Close();
+        }
 	}
 }

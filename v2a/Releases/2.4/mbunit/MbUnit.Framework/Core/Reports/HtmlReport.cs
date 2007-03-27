@@ -26,29 +26,25 @@
 
 using System;
 using System.IO;
-using System.Drawing;
-using System.Drawing.Imaging;
-using MbUnit.Core.Remoting;
+using System.Xml.Xsl;
+
+using MbUnit.Core.Reports.Serialization;
 
 namespace MbUnit.Core.Reports
 {
-	using MbUnit.Core.Reports.Serialization;
-
 	public sealed class HtmlReport : XslTransformReport
 	{
 		public HtmlReport()
 		{
+            Transform = ResourceHelper.ReportHtmlTransform;
 		}
 
 		protected override string DefaultExtension
 		{
-			get { return ".html"; }
-		}
-
-		public override void Render(ReportResult result, TextWriter writer)
-		{
-			base.Transform = ResourceHelper.ReportHtmlTransform;
-			base.Render(result, writer);
+			get
+            {
+                return ".html";
+            }
 		}
 
 		public static string RenderToHtml(ReportResult result)
@@ -63,6 +59,11 @@ namespace MbUnit.Core.Reports
 
 		public static string RenderToHtml(ReportResult result, string outputPath, string nameFormat)
 		{
+            return RenderToHtml(result, outputPath, null, nameFormat);
+        }
+
+        public static string RenderToHtml(ReportResult result, string outputPath, string transform, string nameFormat)
+        {
             if (result == null)
                 throw new ArgumentNullException("result");
             if (nameFormat == null)
@@ -71,11 +72,15 @@ namespace MbUnit.Core.Reports
                 throw new ArgumentException("Length is zero", "nameFormat");
 
             HtmlReport htmlReport = new HtmlReport();
-
-            outputPath = GetAppDataPath(outputPath);
-            
+            if (transform != null)
+            {
+                if (!File.Exists(transform))
+                    throw new ArgumentException("Transform does not exist.", "transform");
+                XslTransform xsl = new XslTransform();
+                xsl.Load(transform);
+                htmlReport.Transform = xsl;
+            }
             ResourceHelper.CreateImages(outputPath);
-
             return htmlReport.Render(result, outputPath, nameFormat);
         }
 	}

@@ -75,6 +75,18 @@ namespace MbUnit.Tests.Core.Cons
 			Assert.AreEqual(ReportType.Html, parsedArgs.ReportTypes[1]);
 		}
 
+        [Test]
+        public void ParseTransformWithLongName()
+        {
+            parseValue("/transform:Transform.xslt", "Transform.xslt", "Transform");
+        }
+
+        [Test]
+        public void ParseTransformWithShortName()
+        {
+            parseValue("/tr:Transform.xslt", "Transform.xslt", "Transform");
+        }
+
 		[Test]
 		public void ParseFilterCategoryWithShortName()
 		{
