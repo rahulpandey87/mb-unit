@@ -26,29 +26,28 @@
 
 using System;
 using System.IO;
+using System.Xml.Xsl;
+
 using MbUnit.Core.Reports.Serialization;
 
 namespace MbUnit.Core.Reports
 {
-	using MbUnit.Core.Reports.Serialization;
 	/// <summary>
-	/// Reports MbUnit result in text format
+	/// Reports MbUnit result in text format.
 	/// </summary>
 	public sealed class TextReport : XslTransformReport
 	{
 		public TextReport()
 		{
-		}
+            Transform = ResourceHelper.ReportTextTransform;
+        }
 
 		protected override string DefaultExtension
 		{
-			get { return ".txt"; }
-		}
-
-		public override void Render(ReportResult result, TextWriter writer)
-		{
-			base.Transform = ResourceHelper.ReportTextTransform;
-			base.Render(result, writer);
+			get
+            {
+                return ".txt";
+            }
 		}
 
 		public static string RenderToText(ReportResult result)
@@ -59,10 +58,28 @@ namespace MbUnit.Core.Reports
 
 		public static string RenderToText(ReportResult result, string outputPath, string nameFormat)
 		{
-			TextReport textReport = new TextReport();
-			return textReport.Render(result, outputPath, nameFormat);
+			return RenderToText(result, outputPath, null, nameFormat);
 		}
 
+        public static string RenderToText(ReportResult result, string outputPath, string transform, string nameFormat)
+        {
+            if (result == null)
+                throw new ArgumentNullException("result");
+            if (nameFormat == null)
+                throw new ArgumentNullException("nameFormat");
+            if (nameFormat.Length == 0)
+                throw new ArgumentException("Length is zero", "nameFormat");
 
+            TextReport textReport = new TextReport();
+            if (transform != null)
+            {
+                if (!File.Exists(transform))
+                    throw new ArgumentException("Transform does not exist.", "transform");
+                XslTransform xsl = new XslTransform();
+                xsl.Load(transform);
+                textReport.Transform = xsl;
+            }
+            return textReport.Render(result, outputPath, nameFormat);
+        }
 	}
 }
