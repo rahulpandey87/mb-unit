@@ -239,7 +239,7 @@ namespace MbUnit.Core.Cons.CommandLine
         
         
 		/// <summary>
-		/// A user firendly usage string describing the command line argument syntax.
+		/// A user friendly usage string describing the command line argument syntax.
 		/// </summary>
 		public string Usage
 		{
