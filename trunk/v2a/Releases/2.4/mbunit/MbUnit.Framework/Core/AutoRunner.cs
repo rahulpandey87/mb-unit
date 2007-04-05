@@ -217,13 +217,18 @@ namespace MbUnit.Core
 
         public void ReportToHtml()
         {
+            ReportToHtml("");
+        }
+
+        public void ReportToHtml(string outputPath)
+        {
             if (this.result == null)
             {
                 AddLog("Result is a null reference. Make sure tests were executed succesfully");
                 return;
             }
             AddLog("Generating HTML report");
-            System.Diagnostics.Process.Start(HtmlReport.RenderToHtml(this.result,"",GetReportName()));
+            System.Diagnostics.Process.Start(HtmlReport.RenderToHtml(this.result, ReportBase.GetAppDataPath(outputPath), GetReportName()));
         }
 
         public void ReportToXml()
