@@ -69,7 +69,6 @@ namespace MbUnit.Core.Runs
                 expl = TypeHelper.GetFirstCustomAttribute(method, typeof(ExplicitAttribute)) as ExplicitAttribute;
             }
 
-            string desc;
             if (ignore != null)
             {
                 // Do not generate unnecessary test cases
