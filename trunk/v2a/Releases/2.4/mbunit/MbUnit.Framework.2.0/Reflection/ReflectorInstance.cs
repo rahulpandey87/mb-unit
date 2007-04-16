@@ -23,16 +23,56 @@ namespace MbUnit.Framework.Reflection
         }
 
         /// <summary>
-        /// Execute a NonPublic method on a object
+        /// Use this constructor if you plan to test default constructor of a non-public class.
+        /// </summary>
+        /// <param name="assemblyName"></param>
+        /// <param name="className"></param>
+        public Reflector(string assemblyName, string className)
+            : this(assemblyName, className, null)
+        {
+        }
+
+        /// <summary>
+        /// Use this constructor if you plan to test constructor with arguments of a non-public class.
+        /// </summary>
+        /// <param name="assemblyName"></param>
+        /// <param name="className"></param>
+        public Reflector(string assemblyName, string className, params object[] args)
+        {
+            Assembly a = Assembly.Load(assemblyName);
+            Type type = a.GetType(className);
+            if (args != null)
+            {
+                Type[] argTypes = new Type[args.Length];
+                for (int ndx = 0; ndx < args.Length; ndx++)
+                    argTypes[ndx] = (args[ndx] == null) ? typeof(object) : args[ndx].GetType();
+
+                ConstructorInfo ci = type.GetConstructor(
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+                    , null, argTypes, null);
+                _obj = ci.Invoke(args);
+            }
+            else
+                _obj = Activator.CreateInstance(type);
+        }
+
+        /// <summary>
+        /// Execute a NonPublic method without arguments on a object
         /// </summary>
         /// <param name="obj">Object to call method on</param>
         /// <param name="methodName">Method to call</param>
-        /// <returns></returns>
+        /// <returns>The object the method should return.</returns>
         public object RunPrivateMethod(string methodName)
         {
             return RunPrivateMethod(methodName, null);
         }
 
+        /// <summary>
+        /// Execute a NonPublic method with arguments on a object
+        /// </summary>
+        /// <param name="obj">Object to call method on</param>
+        /// <param name="methodName">Method to call</param>
+        /// <returns>The object the method should return.</returns>
         public object RunPrivateMethod(string methodName, params object[] methodParams)
         {
             Type[] paramTypes = null;
@@ -55,6 +95,11 @@ namespace MbUnit.Framework.Reflection
             return mi.Invoke(_obj, methodParams);
         }
 
+        /// <summary>
+        /// Gets value of NonPublic field.
+        /// </summary>
+        /// <param name="fieldName">NonPublic field name</param>
+        /// <returns>Field value</returns>
         public object GetNonPublicField(string fieldName)
         {
             FieldInfo fi = _obj.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance);
@@ -62,6 +107,11 @@ namespace MbUnit.Framework.Reflection
             return fi.GetValue(_obj);
         }
 
+        /// <summary>
+        /// Gets value of NonPublic property
+        /// </summary>
+        /// <param name="propName">Property name</param>
+        /// <returns>Property value</returns>
         public object GetNonPublicProperty(string propName)
         {
             PropertyInfo pi = _obj.GetType().GetProperty(propName, BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance);
