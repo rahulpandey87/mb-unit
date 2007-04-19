@@ -188,6 +188,7 @@
 		<html>
 			<head>
 				<title>MbUnit Test Report</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 				<style>
           h1 				{ font-family:Verdana; font-weight:Bold; font-size:14pt; margin-bottom:0pt; }
           h2 				{ font-family:Verdana; font-weight:Bold; font-size:12pt; margin-bottom:0pt; }
