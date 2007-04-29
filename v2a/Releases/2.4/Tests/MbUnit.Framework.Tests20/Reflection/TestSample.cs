@@ -6,17 +6,46 @@ namespace MbUnit.Framework.Tests20.Reflection
 {
     public class TestSample
     {
-        private int counter = 0;
-        private bool accessed = false;
+        public string publicString = "MbUnit Rocks!!!";
+        private DateTime privateDateTime = DateTime.Today;
+        internal static int staticNum = 7;
 
-        private void IncCounter()
+        public string PublicProperty
         {
-            counter++;
+            get { return publicString; }
+            set { publicString = value; }
         }
 
-        private void SetAsAccessed()
+        internal DateTime InternalProperty
         {
-            accessed = true;
+            get { return privateDateTime; }
+            set { privateDateTime = value; }
+        }
+
+        protected static int StaticProperty
+        {
+            get { return staticNum; }
+            set { staticNum = value; }
+        }
+
+        public int Pow(int x)
+        {
+            return Multiply(x, x);
+        }
+
+        public string PraiseMe()
+        {
+            return publicString;
+        }
+
+        private int Multiply(int x, int y)
+        {
+            return x * y;
+        }
+
+        public static int Add(int x, int y)
+        {
+            return x + y;
         }
     }
 }
