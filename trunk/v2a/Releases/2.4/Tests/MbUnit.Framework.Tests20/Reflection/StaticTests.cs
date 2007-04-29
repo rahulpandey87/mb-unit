@@ -10,37 +10,30 @@ namespace MbUnit.Framework.Tests20.Reflection
     [TestFixture]
     public class ReflectorStaticTests
     {
-        TestSample sampleObject;
+        TestSample _sampleObject;
 
         [SetUp]
         public void Setup()
         {
-            sampleObject = new TestSample();    
+            _sampleObject = new TestSample();    
+        }
+
+        #region GetField Tests
+        [Test]
+        public void GetPublicField_DefaultAccessibility()
+        {
+            Assert.AreEqual("MbUnit Rocks!!!", Reflector.GetField(_sampleObject, "publicString"));
         }
 
         [Test]
-        public void RunPrivateMethodOnObjectUsingStatic()
+        [ExpectedArgumentNullException()]
+        public void SetPropertyWithNullObject()
         {
-            Reflector.RunNonPublicMethod(sampleObject, "IncCounter");
+            Reflector.SetProperty(null, "somePropety", "value");
         }
 
-        [Test]
-        public void CheckPrivateValueOnObjectUsingStatic()
-        {
-            object result = Reflector.GetNonPublicVariable(sampleObject, "counter");
-            Assert.AreEqual(0, (int)result);
-        }
+        #endregion
 
-        [Test]
-        public void RunPrivateMethodAndCheckPrivateValueUsingStatic()
-        {
-            int execute = 3;
-            for (int i = 0; i < execute;  i++)
-                Reflector.RunNonPublicMethod(sampleObject, "IncCounter");
-
-            object result = Reflector.GetNonPublicVariable(sampleObject, "counter");
-            Assert.AreEqual(execute, (int)result);
-        }
     }
 
 
