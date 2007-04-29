@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MbUnit.Framework.Reflection
 {
-    class ReflectionException : ApplicationException
+    public class ReflectionException : ApplicationException
     {
         public ReflectionException(string message)
             : base(message)
