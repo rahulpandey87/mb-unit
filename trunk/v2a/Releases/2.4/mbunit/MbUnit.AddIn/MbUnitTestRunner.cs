@@ -28,6 +28,8 @@ using System;
 using System.IO;
 using System.Reflection;
 
+using Microsoft.Win32;
+
 using TestDriven.Framework;
 using TDF = TestDriven.Framework;
 
@@ -160,65 +162,100 @@ namespace MbUnit.AddIn
             ignoreCount = 0;
             skipCount = 0;
 
+            bool errorFlag = false;
+
             string assemblyPath = new Uri(assembly.CodeBase).LocalPath;
             testListener.WriteLine("Starting the MbUnit Test Execution", Category.Info);
 			testListener.WriteLine("Exploring " + assembly.FullName, Category.Info);
             testListener.WriteLine(String.Format("MbUnit {0} Addin", typeof(RunPipe).Assembly.GetName().Version),Category.Info);
 
-            try
-			{
-                using (AssemblyTestDomain domain = new AssemblyTestDomain(assembly))
-                {
-                    //define an assembly resolver routine in case the CLR cannot find our assemblies. 
-                    AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolveHandler);
-            
-                    domain.TypeFilter = typeFilter;
-                    domain.Filter = filter;
-                    domain.RunPipeFilter = runPipeFilter;
-                    domain.Load();
-                    // check found tests
-                    testCount = domain.TestEngine.GetTestCount().RunCount;
-                    if (testCount==0)
-                    {
-                        testListener.WriteLine("No tests found",Category.Info);
-                        return TestRunState.NoTests;
-                    }
-
-                    testListener.WriteLine(String.Format("Found {0} tests", testCount),Category.Info);
-                    // add listeners
-                    domain.TestEngine.FixtureRunner.AssemblySetUp+=new ReportSetUpAndTearDownEventHandler(TestEngine_AssemblySetUp);
-                    domain.TestEngine.FixtureRunner.AssemblyTearDown += new ReportSetUpAndTearDownEventHandler(TestEngine_AssemblyTearDown);
-                    domain.TestEngine.FixtureRunner.TestFixtureSetUp += new ReportSetUpAndTearDownEventHandler(TestEngine_TestFixtureSetUp);
-                    domain.TestEngine.FixtureRunner.TestFixtureTearDown += new ReportSetUpAndTearDownEventHandler(TestEngine_TestFixtureTearDown);
-                    domain.TestEngine.FixtureRunner.RunResult += new ReportRunEventHandler(TestEngine_RunResult);
-
-                    try
-                    {
-                        domain.TestEngine.RunPipes();
-                    }
-                    finally
-                    {
-                        if (domain.TestEngine != null)
-                        {
-                            domain.TestEngine.FixtureRunner.AssemblySetUp -= new ReportSetUpAndTearDownEventHandler(TestEngine_AssemblySetUp);
-                            domain.TestEngine.FixtureRunner.AssemblyTearDown -= new ReportSetUpAndTearDownEventHandler(TestEngine_AssemblyTearDown);
-                            domain.TestEngine.FixtureRunner.TestFixtureSetUp -= new ReportSetUpAndTearDownEventHandler(TestEngine_TestFixtureSetUp);
-                            domain.TestEngine.FixtureRunner.TestFixtureTearDown -= new ReportSetUpAndTearDownEventHandler(TestEngine_TestFixtureTearDown);
-                            domain.TestEngine.FixtureRunner.RunResult -= new ReportRunEventHandler(TestEngine_RunResult);
-                        }
-                    }
-
-                    testListener.WriteLine("[reports] generating HTML report",Category.Info);
-                    this.GenerateReports(testListener, assembly, domain.TestEngine.Report.Result);
-
-                    return toTestRunState(domain.TestEngine.Report.Result);
+            string passedAssemblyVersion = string.Empty;
+            foreach (AssemblyName a in assembly.GetReferencedAssemblies())
+            {
+                if (a.Name.ToLower() == "mbunit.framework")
+                {   
+                    passedAssemblyVersion = a.Version.ToString();
                 }
             }
-			catch(Exception ex)
-			{
-                testListener.WriteLine("[critical-failure]",Category.Error);
-                testListener.WriteLine(ex.ToString(),Category.Error);
-                throw new Exception("Test execution failed", ex);
+
+            RegistryKey version = Registry.LocalMachine.OpenSubKey("SOFTWARE\\MutantDesign\\TestDriven.NET\\TestRunners\\MbUnit");
+
+            if (version.GetValue("Version") != null)
+            {
+                string regAssemblyVersion =  version.GetValue("Version").ToString();
+                if (regAssemblyVersion.Trim() != passedAssemblyVersion)
+                {
+                    testListener.WriteLine(String.Format("ERROR MbUnit mismatch found {0} and expected {1}", passedAssemblyVersion, regAssemblyVersion), Category.Info);
+                    errorFlag = true;
+                }
+            }
+            else
+            {
+                testListener.WriteLine("ERROR Failed to find MbUnit version in registry", Category.Info);
+                errorFlag = true;
+            }
+
+            if (!errorFlag)
+            {
+                try
+                {
+                    using (AssemblyTestDomain domain = new AssemblyTestDomain(assembly))
+                    {
+                        //define an assembly resolver routine in case the CLR cannot find our assemblies. 
+                        AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolveHandler);
+
+                        domain.TypeFilter = typeFilter;
+                        domain.Filter = filter;
+                        domain.RunPipeFilter = runPipeFilter;
+                        domain.Load();
+                        // check found tests
+                        testCount = domain.TestEngine.GetTestCount().RunCount;
+                        if (testCount == 0)
+                        {
+                            testListener.WriteLine("No tests found", Category.Info);
+                            return TestRunState.NoTests;
+                        }
+
+                        testListener.WriteLine(String.Format("Found {0} tests", testCount), Category.Info);
+                        // add listeners
+                        domain.TestEngine.FixtureRunner.AssemblySetUp += new ReportSetUpAndTearDownEventHandler(TestEngine_AssemblySetUp);
+                        domain.TestEngine.FixtureRunner.AssemblyTearDown += new ReportSetUpAndTearDownEventHandler(TestEngine_AssemblyTearDown);
+                        domain.TestEngine.FixtureRunner.TestFixtureSetUp += new ReportSetUpAndTearDownEventHandler(TestEngine_TestFixtureSetUp);
+                        domain.TestEngine.FixtureRunner.TestFixtureTearDown += new ReportSetUpAndTearDownEventHandler(TestEngine_TestFixtureTearDown);
+                        domain.TestEngine.FixtureRunner.RunResult += new ReportRunEventHandler(TestEngine_RunResult);
+
+                        try
+                        {
+                            domain.TestEngine.RunPipes();
+                        }
+                        finally
+                        {
+                            if (domain.TestEngine != null)
+                            {
+                                domain.TestEngine.FixtureRunner.AssemblySetUp -= new ReportSetUpAndTearDownEventHandler(TestEngine_AssemblySetUp);
+                                domain.TestEngine.FixtureRunner.AssemblyTearDown -= new ReportSetUpAndTearDownEventHandler(TestEngine_AssemblyTearDown);
+                                domain.TestEngine.FixtureRunner.TestFixtureSetUp -= new ReportSetUpAndTearDownEventHandler(TestEngine_TestFixtureSetUp);
+                                domain.TestEngine.FixtureRunner.TestFixtureTearDown -= new ReportSetUpAndTearDownEventHandler(TestEngine_TestFixtureTearDown);
+                                domain.TestEngine.FixtureRunner.RunResult -= new ReportRunEventHandler(TestEngine_RunResult);
+                            }
+                        }
+
+                        testListener.WriteLine("[reports] generating HTML report", Category.Info);
+                        this.GenerateReports(testListener, assembly, domain.TestEngine.Report.Result);
+
+                        return toTestRunState(domain.TestEngine.Report.Result);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    testListener.WriteLine("[critical-failure]", Category.Error);
+                    testListener.WriteLine(ex.ToString(), Category.Error);
+                    throw new Exception("Test execution failed", ex);
+                }
+            }
+            else
+            {
+                return TestRunState.Failure;
             }
 		}
 
