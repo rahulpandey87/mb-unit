@@ -22,16 +22,29 @@ namespace MbUnit.Framework.Tests.Core.Exceptions
         }
 
 		[Test]
-		[ExpectedException(typeof(NotImplementedException), "Not implemented")]
+		[ExpectedException(typeof(NotImplementedException), Description="Not implemented")]
 		public void ExceptionAndDescription()
 		{
             throw new NotImplementedException();
+        }
+
+        [Test]
+        [ExpectedException(typeof(NotImplementedException), "This should match.")]
+        public void ExceptionAndExpectedMessage()
+        {
+            throw new NotImplementedException("This should match.");
         }
 
         [Test, ExpectedException(typeof(NotImplementedException), typeof(ArgumentException))]
         public void ExceptionAndInnerException()
         {
             throw new NotImplementedException("", new ArgumentException());
+        }
+
+        [Test, ExpectedException(typeof(NotImplementedException), "This should match.", typeof(ArgumentException))]
+        public void ExceptionAndInnerExceptionAndExpectedMessage()
+        {
+            throw new NotImplementedException("This should match.", new ArgumentException());
         }
 	}
 }

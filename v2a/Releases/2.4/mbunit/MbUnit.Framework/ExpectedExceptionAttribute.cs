@@ -38,32 +38,33 @@ namespace MbUnit.Framework
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
     public class ExpectedExceptionAttribute : DecoratorPatternAttribute
     {
-		Type exceptionType;
-        Type innerExceptionType;
+		Type exceptionType = null;
+        string expectedMessage = null;
+        Type innerExceptionType = null;
 		
 		public ExpectedExceptionAttribute(Type exceptionType) 
             : this(exceptionType, null, null)
 		{
 		}
 
-        public ExpectedExceptionAttribute(Type exceptionType, string description)
-            : this(exceptionType, description, null)
-        {
-        }
-
         public ExpectedExceptionAttribute(Type exceptionType, Type innerExceptionType)
             : this(exceptionType, null, innerExceptionType)
         {
         }
 
-		public ExpectedExceptionAttribute(Type exceptionType, string description, Type innerExceptionType)
-            : base(description)
-		{
+        public ExpectedExceptionAttribute(Type exceptionType, string expectedMessage)
+            : this(exceptionType, expectedMessage, null)
+        {
+        }
+
+        public ExpectedExceptionAttribute(Type exceptionType, string expectedMessage, Type innerExceptionType)
+        {
             if (exceptionType == null)
                 throw new ArgumentNullException("exceptionType");
-			this.exceptionType = exceptionType;
+            this.exceptionType = exceptionType;
+            this.expectedMessage = expectedMessage;
             this.innerExceptionType = innerExceptionType;
-		}
+        }
 		
         /// <summary>
         /// The expected exception.
@@ -75,6 +76,17 @@ namespace MbUnit.Framework
 				return this.exceptionType;
 			}
 		}
+
+        /// <summary>
+        /// The expected message text.
+        /// </summary>
+        public string ExpectedMessage
+        {
+            get
+            {
+                return this.expectedMessage;
+            }
+        }
 
         /// <summary>
         /// The expected inner exception.
@@ -89,7 +101,7 @@ namespace MbUnit.Framework
 		
 		public override IRunInvoker GetInvoker(IRunInvoker invoker)
 		{
-			return new ExpectedExceptionRunInvoker(invoker, ExceptionType, InnerExceptionType, Description);
+			return new ExpectedExceptionRunInvoker(invoker, ExceptionType, ExpectedMessage, InnerExceptionType, Description);
 		}
 	}
 }
