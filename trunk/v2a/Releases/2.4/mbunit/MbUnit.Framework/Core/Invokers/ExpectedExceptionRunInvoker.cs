@@ -35,19 +35,21 @@ namespace MbUnit.Core.Invokers
 	public class ExpectedExceptionRunInvoker : DecoratorRunInvoker
 	{
 		private Type exceptionType;
+        private string expectedMessage = null;
         private Type innerExceptionType;
 
         public ExpectedExceptionRunInvoker(IRunInvoker invoker, Type exceptionType, string description)
-            : this(invoker, exceptionType, null, description)
+            : this(invoker, exceptionType, null, null, description)
         {
         }
 
-        public ExpectedExceptionRunInvoker(IRunInvoker invoker, Type exceptionType, Type innerExceptionType, 
+        public ExpectedExceptionRunInvoker(IRunInvoker invoker, Type exceptionType, string expectedMessage, Type innerExceptionType, 
             string description) : base(invoker, description)
 		{
 			if (exceptionType == null)
 				throw new ArgumentNullException("exceptionType");
 			this.exceptionType = exceptionType;
+            this.expectedMessage = expectedMessage;
             this.innerExceptionType = innerExceptionType;
         }
 		
@@ -58,6 +60,14 @@ namespace MbUnit.Core.Invokers
 				return this.exceptionType;
 			}
 		}
+
+        public string ExpectedMessage
+        {
+            get
+            {
+                return this.expectedMessage;
+            }
+        }
 
         public Type InnerExceptionType
         {
@@ -103,6 +113,13 @@ namespace MbUnit.Core.Invokers
                             );
                 }
 
+                // Compare message with expected (if necessary)
+                if (ExpectedMessage != null && current.Message != ExpectedMessage)
+                {
+                    throw new ExceptionExpectedMessageMismatchException(Description, ExpectedMessage, current.Message);
+                }
+
+                // Check inner exception (if necessary)
                 if (InnerExceptionType != null && !InnerExceptionType.IsInstanceOfType(current.InnerException))
                 {
                     throw new InnerExceptionTypeMismatchException(InnerExceptionType, Description, 
