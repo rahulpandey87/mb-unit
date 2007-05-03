@@ -20,7 +20,7 @@
 	</PropertyGroup>
 		
 	<Target Name="Package" DependsOnTargets="MbUnit_AddIn">
-		<GetAssemblyInfoTask FileName="$(OutputPath)\MbUnit.AddIn.dll">
+		<GetAssemblyInfoTask FileName="$(OutputPath)\mbunit.framework.dll">
 			<Output TaskParameter="AssemblyVersion" PropertyName="AddinVersion"/>
  		</GetAssemblyInfoTask>
 		<!--<Message Text="TEST $(AddinVersion)" />-->
