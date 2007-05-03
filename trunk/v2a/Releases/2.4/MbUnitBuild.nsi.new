@@ -68,6 +68,7 @@ Section "MainSection" SEC01
   WriteRegStr HKCU "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit" "TypeName" "MbUnit.AddIn.MbUnitTestRunner"
   WriteRegStr HKCU "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit" "TargetFrameworkAssemblyName" "MbUnit.Framework"
   WriteRegStr HKCU "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit" "Application" "$PROGRAMFILES\MbUnit\MbUnit.GUI.exe"
+ WriteRegStr HKLM "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit" "Version" "{V}"
   
   WriteRegStr HKLM "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit" "" "10"
   WriteRegStr HKLM "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit" "AssemblyPath" "$PROGRAMFILES\MbUnit\MbUnit.AddIn.dll"
@@ -160,6 +161,7 @@ Section Uninstall
   RMDir "$INSTDIR"
 
   DeleteRegKey HKCU "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit"
+  DeleteRegKey HKLM "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit"
   DeleteRegKey HKCU "SOFTWARE\Microsoft\.NETFramework\v2.0.50727\AssemblyFoldersEx\MbUnit"
   
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
