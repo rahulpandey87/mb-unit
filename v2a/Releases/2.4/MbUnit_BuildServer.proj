@@ -1,6 +1,8 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<UsingTask AssemblyFile="$(OutputPath)\EditAssemblyInfo\EditAssemblyInfo.dll" TaskName="MbUnit.EditAssemblyInfo.UpdateAssemblyTitleTask" />
 
+<UsingTask AssemblyFile="$(OutputPath)\EditAssemblyInfo\EditAssemblyInfo.dll" TaskName="MbUnit.EditAssemblyInfo.GetAssemblyInfoTask" />
+
 	<Import Project="Version.properties" />
 	
 	<PropertyGroup>
@@ -18,8 +20,14 @@
 	</PropertyGroup>
 		
 	<Target Name="Package" DependsOnTargets="MbUnit_AddIn">
+		<GetAssemblyInfoTask FileName="$(OutputPath)\MbUnit.AddIn.dll">
+			<Output TaskParameter="AssemblyVersion" PropertyName="AddinVersion"/>
+ 		</GetAssemblyInfoTask>
+		<!--<Message Text="TEST $(AddinVersion)" />-->
 
-		<Exec Command="makensis MbUnitBuild.nsi" />
+		<Delete Files="MbUnitBuild2.nsi" />
+		<Exec Command="cscript stuff.vbs $(AddinVersion)" />
+		<Exec Command="makensis MbUnitBuild2.nsi" />
 		<Copy SourceFiles="Setup.exe" DestinationFiles="$(MsiFileName)" />
 		<Delete Files="SetUp.exe" />
 		<!-- CCNet Artifacts -->
