@@ -552,6 +552,8 @@ namespace MbUnit.Framework
         /// <param name="args">Arguments to be used in formatting the message</param>
         static public void AreNotEqual(Object[] expected, Object[] actual, string message, params object[] args)
         {
+            Assert.IncrementAssertCount();
+
             bool fail = false;
 
             if (expected != null && actual != null)
