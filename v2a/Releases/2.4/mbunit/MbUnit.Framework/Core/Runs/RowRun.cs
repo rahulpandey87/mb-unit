@@ -8,7 +8,6 @@ using MbUnit.Core;
 using MbUnit.Core.Invokers;
 using MbUnit.Core.Framework;
 using MbUnit.Framework;
-using System.Collections.Generic;
 
 namespace MbUnit.Core.Runs
 {
