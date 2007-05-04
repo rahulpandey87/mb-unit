@@ -20,6 +20,15 @@ namespace MbUnit.Tests.Core.Framework
         }
 
         [RowTest]
+        [Row(1000, 10, 100.0000)]
+        [Row(-1000, 10, -100.0000)]
+        [Row(1000, 0.00001, 100000000)]
+        public void DivDecimalTest(decimal numerator, decimal denominator, decimal result)
+        {
+            Assert.AreEqual(result, numerator / denominator);
+        }
+
+        [RowTest]
         [Row()]
         public void RowWithNoValues()
         {
