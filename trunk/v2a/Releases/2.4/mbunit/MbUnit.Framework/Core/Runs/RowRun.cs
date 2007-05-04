@@ -8,6 +8,7 @@ using MbUnit.Core;
 using MbUnit.Core.Invokers;
 using MbUnit.Core.Framework;
 using MbUnit.Framework;
+using System.Collections.Generic;
 
 namespace MbUnit.Core.Runs
 {
@@ -91,7 +92,14 @@ namespace MbUnit.Core.Runs
 
             public override Object Execute(Object o, IList args)
             {
-                return this.method.Invoke(o, this.row.GetRow());
+                ParameterInfo[] parameters = method.GetParameters();
+                List<int> decimalParameterIndexes = new List<int>();
+                
+                for (int ndx = 0; ndx < parameters.Length; ndx++)
+                    if (parameters[ndx].ParameterType == typeof(decimal))
+                        decimalParameterIndexes.Add(ndx);
+
+                return this.method.Invoke(o, this.row.GetRow(decimalParameterIndexes));
             }
         }
     }
