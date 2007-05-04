@@ -93,7 +93,7 @@ namespace MbUnit.Core.Runs
             public override Object Execute(Object o, IList args)
             {
                 ParameterInfo[] parameters = method.GetParameters();
-                List<int> decimalParameterIndexes = new List<int>();
+                ArrayList decimalParameterIndexes = new ArrayList();
                 
                 for (int ndx = 0; ndx < parameters.Length; ndx++)
                     if (parameters[ndx].ParameterType == typeof(decimal))
