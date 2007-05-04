@@ -1,5 +1,6 @@
 ﻿using System;
 using MbUnit.Core.Framework;
+using System.Collections.Generic;
 
 namespace MbUnit.Framework
 {
@@ -56,6 +57,18 @@ namespace MbUnit.Framework
         public Object[] GetRow()
         {
             return this.row;
+        }
+
+        /// <summary>
+        /// Gets the row of values.  If there're any decimal parameters, keep them decimal.
+        /// </summary>
+        /// <param name="decimalParamIndexes">Index list of decimal parameters.</param>
+        /// <returns>The row of values</returns>
+        public Object[] GetRow(List<int> decimalParamIndexes)
+        {
+            for (int ndx = 0; ndx < decimalParamIndexes.Count; ndx++)
+                row[ndx] = Convert.ToDecimal(row[ndx]);
+            return GetRow();
         }
     }
 }
