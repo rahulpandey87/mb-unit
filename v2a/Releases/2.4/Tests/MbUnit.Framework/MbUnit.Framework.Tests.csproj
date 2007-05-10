@@ -29,7 +29,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MbUnit.Framework, Version=1.0.2568.1684, Culture=neutral, PublicKeyToken=5e72ecd30bc408d5">
+    <Reference Include="MbUnit.Framework, Version=1.0.2686.41591, Culture=neutral, PublicKeyToken=5e72ecd30bc408d5">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\build\MbUnit.Framework.dll</HintPath>
     </Reference>
@@ -45,10 +45,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\build\QuickGraph.Algorithms.dll</HintPath>
     </Reference>
-    <Reference Include="QuickGraph.Algorithms.Graphviz, Version=2.21.1.0, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\build\QuickGraph.Algorithms.Graphviz.dll</HintPath>
-    </Reference>
     <Reference Include="Refly, Version=2.21.1.0, Culture=neutral, PublicKeyToken=829676e11975a31c">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\build\Refly.dll</HintPath>
@@ -57,7 +53,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-    <Reference Include="TestFu, Version=1.0.2568.801, Culture=neutral, PublicKeyToken=5e72ecd30bc408d5">
+    <Reference Include="TestFu, Version=1.0.2686.41588, Culture=neutral, PublicKeyToken=5e72ecd30bc408d5">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\build\TestFu.dll</HintPath>
     </Reference>
@@ -90,6 +86,7 @@
     <Compile Include="Core\DifferentApartementStateFixture.cs" />
     <Compile Include="Core\EnvironmentTest.cs" />
     <Compile Include="Core\Exceptions\ExpectedExceptionAttributeTest.cs" />
+    <Compile Include="Core\ExtractResourceTest.cs" />
     <Compile Include="Core\Filters\FixtureFilterFactory.cs" />
     <Compile Include="Core\Filters\FixtureFilterTest.cs" />
     <Compile Include="Core\FixtureSetUpAndTearDownTest.cs" />
@@ -199,6 +196,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Asserts\CsBadSample.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Core\EmbeddedResourceSample.txt">
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

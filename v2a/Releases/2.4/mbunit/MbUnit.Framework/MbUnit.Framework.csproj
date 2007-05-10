@@ -435,6 +435,7 @@
     <Compile Include="DurationAttribute.cs" />
     <Compile Include="ExpectedExceptionAttribute.cs" />
     <Compile Include="ExplicitAttribute.cs" />
+    <Compile Include="ExtractResourceAttribute.cs" />
     <Compile Include="FactoryAttribute.cs" />
     <Compile Include="FileAssert.cs" />
     <Compile Include="FillAttribute.cs" />
