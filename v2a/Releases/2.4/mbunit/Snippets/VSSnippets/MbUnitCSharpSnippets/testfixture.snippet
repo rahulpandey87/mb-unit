@@ -1,34 +1,33 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<CodeSnippet Format="1.0.0">
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
     <Header>
-        <Title>TestFixture</Title>
-        <Shortcut>testfixture</Shortcut>
-        <Description>Expansion snippet for TestFixture</Description>
-        <SnippetTypes>
-            <SnippetType>Expansion</SnippetType>
-        </SnippetTypes>
+      <Title>TestFixture</Title>
+      <Author>MbUnit</Author>
+      <Description>Expansion snippet for TestFixture</Description>
+      <Shortcut>testfixture</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
     </Header>
     <Snippet>
-        <Declarations>
-            <Literal default="false">
-                <ID>namespace</ID>
-                <ToolTip>Test namespace</ToolTip>
-            </Literal>            
-            <Literal>
-                <ID>type</ID>
-                <ToolTip>Tested type</ToolTip>
-            </Literal>
-        </Declarations>
-        <Code Language="csharp" Format="CData">
-<![CDATA[using System;
-using MbUnit.Core.Framework;
+      <Declarations>
+        <Literal>
+          <ID>namespace</ID>
+          <ToolTip>Test namespace</ToolTip>
+        </Literal>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>Tested type</ToolTip>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp"><![CDATA[using System;
 using MbUnit.Framework;
 
 namespace $namespace$
 {
     /// <summary>
-    /// A <see cref="TestFixture"/> for the <see cref="$type$"/> 
-    /// class
+    /// A <see cref="TestFixture"/> for the <see cref="$type$"/> class.
     /// </summary>
     [TestFixture]
     [TestsOn(typeof($type$))]
@@ -65,7 +64,8 @@ namespace $namespace$
         }
         #endregion    
     }
-}]]>
-	</Code>
+}
+	]]></Code>
     </Snippet>
-</CodeSnippet>
+  </CodeSnippet>
+</CodeSnippets>

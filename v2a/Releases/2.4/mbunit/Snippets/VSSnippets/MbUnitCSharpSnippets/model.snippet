@@ -1,33 +1,33 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<CodeSnippet Format="1.0.0">
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
     <Header>
-        <Title>Model</Title>
-        <Shortcut>model</Shortcut>
-        <Description>Expansion snippet for a Model</Description>
-        <SnippetTypes>
-            <SnippetType>Expansion</SnippetType>
-        </SnippetTypes>
+      <Title>Model</Title>
+      <Author>MbUnit</Author>
+      <Description>Expansion snippet for a Model</Description>
+      <Shortcut>model</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
     </Header>
     <Snippet>
-        <Declarations>
-            <Literal default="false">
-                <ID>namespace</ID>
-                <ToolTip>Model namespace</ToolTip>
-            </Literal>            
-            <Literal default="true">
-                <ID>type</ID>
-                <ToolTip>Modelled type</ToolTip>
-                <Default>Put the modelled type here</Default>
-            </Literal>
-            <Literal default="true">
-                <ID>basetype</ID>
-                <ToolTip>Modelled Base Type</ToolTip>
-                <Default>Object</Default>
-            </Literal>
-        </Declarations>
-        <Code Language="csharp" Format="CData">
-<![CDATA[
-using System;
+      <Declarations>
+        <Literal>
+          <ID>namespace</ID>
+          <ToolTip>Model namespace</ToolTip>
+        </Literal>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>Modelled type</ToolTip>
+          <Default>Put the modelled type here</Default>
+        </Literal>
+        <Literal>
+          <ID>basetype</ID>
+          <ToolTip>Modelled Base Type</ToolTip>
+          <Default>Object</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp"><![CDATA[using System;
 using TestFu;
 using TestFu.Models;
 
@@ -94,7 +94,8 @@ namespace $namespace$
         }   
         #endregion
     }
-}]]>
-	</Code>
+}
+	]]></Code>
     </Snippet>
-</CodeSnippet>
+  </CodeSnippet>
+</CodeSnippets>
