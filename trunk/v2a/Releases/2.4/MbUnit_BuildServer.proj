@@ -1,8 +1,6 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<UsingTask AssemblyFile="$(OutputPath)\EditAssemblyInfo\EditAssemblyInfo.dll" TaskName="MbUnit.EditAssemblyInfo.UpdateAssemblyTitleTask" />
 
-<UsingTask AssemblyFile="$(OutputPath)\EditAssemblyInfo\EditAssemblyInfo.dll" TaskName="MbUnit.EditAssemblyInfo.GetAssemblyInfoTask" />
-
 	<Import Project="Version.properties" />
 	
 	<PropertyGroup>
@@ -19,15 +17,8 @@
 		<CCNetArtifactDirectory>C:\Program Files\CruiseControl.NET\server\TestDriven.NET\Artifacts</CCNetArtifactDirectory>		
 	</PropertyGroup>
 		
-	<Target Name="Package" DependsOnTargets="MbUnit_AddIn">
-		<GetAssemblyInfoTask FileName="$(OutputPath)\mbunit.framework.dll">
-			<Output TaskParameter="AssemblyVersion" PropertyName="AddinVersion"/>
- 		</GetAssemblyInfoTask>
-		<!--<Message Text="TEST $(AddinVersion)" />-->
-
-		<Delete Files="MbUnitBuild2.nsi" />
-		<Exec Command="cscript stuff.vbs $(AddinVersion)" />
-		<Exec Command="makensis MbUnitBuild2.nsi" />
+	<Target Name="Package" DependsOnTargets="MbUnit_AddIn">		
+		<Exec Command="makensis MbUnitBuild.nsi" />
 		<Copy SourceFiles="Setup.exe" DestinationFiles="$(MsiFileName)" />
 		<Delete Files="SetUp.exe" />
 		<!-- CCNet Artifacts -->
