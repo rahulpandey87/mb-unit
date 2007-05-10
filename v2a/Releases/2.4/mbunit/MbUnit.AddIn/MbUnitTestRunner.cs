@@ -52,6 +52,7 @@ namespace MbUnit.AddIn
 	{
         protected const string AppPathRootName = "MbUnit";
         protected const string AppPathReportsName = "Reports";
+        private const string MbUnitAssemblyName = "MbUnit.Framework";
 
         private ITestListener testListener = null;
         private int assemblySetUpCount = 0;
@@ -153,6 +154,11 @@ namespace MbUnit.AddIn
         {
             this.testListener = testListener;
 
+            if (!CheckMbUnitVersion(assembly))
+            {
+                return TestRunState.Error;
+            }
+
             assemblySetUpCount = 0;
             assemblyTearDownCount = 0;
             testFixtureSetUpCount = 0;
@@ -162,102 +168,136 @@ namespace MbUnit.AddIn
             ignoreCount = 0;
             skipCount = 0;
 
-            bool errorFlag = false;
-
             string assemblyPath = new Uri(assembly.CodeBase).LocalPath;
             testListener.WriteLine("Starting the MbUnit Test Execution", Category.Info);
 			testListener.WriteLine("Exploring " + assembly.FullName, Category.Info);
             testListener.WriteLine(String.Format("MbUnit {0} Addin", typeof(RunPipe).Assembly.GetName().Version),Category.Info);
-
-            string passedAssemblyVersion = string.Empty;
-            foreach (AssemblyName a in assembly.GetReferencedAssemblies())
+            
+            try
             {
-                if (a.Name.ToLower() == "mbunit.framework")
-                {   
-                    passedAssemblyVersion = a.Version.ToString();
-                }
-            }
-
-            RegistryKey version = Registry.LocalMachine.OpenSubKey("SOFTWARE\\MutantDesign\\TestDriven.NET\\TestRunners\\MbUnit");
-
-            if (version.GetValue("Version") != null)
-            {
-                string regAssemblyVersion =  version.GetValue("Version").ToString();
-                if (regAssemblyVersion.Trim() != passedAssemblyVersion)
+                using (AssemblyTestDomain domain = new AssemblyTestDomain(assembly))
                 {
-                    testListener.WriteLine(String.Format("ERROR MbUnit mismatch found {0} and expected {1}", passedAssemblyVersion, regAssemblyVersion), Category.Info);
-                    errorFlag = true;
-                }
-            }
-            else
-            {
-                testListener.WriteLine("ERROR Failed to find MbUnit version in registry", Category.Info);
-                errorFlag = true;
-            }
+                    //define an assembly resolver routine in case the CLR cannot find our assemblies. 
+                    AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolveHandler);
 
-            if (!errorFlag)
-            {
-                try
-                {
-                    using (AssemblyTestDomain domain = new AssemblyTestDomain(assembly))
+                    domain.TypeFilter = typeFilter;
+                    domain.Filter = filter;
+                    domain.RunPipeFilter = runPipeFilter;
+                    domain.Load();
+                    // check found tests
+                    testCount = domain.TestEngine.GetTestCount().RunCount;
+                    if (testCount == 0)
                     {
-                        //define an assembly resolver routine in case the CLR cannot find our assemblies. 
-                        AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolveHandler);
-
-                        domain.TypeFilter = typeFilter;
-                        domain.Filter = filter;
-                        domain.RunPipeFilter = runPipeFilter;
-                        domain.Load();
-                        // check found tests
-                        testCount = domain.TestEngine.GetTestCount().RunCount;
-                        if (testCount == 0)
-                        {
-                            testListener.WriteLine("No tests found", Category.Info);
-                            return TestRunState.NoTests;
-                        }
-
-                        testListener.WriteLine(String.Format("Found {0} tests", testCount), Category.Info);
-                        // add listeners
-                        domain.TestEngine.FixtureRunner.AssemblySetUp += new ReportSetUpAndTearDownEventHandler(TestEngine_AssemblySetUp);
-                        domain.TestEngine.FixtureRunner.AssemblyTearDown += new ReportSetUpAndTearDownEventHandler(TestEngine_AssemblyTearDown);
-                        domain.TestEngine.FixtureRunner.TestFixtureSetUp += new ReportSetUpAndTearDownEventHandler(TestEngine_TestFixtureSetUp);
-                        domain.TestEngine.FixtureRunner.TestFixtureTearDown += new ReportSetUpAndTearDownEventHandler(TestEngine_TestFixtureTearDown);
-                        domain.TestEngine.FixtureRunner.RunResult += new ReportRunEventHandler(TestEngine_RunResult);
-
-                        try
-                        {
-                            domain.TestEngine.RunPipes();
-                        }
-                        finally
-                        {
-                            if (domain.TestEngine != null)
-                            {
-                                domain.TestEngine.FixtureRunner.AssemblySetUp -= new ReportSetUpAndTearDownEventHandler(TestEngine_AssemblySetUp);
-                                domain.TestEngine.FixtureRunner.AssemblyTearDown -= new ReportSetUpAndTearDownEventHandler(TestEngine_AssemblyTearDown);
-                                domain.TestEngine.FixtureRunner.TestFixtureSetUp -= new ReportSetUpAndTearDownEventHandler(TestEngine_TestFixtureSetUp);
-                                domain.TestEngine.FixtureRunner.TestFixtureTearDown -= new ReportSetUpAndTearDownEventHandler(TestEngine_TestFixtureTearDown);
-                                domain.TestEngine.FixtureRunner.RunResult -= new ReportRunEventHandler(TestEngine_RunResult);
-                            }
-                        }
-
-                        testListener.WriteLine("[reports] generating HTML report", Category.Info);
-                        this.GenerateReports(testListener, assembly, domain.TestEngine.Report.Result);
-
-                        return toTestRunState(domain.TestEngine.Report.Result);
+                        testListener.WriteLine("No tests found", Category.Info);
+                        return TestRunState.NoTests;
                     }
-                }
-                catch (Exception ex)
-                {
-                    testListener.WriteLine("[critical-failure]", Category.Error);
-                    testListener.WriteLine(ex.ToString(), Category.Error);
-                    throw new Exception("Test execution failed", ex);
+
+                    testListener.WriteLine(String.Format("Found {0} tests", testCount), Category.Info);
+                    // add listeners
+                    domain.TestEngine.FixtureRunner.AssemblySetUp += new ReportSetUpAndTearDownEventHandler(TestEngine_AssemblySetUp);
+                    domain.TestEngine.FixtureRunner.AssemblyTearDown += new ReportSetUpAndTearDownEventHandler(TestEngine_AssemblyTearDown);
+                    domain.TestEngine.FixtureRunner.TestFixtureSetUp += new ReportSetUpAndTearDownEventHandler(TestEngine_TestFixtureSetUp);
+                    domain.TestEngine.FixtureRunner.TestFixtureTearDown += new ReportSetUpAndTearDownEventHandler(TestEngine_TestFixtureTearDown);
+                    domain.TestEngine.FixtureRunner.RunResult += new ReportRunEventHandler(TestEngine_RunResult);
+
+                    try
+                    {
+                        domain.TestEngine.RunPipes();
+                    }
+                    finally
+                    {
+                        if (domain.TestEngine != null)
+                        {
+                            domain.TestEngine.FixtureRunner.AssemblySetUp -= new ReportSetUpAndTearDownEventHandler(TestEngine_AssemblySetUp);
+                            domain.TestEngine.FixtureRunner.AssemblyTearDown -= new ReportSetUpAndTearDownEventHandler(TestEngine_AssemblyTearDown);
+                            domain.TestEngine.FixtureRunner.TestFixtureSetUp -= new ReportSetUpAndTearDownEventHandler(TestEngine_TestFixtureSetUp);
+                            domain.TestEngine.FixtureRunner.TestFixtureTearDown -= new ReportSetUpAndTearDownEventHandler(TestEngine_TestFixtureTearDown);
+                            domain.TestEngine.FixtureRunner.RunResult -= new ReportRunEventHandler(TestEngine_RunResult);
+                        }
+                    }
+
+                    testListener.WriteLine("[reports] generating HTML report", Category.Info);
+                    this.GenerateReports(testListener, assembly, domain.TestEngine.Report.Result);
+
+                    return toTestRunState(domain.TestEngine.Report.Result);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return TestRunState.Failure;
+                testListener.WriteLine("[critical-failure]", Category.Error);
+                testListener.WriteLine(ex.ToString(), Category.Error);
+                throw new Exception("Test execution failed", ex);
             }
 		}
+
+        /// <summary>
+        /// Checks whether the installed MbUnit version is the same that is been referenced
+        /// by the tested assembly.
+        /// </summary>
+        /// <param name="testListener"></param>
+        /// <param name="assembly"></param>
+        /// <returns></returns>
+        private bool CheckMbUnitVersion(Assembly assembly)
+        {
+            bool status = true;
+            try
+            {
+                AssemblyName mbUnitReferenceInThisAssembly = FindMbUnitReference(Assembly.GetExecutingAssembly());
+                AssemblyName mbUnitReferenceInTestedAssembly = FindMbUnitReference(assembly);
+                
+                // Should never happen
+                System.Diagnostics.Debug.Assert(mbUnitReferenceInThisAssembly != null);
+                System.Diagnostics.Debug.Assert(mbUnitReferenceInTestedAssembly != null);
+                
+                if (mbUnitReferenceInThisAssembly.FullName.CompareTo(mbUnitReferenceInTestedAssembly.FullName) != 0)
+                {
+                    WriteVersionMismatchError(assembly, mbUnitReferenceInThisAssembly, mbUnitReferenceInTestedAssembly);
+                    status = false;
+                }
+            }
+            catch (Exception e)
+            {
+                testListener.WriteLine(e.ToString(), Category.Error); 
+                throw;
+            }
+
+            return status;
+        }
+
+        /// <summary>
+        /// Finds the MbUnit.Framework assembly within the tested assembly's references.
+        /// </summary>
+        /// <param name="assembly">The tested assembly</param>
+        /// <returns></returns>
+        private AssemblyName FindMbUnitReference(Assembly assembly)
+        {
+            foreach (AssemblyName an in assembly.GetReferencedAssemblies())
+            {
+                if (an.Name.CompareTo(MbUnitAssemblyName) == 0)
+                {
+                    return an;
+                }
+            }
+
+            return null;
+        }
+
+        private void WriteVersionMismatchError(
+            Assembly assembly,
+            AssemblyName mbUnitReferenceInThisAssembly,
+            AssemblyName mbUnitReferenceInTestedAssembly
+            )
+        {
+            string mbUnitPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\" +
+                MbUnitAssemblyName + ".dll";
+            testListener.WriteLine("The assembly " + assembly.GetName().Name +
+                " is referencing a version of " + MbUnitAssemblyName + " that is different from the " +
+                "one that was installed on this system." +
+                "\nInstalled version: " + mbUnitReferenceInThisAssembly.FullName +
+                "\nReferenced version: " + mbUnitReferenceInTestedAssembly.FullName +
+                "\nPlease change the reference to " + mbUnitPath,
+                Category.Error);
+        }
 
         static TestRunState toTestRunState(ReportResult reportResult)
         {
