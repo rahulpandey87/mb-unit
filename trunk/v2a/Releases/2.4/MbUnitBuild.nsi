@@ -77,7 +77,7 @@ Section "MainSection" SEC01
   
   WriteRegStr HKCU "SOFTWARE\Microsoft\.NETFramework\v2.0.50727\AssemblyFoldersEx\MbUnit" "" "$PROGRAMFILES\MbUnit\"
 
-  SetOutPath "$INSTDIR\VSSnippets"
+  SetOutPath "$INSTDIR\VSSnippets\MbUnitCSharpSnippets"
   SetOverwrite try
   File "build\Snippets\VSSnippets\MbUnitCSharpSnippets\autorunner.snippet"
   File "build\Snippets\VSSnippets\MbUnitCSharpSnippets\datafixture.snippet"
@@ -94,6 +94,10 @@ Section "MainSection" SEC01
   File "build\Snippets\VSSnippets\MbUnitCSharpSnippets\usingmbunit.snippet"
   File "build\Snippets\VSSnippets\MbUnitCSharpSnippets\combinatorialtest.snippet"
   File "build\Snippets\VSSnippets\MbUnitCSharpSnippets\processtestfixture.snippet"
+
+  SetOutPath "$INSTDIR\VSSnippets\MbUnitVBSnippets"
+  SetOverwrite try
+
   File "build\Snippets\VSSnippets\MbUnitVBSnippets\autorunner.snippet"
   File "build\Snippets\VSSnippets\MbUnitVBSnippets\datafixture.snippet"
   File "build\Snippets\VSSnippets\MbUnitVBSnippets\model.snippet"  
@@ -109,6 +113,10 @@ Section "MainSection" SEC01
   File "build\Snippets\VSSnippets\MbUnitVBSnippets\usingmbunit.snippet"
   File "build\Snippets\VSSnippets\MbUnitVBSnippets\combinatorialtest.snippet"
   File "build\Snippets\VSSnippets\MbUnitVBSnippets\processtestfixture.snippet"
+  
+  SetOutPath "$INSTDIR\VSSnippets\MbUnitXMLSnippets"
+  SetOverwrite try
+
   File "build\Snippets\VSSnippets\MbUnitXMLSnippets\msbuild.snippet"
   File "build\Snippets\VSSnippets\MbUnitXMLSnippets\nant.snippet"
 SectionEnd
@@ -193,7 +201,10 @@ Section Uninstall
   Delete "$INSTDIR\MbUnit.Cons.exe.config"
 
   RMDir "$SMPROGRAMS\\"
-  RMDir "$INSTDIR\VSSnippets"
+  RMDir "$INSTDIR\VSSnippets\MbUnitXMLSnippets\"
+  RMDir "$INSTDIR\VSSnippets\MbUnitVBSnippets\"
+  RMDir "$INSTDIR\VSSnippets\MbUnitCSharpSnippets\"
+  RMDir "$INSTDIR\VSSnippets\"
   RMDir "$INSTDIR"
 
   DeleteRegKey HKCU "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit"
