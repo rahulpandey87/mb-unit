@@ -215,8 +215,18 @@ namespace MbUnit.Core.Runs
 
                 object[] arguments = new object[args.Count];
                 args.CopyTo(arguments, 0);
-                this.method.Invoke(o, arguments);
-                args.Clear();
+                try
+                {
+                    this.method.Invoke(o, arguments);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    args.Clear();
+                }
                 return null;
             }
 
