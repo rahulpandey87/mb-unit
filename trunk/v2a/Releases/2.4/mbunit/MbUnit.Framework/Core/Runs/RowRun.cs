@@ -14,12 +14,12 @@ namespace MbUnit.Core.Runs
     internal sealed class RowRun : Run
     {
         public RowRun()
-            :base("RowRun",true)
-        {}
+            : base("RowRun", true)
+        { }
 
         public override void Reflect(
-            RunInvokerTree tree, 
-            RunInvokerVertex parent, 
+            RunInvokerTree tree,
+            RunInvokerVertex parent,
             Type t)
         {
             foreach (MethodInfo method in TypeHelper.GetAttributedMethods(t, typeof(RowTestAttribute)))
@@ -59,7 +59,7 @@ namespace MbUnit.Core.Runs
             private MethodInfo method;
             private RowAttribute row;
             public RowMethodRunInvoker(IRun generator, MethodInfo method, RowAttribute row)
-                :base(generator)
+                : base(generator)
             {
                 this.method = method;
                 this.row = row;
@@ -67,12 +67,12 @@ namespace MbUnit.Core.Runs
 
             public override String Name
             {
-                get 
+                get
                 {
                     StringWriter sw = new StringWriter(CultureInfo.InvariantCulture);
                     sw.Write("{0}(", this.method.Name);
                     Object[] data = this.row.GetRow();
-                    for(int i =0;i<data.Length;++i)
+                    for (int i = 0; i < data.Length; ++i)
                     {
                         if (i != 0)
                             sw.Write(",{0}", data[i]);
@@ -92,13 +92,7 @@ namespace MbUnit.Core.Runs
             public override Object Execute(Object o, IList args)
             {
                 ParameterInfo[] parameters = method.GetParameters();
-                ArrayList decimalParameterIndexes = new ArrayList();
-                
-                for (int ndx = 0; ndx < parameters.Length; ndx++)
-                    if (parameters[ndx].ParameterType == typeof(decimal))
-                        decimalParameterIndexes.Add(ndx);
-
-                return this.method.Invoke(o, this.row.GetRow(decimalParameterIndexes));
+                return this.method.Invoke(o, this.row.GetRow(parameters));
             }
         }
     }
