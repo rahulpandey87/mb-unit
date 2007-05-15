@@ -224,5 +224,10 @@ namespace MbUnit.Forms
 		{
 			Clipboard.SetDataObject( this.textBox.Text );
 		}
+
+        public void Clear()
+        {
+            this.textBox.Text = "";
+        }
 	}
 }

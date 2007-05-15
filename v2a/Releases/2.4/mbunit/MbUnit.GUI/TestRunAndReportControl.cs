@@ -107,5 +107,10 @@ namespace MbUnit.Forms
 
 		}
 		#endregion
+
+        public void ClearReports()
+        {
+            this.testResultControl1.ClearResults();
+        }
 	}
 }

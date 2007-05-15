@@ -648,7 +648,7 @@ namespace MbUnit.GUI
                         );
                 }
 
-                // load fiels or project if possible
+                // load files or project if possible
                 if (this.arguments.Files != null)
                 {
                     foreach (string fileName in arguments.Files)
@@ -756,5 +756,10 @@ namespace MbUnit.GUI
             }
             catch { }
 		}
+
+        public void ClearReports()
+        {
+            this.testResult.ClearReports();
+        }
 	}
 }
