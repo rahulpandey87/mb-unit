@@ -180,6 +180,7 @@
     <Compile Include="Core\Framework\MultipleCultureAttributeTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\Framework\MultipleRowTest.cs" />
     <Compile Include="Core\Framework\ReflectionAssertTest.cs">
       <SubType>Code</SubType>
     </Compile>
