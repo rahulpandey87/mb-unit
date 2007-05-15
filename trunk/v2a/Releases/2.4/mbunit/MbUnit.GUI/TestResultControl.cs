@@ -136,5 +136,12 @@ namespace MbUnit.Forms
 
 		}
 		#endregion
+
+        public void ClearResults()
+        {
+            this.outBox.Clear();
+            this.errorBox.Clear();
+            this.exBrowser.Clear();
+        }
 	}
 }

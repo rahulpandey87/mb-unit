@@ -230,5 +230,11 @@ namespace MbUnit.Forms
         {
             RefreshException();
         }
+
+        public void Clear()
+        {
+            this.exceptionTreeView.Nodes.Clear();
+            this.textBox1.Text = "";
+        }
 	}
 }

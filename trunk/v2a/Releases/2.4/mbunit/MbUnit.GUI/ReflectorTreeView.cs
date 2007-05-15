@@ -452,6 +452,7 @@ namespace MbUnit.Forms
 		public void ReloadAssemblies()
 		{
 			this.AbortWorkerThread();
+            this.ClearReports();
 			this.ThreadedPopulateTree(true);
 		}
 		public void NewConfig()
@@ -460,6 +461,12 @@ namespace MbUnit.Forms
 			this.RemoveAssemblies();
 			this.ClearTree();
 		}
+
+        public void ClearReports()
+        {
+            MbUnit.GUI.MbUnitForm parent = (MbUnit.GUI.MbUnitForm) this.ParentForm;
+            parent.ClearReports();
+        }
 
 		#endregion
 
