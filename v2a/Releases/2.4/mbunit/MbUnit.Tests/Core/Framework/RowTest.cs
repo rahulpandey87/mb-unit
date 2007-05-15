@@ -189,12 +189,12 @@ namespace MbUnit.Tests.Core.Framework
             Assert.IsNull(x);
         }
 
-        //[RowTest]
-        //[Row(typeof(StringBuilder))]
-        //public void CreationOfInstances(StringBuilder sb)
-        //{
-        //    Assert.IsNotNull(sb, "A new StringBuilder object should have been created");
-        //}
+        [RowTest]
+        [Row(typeof(StringBuilder))]
+        public void CreationOfInstances(StringBuilder sb)
+        {
+            Assert.IsNotNull(sb, "A new StringBuilder object should have been created");
+        }
 
         /// <summary>
         /// Enums are not supported by the "create instance" feature, but it's not a problem
