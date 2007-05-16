@@ -82,13 +82,14 @@ namespace TestFu.Data
         /// <summary>
         /// Updates randomly a number of rows
         /// </summary>
-        /// <param name="row"></param>
+        /// <param name="row">The row to update.</param>
         void ChangeRowValues(DataRow row);
 
         /// <summary>
         /// Updates randomly a number of rows
         /// </summary>
-        /// <param name="row"></param>
+        /// <param name="row">The row to update.</param>
+        /// <param name="updateForeignKeys">Flag to update any foreign keys.</param>
         void ChangeRowValues(DataRow row, bool updateForeignKeys);
 
         /// <summary>

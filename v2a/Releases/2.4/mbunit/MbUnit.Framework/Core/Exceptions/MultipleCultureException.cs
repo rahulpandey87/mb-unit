@@ -49,6 +49,7 @@ namespace MbUnit.Core.Exceptions
 		/// Creates an exception with a message
 		/// and an inner exception.
 		/// </summary>
+        /// <param name="culture">The <see cref="CultureInfo"/> to use.</param>
 		/// <param name="message">Error message</param>
 		/// <param name="ex">Inner exception</param>
 		public MultipleCultureException(CultureInfo culture, String message, Exception ex)

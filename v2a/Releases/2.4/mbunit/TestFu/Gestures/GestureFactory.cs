@@ -194,9 +194,8 @@ namespace TestFu.Gestures
         /// <returns>
         /// A <see cref="ClickMouseGesture"/> instance
         /// </returns>
-        /// <param name="control">
-        /// Control to click
-        /// </param>
+        /// <param name="control">The control to click.</param>
+        /// <param name="buttons">Which button(s) to use.</param>
         public SequenceGesture MouseClick(Control control, MouseButtons buttons)
         {
             return Sequence(

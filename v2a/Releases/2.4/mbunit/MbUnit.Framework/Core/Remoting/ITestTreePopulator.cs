@@ -45,10 +45,10 @@ namespace MbUnit.Core.Remoting
 		/// Populates the node using the <see cref="RunPipe"/> instance
 		/// contained in <paramref name="pipes"/>.
 		/// </summary>
+        /// <param name="nodes">A node dictionary.</param>
+        /// <param name="root">The root node.</param>
+        /// <param name="pipes">A collection of pipes.</param>
 		/// <exception cref="ArgumentNullException">
-		/// <param name="nodes">
-		/// node dictionary
-		/// </param>
 		/// <paramref name="root"/> or <paramref name="pipes"/> is a null
 		/// reference (Nothing in Visual Basic)
 		/// </exception>

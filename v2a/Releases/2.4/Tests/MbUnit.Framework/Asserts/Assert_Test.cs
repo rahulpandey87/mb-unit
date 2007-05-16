@@ -41,7 +41,7 @@ namespace MbUnit.Framework.Tests.Asserts
             {
                 Assert.Fail();
             }
-            catch (AssertionException ex)
+            catch (AssertionException)
             {
                 bolPass = false;
             }

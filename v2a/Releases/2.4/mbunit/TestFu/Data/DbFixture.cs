@@ -23,9 +23,9 @@ namespace TestFu.Data
 		/// <summary>
 		/// Initializes a <see cref="DbFixture"/> with a connection string.
 		/// </summary>
-		/// <param name="connectionString">
-		/// Connection string for accessing the test database.
-		/// </param>
+		/// <param name="connectionString">Connection string for accessing the test database.</param>
+        /// <param name="databaseName">The name of the database to use.</param>
+        /// <param name="factory">The factory to use.</param>
 		/// <exception cref="ArgumentNullException">
 		/// <paramref name="connectionString"/> is a null reference
 		/// (Nothing in Visual Basic)

@@ -25,7 +25,6 @@ namespace QuickGraph.Algorithms.MinimumFlow
         private ReversedEdgeAugmentorAlgorithm reverser=null;
         private GraphBalancerAlgorithm balancer=null;
         private MaximumFlowAlgorithm maxFlowF1 = null;
-        private MaximumFlowAlgorithm maxFlowf2 = null;
 
         public MinimumFlowAlgorithm(
             BidirectionalGraph visitedGraph, 

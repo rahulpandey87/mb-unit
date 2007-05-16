@@ -7,7 +7,6 @@ namespace MbUnit.Framework.Tests.FrameworkBridges
     [TestFixture]
     public class NUnitFixture
     {
-        private StringWriter writer;
         [TestFixtureSetUp]
         public void TestFixtureSetUp()
         {

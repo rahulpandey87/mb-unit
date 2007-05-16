@@ -21,12 +21,9 @@ namespace TestFu.Data
 		/// <summary>
 		/// Initializes an instance of <see cref="DbAdministratorBase"/> with the connection string.
 		/// </summary>
-		/// <param name="connectionString">
-		/// Connection string to the SQL server without initial catalog
-		/// </param>
-		/// <param name="databaseName">
-		/// Catalog name
-		/// </param>
+		/// <param name="connectionString">Connection string to the SQL server without initial catalog</param>
+		/// <param name="databaseName">Catalog name</param>
+        /// <param name="factory">The factory to use.</param>
 		/// <exception cref="ArgumentNullException">
 		/// <paramref name="connectionString"/> is a null reference (Nothing in Visual Basic)
 		/// </exception>
@@ -229,9 +226,11 @@ namespace TestFu.Data
 		/// <summary>
 		/// Executes a non-query in a safe, transactional environement.
 		/// </summary>
+        /// <param name="connString">The connection string.</param>
 		/// <param name="query">
 		/// Query to execute.
 		/// </param>
+        /// <param name="args">Optional arguments.</param>
 		public virtual int ExecuteNonQuery(string connString, string query, params object[] args)
 		{
 			if(query==null)

@@ -183,25 +183,25 @@ namespace MbUnit.Forms
                 this.EnableStopButton();
         }
 
-        protected void EnableRunButton()
+        private void EnableRunButton()
         {
             this.stopButton.Enabled = false;
             this.runButton.Enabled = true;
         }
 
-        protected void EnableResumeButton()
+        private void EnableResumeButton()
         {
             this.stopButton.Enabled = false;
             this.runButton.Enabled = false;
         }
 
-        protected void EnableStopButton()
+        private void EnableStopButton()
         {
             this.stopButton.Enabled = true;
             this.runButton.Enabled = false;
         }
 
-        protected void DisableButtons()
+        private void DisableButtons()
         {
             this.stopButton.Enabled = false;
             this.runButton.Enabled = false;
