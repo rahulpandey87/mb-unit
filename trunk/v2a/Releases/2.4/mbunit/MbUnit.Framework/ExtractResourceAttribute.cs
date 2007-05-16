@@ -14,7 +14,7 @@ namespace MbUnit.Framework
 	/// </p>
 	/// </summary>
 	/// <remarks>
-	/// <p>For example.</p>
+	/// <p>For example:</p>
 	/// <code>
 	/// [Test]
 	///	[ExtractResource("MyAssembly.Test.txt", "Test.txt")]
@@ -33,7 +33,6 @@ namespace MbUnit.Framework
 	///   Assert.IsNotNull(ExtractResourceAttribute.Stream);
 	/// }
 	/// </code>
-	/// </p>
 	/// </remarks>
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
 	public class ExtractResourceAttribute : DecoratorPatternAttribute

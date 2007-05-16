@@ -92,8 +92,7 @@ namespace MbUnit.Framework
         }
 
         /// <summary>
-        /// Invokes <see cref="Test"/> using the parameters returned by 
-        /// <see cref="GetParameters"/>.
+        /// Invokes test using the parameters returned by <see cref="GetParameters"/>.
         /// </summary>
         /// <returns></returns>
         public virtual object Invoke(Object o, IList args)

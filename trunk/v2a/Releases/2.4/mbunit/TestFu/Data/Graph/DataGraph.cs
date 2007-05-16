@@ -258,6 +258,7 @@ namespace TestFu.Data.Graph
 		/// </summary>
 		/// <param name="source">Source vertex</param>
 		/// <param name="target">Target vertex</param>
+        /// <param name="relation">Relation</param>
 		/// <returns>Created Edge</returns>
 		/// <exception cref="ArgumentNullException">
 		/// source or target is a null reference
