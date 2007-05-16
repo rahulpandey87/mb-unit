@@ -208,6 +208,7 @@ namespace MbUnit.Forms
 			this.typeTree.Size = new System.Drawing.Size(488, 344);
 			this.typeTree.TabIndex = 0;
 			this.typeTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.typeTree_AfterSelect);
+            this.typeTree.Sorted = true;
 			// 
 			// treeContextMenu
 			// 
