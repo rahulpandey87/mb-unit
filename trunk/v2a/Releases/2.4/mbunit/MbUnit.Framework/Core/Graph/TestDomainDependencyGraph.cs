@@ -36,6 +36,7 @@ using QuickGraph.Concepts;
 using QuickGraph.Collections;
 
 using MbUnit.Core.Cons.CommandLine;
+using MbUnit.Core.Config;
 using MbUnit.Core.Remoting;
 using MbUnit.Core.Reports.Serialization;
 using MbUnit.Core.Filters;
@@ -298,20 +299,17 @@ namespace MbUnit.Core.Graph
                 {
                     if (testAssembly.EndsWith(".mbunit"))
                     {
-                        XmlDocument xdoc = new XmlDocument();
-                        xdoc.Load(testAssembly);
-                        XmlNodeList nodes = xdoc.SelectNodes("MbUnitProject/assemblies/assembly");
-                        foreach (XmlNode xnode in nodes)
+                        MbUnitProject project = MbUnitProject.Load(testAssembly);
+                        foreach (string assembly in project.Assemblies)
                         {
-                            if (loadedAssemblies.Contains(xnode.InnerText))
+                            if (loadedAssemblies.Contains(assembly))
                                 continue;
 
-                            TestDomain domain = new TestDomain(xnode.InnerText);
-
+                            TestDomain domain = new TestDomain(assembly);
                             domain.Filter = fixtureFilter;
                             domain.RunPipeFilter = runPipeFilter;
                             graph.AddDomain(domain);
-                            loadedAssemblies.Add(xnode.InnerText, null);
+                            loadedAssemblies.Add(assembly, null);
                         }
                     }
                     else
@@ -320,7 +318,6 @@ namespace MbUnit.Core.Graph
                             continue;
 
                         TestDomain domain = new TestDomain(testAssembly);
-
                         domain.Filter = fixtureFilter;
                         domain.RunPipeFilter = runPipeFilter;
                         graph.AddDomain(domain);
