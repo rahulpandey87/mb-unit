@@ -29,8 +29,6 @@ namespace MbUnit.Forms
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
 
-            this.stopButton.Enabled = false;
-            this.runButton.Enabled = true;
             this.controlEnabler= new EnableControlDelegate(this.EnableControl);
         }
 
@@ -89,9 +87,9 @@ namespace MbUnit.Forms
             this.runButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-// 
-// groupBox1
-// 
+            // 
+            // groupBox1
+            // 
             this.groupBox1.Controls.Add(this.testProgressBar);
             this.groupBox1.Controls.Add(this.stopButton);
             this.groupBox1.Controls.Add(this.runButton);
@@ -101,9 +99,9 @@ namespace MbUnit.Forms
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tests";
-// 
-// testProgressBar
-// 
+            // 
+            // testProgressBar
+            // 
             this.testProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -117,9 +115,10 @@ namespace MbUnit.Forms
             this.testProgressBar.SuccessColor = System.Drawing.Color.Green;
             this.testProgressBar.TabIndex = 2;
             this.testProgressBar.Tree = null;
-// 
-// stopButton
-// 
+            // 
+            // stopButton
+            // 
+            this.stopButton.Enabled = false;
             this.stopButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.stopButton.Location = new System.Drawing.Point(119, 24);
             this.stopButton.Name = "stopButton";
@@ -127,9 +126,10 @@ namespace MbUnit.Forms
             this.stopButton.TabIndex = 1;
             this.stopButton.Text = "Stop";
             this.stopButton.Click += new System.EventHandler(this.stopButton_Click);
-// 
-// runButton
-// 
+            // 
+            // runButton
+            // 
+            this.runButton.Enabled = false;
             this.runButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.runButton.Location = new System.Drawing.Point(8, 24);
             this.runButton.Name = "runButton";
@@ -137,9 +137,9 @@ namespace MbUnit.Forms
             this.runButton.TabIndex = 0;
             this.runButton.Text = "Run";
             this.runButton.Click += new System.EventHandler(this.runButton_Click);
-// 
-// TestRunControl
-// 
+            // 
+            // TestRunControl
+            // 
             this.Controls.Add(this.groupBox1);
             this.Name = "TestRunControl";
             this.Size = new System.Drawing.Size(480, 112);
@@ -217,10 +217,13 @@ namespace MbUnit.Forms
 
         void treeView_TreePopulated(object sender, EventArgs e)
         {
-            if (this.InvokeRequired)
-                this.Invoke(new MethodInvoker(this.EnableRunButton));
-            else
-                this.EnableRunButton();
+            if (this.treeView.Nodes.Count > 0)
+            {
+                if (this.InvokeRequired)
+                    this.Invoke(new MethodInvoker(this.EnableRunButton));
+                else
+                    this.EnableRunButton();
+            }
         }
 
         public delegate void EnableControlDelegate(Control control, bool enabledState);
