@@ -453,7 +453,7 @@ namespace MbUnit.Core.Remoting
                 }
 
                 // fail all starters
-                FixtureSetUpFailedException setUpEx = new FixtureSetUpFailedException();
+                FixtureSetUpFailedException setUpEx = new FixtureSetUpFailedException(ex);
                 FailStarters(fixture, monitor, setUpEx);
 
                 // add error message
