@@ -197,6 +197,10 @@ namespace MbUnit.Core.Remoting
                 this.SetUpTestEngine();
                 this.SetFilters();
             }
+            catch (System.Threading.ThreadAbortException tae)
+            {
+                throw tae;
+            }
             catch (Exception ex)
             {
                 this.Unload();
@@ -210,6 +214,10 @@ namespace MbUnit.Core.Remoting
             {
                 this.TestEngine.Populate();
                 this.OnLoaded();
+            }
+            catch (System.Threading.ThreadAbortException tae)
+            {
+                throw tae;
             }
             catch (Exception ex)
             {
@@ -227,6 +235,10 @@ namespace MbUnit.Core.Remoting
             {
                 this.InitializeEngine();
                 this.PopulateEngine();
+            }
+            catch (System.Threading.ThreadAbortException tae)
+            {
+                throw tae;
             }
             catch (Exception ex)
             {
@@ -251,6 +263,10 @@ namespace MbUnit.Core.Remoting
                 this.Unload();
                 this.Load();
                 this.OnReLoaded();
+            }
+            catch (System.Threading.ThreadAbortException tae)
+            {
+                throw tae;
             }
             catch (Exception ex)
             {
