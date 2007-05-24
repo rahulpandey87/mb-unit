@@ -855,6 +855,9 @@ namespace MbUnit.Forms
 				return;
 
 			LoadProject(dlg.FileName);
+            
+            // populate tree
+            this.ThreadedPopulateTree(false);
 		}
 
 		public void LoadProject(string fileName)
@@ -878,8 +881,6 @@ namespace MbUnit.Forms
 				}
 				// setting state
 				this.state.Load(project.TreeState);
-				// loading assemblies
-				this.ThreadedPopulateTree(false);
 			}
 			catch(Exception ex)
 			{
