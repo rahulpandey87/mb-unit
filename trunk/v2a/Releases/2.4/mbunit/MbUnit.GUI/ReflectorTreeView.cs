@@ -854,17 +854,20 @@ namespace MbUnit.Forms
 			if (dlg.ShowDialog() != DialogResult.OK)
 				return;
 
-			LoadProject(dlg.FileName);
+			LoadProject(dlg.FileName, false);
             
             // populate tree
             this.ThreadedPopulateTree(false);
 		}
 
-		public void LoadProject(string fileName)
+		public void LoadProject(string fileName, bool silent)
 		{
 			if (!File.Exists(fileName))
 			{
-				MessageBox.Show("Could not find file");
+                if (!silent)
+                {
+                    MessageBox.Show("Could not find file");
+                }
 				return;
 			}
 

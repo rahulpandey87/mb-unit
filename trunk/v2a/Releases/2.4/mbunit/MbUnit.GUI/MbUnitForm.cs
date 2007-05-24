@@ -632,10 +632,10 @@ namespace MbUnit.GUI
 		}
 		#endregion
 
-        public delegate void LoadProjectDelegate(string fileName);
-        private void LoadProjectInvoker(string fileName)
+        public delegate void LoadProjectDelegate(string fileName, bool silent);
+        private void LoadProjectInvoker(string fileName, bool silent)
         {
-            this.treeView.LoadProject(fileName);
+            this.treeView.LoadProject(fileName, silent);
         }
 
         public void ExecuteArguments()
@@ -661,7 +661,7 @@ namespace MbUnit.GUI
                         if (fileName.ToLower().EndsWith(".mbunit"))
                         {
                             this.Invoke(new LoadProjectDelegate(this.LoadProjectInvoker),
-                                new object[] { fileName });
+                                new object[] { fileName, false });
                             break;
                         }
                         this.treeView.AddAssembly(fileName);
@@ -672,7 +672,7 @@ namespace MbUnit.GUI
                 if (ConfigurationSettings.AppSettings["restorePreviousState"] == "true" && this.noArgs)
                 {
                     this.Invoke(new LoadProjectDelegate(this.LoadProjectInvoker),
-                            new object[] { previousSettings });
+                            new object[] { previousSettings, true });
                     return;
                 }
 
