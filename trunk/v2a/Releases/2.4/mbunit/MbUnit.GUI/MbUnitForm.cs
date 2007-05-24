@@ -72,6 +72,11 @@ namespace MbUnit.GUI
 		private System.Timers.Timer statusBarTimer;
 
         private string windowTitle = string.Empty;
+
+        private bool noArgs;
+        private string previousSettings = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            @"MbUnit\PreviousState.mbunit");
+
         
 		public MbUnitForm()
 		{
@@ -663,6 +668,14 @@ namespace MbUnit.GUI
                     }
                 }
 
+                // load last settings
+                if (ConfigurationSettings.AppSettings["restorePreviousState"] == "true" && this.noArgs)
+                {
+                    this.Invoke(new LoadProjectDelegate(this.LoadProjectInvoker),
+                            new object[] { previousSettings });
+                    return;
+                }
+
                 // populate tree
                 this.treeView.ThreadedPopulateTree(false);
                 while (treeView.WorkerThreadAlive)
@@ -722,6 +735,10 @@ namespace MbUnit.GUI
             try
             {
                 this.arguments = new MbUnitFormArguments();
+                if (args.Length == 0)
+                {
+                    this.noArgs = true;
+                }
                 CommandLineUtility.ParseCommandLineArguments(args, arguments);
             }
             catch (Exception)
@@ -760,6 +777,18 @@ namespace MbUnit.GUI
         public void ClearReports()
         {
             this.testResult.ClearReports();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            if (ConfigurationSettings.AppSettings["restorePreviousState"] == "true")
+            {
+                // save current state
+                this.treeView.SaveProject(previousSettings);
+            }
+
+            // call base behaviour
+            base.OnClosing(e);
         }
 	}
 }
