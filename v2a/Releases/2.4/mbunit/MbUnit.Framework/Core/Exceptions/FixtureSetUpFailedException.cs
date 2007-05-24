@@ -30,8 +30,8 @@ namespace MbUnit.Core.Exceptions
 {
     public sealed class FixtureSetUpFailedException : ApplicationException
     {
-        public FixtureSetUpFailedException()
-            :base("Fixture SetUp Failed. See FixtureSetUp log")
+        public FixtureSetUpFailedException(Exception innerException)
+            : base("TestFixtureSetUp failed.", innerException)
         {}
     }
 }
