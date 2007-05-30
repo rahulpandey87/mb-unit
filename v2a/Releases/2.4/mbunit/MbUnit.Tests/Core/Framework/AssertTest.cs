@@ -238,6 +238,33 @@ namespace MbUnit.Tests.Core.Framework
 			ArrayList list2 = new ArrayList();
 			Assert.AreSame(list,list2);
         }
+
+        [Test]
+        public void AreEqual_EqualIntArrays()
+        {
+            Assert.AreEqual(new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 });
+        }
+
+        [Test]
+        public void AreEqual_EqualStringArrays()
+        {
+            Assert.AreEqual(new string[] { "1", "2", "3" }, new string[] { "1", "2", "3" });
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreEqual_UnEqualIntArrays()
+        {
+            Assert.AreEqual(new int[] { 1, 2, 3 }, new int[] { 1, 2, 4});
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreEqual_UnEqualSizeIntArrays()
+        {
+            Assert.AreEqual(new int[0], new int[] { 1, 2});
+        }
+
         #endregion
 
         #region Between
