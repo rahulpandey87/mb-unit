@@ -284,45 +284,67 @@ namespace MbUnit.Framework
             IEnumerable actual
             )
         {
-            if (expected == null && actual == null)
-                return;
+            string failMessage;
+            bool areEqual = ElementsEqual(expected, actual, out failMessage);
+            if (!areEqual) Assert.Fail(failMessage);
+        }
 
+        /// <summary>
+        /// Verifies that <paramref name="expected"/> and <paramref name="actual"/>
+        /// are equal collections. Element count and element wize equality is verified.
+        /// </summary>
+        /// <param name="expected">
+        /// Expected value.
+        /// </param>
+        /// <param name="actual">
+        /// Instance containing the tested value.
+        /// </param>
+        /// <param name="failMessage">
+        /// Reason for unequality.
+        /// </param> 
+        internal static bool ElementsEqual(IEnumerable expected, IEnumerable actual, out string failMessage)
+        {
+            failMessage = string.Empty;
+            if (expected == null && actual == null)
+                return true;
             Assert.IsNotNull(expected);
             Assert.IsNotNull(actual);
 
-            IEnumerator expectedEn = null;
-            IEnumerator actualEn = null;
+            IEnumerator expectedEnumerator = null;
+            IEnumerator actualEnumerator = null;
             try
             {
-                expectedEn = expected.GetEnumerator();
-                actualEn = actual.GetEnumerator();
+                expectedEnumerator = expected.GetEnumerator();
+                actualEnumerator = actual.GetEnumerator();
 
-                bool exMoveNext;
-                bool acMoveNext;
+                bool expectedHasElement;
                 do
                 {
-                    exMoveNext = expectedEn.MoveNext();
-                    acMoveNext = actualEn.MoveNext();
-                    Assert.AreEqual(exMoveNext, acMoveNext,
-                                    "Collection do not have the same number of elements");
-
-                    if (exMoveNext)
+                    expectedHasElement = expectedEnumerator.MoveNext();
+                    bool actualHasElement = actualEnumerator.MoveNext();
+                    if(expectedHasElement != actualHasElement)
                     {
-                        Assert.AreEqual(expectedEn.Current, actualEn.Current,
-                                        "Element of the collection different");
+                        failMessage = "Collection do not have the same number of elements";
+                        return false;
                     }
-                } while (exMoveNext);
-            }
-            catch (Exception)
-            {
-                throw;
+                    if (expectedHasElement)
+                    {
+                        bool equalElements = Assert.ObjectsEqual(expectedEnumerator.Current, actualEnumerator.Current);
+                        if(!equalElements)
+                        {
+                            failMessage = "Element of the collection different";
+                            return false;
+                        }
+                    }
+                } while (expectedHasElement);
+                return true;
             }
             finally
             {
-                IDisposable disp = expectedEn as IDisposable;
+                IDisposable disp = expectedEnumerator as IDisposable;
                 if (disp != null)
                     disp.Dispose();
-                disp = actualEn as IDisposable;
+                disp = actualEnumerator as IDisposable;
                 if (disp != null)
                     disp.Dispose();
 

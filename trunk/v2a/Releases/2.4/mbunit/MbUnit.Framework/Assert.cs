@@ -118,7 +118,7 @@ namespace MbUnit.Framework
         /// <param name="expected"></param>
         /// <param name="actual"></param>
         /// <returns></returns>
-        static private bool ObjectsEqual(Object expected, Object actual)
+        static internal bool ObjectsEqual(Object expected, Object actual)
         {
             if (IsNumericType(expected) &&
                 IsNumericType(actual))
@@ -132,7 +132,15 @@ namespace MbUnit.Framework
                 string sActual = actual.ToString();
                 return sExpected.Equals(sActual);
             }
-            return expected.Equals(actual);
+            else if(expected.GetType().IsArray && actual.GetType().IsArray)
+            {
+                string failMessage;
+                return CollectionAssert.ElementsEqual((IEnumerable) expected, (IEnumerable) actual, out failMessage);
+            }
+            else
+            {
+                return expected.Equals(actual);    
+            }
         }
         #endregion
 
@@ -479,7 +487,6 @@ namespace MbUnit.Framework
 
             if (expected != null && actual != null)
             {
-
                 if (ObjectsEqual(expected, actual))
                 {
                     return;
