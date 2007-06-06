@@ -34,8 +34,8 @@ namespace MbUnit.Framework.Reflection
         /// </summary>
         /// <param name="assemblyName"></param>
         /// <param name="className"></param>
-        public Reflector(string assemblyName, string className)
-            : this(assemblyName, className, null)
+        public Reflector(string assemblyName, string typeName)
+            : this(assemblyName, typeName, null)
         {
         }
 
@@ -44,23 +44,9 @@ namespace MbUnit.Framework.Reflection
         /// </summary>
         /// <param name="assemblyName"></param>
         /// <param name="className"></param>
-        public Reflector(string assemblyName, string className, params object[] args)
+        public Reflector(string assemblyName, string typeName, params object[] args)
         {
-            Assembly a = Assembly.Load(assemblyName);
-            Type type = a.GetType(className);
-            if (args != null)
-            {
-                Type[] argTypes = new Type[args.Length];
-                for (int ndx = 0; ndx < args.Length; ndx++)
-                    argTypes[ndx] = (args[ndx] == null) ? typeof(object) : args[ndx].GetType();
-
-                ConstructorInfo ci = type.GetConstructor(
-                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
-                    , null, argTypes, null);
-                _obj = ci.Invoke(args);
-            }
-            else
-                _obj = Activator.CreateInstance(type);
+            _obj = CreateInstance(assemblyName, typeName, args);
         }
 
         /// <summary>
