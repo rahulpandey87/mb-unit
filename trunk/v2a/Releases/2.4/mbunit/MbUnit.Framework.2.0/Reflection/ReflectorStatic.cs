@@ -9,6 +9,43 @@ namespace MbUnit.Framework.Reflection
     public partial class Reflector
     {
         /// <summary>
+        /// Create Instance
+        /// </summary>
+        /// <param name="assemblyName">Full assembly path.</param>
+        /// <param name="className">Type Name such as (System.String)</param>
+        /// <returns>Newly created object.</returns>
+        public static object CreateInstance(string assemblyName, string typeName)
+        {
+            return CreateInstance(assemblyName, typeName, null);
+        }
+
+        /// <summary>
+        /// Create Instance
+        /// </summary>
+        /// <param name="assemblyName">Full assembly path.</param>
+        /// <param name="className">Type Name such as (System.String)</param>
+        /// <param name="args">Constructor parameters.</param>
+        /// <returns>Newly created object.</returns>
+        public static object CreateInstance(string assemblyName, string typeName, params object[] args)
+        {
+            object obj = null;
+            Type[] argTypes = Type.EmptyTypes;
+            Assembly a = Assembly.Load(assemblyName);
+            Type type = a.GetType(typeName);
+            if (args != null)
+            {
+                argTypes = new Type[args.Length];
+                for (int ndx = 0; ndx < args.Length; ndx++)
+                    argTypes[ndx] = (args[ndx] == null) ? typeof(object) : args[ndx].GetType();
+            }
+            ConstructorInfo ci = type.GetConstructor(
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+                , null, argTypes, null);
+            obj = ci.Invoke(args);
+            return obj;
+        }
+
+        /// <summary>
         /// Get public, non-public, or static field value.
         /// </summary>
         /// <param name="obj">Object where field is defined.</param>
