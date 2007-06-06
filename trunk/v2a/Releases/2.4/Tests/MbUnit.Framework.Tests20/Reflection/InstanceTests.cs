@@ -26,6 +26,26 @@ namespace MbUnit.Framework.Tests20.Reflection
             Reflector reflector = new Reflector(null);
         }
 
+        [Test]
+        public void CreateInstanceWithDefaultConstructor()
+        {
+            string className = "System.Number";
+            Reflector reflector = new Reflector(ReflectorStaticTests.MSCorLibAssembly, className);
+            Assert.IsNotNull(reflector);
+            Assert.AreEqual(true, reflector.InvokeMethod("IsWhite", ' '));
+            Assert.AreEqual(false, reflector.InvokeMethod("IsWhite", 'V'));
+        }
+
+        [Test]
+        public void CreateInstanceWithParametizedConstructor()
+        {
+            string className = "System.Collections.KeyValuePairs";
+            Reflector reflector = new Reflector(ReflectorStaticTests.MSCorLibAssembly, className, 1, 'A');
+            Assert.IsNotNull(reflector);
+            Assert.AreEqual(1, reflector.GetProperty("Key"));
+            Assert.AreEqual('A', reflector.GetProperty("Value"));
+        }
+
         #region GetField Tests
         [Test]
         public void GetPublicField_DefaultAccessibility()
