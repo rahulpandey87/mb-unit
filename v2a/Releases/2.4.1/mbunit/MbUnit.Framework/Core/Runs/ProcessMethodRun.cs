@@ -101,8 +101,15 @@ namespace MbUnit.Core.Runs
 			RunInvokerVertex parent, 
 			Type t
 			)
-		{	
-			// first gather all methods, with order.
+		{
+            // Try and find setup method
+            MethodRunInvoker setup = null;
+            if (TypeHelper.HasMethodCustomAttribute(t, typeof(SetUpAttribute)))
+            {
+                setup = new MethodRunInvoker(this, TypeHelper.GetAttributedMethod(t, typeof(SetUpAttribute)));
+            }
+
+			// Gather all methods, with order.
 			ArrayList methods = new ArrayList();
 			foreach(MethodInfo mi in 
 					TypeHelper.GetAttributedMethods(t,this.AttributeType))
@@ -116,13 +123,25 @@ namespace MbUnit.Core.Runs
 			// sort the methods
 			QuickSorter sorter = new QuickSorter();
 			sorter.Sort(methods);
-			
+
+            // Try and find teardown method
+            MethodRunInvoker teardown = null;
+            if (TypeHelper.HasMethodCustomAttribute(t, typeof(TearDownAttribute)))
+            {
+                teardown = new MethodRunInvoker(this, TypeHelper.GetAttributedMethod(t, typeof(TearDownAttribute)));
+            }
+
 			// populate execution tree.
 			RunInvokerVertex child = parent;
 			foreach(OrderedMethod om in methods)
 			{
-				IRunInvoker invoker = InstanceInvoker(om.Method);
-				child = tree.AddChild(child,invoker);
+                if (setup != null)
+                    child = tree.AddChild(child, setup);
+
+				child = tree.AddChild(child, InstanceInvoker(om.Method));
+
+                if (teardown != null)
+                    child = tree.AddChild(child, teardown);
 			}				
 		}
 

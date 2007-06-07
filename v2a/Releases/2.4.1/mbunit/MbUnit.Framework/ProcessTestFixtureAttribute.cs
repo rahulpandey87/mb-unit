@@ -63,19 +63,11 @@ namespace MbUnit.Framework
 		{
 			SequenceRun runs = new SequenceRun();
 			
-			// setup
-			OptionalMethodRun setup = new OptionalMethodRun(typeof(SetUpAttribute),false);
-			runs.Runs.Add( setup );
-			
 			// process tests
 			ProcessMethodRun test = new ProcessMethodRun(typeof(TestSequenceAttribute));
 			runs.Runs.Add(test);
 			
-			// tear down
-			OptionalMethodRun tearDown = new OptionalMethodRun(typeof(TearDownAttribute),false);
-			runs.Runs.Add(tearDown);
-			
-			return runs;						
+			return runs;
 		}
 	}
 }
