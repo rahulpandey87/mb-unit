@@ -40,7 +40,7 @@ namespace MbUnit.Core.Remoting
 		private IDictionary states = new Hashtable();
 		private TreeView tree;
 		private UpdateTreeNodeDelegate updateNode;
-
+        
 		public delegate void UpdateTreeNodeDelegate(TreeNodeState old, UnitTreeNode node);
 
 		public UnitTreeViewState(TreeView tree,UpdateTreeNodeDelegate updateNode)
@@ -91,7 +91,7 @@ namespace MbUnit.Core.Remoting
 			}
 			else
 			{
-				if (node.IsExpanded || node.IsVisible)
+				if (node.IsExpanded || node.IsVisible || node.IsSelected)
 					this.states[node.FullPath]=new TreeNodeState(node);
 			}
 			base.VisitNode(node);

@@ -209,6 +209,7 @@ namespace MbUnit.Forms
 			this.typeTree.TabIndex = 0;
 			this.typeTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.typeTree_AfterSelect);
             this.typeTree.Sorted = true;
+            this.typeTree.HideSelection = false;
 			// 
 			// treeContextMenu
 			// 
@@ -500,6 +501,8 @@ namespace MbUnit.Forms
 				node.EnsureVisible();
 			if (old.IsExpanded)
 				node.Expand();
+            if (old.IsSelected)
+                this.typeTree.SelectedNode = node;
 		}
 
 		public void ClearTree()
@@ -525,7 +528,7 @@ namespace MbUnit.Forms
 				this.MessageOnStatusBar("Populate tree");
 				this.typeTree.Invoke(new MethodInvoker(this.typeTree.BeginUpdate));
 				this.TestDomains.PopulateChildTree(this.typeTree,this.Facade);
-				this.typeTree.Invoke(new MethodInvoker(this.typeTree.EndUpdate));
+                this.typeTree.Invoke(new MethodInvoker(this.typeTree.EndUpdate));
 				this.MessageOnStatusBar("Tree populated");
 				this.state.Load();
 				this.MessageOnStatusBar("Previous state loaded");
