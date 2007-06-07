@@ -36,6 +36,7 @@ namespace MbUnit.Core.Config
 		private string fullPath;
 		private bool isVisible;
 		private bool isExpanded;
+        private bool isSelected;
 
 		public TreeNodeState()
 		{}
@@ -45,6 +46,7 @@ namespace MbUnit.Core.Config
 			this.fullPath=node.FullPath;
 			this.isExpanded=node.IsExpanded;
 			this.isVisible=node.IsVisible;
+            this.isSelected = node.IsSelected;
 		}
 
 		[XmlAttribute("FullPath")]
@@ -85,5 +87,18 @@ namespace MbUnit.Core.Config
 				this.isExpanded=value;
 			}
 		}
+
+        [XmlAttribute("IsSelected")]
+        public bool IsSelected
+        {
+            get
+            {
+                return this.isSelected;
+            }
+            set
+            {
+                this.isSelected = value;
+            }
+        }
 	}
 }
