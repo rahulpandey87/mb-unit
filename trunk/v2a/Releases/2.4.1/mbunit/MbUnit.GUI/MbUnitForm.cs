@@ -783,6 +783,15 @@ namespace MbUnit.GUI
         {
             if (ConfigurationSettings.AppSettings["restorePreviousState"] == "true")
             {
+                // ensure the folder exists
+                // (There is similar code when running reports from the GUI to create a folder for the images.)
+                string directory = Path.GetDirectoryName(previousSettings);
+                if (directory.Length > 0)
+                {
+                    if (!Directory.Exists(directory))
+                        Directory.CreateDirectory(directory);
+                }
+                
                 // save current state
                 this.treeView.SaveProject(previousSettings);
             }
