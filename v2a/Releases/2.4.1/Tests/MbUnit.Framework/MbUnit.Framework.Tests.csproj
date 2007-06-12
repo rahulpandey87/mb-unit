@@ -79,6 +79,7 @@
     <Compile Include="Asserts\TypeAssert_Test.cs" />
     <Compile Include="Asserts\WebAssert_Test.cs" />
     <Compile Include="Core\CombinatorialTest2.cs" />
+    <Compile Include="Core\Config\MbUnitProjectTest.cs" />
     <Compile Include="Core\Cons\CommandLine\CommandLineUtilityTest.cs" />
     <Compile Include="Core\Cons\MainArgumentsTest.cs" />
     <Compile Include="Core\Cons\MainClassTest.cs" />

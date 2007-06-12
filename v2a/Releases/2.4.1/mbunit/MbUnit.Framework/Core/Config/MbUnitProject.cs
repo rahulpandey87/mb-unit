@@ -30,7 +30,9 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Collections;
 using System.Collections.Specialized;
+
 using MbUnit.Core.Remoting;
+using MbUnit.Core.Reports;
 
 namespace MbUnit.Core.Config
 {
@@ -67,6 +69,9 @@ namespace MbUnit.Core.Config
 
 		public static MbUnitProject Load(string fileName)
 		{
+            if (fileName == null)
+                throw new ArgumentException("fileName is null.");
+
 			XmlSerializer ser = new XmlSerializer(typeof(MbUnitProject));
 			using (StreamReader sr = new StreamReader(fileName))
 			{
@@ -77,6 +82,13 @@ namespace MbUnit.Core.Config
 
 		public void Save(string fileName)
 		{
+            if (fileName == null)
+                throw new ArgumentException("fileName is null.");
+
+            // Ensure the folder exists
+            ReportBase.DirectoryCheckCreate(Path.GetDirectoryName(fileName));
+
+            // Save serialized project
 			XmlSerializer ser = new XmlSerializer(typeof(MbUnitProject));
 			using (StreamWriter sw = new StreamWriter(fileName,false))
 			{

@@ -97,7 +97,7 @@ namespace MbUnit.Core.Reports
             return outputPath;
         }
 
-        private static void DirectoryCheckCreate(string outputPath)
+        public static void DirectoryCheckCreate(string outputPath)
         {
             if (!Directory.Exists(outputPath))
                 Directory.CreateDirectory(outputPath);
