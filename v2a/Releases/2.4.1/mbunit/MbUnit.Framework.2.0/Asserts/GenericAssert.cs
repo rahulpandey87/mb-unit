@@ -98,7 +98,7 @@ namespace MbUnit.Framework
              string formatted = string.Empty;
              if (format != null)
                  formatted = format + " ";
-             Assert.Fail(format + "expected not to be empty", args);
+             Assert.Fail(formatted + "expected not to be empty", args);
          }
 
         static private void FailIsNotEmpty<T>(ICollection<T> expected, string format, params object[] args)
@@ -106,7 +106,7 @@ namespace MbUnit.Framework
             string formatted = string.Empty;
             if (format != null)
                 formatted = format + " ";
-            Assert.Fail(format + "expected to be empty", args);
+            Assert.Fail(formatted + "expected to be empty", args);
         }
 
         #endregion
