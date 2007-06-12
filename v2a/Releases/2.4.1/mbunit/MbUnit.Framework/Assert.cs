@@ -2389,7 +2389,7 @@ namespace MbUnit.Framework
         static public void Greater(IComparable arg1,
             IComparable arg2, string message, params object[] args)
         {
-            Assert.GreaterThan(arg2, arg1, message, args);
+            Assert.GreaterThan(arg1, arg2, message, args);
         }
 
         /// <summary>
@@ -2421,7 +2421,7 @@ namespace MbUnit.Framework
 
         #endregion
 
-        #region GreateEqualThan
+        #region GreaterEqualThan
         /// <summary>
         /// Verifies that <paramref name="left"/> is greater than
         /// <paramref name="right"/>.
