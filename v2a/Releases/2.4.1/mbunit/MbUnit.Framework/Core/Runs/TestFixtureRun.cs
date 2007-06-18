@@ -37,6 +37,7 @@ namespace MbUnit.Core.Runs
 	/// </summary>
     [RunFactory(typeof(TestRun))]
     [RunFactory(typeof(RowRun))]
+    [RunFactory(typeof(RepeatRun))]
     [RunFactory(typeof(CombinatorialRun))]
     public sealed class TestFixtureRun : Run
 	{

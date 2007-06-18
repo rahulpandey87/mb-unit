@@ -75,6 +75,7 @@
     <Compile Include="Asserts\FileAssert_Test.cs" />
     <Compile Include="Asserts\IgnoreTest.cs" />
     <Compile Include="Asserts\ReflectionAssertTest.cs" />
+    <Compile Include="Asserts\RepeatTestFixture_Test.cs" />
     <Compile Include="Asserts\SerialAssertTest.cs" />
     <Compile Include="Asserts\TypeAssert_Test.cs" />
     <Compile Include="Asserts\WebAssert_Test.cs" />

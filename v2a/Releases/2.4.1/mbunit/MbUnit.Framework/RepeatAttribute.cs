@@ -34,6 +34,7 @@ namespace MbUnit.Framework
 	/// of times.
 	/// </summary>
 	/// <include file="MbUnit.Framework.Doc.xml" path="doc/remarkss/remarks[@name='RepeatAttribute']"/>
+    [Obsolete("This attribute has been replaced by the RepeatTestAttribute.")]
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
     public sealed class RepeatAttribute : DecoratorPatternAttribute
     {

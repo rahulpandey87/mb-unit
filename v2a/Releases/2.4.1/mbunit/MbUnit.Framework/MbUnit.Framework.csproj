@@ -171,6 +171,8 @@
     <Compile Include="CompositeFixtureAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\Runs\RepeatRun.cs" />
+    <Compile Include="RepeatTestAttribute.cs" />
     <Compile Include="Core\Exceptions\ExceptionExpectedMessageMismatchException.cs" />
     <Compile Include="Core\Exceptions\InnerExceptionTypeMismatchException.cs" />
     <Compile Include="Core\Invokers\ExplicitRunInvoker.cs" />
