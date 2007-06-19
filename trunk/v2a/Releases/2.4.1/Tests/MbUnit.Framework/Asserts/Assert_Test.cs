@@ -85,16 +85,34 @@ namespace MbUnit.Framework.Tests.Asserts
             Assert.AreEqual(0, 0);
         }
 
+        [Test, ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualIntFail()
+        {
+            Assert.AreEqual(0, 1);
+        }
+
         [Test]
         public void AreEqualIntDelta()
         {
             Assert.AreEqual(0, 1, 1);
         }
 
+        [Test, ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualIntDeltaFail()
+        {
+            Assert.AreEqual(0, 2, 1);
+        }
+
         [Test]
         public void AreEqualString()
         {
             Assert.AreEqual("hello", "hello");
+        }
+
+        [Test, ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualStringFail()
+        {
+            Assert.AreEqual("hello", "world");
         }
 
         [Test]
@@ -603,10 +621,41 @@ namespace MbUnit.Framework.Tests.Asserts
         #endregion
 
         #region Greater
+
         [Test]
         public void GreaterInt()
         {
             Assert.Greater(1, 0);
+        }
+
+        [Test]
+        public void GreaterIntWithMessage()
+        {
+            Assert.Greater(1, 0, "Int is not greater");
+        }
+
+        [Test]
+        public void GreaterIntWithMessageAndArgs()
+        {
+            Assert.Greater(1, 0, "{0} is not greater than {1}", 1, 0);
+        }
+
+        [Test]
+        public void GreaterUint()
+        {
+            Assert.Greater((uint)1, (uint)0);
+        }
+
+        [Test]
+        public void GreaterUintWithMessage()
+        {
+            Assert.Greater((uint)1, (uint)0, "Int is not greater");
+        }
+
+        [Test]
+        public void GreaterUintWithMessageAndArgs()
+        {
+            Assert.Greater((uint)1, (uint)0, "{0} is not greater than {1}", 1, 0);
         }
 
         [Test]
@@ -616,9 +665,51 @@ namespace MbUnit.Framework.Tests.Asserts
         }
 
         [Test]
+        public void GreaterShortWithMessage()
+        {
+            Assert.Greater((short)1, (short)0, "Short is not greater");
+        }
+
+        [Test]
+        public void GreaterShortWithMessageAndArgs()
+        {
+            Assert.Greater((short)1, (short)0, "{0} is not greater than {1}", (short)1, (short)0);
+        }
+        
+        [Test]
         public void GreaterByte()
         {
             Assert.Greater((byte)1, (byte)0);
+        }
+
+        [Test]
+        public void GreaterByteWithMessage()
+        {
+            Assert.Greater((byte)1, (byte)0, "Byte is not greater");
+        }
+
+        [Test]
+        public void GreaterByteWithMessageAndArgs()
+        {
+            Assert.Greater((byte)1, (byte)0, "{0} is not greater than {1}", (byte)0, (byte)1);
+        }
+
+        [Test]
+        public void GreaterDecimal()
+        {
+            Assert.Greater((decimal)1, (decimal)0);
+        }
+        
+        [Test]
+        public void GreaterDecimalWithMessage()
+        {
+            Assert.Greater((decimal)1, (decimal)0, "Decimal is not greater");
+        }
+
+        [Test]
+        public void GreaterDecimalWithMessageAndArgs()
+        {
+            Assert.Greater((decimal)1, (decimal)0, "{0} is not greater than {1}", (decimal)1, (decimal)0);
         }
 
         [Test]
@@ -628,15 +719,71 @@ namespace MbUnit.Framework.Tests.Asserts
         }
 
         [Test]
+        public void GreaterLongWithMessage()
+        {
+            Assert.Greater((long)1, (long)0, "Long is not greater");
+        }
+
+        [Test]
+        public void GreaterLongWithMessageAndArgs()
+        {
+            Assert.Greater((long)1, (long)0, "{0} is not greater than {1}", (long)1, (long)0);
+        }
+
+        [Test]
         public void GreaterDouble()
         {
             Assert.Greater((double)1, (double)0);
         }
 
         [Test]
+        public void GreaterDoubleWithMessage()
+        {
+            Assert.Greater((double)1, (double)0, "Double is not greater");
+        }
+
+        [Test]
+        public void GreaterDoubleWithMessageAndArgs()
+        {
+            Assert.Greater((double)1, (double)0, "{0} is not greater than {1}", (double)1, (double)0);
+        }
+
+        [Test]
         public void GreaterFloat()
         {
             Assert.Greater((float)1, (float)0);
+        }
+
+        [Test]
+        public void GreaterFloatWithMessage()
+        {
+            Assert.Greater((float)1, (float)0, "Float is not greater");
+        }
+
+        [Test]
+        public void GreaterFloatWithMessageAndArgs()
+        {
+            Assert.Greater((float)1, (float)0, "{0} is not greater than {1}", (float)1, (float)0);
+        }
+
+        [Test]
+        public void GreaterIComparable()
+        {
+            Assert.Greater(DateTime.Now, new DateTime(2000, 1, 1));
+        }
+
+        [Test]
+        public void GreaterIComparableWithMessage()
+        {
+            Assert.Greater(DateTime.Now, new DateTime(2000, 1, 1), "DateTime is not greater");
+        }
+
+        [Test]
+        public void GreaterIComparableWithMessageAndArgs()
+        {
+            DateTime actual = DateTime.Now;
+            DateTime expected = new DateTime(2000, 1, 1);
+            Assert.Greater(actual, expected, "{0} is not greater than {1}", actual, expected);
         }
 
         #endregion
@@ -918,6 +1065,16 @@ namespace MbUnit.Framework.Tests.Asserts
             string s = "MbUnit";
             string contain = "Unit";
             Assert.Contains(s, contain);
+        }
+
+        #endregion
+
+        #region Equals
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void Equals()
+        {
+            Assert.Equals(null, null);
         }
 
         #endregion
