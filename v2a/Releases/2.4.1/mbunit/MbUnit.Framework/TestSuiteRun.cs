@@ -10,7 +10,7 @@ namespace MbUnit.Framework
     internal sealed class TestSuiteRun : Run
     {
         public TestSuiteRun()
-                :base("TestSuite",true)
+            : base("TestSuite", true)
         { }
 
 
@@ -19,24 +19,26 @@ namespace MbUnit.Framework
             RunInvokerVertex parent,
             Type t)
         {
-            MethodInfo setUp = TypeHelper.GetAttributedMethod(t, typeof(SetUpAttribute));
-            MethodInfo tearDown = TypeHelper.GetAttributedMethod(t, typeof(TearDownAttribute));
-
-            // explore type for methods with TestSuite
-            foreach (MethodInfo mi in TypeHelper.GetAttributedMethods(
-                        t,
-                        typeof(TestSuiteAttribute)
-                        )
-                )
+            // create type instance and create test suite
+            Object fixture = null;
+            try
             {
-                // check signature
-                TypeHelper.CheckSignature(mi, typeof(ITestSuite));
+                fixture = TypeHelper.CreateInstance(t);
 
-                // create type instance and create test suite
-                Object fixture = null;
-                try
+                // run TestSuiteSetUp if necessary
+                MethodInfo testSuiteSetUp = TypeHelper.GetAttributedMethod(t, typeof(TestSuiteSetUpAttribute));
+                if (testSuiteSetUp != null)
+                    testSuiteSetUp.Invoke(fixture, null);
+
+                // look for SetUp & TearDown methods
+                MethodInfo setUp = TypeHelper.GetAttributedMethod(t, typeof(SetUpAttribute));
+                MethodInfo tearDown = TypeHelper.GetAttributedMethod(t, typeof(TearDownAttribute));
+
+                // explore type for methods with TestSuite
+                foreach (MethodInfo mi in TypeHelper.GetAttributedMethods(t, typeof(TestSuiteAttribute)))
                 {
-                    fixture = TypeHelper.CreateInstance(t);
+                    // check signature
+                    TypeHelper.CheckSignature(mi, typeof(ITestSuite));
 
                     // get test suite
                     ITestSuite suite = mi.Invoke(fixture, null) as ITestSuite;
@@ -45,18 +47,20 @@ namespace MbUnit.Framework
                     // populated tree down...
                     foreach (ITestCase tc in suite.TestCases)
                     {
-                        TestCaseRunInvoker invoker = new TestCaseRunInvoker(
-                            this, suite, tc, setUp, tearDown
-                            );
-                        tree.AddChild(parent, invoker);
+                        tree.AddChild(parent, new TestCaseRunInvoker(this, suite, tc, setUp, tearDown));
                     }
                 }
-                finally
-                {
-                    IDisposable disposable = fixture as IDisposable;
-                    if (disposable != null)
-                        disposable.Dispose();
-                }
+            }
+            catch (Exception ex)
+            {
+                TestSuiteGenerationFailedRunInvoker invoker = new TestSuiteGenerationFailedRunInvoker(this, ex);
+                tree.AddChild(parent, invoker);
+            }
+            finally
+            {
+                IDisposable disposable = fixture as IDisposable;
+                if (disposable != null)
+                    disposable.Dispose();
             }
         }
     }
