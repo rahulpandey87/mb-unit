@@ -77,48 +77,70 @@ namespace MbUnit.Framework
         /// <returns>The row of values.</returns>
         public Object[] GetRow(ParameterInfo[] parameters)
         {
-            // If the lenghts are different a TargetParameterCountException exception will be thrown
+            object[] args = new object[parameters.Length];
+
+            // If the lengths are different a TargetParameterCountException exception will be thrown
             if (row.Length == parameters.Length)
             {
                 for (int i = 0; i < row.Length; i++)
                 {
-                    // Skip nulls
-                    if (row[i] == null) continue;
-                    // If the current item in the row is a Type and the test method is expecting
-                    // an instance, then create one
-                    if (row[i] == parameters[i].ParameterType)
-                    {
-                        if (!parameters[i].ParameterType.IsEnum)
-                        {
-                            row[i] = TypeHelper.CreateInstance(parameters[i].ParameterType);
-                        }
-                    }
-                     //If the item is SpecialValue.Null then return null
-                    else if (row[i].GetType() == typeof(SpecialValue))
-                    //if (row[i].GetType() == typeof(SpecialValue))
-                    {
-                        row[i] = GetSpecialValue((SpecialValue)row[i]);
-                    }
-                    // Try to convert the type to the one expected by the test method
-                    else if ((row[i] as IConvertible) != null)
-                    {
-                        IFormatProvider formatProvider = GetFormatProvider(parameters[i].ParameterType);
-                        row[i] = Convert.ChangeType(row[i], parameters[i].ParameterType, formatProvider);
-                    }
+                    FormatParameter(parameters, args, i);
                 }
+                return args;
             }
-
-            return this.row;
+            else if (parameters[parameters.Length - 1].ParameterType == typeof(Object[]))
+            {
+                // Test function has params object[] argument
+                for (int i = 0; i < parameters.Length - 1; i++)
+                {
+                    FormatParameter(parameters, args, i);
+                }
+                if (row.Length - parameters.Length > 0)
+                {
+                    // Copy remaining parameters to object[]
+                    object[] paramsArray = new object[row.Length - (parameters.Length - 1)];
+                    Array.Copy(row, parameters.Length - 1, paramsArray, 0, row.Length - parameters.Length);
+                    args[parameters.Length - 1] = paramsArray;
+                }
+                else
+                {
+                    args[parameters.Length - 1] = new object[0];
+                }
+                return args;
+            }
+            return row;
         }
 
-        private object GetSpecialValue(SpecialValue sv)
+        private void FormatParameter(ParameterInfo[] parameters, object[] args, int index)
         {
-            if (sv == SpecialValue.Null)
+            // Skip nulls
+            if (row[index] == null)
             {
-                return null;
+                args[index] = row[index];
             }
-
-            return null;
+            else
+            {
+                // If the current item in the row is a Type and the test method is expecting
+                // an instance, then create one
+                if (row[index] == parameters[index].ParameterType)
+                {
+                    if (!parameters[index].ParameterType.IsEnum)
+                    {
+                        args[index] = TypeHelper.CreateInstance(parameters[index].ParameterType);
+                    }
+                }
+                // If the item is SpecialValue.Null then return null
+                else if (row[index].GetType() == typeof(SpecialValue))
+                {
+                    args[index] = null;
+                }
+                // Try to convert the type to the one expected by the test method
+                else if ((row[index] as IConvertible) != null)
+                {
+                    IFormatProvider formatProvider = GetFormatProvider(parameters[index].ParameterType);
+                    args[index] = Convert.ChangeType(row[index], parameters[index].ParameterType, formatProvider);
+                }
+            }
         }
 
         private IFormatProvider GetFormatProvider(Type t)
