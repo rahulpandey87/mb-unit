@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+using MbUnit.Core.Exceptions;
+
 namespace MbUnit.Framework.Tests20
 {
     [TestFixture]
@@ -11,9 +13,19 @@ namespace MbUnit.Framework.Tests20
         //NUnit Code
         [Test]
         public void IsEmpty()
-        {  
-            GenericAssert.IsEmpty(new List<string>(), "Failed on empty List");
+        {
+            GenericAssert.IsEmpty(new List<string>());
         }
+
+        [Test, ExpectedException(typeof(AssertionException), "List expected to be empty")]
+        public void IsEmptyFail()
+        {
+            List<string> arr = new List<string>();
+            arr.Add("Testing");
+
+            GenericAssert.IsEmpty(arr, "List");
+        }
+
         #endregion
 
         #region IsNotEmpty
@@ -24,10 +36,15 @@ namespace MbUnit.Framework.Tests20
             List<string> arr = new List<string>();
             arr.Add("Testing");
 
-            GenericAssert.IsNotEmpty(arr, "Failed on non empty ArrayList");
-       
+            GenericAssert.IsNotEmpty(arr);
         }
-    
+
+        [Test, ExpectedException(typeof(AssertionException), "List expected not to be empty")]
+        public void IsNotEmptyFail()
+        {
+            GenericAssert.IsNotEmpty(new List<string>(), "List");
+        }
+
         #endregion
     }
 }

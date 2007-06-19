@@ -26,21 +26,11 @@ namespace MbUnit.Framework.Tests.Asserts
         }
 
         [Test]
-        public void AreEqualLong()
+        public void AreEqualBoolNull()
         {
-            long[] arr1 = new long[5];
-            long[] arr2 = new long[5];
-
-            arr1[0] = long.MaxValue;
-            arr1[1] = long.MinValue;
-            arr1[2] = long.MaxValue;
-            arr1[3] = long.MinValue;
-
-            arr2[0] = long.MaxValue;
-            arr2[1] = long.MinValue;
-            arr2[2] = long.MaxValue;
-            arr2[3] = long.MinValue;
-
+            bool[] arr1 = null;
+            bool[] arr2 = null;
+            
             ArrayAssert.AreEqual(arr1, arr2);
         }
 
@@ -59,6 +49,43 @@ namespace MbUnit.Framework.Tests.Asserts
             arr2[1] = char.MinValue;
             arr2[2] = char.MaxValue;
             arr2[3] = char.MinValue;
+
+            ArrayAssert.AreEqual(arr1, arr2);
+        }
+
+        [Test]
+        public void AreEqualCharNull()
+        {
+            Char[] arr1 = null;
+            Char[] arr2 = null;
+
+            ArrayAssert.AreEqual(arr1, arr2);
+        }
+
+        [Test]
+        public void AreEqualByte()
+        {
+            byte[] arr1 = new byte[5];
+            byte[] arr2 = new byte[5];
+
+            arr1[0] = byte.MaxValue;
+            arr1[1] = byte.MinValue;
+            arr1[2] = byte.MaxValue;
+            arr1[3] = byte.MinValue;
+
+            arr2[0] = byte.MaxValue;
+            arr2[1] = byte.MinValue;
+            arr2[2] = byte.MaxValue;
+            arr2[3] = byte.MinValue;
+
+            ArrayAssert.AreEqual(arr1, arr2);
+        }
+
+        [Test]
+        public void AreEqualByteNull()
+        {
+            byte[] arr1 = null;
+            byte[] arr2 = null;
 
             ArrayAssert.AreEqual(arr1, arr2);
         }
@@ -83,20 +110,122 @@ namespace MbUnit.Framework.Tests.Asserts
         }
 
         [Test]
-        public void AreEqualByte()
+        public void AreEqualIntNull()
         {
-            byte[] arr1 = new byte[5];
-            byte[] arr2 = new byte[5];
+            int[] arr1 = null;
+            int[] arr2 = null;
 
-            arr1[0] = byte.MaxValue;
-            arr1[1] = byte.MinValue;
-            arr1[2] = byte.MaxValue;
-            arr1[3] = byte.MinValue;
+            ArrayAssert.AreEqual(arr1, arr2);
+        }
 
-            arr2[0] = byte.MaxValue;
-            arr2[1] = byte.MinValue;
-            arr2[2] = byte.MaxValue;
-            arr2[3] = byte.MinValue;
+        [Test]
+        public void AreEqualLong()
+        {
+            long[] arr1 = new long[5];
+            long[] arr2 = new long[5];
+
+            arr1[0] = long.MaxValue;
+            arr1[1] = long.MinValue;
+            arr1[2] = long.MaxValue;
+            arr1[3] = long.MinValue;
+
+            arr2[0] = long.MaxValue;
+            arr2[1] = long.MinValue;
+            arr2[2] = long.MaxValue;
+            arr2[3] = long.MinValue;
+
+            ArrayAssert.AreEqual(arr1, arr2);
+        }
+
+        [Test]
+        public void AreEqualLongNull()
+        {
+            long[] arr1 = null;
+            long[] arr2 = null;
+
+            ArrayAssert.AreEqual(arr1, arr2);
+        }
+
+        [Test]
+        public void AreEqualFloat()
+        {
+            float[] arr1 = new float[5];
+            float[] arr2 = new float[5];
+
+            arr1[0] = float.MaxValue;
+            arr1[1] = float.MinValue;
+            arr1[2] = float.MaxValue;
+            arr1[3] = float.MinValue;
+
+            arr2[0] = float.MaxValue;
+            arr2[1] = float.MinValue;
+            arr2[2] = float.MaxValue;
+            arr2[3] = float.MinValue;
+
+            ArrayAssert.AreEqual(arr1, arr2, 0);
+        }
+
+        [Test]
+        public void AreEqualFloatNull()
+        {
+            float[] arr1 = null;
+            float[] arr2 = null;
+
+            ArrayAssert.AreEqual(arr1, arr2, 0);
+        }
+
+        [Test]
+        public void AreEqualDouble()
+        {
+            double[] arr1 = new double[5];
+            double[] arr2 = new double[5];
+
+            arr1[0] = double.MaxValue;
+            arr1[1] = double.MinValue;
+            arr1[2] = double.MaxValue;
+            arr1[3] = double.MinValue;
+
+            arr2[0] = double.MaxValue;
+            arr2[1] = double.MinValue;
+            arr2[2] = double.MaxValue;
+            arr2[3] = double.MinValue;
+
+            ArrayAssert.AreEqual(arr1, arr2, 0);
+        }
+
+        [Test]
+        public void AreEqualDoubleNull()
+        {
+            double[] arr1 = null;
+            double[] arr2 = null;
+
+            ArrayAssert.AreEqual(arr1, arr2, 0);
+        }
+
+        [Test]
+        public void AreEqualObject()
+        {
+            object[] arr1 = new object[5];
+            object[] arr2 = new object[5];
+
+            arr1[0] = true;
+            arr1[1] = char.MaxValue;
+            arr1[2] = float.MaxValue;
+            arr1[3] = double.MinValue;
+
+            arr2[0] = true;
+            arr2[1] = char.MaxValue;
+            arr2[2] = float.MaxValue;
+            arr2[3] = double.MinValue;
+
+            ArrayAssert.AreEqual(arr1, arr2);
+        }
+
+        [Test]
+        public void AreEqualObjectNull()
+        {
+            object[] arr1 = null;
+            object[] arr2 = null;
 
             ArrayAssert.AreEqual(arr1, arr2);
         }
