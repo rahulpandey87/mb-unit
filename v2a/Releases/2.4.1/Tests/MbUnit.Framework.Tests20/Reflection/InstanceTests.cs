@@ -84,10 +84,23 @@ namespace MbUnit.Framework.Tests20.Reflection
         }
 
         [Test]
+        public void GetBaseClassField()
+        {
+            Assert.AreEqual("Base var", _reflect.GetField("_baseString"));
+        }
+
+        [Test]
         [ExpectedException(typeof(ReflectionException))]
         public void UnAccessibleField()
         {
             _reflect.GetField("staticNum", AccessModifier.Public);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ReflectionException))]
+        public void TryToGetBaseClassFieldButSettingLookInBaseToFalse()
+        {
+            _reflect.GetField("_baseString", AccessModifier.NonPublic, false);
         }
 
         #endregion
@@ -158,6 +171,13 @@ namespace MbUnit.Framework.Tests20.Reflection
             // some other tests will fail.
             _reflect.SetField(AccessModifier.Static | AccessModifier.NonPublic, fieldName, originalValue);
             Assert.AreEqual(originalValue, _reflect.GetField(fieldName));
+        }
+
+        [Test]
+        public void SetBaseClassField()
+        {
+            _reflect.SetField("_baseString", "Test Field");
+            Assert.AreEqual("Test Field", _reflect.GetField("_baseString"));
         }
 
         #endregion
