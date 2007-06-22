@@ -19,6 +19,7 @@ namespace MbUnit.Framework.Reflection
     {
         object _obj;
 
+        #region Constructors
         /// <summary>
         /// Constructor for object
         /// </summary>
@@ -48,7 +49,9 @@ namespace MbUnit.Framework.Reflection
         {
             _obj = CreateInstance(assemblyName, typeName, args);
         }
+        #endregion
 
+        #region Get/Set Fields
         /// <summary>
         /// Get public, non-public, or static field value.
         /// </summary>
@@ -71,13 +74,24 @@ namespace MbUnit.Framework.Reflection
         }
 
         /// <summary>
+        /// Get field value.
+        /// </summary>
+        /// <param name="fieldName">Field name.</param>
+        /// <param name="access">Specify field access modifier.</param>
+        /// <param name="lookInBase">Specify if need to look in Base classes.</param>
+        /// <returns>Field value</returns>
+        public object GetField(string fieldName, AccessModifier access, bool lookInBase)
+        {
+            return GetField(access, _obj, fieldName, lookInBase);
+        }
+
+        /// <summary>
         /// Set field value.
         /// </summary>
         /// <param name="fieldName">Field Name.</param>
         /// <param name="fieldValue">Field Value.</param>
         public void SetField(string fieldName, object fieldValue)
         {
-            //SetField(fieldName, fieldValue, AccessModifier.Default);
             SetField(AccessModifier.Default, _obj, fieldName, fieldValue);
         }
 
@@ -91,6 +105,7 @@ namespace MbUnit.Framework.Reflection
         {
             SetField(access, _obj, fieldName, fieldValue);
         }
+        #endregion
 
         /// <summary>
         /// Get Property Value
@@ -111,6 +126,18 @@ namespace MbUnit.Framework.Reflection
         public object GetProperty(AccessModifier access, string propertyName)
         {
             return GetProperty(access, _obj, propertyName);
+        }
+
+        /// <summary>
+        /// Get Property Value
+        /// </summary>
+        /// <param name="access">Specify property access modifier.</param>
+        /// <param name="propertyName">Property Name.</param>
+        /// <param name="lookInBase">Specify if need to look in Base classes.</param>
+        /// <returns>Property Value.</returns>
+        public object GetProperty(AccessModifier access, string propertyName, bool lookInBase)
+        {
+            return GetProperty(access, _obj, propertyName, lookInBase);
         }
 
         /// <summary>
