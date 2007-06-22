@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MbUnit.Framework.Tests20.Reflection
 {
-public class TestSample
+public class TestSample : BaseSample
 {
     public string publicString = "MbUnit Rocks!!!";
     private DateTime privateDateTime = DateTime.Today;

@@ -20,22 +20,7 @@ namespace MbUnit.Framework.Tests20.Reflection
             _sampleObject = new TestSample();    
         }
 
-        #region GetField Tests
-        [Test]
-        public void GetPublicField_DefaultAccessibility()
-        {
-            Assert.AreEqual("MbUnit Rocks!!!", Reflector.GetField(_sampleObject, "publicString"));
-        }
-
-        [Test]
-        [ExpectedArgumentNullException()]
-        public void SetPropertyWithNullObject()
-        {
-            Reflector.SetProperty(null, "somePropety", "value");
-        }
-
-        #endregion
-
+        #region Create Instance
         [Test]
         public void CreateInstanceByAssemblyNameAndClassWithDefaultConstructo()
         {
@@ -55,6 +40,86 @@ namespace MbUnit.Framework.Tests20.Reflection
             Assert.AreEqual(1, Reflector.GetProperty(obj, "Key"));
             Assert.AreEqual('A', Reflector.GetProperty(obj, "Value"));
         }
+        #endregion
+
+        #region Field Tests
+        [Test]
+        public void GetPublicField_DefaultAccessibility()
+        {
+            Assert.AreEqual("MbUnit Rocks!!!", Reflector.GetField(_sampleObject, "publicString"));
+        }
+
+        [Test]
+        public void GetPrivateFieldFromBaseClass()
+        {
+            Assert.AreEqual("Base var", Reflector.GetField(_sampleObject, "_baseString"));
+        }
+
+        [Test]
+        [ExpectedException(typeof(ReflectionException))]
+        public void TryToGetBaseClassFieldButSettingLookInBaseToFalse()
+        {
+            Reflector.GetField(AccessModifier.NonPublic, _sampleObject, "_baseString", false);
+        }
+
+        [Test]
+        public void SetPrivateFieldInBaseClass()
+        {
+            Reflector.SetField(_sampleObject, "_baseString", "test base field");
+            Assert.AreEqual("test base field", Reflector.GetField(_sampleObject, "_baseString"));
+        }
+
+        [Test]
+        [ExpectedArgumentNullException()]
+        public void SetPropertyWithNullObject()
+        {
+            Reflector.SetProperty(null, "somePropety", "value");
+        }
+
+        #endregion
+
+        #region Property Tests
+        [Test]
+        public void GetPrivatePropertyFromBaseClass()
+        {
+            Assert.AreEqual(12, Reflector.GetProperty(_sampleObject, "BaseInteger"));
+        }
+
+        [Test]
+        [ExpectedException(typeof(ReflectionException))]
+        public void TryToGetBaseClassPropertyButSettingLookInBaseToFalse()
+        {
+            Reflector.GetProperty(AccessModifier.NonPublic, _sampleObject, "BaseInteger", false);
+        }
+
+        [Test]
+        public void SetPrivatePropertyInBaseClass()
+        {
+            Reflector.SetProperty(_sampleObject, "BaseInteger", 7);
+            Assert.AreEqual(7, Reflector.GetProperty(_sampleObject, "BaseInteger"));
+        }
+        #endregion
+
+        #region InvokeMethod
+        [Test]
+        public void IvokePrivateMethodWithoutParametersFromBaseClass()
+        {
+            Assert.AreEqual("Wow!", Reflector.InvokeMethod(_sampleObject, "Wow"));
+        }
+
+        [Test]
+        public void IvokePrivateMethodWithParameterFromBaseClass()
+        {
+            Assert.AreEqual("MbUnit. Oh, Yhea!", Reflector.InvokeMethod(_sampleObject, "OhYhea", "MbUnit."));
+        }
+
+        [Test]
+        [ExpectedException(typeof(ReflectionException))]
+        public void TryToInvokeBaseClassMethodButLookInBaseIsFalse()
+        {
+            Reflector.InvokeMethod(AccessModifier.NonPublic, _sampleObject, "OhYhea", false, "Fail");
+        }
+        #endregion
     }
 
 
