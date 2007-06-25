@@ -72,7 +72,8 @@ namespace MbUnit.Core.Collections
 		{
 			get
 			{
-				Thread.Sleep(0);
+                // Fix for http://www.mertner.com/jira/browse/MBUNIT-134 by Richard Louapre
+                Thread.Sleep(10);
 				foreach(Thread thread in this.Threads)
 				{
 					if (thread.IsAlive)
@@ -97,7 +98,8 @@ namespace MbUnit.Core.Collections
 						break;
 					}
 				}
-				Thread.Sleep(0);
+                // Fix for http://www.mertner.com/jira/browse/MBUNIT-134 by Richard Louapre
+                Thread.Sleep(10);
 			}
 		}
 		
@@ -118,7 +120,8 @@ namespace MbUnit.Core.Collections
 							break;
 						}
 					}
-					Thread.Sleep(0);
+                    // Fix for http://www.mertner.com/jira/browse/MBUNIT-134 by Richard Louapre
+					Thread.Sleep(10);
 				}
 				catch(Exception)
 				{}
