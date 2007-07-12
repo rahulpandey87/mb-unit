@@ -24,13 +24,7 @@
 //		MbUnit HomePage: http://www.mbunit.org
 //		Author: Jonathan de Halleux
 
-
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Reflection;
-
-using MbUnit.Core.Exceptions;
 
 namespace MbUnit.Framework
 {
@@ -179,6 +173,22 @@ namespace MbUnit.Framework
 			{
 				Assert.AreEqual(expected[i], actual[i]);
 			}
-		}		
+		}
+
+        /// <summary>
+        /// Checks whether an object is of an <see cref="Array" type/>
+        /// </summary>
+        /// <param name="obj">Object instance to check as an array.</param>
+        /// <returns>True if <see cref="Array"/> Type, False otherwise.</returns>
+        static internal bool IsArrayType(object obj)
+        {
+            bool isArrayType = false;
+            if (obj != null)
+            {
+                isArrayType = obj.GetType().IsArray;
+            }
+            return isArrayType;
+        }
+
 	}
 }
