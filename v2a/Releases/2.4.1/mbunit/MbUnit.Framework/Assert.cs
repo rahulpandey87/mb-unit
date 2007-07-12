@@ -132,14 +132,14 @@ namespace MbUnit.Framework
                 string sActual = actual.ToString();
                 return sExpected.Equals(sActual);
             }
-            else if(expected.GetType().IsArray && actual.GetType().IsArray)
+            else if (ArrayAssert.IsArrayType(expected) && ArrayAssert.IsArrayType(actual))
             {
                 string failMessage;
                 return CollectionAssert.ElementsEqual((IEnumerable) expected, (IEnumerable) actual, out failMessage);
             }
             else
             {
-                return expected.Equals(actual);    
+                return object.Equals(expected, actual);    
             }
         }
         #endregion

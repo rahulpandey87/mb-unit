@@ -245,6 +245,28 @@ namespace MbUnit.Tests.Core.Framework
             Assert.AreEqual(new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 });
         }
 
+	    [Test]
+	    public void AreEqual_NotEqualForArrayAndNonArray()
+	    {
+            Assert.AreNotEqual(new int[] { 1, 2, 3 }, 3);
+	    }
+
+	    [Test]
+	    public void AreEqual_ArrayOfNullValues()
+	    {
+            object[] a = new object[3];
+            object[] b = new object[3];
+            Assert.AreEqual(a, b);
+	    }
+
+	    [Test]
+	    public void AreEqual_EqualArrayWithNullElements()
+	    {
+	        object[] a = {1, 2, null};
+	        object[] b = {1, 2, null};
+            Assert.AreEqual(a, b);	        
+	    }
+
         [Test]
         public void AreEqual_EqualStringArrays()
         {
