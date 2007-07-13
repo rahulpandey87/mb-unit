@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="Windows-1252"?>
-<DiagramLayout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ex:showrelationlabel="False" ViewPortX="-10" ViewPortY="-10" xmlns:ex="urn:schemas-microsoft-com:xml-msdatasource-layout-extended" xmlns="urn:schemas-microsoft-com:xml-msdatasource-layout">
-  <Shapes>
-    <Shape ID="DesignTable:Users" ZOrder="1" X="70" Y="70" Height="110" SplitterPosition="86" Width="150" />
-  </Shapes>
-  <Connectors />
-</DiagramLayout>
