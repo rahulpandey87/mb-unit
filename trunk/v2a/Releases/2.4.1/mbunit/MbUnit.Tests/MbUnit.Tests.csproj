@@ -313,6 +313,7 @@
     <Compile Include="Core\SickFixturesTest.cs" />
     <EmbeddedResource Include="Samples\FixtureConstructorThrowsTest.cs" />
     <EmbeddedResource Include="Samples\FixtureSetUpThrowsTest.cs" />
+    <Compile Include="Framework\ThreadedRepeatTest.cs" />
     <Compile Include="Gui\GuiTest.cs" />
     <Compile Include="Samples\SampleCompiler.cs">
       <SubType>Code</SubType>
