@@ -11,8 +11,8 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MbUnit 2.3")]
-[assembly: AssemblyCopyright("Copyright @ 2006")]
+[assembly: AssemblyProduct("MbUnit 2.4")]
+[assembly: AssemblyCopyright("Copyright @ 2007")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
