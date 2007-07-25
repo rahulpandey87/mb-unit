@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Items>
+   <Item Filename="Introduction.htm" Title="Introduction" />
+   <Item Filename="GettingStarted\GettingStarted.htm" Title="Getting Started" />
+   <Item Filename="MbUnitAndVisualStudio\MbUnitAndVisualStudio.htm" Title="MbUnit and Visual Studio" />
+   <Item Filename="MigratingProjects\MigratingProjects.htm" Title="Migrating From Other Test Frameworks" />
+   <Item Filename="MbUnitInAnAgileEnvironment\MbUnitInAnAgileEnvironment.htm" Title="MbUnit In An Agile Environment" />
+   <Item Filename="ContributingToMbUnit\ContributingToMbUnit.htm" Title="Contributing To MbUnit">
+      <Item Filename="ContributingToMbUnit\Contributors.htm" Title="The Team" />
+      <Item Filename="ContributingToMbUnit\License.htm" Title="License" />
+   </Item>
+   <Item Filename="WhatDoYouWantToTest.htm" Title="What Do You Want To Test Today?" />
+   <Item Filename="API.htm" Title="API Reference" />
+</Items>
