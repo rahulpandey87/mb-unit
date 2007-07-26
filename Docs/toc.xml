@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Items>
    <Item Filename="Introduction.htm" Title="Introduction" />
-   <Item Filename="GettingStarted\GettingStarted.htm" Title="Getting Started" />
-   <Item Filename="MbUnitAndVisualStudio\MbUnitAndVisualStudio.htm" Title="MbUnit and Visual Studio" />
+   <Item Filename="GettingHelpWithMbUnit.htm" Title="Getting Help For MbUnit" />
+   <Item Filename="GettingStarted\GettingStarted.htm" Title="Getting Started">
+      <Item Filename="GettingStarted\WritingYourFirstTests.htm" Title="Writing Your First Tests" />
+      <Item Filename="GettingStarted\MbUnitConsoleRunner.htm" Title="Using the MbUnit Console Runner" />
+      <Item Filename="GettingStarted\MbUnitGUI.htm" Title="Using the MbUnit GUI Runner" />
+   </Item>
+   <Item Filename="MbUnitAndVisualStudio\MbUnitAndVisualStudio.htm" Title="MbUnit and Visual Studio">
+      <Item Filename="MbUnitAndVisualStudio\MbUnitAndTestDrivenDotNet.htm" Title="Using TestDriven.net" />
+      <Item Filename="MbUnitAndVisualStudio\MbUnitAndResharper.htm" Title="Using Resharper" />
+   </Item>
    <Item Filename="MigratingProjects\MigratingProjects.htm" Title="Migrating From Other Test Frameworks" />
    <Item Filename="MbUnitInAnAgileEnvironment\MbUnitInAnAgileEnvironment.htm" Title="MbUnit In An Agile Environment" />
    <Item Filename="ContributingToMbUnit\ContributingToMbUnit.htm" Title="Contributing To MbUnit">
