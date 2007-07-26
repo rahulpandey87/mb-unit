@@ -1,11 +1,11 @@
 using System;
 using System.Web.Security;
+using System.Web.UI;
 
-public partial class MasterPage : System.Web.UI.MasterPage
+public partial class CMS_MasterPage : MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
     }
 
     protected void lnkLogout_Click1(object sender, EventArgs e)
