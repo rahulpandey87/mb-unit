@@ -17,8 +17,19 @@
    .csharpcode .attr { color: #ff0000; }
    .csharpcode .alt 
    {
-   	background-color: #f4f4f4;
+   	background-color: #00ffff;
    	width: 100%;
    	margin: 0em;
    }
    .csharpcode .lnum { color: #606060; }
+
+   .cmdline, .cmdline pre
+   {
+	   font-size: small;
+	   color: black;
+	   font-family: "Courier New", courier, monospace;
+	   background-color: #ffffff;
+	   /*white-space: pre;*/
+   }
+   .cmdline pre { margin: 0em; }
+   .cmdline .highlight { color:#ff0000; }
