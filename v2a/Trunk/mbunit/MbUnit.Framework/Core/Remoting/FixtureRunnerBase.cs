@@ -253,7 +253,7 @@ namespace MbUnit.Core.Remoting
 
         protected abstract void RunFixtures();
 
-        protected ReportRunResult RunFixture(Fixture fixture)
+        protected virtual ReportRunResult RunFixture(Fixture fixture)
         {
             if (this.IsAbortPending)
                 return ReportRunResult.Failure;
