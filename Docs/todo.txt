@@ -1,4 +1,0 @@
-- need teams links to personal pages for contributors page
-- link to Julian's installation help page from GettingStarted.htm once those pages have been added to the main mbunit site.
-- add magnolia search link to getting help page when magnolia back up
-- main stie articles page needs some links to step by step guides for writing \ refactoring code using tests. Perhaps the sieve of erastothenes example, the schema \ CodeGen one for more advanced things. A couple of problem solvers for project euler?
