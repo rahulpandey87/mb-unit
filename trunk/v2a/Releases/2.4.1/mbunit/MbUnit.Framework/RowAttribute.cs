@@ -114,9 +114,10 @@ namespace MbUnit.Framework
         private void FormatParameter(ParameterInfo[] parameters, object[] args, int index)
         {
             // Skip nulls
-            if (row[index] == null)
+            // If the item is SpecialValue.Null then return null
+            if (row[index] == null || row[index] is SpecialValue)
             {
-                args[index] = row[index];
+                args[index] = null;
             }
             else
             {
@@ -129,16 +130,16 @@ namespace MbUnit.Framework
                         args[index] = TypeHelper.CreateInstance(parameters[index].ParameterType);
                     }
                 }
-                // If the item is SpecialValue.Null then return null
-                else if (row[index].GetType() == typeof(SpecialValue))
-                {
-                    args[index] = null;
-                }
                 // Try to convert the type to the one expected by the test method
                 else if ((row[index] as IConvertible) != null)
                 {
                     IFormatProvider formatProvider = GetFormatProvider(parameters[index].ParameterType);
                     args[index] = Convert.ChangeType(row[index], parameters[index].ParameterType, formatProvider);
+                }
+                // Give up, the value is an array or a Type.  Leave it alone!
+                else
+                {
+                    args[index] = row[index];
                 }
             }
         }
