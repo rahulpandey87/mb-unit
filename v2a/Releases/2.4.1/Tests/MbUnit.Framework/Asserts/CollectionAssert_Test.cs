@@ -338,6 +338,30 @@ namespace MbUnit.Framework.Tests.Asserts
 
             CollectionAssert.AreEquivalent(set1, set2, "test {0}", "1");
         }
+
+        [Test]
+        public void AreEquivalent_UsesValueEqualityForStrings()
+        {
+            string[] stringArray1 = { "ab", "bc", "cd" };
+            string[] stringArray2 = { "cd", string.Format("b{0}", "c"), "ab" };
+            CollectionAssert.AreEquivalent(stringArray1, stringArray2);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreEquivalent_DifferentSizeAreNotEquivalent()
+        {
+            string[] stringArray1 = { "a", "b" };
+            string[] stringArray2 = { "a", "b", "c" };
+            CollectionAssert.AreEquivalent(stringArray1, stringArray2);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreEquivalent_DifferentItemsAreNotEquivalent()
+        {
+            string[] stringArray1 = { "a", "b", "c" };
+            string[] stringArray2 = { "a", "b", "d" };
+            CollectionAssert.AreEquivalent(stringArray1, stringArray2);
+        }
         #endregion
 
         #region AreNotEqual
@@ -406,6 +430,27 @@ namespace MbUnit.Framework.Tests.Asserts
             CollectionAssert.Contains(al, x, "test");
             CollectionAssert.Contains(al, x, "test {0}", "1");
         }
+
+        [Test]
+        public void Contains_UsesValueTypeEqualityForStringTypes()
+        {
+            string[] stringArray = { string.Format("a{0}", "c"), "b" };
+            CollectionAssert.Contains(stringArray, "ac");
+        }
+
+        [Test]
+        public void Contains_NullItemSearchSupported()
+        {
+            string[] stringArray = { "a", "b", null };
+            CollectionAssert.Contains(stringArray, null);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void Contains_RaisesAssertionExceptionIfItemNotFound()
+        {
+            string[] stringArray = { "a", "b", "c" };
+            CollectionAssert.Contains(stringArray, "d");
+        }
         #endregion
 
         #region DoesNotContain
@@ -428,7 +473,32 @@ namespace MbUnit.Framework.Tests.Asserts
         }
         #endregion
 
-        //#region IsSubsetOf
+        #region IsSubsetOf
+
+        [Test]
+        public void IsSubsetOf_UsesValueEqualityForStrings()
+        {
+            string[] superset = { "ab", "bc", "cd" };
+            string[] subset = { "cd", string.Format("b{0}", "c") };
+            CollectionAssert.IsSubsetOf(subset, superset);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void IsSubsetOf_AssertExceptionWhenSupersetIsSmallerThanSubset()
+        {
+            string[] superset = { "a", "b" };
+            string[] subset = { "a", "b", "c" };
+            CollectionAssert.IsSubsetOf(subset, superset);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void IsSubsetOf_DifferentItemInSubsetRaisesAssertException()
+        {
+            string[] superset = { "a", "b", "c" };
+            string[] subset = { "a", "d" };
+            CollectionAssert.IsSubsetOf(subset, superset);
+        }
+
         //[Test]
         //public void IsSubsetOf()
         //{
@@ -450,7 +520,7 @@ namespace MbUnit.Framework.Tests.Asserts
         //    CollectionAssert.IsSubsetOf(set1, set2, "test");
         //    CollectionAssert.IsSubsetOf(set1, set2, "test {0}", "1");
         //}
-        //#endregion
+        #endregion
 
         #region IsNotSubsetOf
         [Test]
