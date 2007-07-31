@@ -138,6 +138,54 @@ namespace MbUnit.Framework.Tests.Asserts
         }
 
         [Test]
+        public void AreEqual_EqualIntArrays()
+        {
+            Assert.AreEqual(new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 });
+        }
+
+        [Test]
+        public void AreEqual_NotEqualForArrayAndNonArray()
+        {
+            Assert.AreNotEqual(new int[] { 1, 2, 3 }, 3);
+        }
+
+        [Test]
+        public void AreEqual_ArrayOfNullValues()
+        {
+            object[] a = new object[3];
+            object[] b = new object[3];
+            Assert.AreEqual(a, b);
+        }
+
+        [Test]
+        public void AreEqual_EqualArrayWithNullElements()
+        {
+            object[] a = { 1, 2, null };
+            object[] b = { 1, 2, null };
+            Assert.AreEqual(a, b);
+        }
+
+        [Test]
+        public void AreEqual_EqualStringArrays()
+        {
+            Assert.AreEqual(new string[] { "1", "2", "3" }, new string[] { "1", "2", "3" });
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreEqual_UnEqualIntArrays()
+        {
+            Assert.AreEqual(new int[] { 1, 2, 3 }, new int[] { 1, 2, 4 });
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreEqual_UnEqualSizeIntArrays()
+        {
+            Assert.AreEqual(new int[0], new int[] { 1, 2 });
+        }
+
+        [Test]
         public void AreSame()
         {
             ArrayList list = new ArrayList();
@@ -146,7 +194,6 @@ namespace MbUnit.Framework.Tests.Asserts
         #endregion
 
         #region AreNotEqual
-//NUnit Tests
         [Test]
         public void NotEqual()
         {
@@ -194,6 +241,11 @@ namespace MbUnit.Framework.Tests.Asserts
             Assert.AreNotEqual(u1, u2);
         }
 
+        [Test]
+        public void AreNotEqualTwoArraysContainingNull()
+        {
+            Assert.AreNotEqual(new object[] { 1, 2, null }, new object[] { 1, null, 3 });
+        }
         #endregion
 
         #region Between
