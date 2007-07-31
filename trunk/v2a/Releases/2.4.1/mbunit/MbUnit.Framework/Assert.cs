@@ -565,7 +565,7 @@ namespace MbUnit.Framework
 
             if (expected != null && actual != null)
             {
-                if (expected.GetLength(0) == actual.GetLength(0))
+                if (expected.GetLength(0) != actual.GetLength(0))
                 {
                     fail = true;
                 }
@@ -576,7 +576,7 @@ namespace MbUnit.Framework
                     bool same = true;
                     foreach (object o in expected)
                     {
-                        if (!o.Equals(actual.GetValue(position)))
+                        if (!object.Equals(o, actual.GetValue(position)))
                         {
                             same = false;
                         }
