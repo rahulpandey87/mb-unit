@@ -964,6 +964,23 @@ namespace MbUnit.Framework.Tests.Asserts
             Assert.In(test, (IEnumerable)list);
         }
 
+        [Test]
+        public void In_ValueEquality()
+        {
+            string[] stringArray = {"item1", "item2"};
+            IEnumerable enumerableStringArray = stringArray;
+            string item1 = string.Format("item{0}", 1);
+            Assert.In(item1, enumerableStringArray);
+        }
+
+        [Test]
+        public void In_NullItem()
+        {
+            string[] stringArray = { "item1", null, "item2" };
+            IEnumerable enumerableStringArray = stringArray;
+            Assert.In(null, enumerableStringArray);
+        }
+
         #endregion
 
         #endregion

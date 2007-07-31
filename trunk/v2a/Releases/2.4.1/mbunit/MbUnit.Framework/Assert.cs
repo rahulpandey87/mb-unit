@@ -3098,7 +3098,7 @@ namespace MbUnit.Framework
             Assert.IsNotNull(enumerable, "Enumerable collection is a null reference");
             foreach (Object o in enumerable)
             {
-                if (o == test)
+                if (object.Equals(o, test))
                     return;
             }
             Assert.Fail("Collection does not contain {0} {1}", test, message);
