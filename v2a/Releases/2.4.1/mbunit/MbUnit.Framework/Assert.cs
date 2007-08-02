@@ -251,6 +251,10 @@ namespace MbUnit.Framework
         static public void AreEqual(double expected,
             double actual, double delta, string message)
         {
+            // Delta must be positive otherwise the following case fails
+            if (delta < 0)
+                throw new ArgumentException("delta", "Delta must be a positive value.");
+            
             Assert.IncrementAssertCount();
             // handle infinity specially since subtracting two infinite values gives
             // NaN and the following test fails
@@ -261,12 +265,6 @@ namespace MbUnit.Framework
             }
             else if (!(Math.Abs(expected - actual) <= delta))
                 Assert.FailNotEquals(expected, actual, message);
-        }
-
-        static public void AreEqual(double expected, double actual, double delta, string me,
-            string format, params object[] args)
-        {
-            AreEqual(expected, actual, delta, me, format, args);
         }
 
         /// <summary>
@@ -299,6 +297,10 @@ namespace MbUnit.Framework
             float actual, float delta,
             string message)
         {
+            // Delta must be positive otherwise the following case fails
+            if (delta < 0)
+                throw new ArgumentException("delta", "Delta must be a positive value.");
+
             Assert.IncrementAssertCount();
             // handle infinity specially since subtracting two infinite values gives
             // NaN and the following test fails
@@ -3692,4 +3694,5 @@ namespace MbUnit.Framework
         #endregion
     }
 }
+
 

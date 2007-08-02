@@ -9,7 +9,16 @@ namespace MbUnit.Framework.Tests.Asserts
     [TestFixture]
     public class Assert_Test
     {
-        #region Messages
+
+        const string TEST_FORMAT_STRING = "Failed: Param1={0} Param2={1}";
+        const string TEST_FORMAT_STRING_PARAM1 = "param1";
+        const int TEST_FORMAT_STRING_PARAM2 = 2;
+        const string EXPECTED_FORMATTED_MESSAGE = "Failed: Param1=param1 Param2=2";
+        const string EXPECTED_FAIL_MESSAGE = "Test Failed";
+
+
+    #region Messages
+
         [Test]
         public void FailWithCustomMessage()
         {
@@ -27,11 +36,6 @@ namespace MbUnit.Framework.Tests.Asserts
         #endregion
 
         #region Fail, Ignore, IsNull, IsNotNull, IsTrue, IsFalse
-        [Test]  
-        public void Ignore()
-        {
-            Assert.Ignore("Because I want to");
-        }
 
         [Test]
         public void Fail()
@@ -53,6 +57,43 @@ namespace MbUnit.Framework.Tests.Asserts
 
         }
 
+        #region Ignore
+
+        [Test, ExpectedException(typeof(IgnoreRunException))]
+        public void Ignore()
+        {
+            Assert.Ignore("This test will be ignored.");
+        }
+
+        [Test, ExpectedArgumentNullException]
+        public void IgnoreWithNullMessage()
+        {
+            Assert.Ignore(null);
+        }
+
+        [Test]
+        public void IgnoreWithFormattedMessage()
+        {
+            bool asserted = false;
+            
+            try
+            {
+                Assert.Ignore(TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (IgnoreRunException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Ignore(message, args) has failed");
+        }
+
+        #endregion
+
+        #region IsNull
+
         [Test]
         public void IsNull()
         {
@@ -60,10 +101,131 @@ namespace MbUnit.Framework.Tests.Asserts
         }
 
         [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void IsNullFail()
+        {
+            Assert.IsNull("non-null string");
+        }
+
+        [Test]
+        public void IsNullWithMessage()
+        {
+            Assert.IsNull(null, "IsNotNull has failed.");
+        }
+
+        [Test]
+        public void IsNullWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.IsNull(new object(), EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert IsNull(message) has failed");
+        }
+
+        [Test]
+        public void IsNullWithFormattedMessage()
+        {
+            Assert.IsNull(null, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void IsNullWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.IsNull(new object(), TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert IsNull(message, args) has failed");
+        }
+        #endregion
+
+        #region IsNotNull
+
+        [Test]
         public void IsNotNull()
         {
-            Assert.IsNotNull("hello");
+            Assert.IsNotNull(new object());
         }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void IsNotNullFail()
+        {
+            Assert.IsNotNull(null);
+        }
+
+        [Test]
+        public void IsNotNullWithMessage()
+        {
+            Assert.IsNotNull(new object(), "IsNotNull has failed.");
+        }
+
+        [Test]
+        public void IsNotNullWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.IsNotNull(null, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert IsNotNull(message) has failed");
+        }
+
+        [Test]
+        public void IsNotNullWithFormattedMessage()
+        {
+            Assert.IsNotNull(new object(), TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+        
+        [Test]
+        public void IsNotNullWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.IsNotNull(null, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert IsNotNull(message, args) has failed");
+        }
+        #endregion
+
+
+        #region IsTrue
 
         [Test]
         public void IsTrue()
@@ -72,41 +234,211 @@ namespace MbUnit.Framework.Tests.Asserts
         }
 
         [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void IsTrueFail()
+        {
+            Assert.IsTrue(false);
+        }
+
+        [Test]
+        public void IsTrueWithMessage()
+        {
+            Assert.IsTrue(true, "IsTrue Failed");
+        }
+
+        [Test]
+        public void IsTrueWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.IsTrue(false, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert IsTrue(message) has failed");
+        }
+
+        [Test]
+        public void IsTrueWithFormattedMessage()
+        {
+            Assert.IsTrue(true, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void IsTrueWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.IsTrue(false, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert IsTrue(message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region IsFalse
+
+        [Test]
         public void IsFalse()
         {
             Assert.IsFalse(false);
         }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void IsFalseFail()
+        {
+            Assert.IsFalse(true);
+        }
+
+        [Test]
+        public void IsFalseWithMessage()
+        {
+            Assert.IsFalse(false, "IsFalse has failed.");
+        }
+
+        [Test]
+        public void IsFalseWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.IsFalse(true, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert IsFalse(message) has failed");
+        }
+
+        [Test]
+        public void IsFalseWithFormattedMessage()
+        {
+            Assert.IsFalse(false, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void IsFalseWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.IsFalse(true, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert IsFalse(message, args) has failed");
+        }
+        #endregion
+
+
+        #endregion
+
+        #region Assert Count
+
+        [Test]
+        public void ResetAssertCount()
+        {
+            Assert.ResetAssertCount();
+            Assert.IsTrue(Assert.AssertCount == 0);
+        }
+
+        [Test]
+        public void IncrementAssertCount()
+        {
+            int assertCountBefore = Assert.AssertCount;
+            Assert.IncrementAssertCount();
+
+            Assert.IsTrue(Assert.AssertCount == assertCountBefore + 1);
+        }
+
         #endregion
 
         #region AreEqual
-        [Test]
-        public void AreEqualInt()
-        {
-            Assert.AreEqual(0, 0);
-        }
 
-        [Test, ExpectedException(typeof(NotEqualAssertionException))]
-        public void AreEqualIntFail()
+        [Test]
+        public void AreEqual_WithFormattedMessage()
         {
-            Assert.AreEqual(0, 1);
+            Assert.AreEqual("abcd", "abcd", TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
         }
 
         [Test]
-        public void AreEqualIntDelta()
+        public void AreEqualWithFormattedMessageFail()
         {
-            Assert.AreEqual(0, 1, 1);
+            bool asserted = false;
+
+            try
+            {
+                Assert.AreEqual("abcd", "dbca", TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert AreEqual(message, args) has failed");
         }
 
-        [Test, ExpectedException(typeof(NotEqualAssertionException))]
-        public void AreEqualIntDeltaFail()
+        [Test]
+        public void AreEqual_NullArguments()
         {
-            Assert.AreEqual(0, 2, 1);
+            Assert.AreEqual(null, null);
         }
+
+        #region AreEqual (String)
 
         [Test]
         public void AreEqualString()
         {
             Assert.AreEqual("hello", "hello");
+        }
+
+        [Test, ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualStringActualNullFail()
+        {
+            Assert.AreEqual("hello", null);
+        }
+
+        [Test, ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualStringExpectedNullFail()
+        {
+            Assert.AreEqual(null, "hello");
+        }
+
+        [Test, ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualStringOrdinalCompare()
+        {
+            Assert.AreEqual("hello", "HELLO");
         }
 
         [Test, ExpectedException(typeof(NotEqualAssertionException))]
@@ -116,26 +448,228 @@ namespace MbUnit.Framework.Tests.Asserts
         }
 
         [Test]
-        public void AreEqualDecimal()
+        public void AreEqualEmptyString()
         {
-            Decimal l = 0;
-            Decimal r = 0;
-            Assert.AreEqual(l, r);
+            Assert.AreEqual("", "");
+        }
+
+        #endregion
+
+        #region AreEqual (Double)
+        // TODO: It'd be great to refactor these tests using Generics (when under 2.0)
+
+        [Test]
+        public void AreEqualDoubleZero()
+        {
+            Assert.AreEqual((double)0.0, (double)0.0);
+        }
+
+        [Test, ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualDoubleFail()
+        {
+            Assert.AreEqual((double)0.0, (double)1.0);
+        }
+
+        [Test]
+        public void AreEqualDoublePositive()
+        {
+            Assert.AreEqual((double)1.0, (double)1.0);
+        }
+
+        [Test]
+        public void AreEqualDoubleNegative()
+        {
+            Assert.AreEqual((double)-1.0, (double)-1.0);
+        }
+
+        [Test]
+        [ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualDoubleNegativeFail()
+        {
+            Assert.AreEqual((double)-1.0, (double)1.0);
+        }
+
+        [Test]
+        public void AreEqualDoubleDeltaNegativeInfinity()
+        {
+            Assert.AreEqual(double.NegativeInfinity, double.NegativeInfinity, (double) 0.0);
+        }
+
+        [Test]
+        public void AreEqualDoubleDeltaPositiveInfinity()
+        {
+            Assert.AreEqual(double.PositiveInfinity, double.PositiveInfinity, (double)0.0);
+        }
+
+        [Test]
+        [ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualDoubleDeltaExpectedInfinityFail()
+        {
+            Assert.AreEqual(double.PositiveInfinity, (double)1.0, (double)0.0);
+        }
+
+        [Test]
+        [ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualDoubleDeltaActualInfinityFail()
+        {
+            Assert.AreEqual((double)1.0, double.PositiveInfinity, (double)0.0);
         }
 
         [Test]
         public void AreEqualDoubleDelta()
         {
-            Assert.AreEqual(0.0, 1.0, 1.0);
+            Assert.AreEqual((double)0.0, (double)1.0, (double)1.0);
+        }
+
+        [Test, ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualDoubleDeltaFail()
+        {
+            Assert.AreEqual((double)0.0, (double)2.0, (double)1.0);
+        }
+
+        [Test]
+        [ExpectedArgumentException()]
+        public void AreEqualDoubleDeltaNegative()
+        {
+            Assert.AreEqual((double)0.0, (double)0.0, (double)-1.0);
+        }
+
+        
+        #endregion
+
+        #region AreEqual (Float)
+
+        [Test]
+        public void AreEqualFloatZero()
+        {
+            Assert.AreEqual((float)0.0, (float) 0.0);
+        }
+
+        [Test, ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualFloatFail()
+        {
+            Assert.AreEqual((float)0.0, (float)1.0);
+        }
+
+        [Test]
+        public void AreEqualFloatPositive()
+        {
+            Assert.AreEqual((float)1.0, (float)1.0);
+        }
+
+        [Test]
+        public void AreEqualFloatNegative()
+        {
+            Assert.AreEqual((float)-1.0, (float)-1.0);
+        }
+
+        [Test]
+        [ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualFloatNegativeFail()
+        {
+            Assert.AreEqual((float)-1.0, (float)1.0);
+        }
+
+        [Test]
+        public void AreEqualFloatDeltaNegativeInfinity()
+        {
+            Assert.AreEqual(float.NegativeInfinity, float.NegativeInfinity, (float)1.0);
+        }
+
+        [Test]
+        public void AreEqualFloatDeltaPositiveInfinity()
+        {
+            Assert.AreEqual(float.PositiveInfinity, float.PositiveInfinity, (float)1.0);
+        }
+
+        [Test]
+        [ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualFloatDeltaExpectedInfinityFail()
+        {
+            Assert.AreEqual(float.PositiveInfinity, (float)1.0, (float)1.0);
+        }
+
+        [Test]
+        [ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualFloatDeltaActualInfinityFail()
+        {
+            Assert.AreEqual((float)1.0, float.PositiveInfinity, (float)1.0);
         }
 
         [Test]
         public void AreEqualFloatDelta()
         {
-            float l = 0;
-            float r = 1;
-            Assert.AreEqual(l, r, r);
+            Assert.AreEqual((float)0.0, (float)1.0, (float)1.0);
         }
+
+        [Test, ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualFloatDeltaFail()
+        {
+            Assert.AreEqual((float)0.0, (float)2.0, (float)1.0);
+        }
+
+        [Test]
+        [ExpectedArgumentException()]
+        public void AreEqualFloatDeltaNegative()
+        {
+            Assert.AreEqual((float)0.0, (float)0.0, (float)-1.0);
+        }
+
+        [Test]
+        public void AreEqualFloatDeltaWithMessage()
+        {
+            Assert.AreEqual((float)1.0, (float)1.0, (float)0.0, "Assert AreEqual(message) has failed");
+        }
+
+        [Test]
+        public void AreEqualFloatDeltaWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.AreEqual((float)0.0, (float)1.0, (float)0.0, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (NotEqualAssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert AreEqual(message) has failed");
+        }
+
+        [Test]
+        public void AreEqualFloatDeltaWithFormattedMessage()
+        {
+            float l = 1.0f;
+            float r = 1.0f;
+            float d = 1.0f;
+            Assert.AreEqual(l, r, d, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void AreEqualFloatDeltaWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.AreEqual((float)0.0, (float)1.0, (float)0.0, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (NotEqualAssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert AreEqual(message, args) has failed");
+        }
+        #endregion
+
+        #region AreEqual (Arrays)
 
         [Test]
         public void AreEqual_EqualIntArrays()
@@ -185,6 +719,203 @@ namespace MbUnit.Framework.Tests.Asserts
             Assert.AreEqual(new int[0], new int[] { 1, 2 });
         }
 
+        #endregion
+
+        #region AreEqual (Decimal)
+
+        private const Decimal TEST_DECIMAL = (Decimal) 1.034;
+        private const Decimal TEST_OTHER_DECIMAL = (Decimal) 2.034;
+ 
+        [Test]
+        public void AreEqualDecimalZero()
+        {
+            Assert.AreEqual((decimal)0.0, (decimal)0.0);
+        }
+
+        [Test]
+        [ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualDecimalFail()
+        {
+            Assert.AreEqual(TEST_DECIMAL, TEST_OTHER_DECIMAL);
+        }
+
+        [Test]
+        public void AreEqualDecimalPositive()
+        {
+            Assert.AreEqual(TEST_DECIMAL, TEST_DECIMAL);
+        }
+
+        [Test]
+        public void AreEqualDecimalNegative()
+        {
+            Assert.AreEqual(-TEST_DECIMAL, -TEST_DECIMAL);
+        }
+
+        [Test]
+        [ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualDecimalNegativeFail()
+        {
+            Assert.AreEqual(-TEST_DECIMAL, TEST_DECIMAL);
+        }
+
+        [Test]
+        public void AreEqualDecimalWithMessage()
+        {
+            Decimal l = TEST_DECIMAL;
+            Decimal r = TEST_DECIMAL;
+            Assert.AreEqual(l, r, "Assert AreEqual(message) has failed");
+        }
+
+        [Test]
+        public void AreEqualDecimalWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.AreEqual(TEST_DECIMAL, TEST_OTHER_DECIMAL, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (NotEqualAssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert AreEqual(message) has failed");
+        }
+
+        [Test]
+        public void AreEqualDecimalWithFormattedMessage()
+        {
+            Assert.AreEqual(TEST_DECIMAL, TEST_DECIMAL, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void AreEqualDecimalWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.AreEqual(TEST_DECIMAL, TEST_OTHER_DECIMAL, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (NotEqualAssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert AreEqual(message, args) has failed");
+        }
+        #endregion
+
+        #region AreEqual (Integer)
+
+        [Test]
+        public void AreEqualIntZero()
+        {
+            Assert.AreEqual(0, 0);
+        }
+        
+        [Test, ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualIntFail()
+        {
+            Assert.AreEqual(0, 1);
+        }
+
+        [Test]
+        public void AreEqualIntPositive()
+        {
+            Assert.AreEqual(1, 1);
+        }
+
+        [Test]
+        public void AreEqualIntNegative()
+        {
+            Assert.AreEqual(-1, -1);
+        }
+        
+        [Test]
+        [ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualIntNegativeFail()
+        {
+            Assert.AreEqual(-1, 1);
+        }
+
+        [Test]
+        public void AreEqualIntDelta()
+        {
+            Assert.AreEqual(0, 1, 1);
+        }
+
+        [Test, ExpectedException(typeof(NotEqualAssertionException))]
+        public void AreEqualIntDeltaFail()
+        {
+            Assert.AreEqual(0, 2, 1);
+        }
+
+        [Test]
+        [ExpectedArgumentException()]
+        public void AreEqualIntDeltaNegative()
+        {
+            Assert.AreEqual(0, 0, -1);
+        }
+
+        [Test]
+        public void AreEqualIntWithMessage()
+        {
+            Assert.AreEqual(1, 1, "Assert AreEqual(message) has failed");
+        }
+
+        [Test]
+        public void AreEqualIntWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.AreEqual(0, 1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (NotEqualAssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert AreEqual(message) has failed");
+        }
+
+        [Test]
+        public void AreEqualIntWithFormattedMessage()
+        {
+            Assert.AreEqual(1,1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void AreEqualIntWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.AreEqual(0,1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (NotEqualAssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert AreEqual(message, args) has failed");
+        }
+
+        #endregion
+
+
         [Test]
         public void AreSame()
         {
@@ -194,6 +925,7 @@ namespace MbUnit.Framework.Tests.Asserts
         #endregion
 
         #region AreNotEqual
+
         [Test]
         public void NotEqual()
         {
@@ -234,7 +966,7 @@ namespace MbUnit.Framework.Tests.Asserts
         }
 
         [Test]
-        public void UInt()
+        public void AreNotEqualUInt()
         {
             uint u1 = 5;
             uint u2 = 8;
@@ -246,6 +978,366 @@ namespace MbUnit.Framework.Tests.Asserts
         {
             Assert.AreNotEqual(new object[] { 1, 2, null }, new object[] { 1, null, 3 });
         }
+
+        [Test]
+        public void AreNotEqual_WithFormattedMessage()
+        {
+            Assert.AreNotEqual("abcd", "dcba", TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void AreNotEqualWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.AreNotEqual("abcd", "abcd", TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert AreNotEqual(message, args) has failed");
+        }
+
+
+        #region AreNotEqual (String)
+
+        [Test]
+        public void AreNotEqualString()
+        {
+            Assert.AreNotEqual("hello", "world");
+        }
+
+        [Test]
+        public void AreNotEqualStringActualNullFail()
+        {
+            Assert.AreNotEqual("hello", null);
+        }
+
+        [Test]
+        public void AreNotEqualStringExpectedNullFail()
+        {
+            Assert.AreNotEqual(null, "hello");
+        }
+
+        [Test]
+        public void AreNotEqualStringOrdinalCompare()
+        {
+            Assert.AreNotEqual("hello", "HELLO");
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualStringFail()
+        {
+            Assert.AreNotEqual("hello", "hello");
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualEmptyString()
+        {
+            Assert.AreNotEqual("", "");
+        }
+
+        #endregion
+
+        #region AreNotEqual (Double)
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualDoubleZero()
+        {
+            Assert.AreNotEqual((double)0.0, (double)0.0);
+        }
+
+        [Test]
+        public void AreNotEqualDouble()
+        {
+            Assert.AreNotEqual((double)0.0, (double)1.0);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualDoublePositiveFail()
+        {
+            Assert.AreNotEqual((double)1.0, (double)1.0);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualDoubleNegativeFail()
+        {
+            Assert.AreNotEqual((double)-1.0, (double)-1.0);
+        }
+
+        [Test]
+        public void AreNotEqualDoubleNegativeAndPositive()
+        {
+            Assert.AreNotEqual((double)-1.0, (double)1.0);
+        }
+
+        [Test]
+        public void AreNotEqualDoubleWithMessage()
+        {
+            Assert.AreNotEqual((double)1.0, (double)2.0, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualDoubleWithMessageFail()
+        {
+            Assert.AreNotEqual((double) 1.0, (double) 1.0, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void AreNotEqualDoubleWithFormattedMessage()
+        {
+            Assert.AreNotEqual((double)1.0, (double)2.0, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualDoubleWithFormattedMessageFail()
+        {
+            Assert.AreNotEqual((double)1.0, (double)1.0, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        #endregion
+
+        #region AreNotEqual (Float)
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualFloatZero()
+        {
+            Assert.AreNotEqual((float)0.0, (float)0.0);
+        }
+
+        [Test]
+        public void AreNotEqualFloat()
+        {
+            Assert.AreNotEqual((float)0.0, (float)1.0);
+        }
+
+        [Test]
+        public void AreNotEqualFloatPositive()
+        {
+            Assert.AreNotEqual((float)1.0, (float)2.0);
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualFloatPositiveFail()
+        {
+            Assert.AreNotEqual((float)1.0, (float)1.0);
+        }
+
+        [Test]
+        public void AreNotEqualFloatNegative()
+        {
+            Assert.AreNotEqual((float)-1.0, (float)-2.0);
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualFloatNegativeFail()
+        {
+            Assert.AreNotEqual((float)-1.0, (float)-1.0);
+        }
+
+        [Test]
+        public void AreNotEqualFloatNegativeAndPositive()
+        {
+            Assert.AreNotEqual((float)-1.0, (float)1.0);
+        }
+
+
+        [Test]
+        public void AreNotEqualFloatWithMessage()
+        {
+            Assert.AreNotEqual((float)1.0, (float)3.0, "Assert AreNotEqual(message) has failed");
+        }
+
+        [Test]
+        public void AreNotEqualFloatWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.AreNotEqual((float)1.0, (float)1.0, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert AreNotEqual(message) has failed");
+        }
+
+        [Test]
+        public void AreNotEqualFloatWithFormattedMessage()
+        {
+            float l = 1.0f;
+            float r = 3.0f;
+            Assert.AreNotEqual(l, r, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void AreNotEqualFloatWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.AreNotEqual((float)1.0, (float)1.0, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert AreNotEqual(message, args) has failed");
+        }
+        #endregion
+
+        #region AreEqual (Decimal)
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualDecimalZero()
+        {
+            Assert.AreNotEqual((decimal)0.0, (decimal)0.0);
+        }
+
+        [Test]
+        public void AreNotEqualDecimal()
+        {
+            Assert.AreNotEqual(TEST_DECIMAL, TEST_OTHER_DECIMAL);
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualDecimalPositiveFail()
+        {
+            Assert.AreNotEqual(TEST_DECIMAL, TEST_DECIMAL);
+        }
+
+        [Test]
+        public void AreNotEqualDecimalNegative()
+        {
+            Assert.AreNotEqual(-TEST_DECIMAL, -TEST_OTHER_DECIMAL);
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualDecimalNegativeFail()
+        {
+            Assert.AreNotEqual(-TEST_DECIMAL, -TEST_DECIMAL);
+        }
+
+        [Test]
+        public void AreNotEqualDecimalNegativePositive()
+        {
+            Assert.AreNotEqual(-TEST_DECIMAL, TEST_DECIMAL);
+        }
+
+        [Test]
+        public void AreNotEqualDecimalWithMessage()
+        {
+            Assert.AreNotEqual(TEST_DECIMAL, TEST_OTHER_DECIMAL, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualDecimalWithMessageFail()
+        {
+            Assert.AreNotEqual(TEST_DECIMAL, TEST_DECIMAL, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void AreNotEqualDecimalWithFormattedMessage()
+        {
+            Assert.AreNotEqual(TEST_DECIMAL, TEST_OTHER_DECIMAL, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualDecimalWithFormattedMessageFail()
+        {
+            Assert.AreNotEqual(TEST_DECIMAL, TEST_DECIMAL, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        #region AreNotEqual (Integer)
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualIntZero()
+        {
+            Assert.AreNotEqual(0, 0);
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualIntFail()
+        {
+            Assert.AreNotEqual(1, 1);
+        }
+
+        [Test]
+        public void AreNotEqualIntPositive()
+        {
+            Assert.AreNotEqual(1, 2);
+        }
+
+        [Test]
+        public void AreNotEqualIntNegative()
+        {
+            Assert.AreNotEqual(-1, -2);
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualIntNegativeFail()
+        {
+            Assert.AreNotEqual(-1, -1);
+        }
+
+        [Test]
+        public void AreNotEqualIntWithMessage()
+        {
+            Assert.AreNotEqual(1, 2, "Assert AreEqual(message) has failed");
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualIntWithMessageFail()
+        {
+            Assert.AreNotEqual(1, 1, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void AreNotEqualIntWithFormattedMessage()
+        {
+            Assert.AreNotEqual(1, 2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualIntWithFormattedMessageFail()
+        {
+            Assert.AreNotEqual(1, 1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        #endregion
+
+        #endregion
+
         #endregion
 
         #region Between
@@ -981,6 +2073,47 @@ namespace MbUnit.Framework.Tests.Asserts
             Assert.In(null, enumerableStringArray);
         }
 
+        [Test]
+        public void InEnumerableWithMessage()
+        {
+            ArrayList list = new ArrayList();
+            string test = "test";
+            list.Add(test);
+
+            Assert.In(test, (IEnumerable)list, "InEnumerable Failed");
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void InEnumerableFail()
+        {
+            ArrayList list = new ArrayList();
+            string test = "test";
+            list.Add(test);
+
+            Assert.In("someOtherObject", (IEnumerable)list);
+        }
+
+        [Test]
+        public void InEnumerableWithMessageFail()
+        {
+            ArrayList list = new ArrayList();
+            string test = "test";
+            list.Add(test);
+
+            bool asserted = false;
+            try
+            {
+                Assert.In("someOtherObject", (IEnumerable)list, "InEnumerable Failed");
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf("InEnumerable Failed") >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert InEnumerable(message) has failed");
+        }
         #endregion
 
         #endregion
@@ -1147,5 +2280,8 @@ namespace MbUnit.Framework.Tests.Asserts
         }
 
         #endregion
+
+
+
     }
 }
