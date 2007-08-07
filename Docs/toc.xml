@@ -15,7 +15,13 @@
       <Item Filename="MbUnitAndVisualStudio\MbUnitAndResharper.htm" Title="Using Resharper" />
    </Item>
    <Item Filename="MigratingProjects\MigratingProjects.htm" Title="Migrating From Other Test Frameworks" />
-   <Item Filename="MbUnitInAnAgileEnvironment\MbUnitInAnAgileEnvironment.htm" Title="MbUnit In An Agile Environment" />
+   <Item Filename="MbUnitInAnAgileEnvironment\MbUnitInAnAgileEnvironment.htm" Title="MbUnit In An Agile Environment">
+      <Item Filename="MbUnitInAnAgileEnvironment\MbUnitInSourceControl.htm" Title="Putting MbUnit In Source Control" />
+      <Item Filename="MbUnitInAnAgileEnvironment\MbUnitReports.htm" Title="Working With MbUnit Reports" />
+      <Item Filename="MbUnitInAnAgileEnvironment\MbUnitAndNant.htm" Title="Automating MbUnit With nAnt" />
+      <Item Filename="MbUnitInAnAgileEnvironment\MbUnitAndMSBuild.htm" Title="Automating MbUnit With MSBuild" />
+      <Item Filename="MbUnitInAnAgileEnvironment\MbUnitAndCruiseControl.htm" Title="Automating MbUnit With Cruise Control.NET" />
+   </Item>
    <Item Filename="ContributingToMbUnit\ContributingToMbUnit.htm" Title="Contributing To MbUnit">
       <Item Filename="ContributingToMbUnit\Contributors.htm" Title="The Team" />
       <Item Filename="ContributingToMbUnit\License.htm" Title="License" />
