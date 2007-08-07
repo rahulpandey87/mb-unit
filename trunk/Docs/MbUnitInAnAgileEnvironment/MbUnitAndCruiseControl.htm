@@ -5,5 +5,40 @@
 </head>
 <body>
 <h1>Automating MbUnit With Cruise Control.NET</h1>
+<P>Some <A class="" href="http://blogs.pingpoet.com/PhilBlog/archive/2005/01/29/1161.aspx">slightly older guides</A> knocking about on the web, the easiest way of adding MbUnit to CCNet is to change the XSL reports (you can try the plugin option if you want). As <A class="" href="http://weblogs.asp.net/astopford/archive/2005/03/14/394519.aspx">noted in this blog post</A>, the XSL to show MbUnit reports is shipped with CCNet so you will have everything you need. I will get this into the docs I promise but for now here is&nbsp;a quick&nbsp;guide.</P>
+
+<P><STRONG>Get MbUnit reports into CCNet.</STRONG></P>
+
+<P>You will need to ensure that MbUnit is reporting to XML (you can use either the msbuild, nant or console tasks for this) and is merged into the CCNet XML by changing the ccnet.config and your projects MERGE group.</P>
+
+<P><STRONG>Use MbUnit XSL</STRONG></P>
+
+<P>When this is done you will need to change CCNet to use MbUnit XSL over the default NUnit XSL. You will need to make this change for the webdashboard and the server. There two ways of doing this, the easiest is to rename files (in the XSL folder) as follows.</P>
+
+<UL>
+<LI>
+unitests.xsl to unitests2.xsl</LI>
+
+<LI>
+MbUnitSummary.xsl to unitests.xsl</LI>
+
+<LI>
+tests.xsl to tests2.xsl</LI>
+
+<LI>
+MbUnitDetails.xsl to tests.xsl</LI>
+</UL>
+
+<P>The other option is </P>
+
+<UL>
+<LI>
+change the ccservice.exe.config and the xslFiles section replacing tests.xsl with MbUnitDetails.xsl</LI>
+
+<LI>
+change the dashboard.config, replacing unitests.xsl with MbUnitSummary.xsl and tests.xsl with MbUnitDetails.xsl.</LI>
+</UL>
+
+<p>Note that the MbUnit stylesheets that ship with CCNet do have a slight bug, refer to this <a href="http://jira.public.thoughtworks.org/browse/CCNET-943">JIRA report</a> for the fix</p>
 </body>
 </html>
