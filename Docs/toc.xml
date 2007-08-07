@@ -5,7 +5,7 @@
    <Item Filename="GettingStarted\GettingStarted.htm" Title="Getting Started">
       <Item Filename="GettingStarted\WritingYourFirstTests.htm" Title="Writing Your First Tests">
          <Item Filename="GettingStarted\TestAuthorsAndCategories.htm" Title="Test Authors, Categories, Importance And Targets" />
-         <Item Filename="GettingStarted\PassesIgnoresFailsAndWarnings.htm" Title="Passes, Failures, Ignores &amp; Warnings" />
+         <Item Filename="GettingStarted\PassesIgnoresFailsAndWarnings.htm" Title="Passes, Failures, Ignores And Warnings" />
       </Item>
       <Item Filename="GettingStarted\MbUnitConsoleRunner.htm" Title="Using the MbUnit Console Runner" />
       <Item Filename="GettingStarted\MbUnitGUI.htm" Title="Using the MbUnit GUI Runner" />
