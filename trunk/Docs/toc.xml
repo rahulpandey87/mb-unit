@@ -11,10 +11,12 @@
       <Item Filename="GettingStarted\MbUnitGUI.htm" Title="Using the MbUnit GUI Runner" />
    </Item>
    <Item Filename="MbUnitAndVisualStudio\MbUnitAndVisualStudio.htm" Title="MbUnit and Visual Studio">
+      <Item Filename="MbUnitAndVisualStudio\MbUnitSnippets.htm" Title="MbUnit Code Snippets" />
       <Item Filename="MbUnitAndVisualStudio\MbUnitAndTestDrivenDotNet.htm" Title="Using TestDriven.net" />
       <Item Filename="MbUnitAndVisualStudio\MbUnitAndResharper.htm" Title="Using Resharper" />
+      <Item Filename="MbUnitAndVisualStudio\CreatingSelfTestingAssemblies.htm" Title="Create Self-Testing Assemblies" />
    </Item>
-   <Item Filename="MigratingProjects\MigratingProjects.htm" Title="Migrating From Other Test Frameworks" />
+   <!--<Item Filename="MigratingProjects\MigratingProjects.htm" Title="Migrating From Other Test Frameworks" />-->
    <Item Filename="MbUnitInAnAgileEnvironment\MbUnitInAnAgileEnvironment.htm" Title="MbUnit In An Agile Environment">
       <Item Filename="MbUnitInAnAgileEnvironment\MbUnitInSourceControl.htm" Title="Putting MbUnit In Source Control" />
       <Item Filename="MbUnitInAnAgileEnvironment\MbUnitReports.htm" Title="Working With MbUnit Reports" />
