@@ -46,7 +46,7 @@ namespace MbUnit.Core.Filters
 
             foreach (string p in Pattern)
             {
-                if (fixture.Namespace.Equals(p))
+                if (fixture.Namespace.StartsWith(p))
                 {
                     return true;
                 }

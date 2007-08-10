@@ -63,7 +63,7 @@ namespace MbUnit.Core.Filters
             {
                 foreach (string p in this.Pattern)
                 {
-                    if (cat.Category.Equals(p))
+                    if (cat.Category.StartsWith(p))
                     {
                         return !exclude;
                     }
