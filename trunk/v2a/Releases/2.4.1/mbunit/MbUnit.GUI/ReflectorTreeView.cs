@@ -263,7 +263,7 @@ namespace MbUnit.Forms
 			// removeAssembliesItem
 			// 
 			this.removeAssembliesItem.Index = 1;
-			this.removeAssembliesItem.Text = "Remove Assemblies...";
+			this.removeAssembliesItem.Text = "Remove Assemblies";
 			this.removeAssembliesItem.Click += new System.EventHandler(this.removeAssembliesItem_Click);
 			// 
 			// reloadAssembliesMenuItem
