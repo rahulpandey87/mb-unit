@@ -53,11 +53,8 @@ namespace MbUnit.Documentation
                     count += CopyAllFilesInSourceToTarget(source, target);
                 else //Must be a file
                 {
-                    if (Path.GetExtension(source).Equals(".htm") || Path.GetExtension(source).Equals(".css") || Path.GetExtension(source).Equals(".Png"))
-                    {
-                        File.Copy(source, target, true);
-                        count++;
-                    }
+                    File.Copy(source, target, true);
+                    count++;
                 }
             }
 
