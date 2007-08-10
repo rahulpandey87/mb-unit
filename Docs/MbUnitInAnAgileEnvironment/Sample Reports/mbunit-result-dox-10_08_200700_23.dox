@@ -1,0 +1,12 @@
+-- FizzBuzzTests
+FizzBuzzTests
+    HisFizzBuzzTests
+      - his fizz buzz tests,to fizz buzz_ send number divisible by 3 and 5_ returns number as string( 1 5)
+      - his fizz buzz tests,to fizz buzz_ send number divisible by 3 and 5_ returns number as string( 3 0)
+    MyFizzBuzzTests
+      - my fizz buzz tests,to fizz buzz_ send number not divisible by 3 or 5_ returns number as string( 1)
+      - my fizz buzz tests,to fizz buzz_ send number not divisible by 3 or 5_ returns number as string( 2)
+      - my fizz buzz tests,to fizz buzz_ send number divisible by 3 but not 5_ returns fizz( 6)
+      - my fizz buzz tests,to fizz buzz_ send number divisible by 3 but not 5_ returns fizz( 3)
+      - my fizz buzz tests,to fizz buzz_ send number divisible by 5 but not 3_ returns buzz( 5)
+      - my fizz buzz tests,to fizz buzz_ send number divisible by 5 but not 3_ returns buzz( 1 0)

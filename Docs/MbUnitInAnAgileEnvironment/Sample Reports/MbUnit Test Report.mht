@@ -1,0 +1,844 @@
+From: "Saved by Windows Internet Explorer 7"
+Subject: MbUnit Test Report
+Date: Fri, 10 Aug 2007 00:23:00 +0100
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_0000_01C7DAE4.9BEF7A30"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.0.6000.16480
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0000_01C7DAE4.9BEF7A30
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file://C:\Users\Dan\AppData\Roaming\MbUnit\Reports\mbunit-result-10_08_200700_22.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=3D(0022)http://www.mbunit.com/ =
+--><HTML><HEAD><TITLE>MbUnit Test Report</TITLE>
+<META http-equiv=3DContent-Type content=3Dtext/html;charset=3Dutf-8>
+<STYLE>H1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 14pt; MARGIN-BOTTOM: 0pt; FONT-FAMILY: =
+Verdana
+}
+H2 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12pt; MARGIN-BOTTOM: 0pt; FONT-FAMILY: =
+Verdana
+}
+P {
+	FONT-SIZE: 9pt; FONT-FAMILY: Verdana
+}
+LI {
+	FONT-SIZE: 9pt; FONT-FAMILY: Verdana
+}
+TABLE {
+	FONT-WEIGHT: normal; FONT-SIZE: 8pt; COLOR: black; FONT-FAMILY: Verdana
+}
+TR.heading {
+	FONT-WEIGHT: bold; FONT-SIZE: 12pt; BACKGROUND-COLOR: #d0d0ff
+}
+TR.titles {
+	FONT-WEIGHT: bold; FONT-SIZE: 9pt; BACKGROUND-COLOR: #b0b0ff
+}
+TR.assemblysetupteardown {
+	FONT-WEIGHT: bold; FONT-SIZE: 9pt; BACKGROUND-COLOR: #ddddff
+}
+TR.fixture {
+	FONT-WEIGHT: bold; FONT-SIZE: 9pt; BACKGROUND-COLOR: #b0b0ff
+}
+TR.fixturesetupteardown {
+	FONT-WEIGHT: bold; FONT-SIZE: 9pt; BACKGROUND-COLOR: #ddddff
+}
+TR.assemblySummary {
+	FONT-WEIGHT: bold
+}
+TR.fixtureSummary {
+=09
+}
+TR.fixtureReplay {
+	FONT-SIZE: 7pt; BACKGROUND-COLOR: #d0d0ff
+}
+TR.successEven {
+	BACKGROUND-COLOR: #e0ffe0
+}
+TR.successOdd {
+	BACKGROUND-COLOR: #c0ffc0
+}
+TR.failureEven {
+	FONT-WEIGHT: bold; BACKGROUND-COLOR: #ffeede
+}
+TR.failureOdd {
+	FONT-WEIGHT: bold; BACKGROUND-COLOR: #ffd0c0
+}
+TR.skippedEven {
+	BACKGROUND-COLOR: #ffeeee
+}
+TR.skippedOdd {
+	BACKGROUND-COLOR: #ffd0d0
+}
+TR.exceptionType {
+	FONT-WEIGHT: bold; BACKGROUND-COLOR: #dddddd
+}
+TR.notRunEven {
+	BACKGROUND-COLOR: #f0f0ff
+}
+TR.notRunOdd {
+	BACKGROUND-COLOR: #d8d8ff
+}
+TR.ignoreEven {
+	BACKGROUND-COLOR: #ffffe0
+}
+TR.ignoreOdd {
+	BACKGROUND-COLOR: #ffffc0
+}
+TD.smallLeft {
+	FONT-WEIGHT: normal; FONT-SIZE: 7pt; VERTICAL-ALIGN: top; TEXT-ALIGN: =
+left
+}
+TD.smallRight {
+	FONT-WEIGHT: normal; FONT-SIZE: 7pt; VERTICAL-ALIGN: top; TEXT-ALIGN: =
+right
+}
+PRE.console {
+=09
+}
+PRE.stackTrace {
+=09
+}
+counter {
+	FONT-SIZE: 7pt
+}
+time {
+	FONT-SIZE: 8pt
+}
+BUTTON.expandCollapse {
+	WIDTH: 20px; LINE-HEIGHT: 80%; HEIGHT: 20px
+}
+</STYLE>
+
+<SCRIPT language=3DJavaScript type=3Dtext/javascript><!--=0A=
+            =0A=
+=0A=
+        function expandCollapse(button, id) =0A=
+        {=0A=
+          area =3D document.getElementById(id);=0A=
+          if (area.style.display =3D=3D "none") {=0A=
+            area.style.display =3D "block";=0A=
+            button.innerHTML =3D "-";=0A=
+          }=0A=
+          else =0A=
+          {=0A=
+            area.style.display =3D "none";=0A=
+            button.innerHTML =3D "+";=0A=
+          }=0A=
+        }=0A=
+        =0A=
+        function expandAll() =0A=
+        {=0A=
+          expandCollapseAll("-", "block");=0A=
+        }=0A=
+        =0A=
+        function collapseAll() =0A=
+        {=0A=
+          expandCollapseAll("+", "none");=0A=
+        }=0A=
+=0A=
+        function expandCollapseAll(buttonHTML, disp) =0A=
+        {=0A=
+          items =3D document.getElementsByTagName("table");=0A=
+          for (i =3D 0; i !=3D items.length; i++) =0A=
+          {=0A=
+            if (items[i].className =3D=3D "expandCollapse")=0A=
+            {=0A=
+              items[i].style.display =3D disp;=0A=
+            }=0A=
+          }=0A=
+=0A=
+          items =3D document.getElementsByTagName("button");=0A=
+          for (i =3D 0; i !=3D items.length; i++) =0A=
+          {=0A=
+            if (items[i].className =3D=3D "expandCollapse")=0A=
+            {=0A=
+              items[i].innerHTML =3D buttonHTML;=0A=
+            }=0A=
+          }=0A=
+        }=0A=
+=0A=
+        if (document.images)=0A=
+				{=0A=
+					populator =3D new Image();=0A=
+					fixture =3D new Image();=0A=
+					category =3D new Image();=0A=
+					test =3D new Image();=0A=
+					fixture.src =3D "Fixture.png";=0A=
+					test.src =3D "Test.png"=0A=
+					category.src =3D "Category.png"=0A=
+					populator.src =3D "Populator.png"=0A=
+				}=0A=
+				=0A=
+          --></SCRIPT>
+
+<META content=3D"MSHTML 6.00.6000.16481" name=3DGENERATOR></HEAD>
+<BODY><IMG=20
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/mbunitlogo.png=
+"><BR>
+<H1>Test Summary</H1>
+<UL>
+  <LI><STRONG>Date:</STRONG>2007-08-10T00:22:28.8+01:00
+  <LI><STRONG>Duration:</STRONG><SPAN =
+class=3Dtime>0.03s</SPAN></LI></UL>
+<TABLE cellSpacing=3D1 cellPadding=3D1 border=3D0>
+  <TBODY>
+  <TR class=3Dtitles>
+    <TD>Total</TD>
+    <TD>
+      <DIV=20
+      style=3D"BORDER-LEFT-COLOR: black; BORDER-BOTTOM-COLOR: black; =
+WIDTH: 100px; BORDER-TOP-COLOR: black; POSITION: relative; HEIGHT: 14px; =
+BACKGROUND-COLOR: #dddddd; BORDER-RIGHT-COLOR: black">
+      <DIV=20
+      style=3D"FONT-SIZE: 1px; LEFT: 0px; WIDTH: 50px; POSITION: =
+absolute; TOP: 0px; HEIGHT: 14px; BACKGROUND-COLOR: lightgreen"></DIV>
+      <DIV=20
+      style=3D"FONT-SIZE: 1px; LEFT: 50px; WIDTH: 25px; POSITION: =
+absolute; TOP: 0px; HEIGHT: 14px; BACKGROUND-COLOR: red"></DIV>
+      <DIV=20
+      style=3D"FONT-SIZE: 1px; LEFT: 75px; WIDTH: 25px; POSITION: =
+absolute; TOP: 0px; HEIGHT: 14px; BACKGROUND-COLOR: orange"></DIV>
+      <DIV=20
+      style=3D"FONT-SIZE: 12px; LEFT: 102px; FONT-FAMILY: Verdana; =
+POSITION: absolute; TOP: 0px; HEIGHT: =
+14px">8/4/2/0/2/6</DIV></DIV></TD></TR>
+  <TR class=3Dtitles>
+    <TD><A=20
+      =
+href=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/mbunit-result=
+-10_08_200700_22.html#FizzBuzzTestsAssembly"><IMG=20
+      height=3D16=20
+      =
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Populator.png"=
+=20
+      width=3D16 border=3D0></IMG>FizzBuzzTests</A></TD>
+    <TD>
+      <DIV=20
+      style=3D"BORDER-LEFT-COLOR: black; BORDER-BOTTOM-COLOR: black; =
+WIDTH: 100px; BORDER-TOP-COLOR: black; POSITION: relative; HEIGHT: 12px; =
+BACKGROUND-COLOR: #dddddd; BORDER-RIGHT-COLOR: black">
+      <DIV=20
+      style=3D"FONT-SIZE: 1px; LEFT: 0px; WIDTH: 50px; POSITION: =
+absolute; TOP: 0px; HEIGHT: 12px; BACKGROUND-COLOR: lightgreen"></DIV>
+      <DIV=20
+      style=3D"FONT-SIZE: 1px; LEFT: 50px; WIDTH: 25px; POSITION: =
+absolute; TOP: 0px; HEIGHT: 12px; BACKGROUND-COLOR: red"></DIV>
+      <DIV=20
+      style=3D"FONT-SIZE: 1px; LEFT: 75px; WIDTH: 25px; POSITION: =
+absolute; TOP: 0px; HEIGHT: 12px; BACKGROUND-COLOR: orange"></DIV>
+      <DIV=20
+      style=3D"FONT-SIZE: 10px; LEFT: 102px; FONT-FAMILY: Verdana; =
+POSITION: absolute; TOP: 0px; HEIGHT: =
+12px">8/4/2/0/2/6</DIV></DIV></TD></TR>
+  <TR class=3DfixtureSummary>
+    <TD><A=20
+      =
+href=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/mbunit-result=
+-10_08_200700_22.html#FizzBuzzTests.HisFizzBuzzTests"><IMG=20
+      height=3D16=20
+      =
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Fixture.png"=20
+      width=3D16=20
+    =
+border=3D0></IMG>FizzBuzzTests.HisFizzBuzzTests.HisFizzBuzzTests</A></TD>=
+
+    <TD>
+      <DIV=20
+      style=3D"BORDER-LEFT-COLOR: black; BORDER-BOTTOM-COLOR: black; =
+WIDTH: 100px; BORDER-TOP-COLOR: black; POSITION: relative; HEIGHT: 10px; =
+BACKGROUND-COLOR: #dddddd; BORDER-RIGHT-COLOR: black">
+      <DIV=20
+      style=3D"FONT-SIZE: 1px; LEFT: 0px; WIDTH: 100px; POSITION: =
+absolute; TOP: 0px; HEIGHT: 10px; BACKGROUND-COLOR: red"></DIV>
+      <DIV=20
+      style=3D"FONT-SIZE: 8px; LEFT: 102px; FONT-FAMILY: Verdana; =
+POSITION: absolute; TOP: 0px; HEIGHT: =
+10px">2/0/2/0/0/2</DIV></DIV></TD></TR>
+  <TR class=3DfixtureSummary>
+    <TD><A=20
+      =
+href=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/mbunit-result=
+-10_08_200700_22.html#FizzBuzzTests.MyFizzBuzzTests"><IMG=20
+      height=3D16=20
+      =
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Fixture.png"=20
+      width=3D16=20
+    =
+border=3D0></IMG>FizzBuzzTests.MyFizzBuzzTests.MyFizzBuzzTests</A></TD>
+    <TD>
+      <DIV=20
+      style=3D"BORDER-LEFT-COLOR: black; BORDER-BOTTOM-COLOR: black; =
+WIDTH: 100px; BORDER-TOP-COLOR: black; POSITION: relative; HEIGHT: 10px; =
+BACKGROUND-COLOR: #dddddd; BORDER-RIGHT-COLOR: black">
+      <DIV=20
+      style=3D"FONT-SIZE: 1px; LEFT: 0px; WIDTH: 66px; POSITION: =
+absolute; TOP: 0px; HEIGHT: 10px; BACKGROUND-COLOR: lightgreen"></DIV>
+      <DIV=20
+      style=3D"FONT-SIZE: 1px; LEFT: 66px; WIDTH: 33px; POSITION: =
+absolute; TOP: 0px; HEIGHT: 10px; BACKGROUND-COLOR: orange"></DIV>
+      <DIV=20
+      style=3D"FONT-SIZE: 8px; LEFT: 102px; FONT-FAMILY: Verdana; =
+POSITION: absolute; TOP: 0px; HEIGHT: =
+10px">6/4/0/0/2/4</DIV></DIV></TD></TR></TBODY></TABLE>
+<H1>Warnings</H1>
+<TABLE>
+  <TBODY>
+  <TR class=3DfailureOdd>
+    <TD><IMG height=3D16=20
+      =
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Test.png"=20
+      width=3D16=20
+      =
+border=3D0></IMG>MyFizzBuzzTests.ToFizzBuzz_SendNumberDivisibleBy3ButNot5=
+_ReturnsFizz(6)</TD>
+    <TD>Values divisble by 15 shouldn't be tested here</TD></TR>
+  <TR class=3DfailureEven>
+    <TD><IMG height=3D16=20
+      =
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Test.png"=20
+      width=3D16=20
+      =
+border=3D0></IMG>MyFizzBuzzTests.ToFizzBuzz_SendNumberDivisibleBy3ButNot5=
+_ReturnsFizz(3)</TD>
+    <TD>Values divisble by 15 shouldn't be tested =
+here</TD></TR></TBODY></TABLE>
+<H1>Test result details</H1>
+<DIV style=3D"FLOAT: right"><BUTTON onclick=3DexpandAll()>Expand =
+All</BUTTON><BUTTON=20
+onclick=3DcollapseAll()>Collapse All</BUTTON></DIV>
+<H2 id=3DFizzBuzzTestsAssembly><IMG height=3D16=20
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Populator.png"=
+ width=3D16=20
+border=3D0></IMG>FizzBuzzTests</H2>
+<UL>
+  <LI><STRONG>Full Name:</STRONG>FizzBuzzTests, Version=3D1.0.0.0,=20
+  Culture=3Dneutral, PublicKeyToken=3Dnull
+  <LI><STRONG>Results:</STRONG>8 test, 4 success, 2 failures, 0 skipped, =
+2=20
+  ignored, 6 asserts=20
+  <LI><STRONG>Duration:</STRONG><SPAN =
+class=3Dtime>0.03s</SPAN></LI></UL>
+<TABLE cellSpacing=3D1 cellPadding=3D1 width=3D800 border=3D0>
+  <COLGROUP>
+  <COL width=3D700>
+  <COL width=3D50>
+  <COL width=3D50>
+  <TBODY>
+  <TR id=3DFizzBuzzTests.HisFizzBuzzTests>
+    <TD>
+      <DIV=20
+      style=3D"BORDER-LEFT-COLOR: black; BORDER-BOTTOM-COLOR: black; =
+WIDTH: 100px; BORDER-TOP-COLOR: black; POSITION: relative; HEIGHT: 10px; =
+BACKGROUND-COLOR: #dddddd; BORDER-RIGHT-COLOR: black">
+      <DIV=20
+      style=3D"FONT-SIZE: 1px; LEFT: 0px; WIDTH: 100px; POSITION: =
+absolute; TOP: 0px; HEIGHT: 10px; BACKGROUND-COLOR: red"></DIV>
+      <DIV=20
+      style=3D"FONT-SIZE: 8px; LEFT: 102px; FONT-FAMILY: Verdana; =
+POSITION: absolute; TOP: 0px; HEIGHT: =
+10px">2/0/2/0/0/2</DIV></DIV></TD></TR>
+  <TR class=3Dfixture>
+    <TD><IMG height=3D16=20
+      =
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Fixture.png"=20
+      width=3D16 =
+border=3D0></IMG>FizzBuzzTests.HisFizzBuzzTests.HisFizzBuzzTests=20
+      (<SPAN class=3Dtime>0.02s</SPAN>) </TD></TR>
+  <TR class=3DfixtureReplay>
+    <TD>MbUnit.Cons.exe -filter-type:FizzBuzzTests.HisFizzBuzzTests=20
+      "file:///D:/Documents/Visual Studio=20
+      =
+2008/Projects/MbUnit/FizzBuzz/FizzBuzzTests/bin/Debug/FizzBuzzTests.EXE" =
+
+    </TD></TR>
+  <TR>
+    <TD>
+  <TR>
+  <TR class=3DfailureOdd>
+    <TD>
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD><BUTTON class=3DexpandCollapse=20
+            onclick=3D"expandCollapse(this, =
+'EBABAAAAAA')">-</BUTTON><IMG=20
+            height=3D16=20
+            =
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Test.png"=20
+            width=3D16 border=3D0></IMG></TD>
+          =
+<TD>HisFizzBuzzTests.ToFizzBuzz_SendNumberDivisibleBy3And5_ReturnsNumberA=
+sString(15)</TD></TR></TBODY></TABLE></TD>
+    <TD><SPAN class=3Dtime>16.000ms</SPAN></TD>
+    <TD>3.28 Kb, 1</TD></TR>
+  <TR>
+    <TD>
+      <TABLE class=3DexpandCollapse id=3DEBABAAAAAA>
+        <TBODY>
+        <TR class=3Dfailure-exception>
+          <TD>
+            <DIV>
+            <TABLE cellSpacing=3D1 cellPadding=3D1 width=3D600 =
+border=3D0>
+              <TBODY>
+              <TR class=3DexceptionType>
+                =
+<TD><STRONG>Type:</STRONG>MbUnit.Core.Exceptions.NotEqualAssertionExcepti=
+on</TD></TR>
+              <TR>
+                <TD><STRONG>Message:</STRONG> Equal assertion failed:=20
+                  [[fizzbuzz]]!=3D[[fizz]]</TD></TR>
+              <TR>
+                <TD><STRONG>Source:</STRONG>MbUnit.Framework</TD></TR>
+              <TR>
+                <TD><BOLD>TargetSite:</BOLD>Void =
+FailNotEquals(System.Object,=20
+                  System.Object, System.String, =
+System.Object[])</TD></TR>
+              <TR>
+                <TD><BOLD>HelpLink:</BOLD>null</TD></TR>
+              <TR>
+                <TD width=3D80><STRONG>StackTrace:</STRONG><BR><PRE =
+class=3DstackTrace width=3D80>   at =
+MbUnit.Framework.Assert.FailNotEquals(Object expected, Object actual, =
+String format, Object[] args)
+   at MbUnit.Framework.Assert.AreEqual(Object expected, Object actual, =
+String message)
+   at MbUnit.Framework.Assert.AreEqual(Object expected, Object actual)
+   at =
+FizzBuzzTests.HisFizzBuzzTests.ToFizzBuzz_SendNumberDivisibleBy3And5_Retu=
+rnsNumberAsString(Int32 NumberToTest) in D:\Documents\Visual Studio =
+2008\Projects\MbUnit\FizzBuzz\FizzBuzzTests\FizzBuzzTests.cs:line =
+58</PRE></TD></TR></TBODY></TABLE></DIV></TD></TR></TBODY></TABLE></TD></=
+TR>
+  <TR class=3DfailureEven>
+    <TD>
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD><BUTTON class=3DexpandCollapse=20
+            onclick=3D"expandCollapse(this, =
+'EAABAAAAAA')">-</BUTTON><IMG=20
+            height=3D16=20
+            =
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Test.png"=20
+            width=3D16 border=3D0></IMG></TD>
+          =
+<TD>HisFizzBuzzTests.ToFizzBuzz_SendNumberDivisibleBy3And5_ReturnsNumberA=
+sString(30)</TD></TR></TBODY></TABLE></TD>
+    <TD><SPAN class=3Dtime>1.000ms</SPAN></TD>
+    <TD>1.64 Kb, 1</TD></TR>
+  <TR>
+    <TD>
+      <TABLE class=3DexpandCollapse id=3DEAABAAAAAA>
+        <TBODY>
+        <TR class=3Dfailure-exception>
+          <TD>
+            <DIV>
+            <TABLE cellSpacing=3D1 cellPadding=3D1 width=3D600 =
+border=3D0>
+              <TBODY>
+              <TR class=3DexceptionType>
+                =
+<TD><STRONG>Type:</STRONG>MbUnit.Core.Exceptions.NotEqualAssertionExcepti=
+on</TD></TR>
+              <TR>
+                <TD><STRONG>Message:</STRONG> Equal assertion failed:=20
+                  [[fizzbuzz]]!=3D[[fizz]]</TD></TR>
+              <TR>
+                <TD><STRONG>Source:</STRONG>MbUnit.Framework</TD></TR>
+              <TR>
+                <TD><BOLD>TargetSite:</BOLD>Void =
+FailNotEquals(System.Object,=20
+                  System.Object, System.String, =
+System.Object[])</TD></TR>
+              <TR>
+                <TD><BOLD>HelpLink:</BOLD>null</TD></TR>
+              <TR>
+                <TD width=3D80><STRONG>StackTrace:</STRONG><BR><PRE =
+class=3DstackTrace width=3D80>   at =
+MbUnit.Framework.Assert.FailNotEquals(Object expected, Object actual, =
+String format, Object[] args)
+   at MbUnit.Framework.Assert.AreEqual(Object expected, Object actual, =
+String message)
+   at MbUnit.Framework.Assert.AreEqual(Object expected, Object actual)
+   at =
+FizzBuzzTests.HisFizzBuzzTests.ToFizzBuzz_SendNumberDivisibleBy3And5_Retu=
+rnsNumberAsString(Int32 NumberToTest) in D:\Documents\Visual Studio =
+2008\Projects\MbUnit\FizzBuzz\FizzBuzzTests\FizzBuzzTests.cs:line =
+58</PRE></TD></TR></TBODY></TABLE></DIV></TD></TR></TBODY></TABLE></TD></=
+TR></TR></TD></TR>
+  <TR id=3DFizzBuzzTests.MyFizzBuzzTests>
+    <TD>
+      <DIV=20
+      style=3D"BORDER-LEFT-COLOR: black; BORDER-BOTTOM-COLOR: black; =
+WIDTH: 100px; BORDER-TOP-COLOR: black; POSITION: relative; HEIGHT: 10px; =
+BACKGROUND-COLOR: #dddddd; BORDER-RIGHT-COLOR: black">
+      <DIV=20
+      style=3D"FONT-SIZE: 1px; LEFT: 0px; WIDTH: 66px; POSITION: =
+absolute; TOP: 0px; HEIGHT: 10px; BACKGROUND-COLOR: lightgreen"></DIV>
+      <DIV=20
+      style=3D"FONT-SIZE: 1px; LEFT: 66px; WIDTH: 33px; POSITION: =
+absolute; TOP: 0px; HEIGHT: 10px; BACKGROUND-COLOR: orange"></DIV>
+      <DIV=20
+      style=3D"FONT-SIZE: 8px; LEFT: 102px; FONT-FAMILY: Verdana; =
+POSITION: absolute; TOP: 0px; HEIGHT: =
+10px">6/4/0/0/2/4</DIV></DIV></TD></TR>
+  <TR class=3Dfixture>
+    <TD><IMG height=3D16=20
+      =
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Fixture.png"=20
+      width=3D16 =
+border=3D0></IMG>FizzBuzzTests.MyFizzBuzzTests.MyFizzBuzzTests=20
+      (<SPAN class=3Dtime>0.01s</SPAN>) </TD></TR>
+  <TR class=3DfixtureReplay>
+    <TD>MbUnit.Cons.exe -filter-type:FizzBuzzTests.MyFizzBuzzTests=20
+      "file:///D:/Documents/Visual Studio=20
+      =
+2008/Projects/MbUnit/FizzBuzz/FizzBuzzTests/bin/Debug/FizzBuzzTests.EXE" =
+
+    </TD></TR>
+  <TR>
+    <TD>
+  <TR>
+  <TR class=3DsuccessOdd>
+    <TD>
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD><BUTTON class=3DexpandCollapse=20
+            onclick=3D"expandCollapse(this, =
+'EFAAAAAAAA')">-</BUTTON><IMG=20
+            height=3D16=20
+            =
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Test.png"=20
+            width=3D16 border=3D0></IMG></TD>
+          =
+<TD>MyFizzBuzzTests.ToFizzBuzz_SendNumberNotDivisibleBy3Or5_ReturnsNumber=
+AsString(1)</TD></TR></TBODY></TABLE></TD>
+    <TD><SPAN class=3Dtime>2.000ms</SPAN></TD>
+    <TD>1.64 Kb, 1</TD></TR>
+  <TR>
+    <TD>
+      <TABLE class=3DexpandCollapse id=3DEFAAAAAAAA>
+        <TBODY></TBODY></TABLE></TD></TR>
+  <TR class=3DsuccessEven>
+    <TD>
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD><BUTTON class=3DexpandCollapse=20
+            onclick=3D"expandCollapse(this, =
+'EEAAAAAAAA')">-</BUTTON><IMG=20
+            height=3D16=20
+            =
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Test.png"=20
+            width=3D16 border=3D0></IMG></TD>
+          =
+<TD>MyFizzBuzzTests.ToFizzBuzz_SendNumberNotDivisibleBy3Or5_ReturnsNumber=
+AsString(2)</TD></TR></TBODY></TABLE></TD>
+    <TD><SPAN class=3Dtime>1.000ms</SPAN></TD>
+    <TD>1.64 Kb, 1</TD></TR>
+  <TR>
+    <TD>
+      <TABLE class=3DexpandCollapse id=3DEEAAAAAAAA>
+        <TBODY></TBODY></TABLE></TD></TR>
+  <TR class=3DsuccessOdd>
+    <TD>
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD><BUTTON class=3DexpandCollapse=20
+            onclick=3D"expandCollapse(this, =
+'EDAAAAAAAA')">-</BUTTON><IMG=20
+            height=3D16=20
+            =
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Test.png"=20
+            width=3D16 border=3D0></IMG></TD>
+          =
+<TD>MyFizzBuzzTests.ToFizzBuzz_SendNumberDivisibleBy3ButNot5_ReturnsFizz(=
+6)</TD></TR></TBODY></TABLE></TD>
+    <TD><SPAN class=3Dtime>2.000ms</SPAN></TD>
+    <TD>1.64 Kb, 1</TD></TR>
+  <TR>
+    <TD>
+      <TABLE class=3DexpandCollapse id=3DEDAAAAAAAA>
+        <TBODY></TBODY></TABLE></TD></TR>
+  <TR class=3DsuccessEven>
+    <TD>
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD><BUTTON class=3DexpandCollapse=20
+            onclick=3D"expandCollapse(this, =
+'ECAAAAAAAA')">-</BUTTON><IMG=20
+            height=3D16=20
+            =
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Test.png"=20
+            width=3D16 border=3D0></IMG></TD>
+          =
+<TD>MyFizzBuzzTests.ToFizzBuzz_SendNumberDivisibleBy3ButNot5_ReturnsFizz(=
+3)</TD></TR></TBODY></TABLE></TD>
+    <TD><SPAN class=3Dtime>1.000ms</SPAN></TD>
+    <TD>2.46 Kb, 1</TD></TR>
+  <TR>
+    <TD>
+      <TABLE class=3DexpandCollapse id=3DECAAAAAAAA>
+        <TBODY></TBODY></TABLE></TD></TR>
+  <TR class=3DignoreOdd>
+    <TD>
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD><BUTTON class=3DexpandCollapse=20
+            onclick=3D"expandCollapse(this, =
+'EBAAAAAAAA')">-</BUTTON><IMG=20
+            height=3D16=20
+            =
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Test.png"=20
+            width=3D16 border=3D0></IMG></TD>
+          =
+<TD>MyFizzBuzzTests.ToFizzBuzz_SendNumberDivisibleBy5ButNot3_ReturnsBuzz(=
+5)</TD></TR></TBODY></TABLE></TD>
+    <TD><SPAN class=3Dtime>2.000ms</SPAN></TD>
+    <TD>1.64 Kb, 0</TD></TR>
+  <TR>
+    <TD>
+      <TABLE class=3DexpandCollapse id=3DEBAAAAAAAA>
+        <TBODY></TBODY></TABLE></TD></TR>
+  <TR class=3DignoreEven>
+    <TD>
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD><BUTTON class=3DexpandCollapse=20
+            onclick=3D"expandCollapse(this, =
+'EAAAAAAAAA')">-</BUTTON><IMG=20
+            height=3D16=20
+            =
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Test.png"=20
+            width=3D16 border=3D0></IMG></TD>
+          =
+<TD>MyFizzBuzzTests.ToFizzBuzz_SendNumberDivisibleBy5ButNot3_ReturnsBuzz(=
+10)</TD></TR></TBODY></TABLE></TD>
+    <TD><SPAN class=3Dtime>1.000ms</SPAN></TD>
+    <TD>1.64 Kb, 0</TD></TR>
+  <TR>
+    <TD>
+      <TABLE class=3DexpandCollapse id=3DEAAAAAAAAA>
+        =
+<TBODY></TBODY></TABLE></TD></TR></TR></TD></TR></TBODY></TABLE><BR>
+<P><IMG=20
+src=3D"file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/mbuniticon.gif=
+"> This=20
+report was generated using <A =
+href=3D"http://www.mbunit.com/">MbUnit</A>.=20
+</P></BODY></HTML>
+
+------=_NextPart_000_0000_01C7DAE4.9BEF7A30
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/mbunitlogo.png
+
+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
+QGng/wEOgEkj1TLsbAAAAABJRU5ErkJggg==
+
+------=_NextPart_000_0000_01C7DAE4.9BEF7A30
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Populator.png
+
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlz
+AAAOwgAADsIBFShKgAAAAHNJREFUOE+1ko0KwCAIhNeb+2i+meNcwhr+xKRAgsrvrsMhIldrAdCp
+VrO676inACKSqkIAGitnzIz0/QANgEcAefsCQANopvp2kEHUgT3+/jdStvPFgZL+OvDCghsoVBWG
+OMf7STmps4NUzYHdnxvlXQc3Eqyp0ZFsHpQAAAAASUVORK5CYII=
+
+------=_NextPart_000_0000_01C7DAE4.9BEF7A30
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Fixture.png
+
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlz
+AAASdAAAEnQB3mYfeAAAAUpJREFUOE9j+P//PwMy/vbuxv+Hq0T+g2h0OWx8rJq/Pmz9f2KGOFGG
+wA2A2fzlYdv/L9ey/388HYDVkL9v/qK4DGwATPPXB63/P1/L+f8JqPn9AZP/b7fK/m9M4oG7BKT5
+Uurl/8iGIDQDbYZp/nDAFKhZBqvmX2t/oRjCAAowkJ+/XIc4+wPQ5nc4bAZp/jXj9//bBXf+9+j2
+gl0CdsG8Cj6gZn+ws9/v0wfbnN8wHY5v5Nz8j00zyPvwMAAZ8m6bDNgwWBSCDAEpAtm0yWYzis2w
+KEWJBWTNIAUwA2CGgJz96N53zFiAmYaeeJANAKkBaY6efeP/43c/4IagJCT0lIZsAEgTSPPMs///
+OxefhBtClAHImmu2vAQbxGA8E2wIQQNAroDZjK4ZHguEMg3IJtPkrSg2Y8QCMYbAnI2sFq8X0A1F
+Dn2YHAB2qgp5wXS5YAAAAABJRU5ErkJggg==
+
+------=_NextPart_000_0000_01C7DAE4.9BEF7A30
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/Test.png
+
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAOCAYAAAAmL5yKAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlz
+AAAOwgAADsIBFShKgAAAAIVJREFUOE+lkgEOgCAIRenmHI2bEZBsSKRUTacz/uODHswMvz4FdKYk
+kbB7bF8skRVkCzCRDAS0NUOWgCyuIICIrFPri/vR3CtjcJAhLQdVGV6KAYjIXPjqjjRoyjh6oGcT
+YHWNGaLiEpAduAvvhYui2P51HlFs6KtrzPBPD2nnsF3CE+gE7r8nWxCx0ogAAAAASUVORK5CYII=
+
+------=_NextPart_000_0000_01C7DAE4.9BEF7A30
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/Users/Dan/AppData/Roaming/MbUnit/Reports/mbuniticon.gif
+
+R0lGODlhIgAgAPcAAF9fX1txVVp3UVt6UmJiYmZmZmlpaW1tbWdxZGZ3YWh8Ym5/aXFxcXJ0cXV1
+dXN9cHZ4dXl5eXt8e3x+e319fVisPlO/Mle6OFq0PVOOQVaWQl+ST1ymRV2wQ2ONVmObUWeeVmmc
+WW2cXmqBZG6JZW2RYm6VYm+cYXCDanOAbnGGa3OMa3aHcHmCdniHc3iPcX2JenKSaXSQa3GZZXCd
+YXOfZneYbXiUb3qXcX6XdmGhTWKqTGGtSWWsT2WlUWWpUGauUGmlV2iqU2mpVWiuUm2tWWGzSGay
+TmezUGqyVGu3VGy1VW6wWXCvXHG2XHS3X3KkYnejanGpYHSqY3ulbXmpanupbX2icXS0YHW4YXuz
+ani7ZHy5aH64bHy+aErLIlHFLVDbJVPbKX7BaXzjXJtgYJp6erxFRbNfX71QULhdXb1cXK5gYKh3
+d7V7e75xccFJScdPT8dVVcFZWc5fXtFGRtVKStdMTNhNTdRVVddfXttQUNtYWN5bW8ZnZ8xhYc9t
+bMdycdVkZNBubdhgYONYWOFeXuVaWudcXOleXuNgYOViYoCJfoOPf4CRe4GVeoCYeYaifYOvdYa6
+doe5eLSBf4THb4LNa4fBdYvGeY7AfoLXaIXRbonVcY7VeYzYdZHRfZDbeJPffJHodoGCgYKGgYWF
+hYSIg4eNhYiKh4mJiYuMi42NjYmSg4qRiJ2NjZGRkZKVkJWVlZqVlZmZmZyfm52dnYujhIyqg4+5
+gpKgjpKsipqimZyimp6gnpyql5OziZWzjJW3i5K+hJa9ipi7jZqxkpu0lJ6zl5+ymZ6/lKONjKKR
+kaGhoaWlpaOtoKipp6mpqa2tram0pau0qKm4pa67qbGxsbW1tbm5ub29vZbKhprCjpnEjJ3GkZ7I
+kZfYg5zVi5rbhZzciJbggJrihKjCn6Ddjbvirr/jtLbwpcHBwcXFxcnJyc7OztHR0dXV1dnZ2d3d
+3dX2ytv30uP53eHh4ebm5unp6e3t7ez76PHx8fX19fP88fj4+P7+/iwAAAAAIgAgAAAI/wD/CRxI
+sNm1gwivSZMWLRo0Z7582aIlSxYsUvwIahSIzZ3Hj+1CsmO3zlq1bNgUOpSVcSNBbe9MrZqpSpUp
+Cu3YpfABgQGDAwYIRKPV0qVAbfBW3YLFlBUrUu7Y/TghIYKDnwWGFjW6Lh6sW7gqMjX1rp0QGBSq
++iwgjajRev3+sZMnaxcmWhRjVXnn7oYpUhSsMjAgzdZWgvRG/Wtnj1YwTrzwTsoCz50pU4xm+OiA
+oQKXW4cH0hOjrx0+WsQ6GWvG69KWeDGvLEFiBMMFC2DAkJknsB7BeWHUucPXbNunYs5+XeoSDx4k
+K1OgnDBBQgE1Xxnz5Us3Tns+dF82uf/b1wyUp2LNelmKJA+eKVWAJThoYABbs4zOtK1j187dO3jx
+yJPPPt7hg4899gQIW07saIPSNfZlJI1H7wRozz33DMiPPxzyQyA+98gjD2xlkeRghP9I0w4pacTR
+hixv6CEIPvxwIw44yiDTjC2w2AOPIznYcEIJV9V3X4qWyYHHH7QMksgiNE5zTjnheNNNMbqMuAor
+NpHiQgQHoKiiKXPcsQczgCCiyD37RGMOOaKE8kknY7S3ZZcTqBDmkWOuYccebgRSiCH25JPMN97I
+2QkndcJThSvwkSIBBHtKyI4patSBhx+VFNKHPfgMAw00zxwjTC6SNOfEE43E58AB1xz/Gc2KaNRh
+Rx6z6MGHPPfU4kwzwE4EC2yOUNEEWlbBit0/0bBDCht11HHHK8vQEY89lGSiCTCR0cIKPO+UYkop
+L1RF3zWG/QPNOhGUcQYccJjBSivwyKOFF/hyEclTfEkQ2FUHHEBAYfjtx59/8AAYj4IjLpwwXyGt
+s86JCrmVXzb67ReSOw+/w5dHG4s08YMVZ9RMNg5AEEIPRNQgBQzthFtTKo9EwYQP7azTzsI89yyQ
+LyhH0EIQSCShRBLsuFMEFlegYtMpKzR4j1ED2YINAw5EIIEMQyABhM5DKKHEEjiQQkoE62QzNdX/
+0HLNAQ1kDQILQeyQDTs+IIHEEUfMkkCBA9pgszbVskhjgE8LfBBBBA9ksw4KMYjwAw88lMAASoMb
+VXgBAW8wggNXYaMNA4tHQIIOHCSQUuYuwRINAQYgoMEBPsGazQGgN8BAAx5koBDrG7HiDAAECDCA
+AcgbEA02BgTsvAEBMAS8Rqs044wz0DS0kDQJIbS9NM5MT1AEqjjFFCwVpU8RRelbxIr4AwUEADs=
+
+------=_NextPart_000_0000_01C7DAE4.9BEF7A30--
