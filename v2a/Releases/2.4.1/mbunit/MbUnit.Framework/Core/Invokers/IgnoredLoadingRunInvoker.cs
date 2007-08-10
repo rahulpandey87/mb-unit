@@ -61,7 +61,7 @@ namespace MbUnit.Core.Invokers
 
         public override bool ContainsMemberInfo(System.Reflection.MemberInfo memberInfo)
         {
-            return true;
+            return this.method == memberInfo;
         }
     }
 }
