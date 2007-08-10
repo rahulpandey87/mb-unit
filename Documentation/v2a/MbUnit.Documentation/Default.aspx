@@ -1,7 +1,7 @@
 <%@ Page Language="C#" MasterPageFile="~/DocSite.Master" AutoEventWireup="true" Codebehind="Default.aspx.cs" Inherits="MbUnit.Documentation.Default" %>
 
 <asp:Content ID="HelpFile" ContentPlaceHolderID="Content" runat="server">
-	<iframe runat="server" class="docsite_content_frame" id="ContentFrame" width="100%" frameborder="0" scrolling="no"></iframe>
+	<iframe runat="server" class="docsite_content_frame" id="ContentFrame" width="100%" frameborder="0" scrolling="auto"></iframe>
 	<asp:HiddenField runat="server" ID="ContentUrl" />
 	
 	<script type="text/javascript">
