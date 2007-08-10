@@ -783,8 +783,13 @@ namespace MbUnit.GUI
         {
             if (ConfigurationSettings.AppSettings["restorePreviousState"] == "true")
             {
-                // save current state
-                this.treeView.SaveProject(previousSettings);
+                try
+                {
+                    // save current state
+                    this.treeView.SaveProject(previousSettings);
+                }
+                catch (Exception)
+                { }
             }
 
             // call base behaviour
