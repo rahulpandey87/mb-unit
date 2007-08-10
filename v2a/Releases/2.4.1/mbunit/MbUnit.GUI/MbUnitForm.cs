@@ -256,7 +256,7 @@ namespace MbUnit.GUI
             // menuItemAssembliesRemoveAssemblies
             // 
             this.menuItemAssembliesRemoveAssemblies.Index = 1;
-            this.menuItemAssembliesRemoveAssemblies.Text = "&Remove Assemblies...";
+            this.menuItemAssembliesRemoveAssemblies.Text = "&Remove Assemblies";
             this.menuItemAssembliesRemoveAssemblies.Click += new System.EventHandler(this.menuItemAssembliesRemoveAssemblies_Click);
             // 
             // menuItem23
