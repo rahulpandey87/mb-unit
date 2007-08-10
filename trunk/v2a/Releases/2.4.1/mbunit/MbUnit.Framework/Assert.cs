@@ -550,87 +550,6 @@ namespace MbUnit.Framework
 
         #region AreNotEqual
 
-        #region Objects[]
-        /// <summary>
-        /// Asserts that two objects are not equal. If they are equal
-        /// an <see cref="AssertionException"/> is thrown.
-        /// </summary>
-        /// <param name="expected">The expected object</param>
-        /// <param name="actual">The actual object</param>
-        /// <param name="message">The message to be displayed when the two objects are the same object.</param>
-        /// <param name="args">Arguments to be used in formatting the message</param>
-        static public void AreNotEqual(Object[] expected, Object[] actual, string message, params object[] args)
-        {
-            Assert.IncrementAssertCount();
-
-            bool fail = false;
-
-            if (expected != null && actual != null)
-            {
-                if (expected.GetLength(0) != actual.GetLength(0))
-                {
-                    fail = true;
-                }
-
-                if (!fail)
-                {
-                    int position = 0;
-                    bool same = true;
-                    foreach (object o in expected)
-                    {
-                        if (!object.Equals(o, actual.GetValue(position)))
-                        {
-                            same = false;
-                        }
-                        position++;
-                    }
-
-                    if (same)
-                        fail = true;
-                }
-            }
-            else
-            {
-                fail = true;
-            }
-
-            if (fail)
-            {
-                if (args != null)
-                    Assert.FailSame(expected, actual, message, args);
-                else
-                    Assert.FailSame(expected, actual, message);
-            }
-        }
-
-
-        /// <summary>
-        /// Asserts that two objects are not equal. If they are equal
-        /// an <see cref="AssertionException"/> is thrown.
-        /// </summary>
-        /// <param name="expected">The expected object</param>
-        /// <param name="actual">The actual object</param>
-        /// <param name="message">The message to be displayed when the objects are the same</param>
-        static public void AreNotEqual(Object[] expected, Object[] actual, string message)
-        {
-            Assert.AreNotEqual(expected, actual, message, null);
-        }
-
-        /// <summary>
-        /// Asserts that two objects are not equal. If they are equal
-        /// an <see cref="AssertionException"/> is thrown.
-        /// </summary>
-        /// <param name="expected">The expected object</param>
-        /// <param name="actual">The actual object</param>
-        static public void AreNotEqual(Object[] expected, Object[] actual)
-        {
-            Assert.AreNotEqual(expected, actual, string.Empty, null);
-        }
-
-        #endregion
-
-
-
         //NUnit Code
         #region Objects
         /// <summary>
@@ -643,11 +562,7 @@ namespace MbUnit.Framework
         /// <param name="args">Arguments to be used in formatting the message</param>
         static public void AreNotEqual(Object expected, Object actual, string message, params object[] args)
         {
-            if (expected == actual)
-                if (args != null)
-                    Assert.FailSame(expected, actual, message, args);
-                else
-                    Assert.FailSame(expected, actual, message);
+            AreNotEqual(expected, actual, String.Format(message, args));
         }
 
         /// <summary>
@@ -659,7 +574,13 @@ namespace MbUnit.Framework
         /// <param name="message">The message to be displayed when the objects are the same</param>
         static public void AreNotEqual(Object expected, Object actual, string message)
         {
-            Assert.AreNotEqual(expected, actual, message, null);
+            Assert.IncrementAssertCount();
+
+            if (expected == null ^ actual == null)
+                return;
+
+            if (ObjectsEqual(expected, actual))
+                Assert.FailSame(expected, actual, message);
         }
 
         /// <summary>
@@ -670,7 +591,7 @@ namespace MbUnit.Framework
         /// <param name="actual">The actual object</param>
         static public void AreNotEqual(Object expected, Object actual)
         {
-            Assert.AreNotEqual(expected, actual, string.Empty, null);
+            Assert.AreNotEqual(expected, actual, string.Empty);
         }
 
         #endregion
@@ -3694,5 +3615,6 @@ namespace MbUnit.Framework
         #endregion
     }
 }
+
 
 
