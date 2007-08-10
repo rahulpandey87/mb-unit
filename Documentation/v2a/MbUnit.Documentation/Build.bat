@@ -13,11 +13,10 @@ REM Building Project...
 %SystemRoot%\Microsoft.NET\Framework\v2.0.50727\msbuild.exe "MbUnit.Documentation.csproj" /v:minimal
 
 REM Copying to Build folder...
-xcopy /I /Y Html\*.* Build\Html
-xcopy /I /Y Icons\*.* Build\Icons
-xcopy /I /Y Lib\*.* Build\Lib
-xcopy /I /Y Presentation\*.* Build\Presentation
-xcopy /I /Y Scripts\*.* Build\Scripts
-xcopy /I /Y Styles\*.* Build\Styles
-xcopy /I /Y bin\*.* Build\bin
-xcopy /I /Y *.* Build
+xcopy /I /E /Y Html\*.* Build\Html
+xcopy /I /E /Y Icons\*.* Build\Icons
+xcopy /I /E /Y Presentation\*.* Build\Presentation
+xcopy /I /E /Y Scripts\*.* Build\Scripts
+xcopy /I /E /Y Styles\*.* Build\Styles
+xcopy /I /E /Y bin\*.* Build\bin
+xcopy /I /E /Y *.* Build
