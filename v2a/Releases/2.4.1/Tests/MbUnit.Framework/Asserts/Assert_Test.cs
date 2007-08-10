@@ -672,6 +672,12 @@ namespace MbUnit.Framework.Tests.Asserts
         #region AreEqual (Arrays)
 
         [Test]
+        public void AreEqual_EmptyIntArrays()
+        {
+            Assert.AreEqual(new int[] {}, new int[] {});
+        }
+
+        [Test]
         public void AreEqual_EqualIntArrays()
         {
             Assert.AreEqual(new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 });
@@ -696,6 +702,18 @@ namespace MbUnit.Framework.Tests.Asserts
         {
             object[] a = { 1, 2, null };
             object[] b = { 1, 2, null };
+            Assert.AreEqual(a, b);
+        }
+
+        [Test]
+        public void AreEqual_EqualArrayWithObjectElements()
+        {
+            object objectA = new object();
+            object objectB = new object();
+            object objectC = new object();
+
+            object[] a = { objectA, objectB, objectC };
+            object[] b = { objectA, objectB, objectC };
             Assert.AreEqual(a, b);
         }
 
@@ -915,13 +933,6 @@ namespace MbUnit.Framework.Tests.Asserts
 
         #endregion
 
-
-        [Test]
-        public void AreSame()
-        {
-            ArrayList list = new ArrayList();
-            Assert.AreSame(list, list);
-        }
         #endregion
 
         #region AreNotEqual
@@ -940,9 +951,15 @@ namespace MbUnit.Framework.Tests.Asserts
         }
 
         [Test]
-        public void NullNotEqualToNonNull()
+        public void NullExpectedNotEqualToNonNullActual()
         {
             Assert.AreNotEqual(null, 3);
+        }
+
+        [Test]
+        public void NonNullExpectedNotEqualToNullActual()
+        {
+            Assert.AreNotEqual(3, null);
         }
 
         [Test]
@@ -953,30 +970,28 @@ namespace MbUnit.Framework.Tests.Asserts
         }
 
         [Test]
-        public void ArraysNotEqual()
+        public void AreNotEqual_WithMessage()
         {
-            Assert.AreNotEqual(new object[] { 1, 2, 3 }, new int[] { 1, 3, 2 });
+            Assert.AreNotEqual("abcd", "dcba", EXPECTED_FAIL_MESSAGE);
         }
 
         [Test]
-        [ExpectedException(typeof(AssertionException))]
-        public void ArraysNotEqualFails()
+        public void AreNotEqualWithMessageFail()
         {
-            Assert.AreNotEqual(new object[] { 1, 2, 3 }, new object[] { 1, 2, 3 });
-        }
+            bool asserted = false;
 
-        [Test]
-        public void AreNotEqualUInt()
-        {
-            uint u1 = 5;
-            uint u2 = 8;
-            Assert.AreNotEqual(u1, u2);
-        }
+            try
+            {
+                Assert.AreNotEqual("abcd", "abcd", EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
 
-        [Test]
-        public void AreNotEqualTwoArraysContainingNull()
-        {
-            Assert.AreNotEqual(new object[] { 1, 2, null }, new object[] { 1, null, 3 });
+            if (!asserted)
+                Assert.Fail("Assert AreNotEqual(message) has failed");
         }
 
         [Test]
@@ -1004,6 +1019,128 @@ namespace MbUnit.Framework.Tests.Asserts
                 Assert.Fail("Assert AreNotEqual(message, args) has failed");
         }
 
+        #region AreNotEqual (Array)
+
+        [Test]
+        public void AreNotEqualArray()
+        {
+            Assert.AreNotEqual(new object[] { 1, 2, 3 }, new int[] { 1, 3, 2 });
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualArray_EmptyObjectArraysFail()
+        {
+            object[] objectA = new object[] {};
+            object[] objectB = new object[] { };
+
+            Assert.AreNotEqual(objectA, objectB);
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualArray_EmptyValueTypeArraysFail()
+        {
+            int[] valueArrayA = new int[] { };
+            int[] valueArrayB = new int[] { };
+
+            Assert.AreNotEqual(valueArrayA, valueArrayB);
+        }
+
+        [Test]
+        public void AreNotEqualArray_UnEqualValueTypeArrays()
+        {
+            int[] valueArrayA = new int[] { 1, 2, 3 };
+            int[] valueArrayB = new int[] { 2, 3, 1 };
+
+            Assert.AreNotEqual(valueArrayA, valueArrayB);
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualArray_EqualValueTypeArraysFail()
+        {
+            int[] valueArrayA = new int[] { 1, 2, 3 };
+            int[] valueArrayB = new int[] { 1, 2, 3 };
+
+            Assert.AreNotEqual(valueArrayA, valueArrayB);
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualArrayFails()
+        {
+            Assert.AreNotEqual(new object[] { 1, 2, 3 }, new object[] { 1, 2, 3 });
+        }
+
+        [Test]
+        public void AreNotEqualArrayUnEqualLength()
+        {
+            Assert.AreNotEqual(new object[] { 1, 2, 3 }, new object[] { 1, 2, 3, 4 });
+        }
+
+        [Test]
+        public void AreNotEqualArrayUnEqualLengthPaddedWithNulls()
+        {
+            Assert.AreNotEqual(new object[] { 1, 2, 3 }, new object[] { 1, 2, 3, null, null });
+        }
+
+        [Test]
+        public void AreNotEqualTwoArraysContainingNull()
+        {
+            Assert.AreNotEqual(new object[] { 1, 2, null }, new object[] { 1, null, 3 });
+        }
+
+        [Test]
+        public void AreNotEqualArrayWithMessage()
+        {
+            Assert.AreNotEqual(new object[] { 1, 2, 3 }, new object[] { 2, 1, 3 }, EXPECTED_FAIL_MESSAGE);
+        }
+        [Test]
+        public void AreNotEqualArrayWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.AreNotEqual(new object[] { 1, 2, 3 }, new object[] { 1, 2, 3 }, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert AreNotEqual(message) has failed");
+        }
+
+        [Test]
+        public void AreNotEqualArrayWithFormattedMessage()
+        {
+            Assert.AreNotEqual(new object[] { 1, 2, 3 }, new object[] { 2, 1, 3 }, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void AreNotEqualArrayWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.AreNotEqual(new object[] { 1, 2, 3 }, new object[] { 1, 2, 3 }, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert AreNotEqual(message, args) has failed");
+        }
+
+        #endregion
 
         #region AreNotEqual (String)
 
@@ -1332,6 +1469,77 @@ namespace MbUnit.Framework.Tests.Asserts
         public void AreNotEqualIntWithFormattedMessageFail()
         {
             Assert.AreNotEqual(1, 1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        #endregion
+
+        #region AreNotEqual (Unsigned Integer)
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualUIntZero()
+        {
+            uint ua = 0;
+            uint ub = 0;
+
+            Assert.AreNotEqual(ua, ub);
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualUIntFail()
+        {
+            uint ua = 1;
+            uint ub = 1;
+
+            Assert.AreNotEqual(ua, ub);
+        }
+
+        [Test]
+        public void AreNotEqualUIntPositive()
+        {
+            uint ua = 1;
+            uint ub = 2;
+
+            Assert.AreNotEqual(ua, ub);
+        }
+
+        [Test]
+        public void AreNotEqualUIntWithMessage()
+        {
+            uint ua = 1;
+            uint ub = 2;
+
+            Assert.AreNotEqual(ua, ub, "Assert AreEqual(message) has failed");
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualUIntWithMessageFail()
+        {
+            uint ua = 1;
+            uint ub = 1;
+
+            Assert.AreNotEqual(ua, ub, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void AreNotEqualUIntWithFormattedMessage()
+        {
+            uint ua = 1;
+            uint ub = 2;
+
+            Assert.AreNotEqual(ua, ub, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void AreNotEqualUIntWithFormattedMessageFail()
+        {
+            uint ua = 1;
+            uint ub = 1;
+
+            Assert.AreNotEqual(ua, ub, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
         }
 
         #endregion
@@ -2281,7 +2489,290 @@ namespace MbUnit.Framework.Tests.Asserts
 
         #endregion
 
+        #region AreSame
 
+        [Test]
+        public void AreSame()
+        {
+            object objectA = new object();
 
+            Assert.AreSame(objectA, objectA);
+        }
+        
+        [Test]
+        public void AreSameDifferentReference()
+        {
+            object objectA = new object();
+            object objectB = objectA;
+
+            Assert.AreSame(objectA, objectB);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreSameInteger_Fail()
+        {
+            Assert.AreSame(0, 0);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreSameInteger_ImplicitBox_Fail()
+        {
+            int intA = 1;
+
+            // Due to boxing, these will not refer to the same object
+            Assert.AreSame(intA, intA);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreSameInteger_ExplicitBoxToValue_Fail()
+        {
+            int intA = 1;
+            object objectA = (object) intA;
+            
+            // Due to boxing, these will not refer to the same object
+            Assert.AreSame(objectA, intA);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreSameInteger_ExplicitBoxToSameValue_Fail()
+        {
+            int intA = 1;
+            object objectA = (object)intA;
+            object objectB = (object)intA;
+
+            // These will not refer to the same object
+            Assert.AreSame(objectA, objectB);
+        }
+
+        [Test]
+        public void AreSame_String()
+        {
+            // Both strings will be interned, so are the same object
+            Assert.AreSame("A String", "A String");
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreSame_NonInterned_NewString_Fail()
+        {
+            string stringA = "A String";
+            string stringB = new String(new char[] { 'A', ' ', 'S', 't', 'r', 'i', 'n', 'g' });
+
+            Assert.AreSame(stringA, stringB);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreSame_NonInterned_ConcatString_Fail()
+        {
+            // JIT will not intern the concat string, so these are not the same
+            string stringA = "A String";
+            string stringB = String.Concat("A ","String");
+
+            Assert.AreSame(stringA, stringB);
+        }
+
+        [Test]
+        public void AreSame_InternedString()
+        {
+            string stringA = "A String";
+            string stringB = String.Intern(String.Concat("A ", "String"));
+
+            Assert.AreSame(stringA, stringB);
+        }
+
+        [Test]
+        public void AreSame_Array()
+        {
+            int[] arrayA = new int[] { 1, 2, 3 };
+            int[] arrayB = arrayA;
+
+            Assert.AreSame(arrayA, arrayB);
+        } 
+        
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreSame_Array_Fail()
+        {
+            int[] arrayA = new int[] { 1, 2, 3 };
+            int[] arrayB = new int[] { 1, 2, 3 };
+
+            Assert.AreSame(arrayA, arrayB);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreSame_ArrayClone_Fail()
+        {
+            int[] arrayA = new int[] { 1, 2, 3 };
+            int[] arrayB = (int[]) arrayA.Clone();
+
+            Assert.AreSame(arrayA, arrayB);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreSameFail()
+        {
+            object objectA = new object();
+            object objectB = new object();
+
+            Assert.AreSame(objectA, objectB);
+        }
+
+        [Test]
+        public void AreSameNull()
+        {
+            Assert.AreSame(null, null);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreSameExpectedNull()
+        {
+            Assert.AreSame(null, new object());
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreSameActualNull()
+        {
+            Assert.AreSame(new object(), null);
+        }
+
+        [Test]
+        public void AreSameWithMessage()
+        {
+            object objectA = new object();
+            Assert.AreSame(objectA, objectA, "Assert AreSame(message) has failed");
+        }
+
+        [Test]
+        public void AreSameWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.AreSame(new object(), new object(), EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert AreSame(message) has failed");
+        }
+
+        [Test]
+        public void AreSameWithFormattedMessage()
+        {
+            object objectA = new object();
+            Assert.AreSame(objectA, objectA, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void AreSameWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.AreSame(new object(), new object(), TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert AreSame(message, args) has failed");
+        }
+
+        #endregion
+
+        #region AreNotSame
+
+        [Test]
+        public void AreNotSame()
+        {
+            object objectA = new object();
+            object objectB = new object();
+
+            Assert.AreNotSame(objectA, objectB);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreNotSameFail()
+        {
+            object objectA = new object();
+            object objectB = objectA;
+
+            Assert.AreNotSame(objectA, objectB);
+        }
+
+        [Test]
+        public void AreNotSameWithMessage()
+        {
+            Assert.AreNotSame(new object(), new object(), "Assert AreNotSame(message) has failed");
+        }
+
+        [Test]
+        public void AreNotSameWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                object objectA = new object();
+                Assert.AreNotSame(objectA, objectA, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert AreNotSame(message) has failed");
+        }
+
+        [Test]
+        public void AreNotSameWithFormattedMessage()
+        {
+            Assert.AreNotSame(new object(), new object(), TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void AreNotSameWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                object objectA = new object();
+                Assert.AreNotSame(objectA, objectA, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert AreNotSame(message, args) has failed");
+        }
+
+        #endregion
+
+        #region AreValueEqual
+
+        //[Test]
+        //public void AreValueEqual()
+        //{
+        //}
+
+        //[Test, ExpectedException(typeof(AssertionException))]
+        //public void AreValueEqualFail()
+        //{
+        //}
+
+        #endregion
     }
 }
