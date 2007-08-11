@@ -31,4 +31,5 @@
    </Item>
    <Item Filename="WhatDoYouWantToTest.htm" Title="What Do You Want To Test Today?" />
    <Item Filename="API.htm" Title="API Reference" IsAPI="True" />
+   <Item Filename="ReleaseNotes.htm" Title="Release Notes" />
 </Items>

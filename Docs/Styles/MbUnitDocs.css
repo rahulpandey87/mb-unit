@@ -48,6 +48,11 @@ a img
    border-top : 0;
 }
 
+table
+{
+   text-align: left;   
+}
+
 .csharpcode, .csharpcode pre
 {
    font-size: small;
