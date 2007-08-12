@@ -832,6 +832,13 @@ namespace MbUnit.Framework
             Assert.IsTrue(anObject != null, format, args);
         }
 
+        /// <summary>
+        /// Verifies that the object that is passed in is not equal to <code>null</code>
+        /// If the object is <code>null</code> then an <see cref="AssertionException"/>
+        /// is thrown with the message that is passed in.
+        /// </summary>
+        /// <param name="anObject">The object that is to be tested</param>
+        /// <param name="message">The message to initialize the <see cref="AssertionException"/> with.</param>
         static public void IsNotNull(Object anObject, string message)
         {
             Assert.IsTrue(anObject != null, message);
@@ -871,7 +878,14 @@ namespace MbUnit.Framework
             Assert.IsTrue(anObject == null, format, args);
         }
 
-        static public void IsNull(Object anObject, string format, string message)
+        /// <summary>
+        /// Verifies that the object that is passed in is equal to <code>null</code>
+        /// If the object is <code>null</code> then an <see cref="AssertionException"/>
+        /// is thrown with the message that is passed in.
+        /// </summary>
+        /// <param name="anObject">The object that is to be tested</param>
+        /// <param name="message">The message to initialize the <see cref="AssertionException"/> with.</param>
+        static public void IsNull(Object anObject, string message)
         {
             Assert.IsTrue(anObject == null, message);
         }
@@ -1155,7 +1169,7 @@ namespace MbUnit.Framework
         static public void LowerThan(long left, long right,
             string format, params object[] args)
         {
-            LowerThan(left, right, format, String.Format(format, args));
+            LowerThan(left, right, String.Format(format, args));
         }
 
         /// <summary>
@@ -2492,7 +2506,7 @@ namespace MbUnit.Framework
         static public void GreaterEqualThan(double left, double right, string message)
         {
             Assert.IsTrue(left >= right,
-                          "{0} is not greater than {1}",
+                          "{0} is not greater than {1}, {2}",
                           left, right, message);
         }
 
@@ -2583,12 +2597,7 @@ namespace MbUnit.Framework
         /// </summary>
         static public void Between(int test, int left, int right)
         {
-            Assert.IsTrue(test >= left,
-                   "{0} is smaller than {1}",
-                   test, left);
-            Assert.IsTrue(test <= right,
-                   "{0} is greater than {1}",
-                   test, right);
+            Between(test, left, right, null);
         }
 
         /// <summary>
@@ -2597,12 +2606,11 @@ namespace MbUnit.Framework
         /// </summary>
         static public void Between(int test, int left, int right, string message)
         {
-            Assert.IsTrue(test >= left,
-                   "{0} is smaller than {1}, {2}",
-                   test, left, message);
-            Assert.IsTrue(test <= right,
-                   "{0} is greater than {1}, {2}",
-                   test, right, message);
+            int min = Math.Min(left, right);
+            int max = Math.Max(left, right);
+
+            Assert.IsTrue(test >= min, "{0} is smaller than {1}" + (message == null ? "" : ", {2}"), test, min, message);
+            Assert.IsTrue(test <= max, "{0} is greater than {1}" + (message == null ? "" : ", {2}"), test, max, message);
         }
 
         /// <summary>
@@ -2620,12 +2628,7 @@ namespace MbUnit.Framework
         /// </summary>
         static public void Between(short test, short left, short right)
         {
-            Assert.IsTrue(test >= left,
-                   "{0} is smaller than {1}",
-                   test, left);
-            Assert.IsTrue(test <= right,
-                   "{0} is greater than {1}",
-                   test, right);
+            Between(test, left, right, null);
         }
 
         /// <summary>
@@ -2634,12 +2637,11 @@ namespace MbUnit.Framework
         /// </summary>
         static public void Between(short test, short left, short right, string message)
         {
-            Assert.IsTrue(test >= left,
-                   "{0} is smaller than {1}, {2}",
-                   test, left, message);
-            Assert.IsTrue(test <= right,
-                   "{0} is greater than {1}, {2}",
-                   test, right, message);
+            short min = Math.Min(left, right);
+            short max = Math.Max(left, right);
+
+            Assert.IsTrue(test >= min, "{0} is smaller than {1}" + (message == null ? "" : ", {2}"), test, min, message);
+            Assert.IsTrue(test <= max, "{0} is greater than {1}" + (message == null ? "" : ", {2}"), test, max, message);
         }
 
         /// <summary>
@@ -2658,12 +2660,7 @@ namespace MbUnit.Framework
         /// </summary>
         static public void Between(byte test, byte left, byte right)
         {
-            Assert.IsTrue(test >= left,
-                   "{0} is smaller than {1}",
-                   test, left);
-            Assert.IsTrue(test <= right,
-                   "{0} is greater than {1}",
-                   test, right);
+            Between(test, left, right, null);
         }
 
         /// <summary>
@@ -2672,12 +2669,11 @@ namespace MbUnit.Framework
         /// </summary>
         static public void Between(byte test, byte left, byte right, string message)
         {
-            Assert.IsTrue(test >= left,
-                   "{0} is smaller than {1}, {2}",
-                   test, left, message);
-            Assert.IsTrue(test <= right,
-                   "{0} is greater than {1}, {2}",
-                   test, right, message);
+            byte min = Math.Min(left, right);
+            byte max = Math.Max(left, right);
+
+            Assert.IsTrue(test >= min, "{0} is smaller than {1}" + (message == null ? "" : ", {2}"), test, min, message);
+            Assert.IsTrue(test <= max, "{0} is greater than {1}" + (message == null ? "" : ", {2}"), test, max, message);
         }
 
         /// <summary>
@@ -2696,12 +2692,7 @@ namespace MbUnit.Framework
         /// </summary>
         static public void Between(long test, long left, long right)
         {
-            Assert.IsTrue(test >= left,
-                   "{0} is smaller than {1}",
-                   test, left);
-            Assert.IsTrue(test <= right,
-                   "{0} is greater than {1}",
-                   test, right);
+            Between(test, left, right, null);
         }
 
         /// <summary>
@@ -2710,12 +2701,11 @@ namespace MbUnit.Framework
         /// </summary>
         static public void Between(long test, long left, long right, string message)
         {
-            Assert.IsTrue(test >= left,
-                   "{0} is smaller than {1}, {2}",
-                   test, left, message);
-            Assert.IsTrue(test <= right,
-                   "{0} is greater than {1}, {2}",
-                   test, right, message);
+            long min = Math.Min(left, right);
+            long max = Math.Max(left, right);
+
+            Assert.IsTrue(test >= min, "{0} is smaller than {1}" + (message == null ? "" : ", {2}"), test, min, message);
+            Assert.IsTrue(test <= max, "{0} is greater than {1}" + (message == null ? "" : ", {2}"), test, max, message);
         }
 
         /// <summary>
@@ -2734,12 +2724,7 @@ namespace MbUnit.Framework
         /// </summary>
         static public void Between(double test, double left, double right)
         {
-            Assert.IsTrue(test >= left,
-                   "{0} is smaller than {1}",
-                   test, left);
-            Assert.IsTrue(test <= right,
-                   "{0} is greater than {1}",
-                   test, right);
+            Between(test, left, right, null);
         }
 
         /// <summary>
@@ -2748,12 +2733,11 @@ namespace MbUnit.Framework
         /// </summary>
         static public void Between(double test, double left, double right, string message)
         {
-            Assert.IsTrue(test >= left,
-                   "{0} is smaller than {1}, {2}",
-                   test, left, message);
-            Assert.IsTrue(test <= right,
-                   "{0} is greater than {1}, {2}",
-                   test, right, message);
+            double min = Math.Min(left, right);
+            double max = Math.Max(left, right);
+
+            Assert.IsTrue(test >= min, "{0} is smaller than {1}" + (message == null ? "" : ", {2}"), test, min, message);
+            Assert.IsTrue(test <= max, "{0} is greater than {1}" + (message == null ? "" : ", {2}"), test, max, message);
         }
 
         /// <summary>
@@ -2772,12 +2756,7 @@ namespace MbUnit.Framework
         /// </summary>
         static public void Between(float test, float left, float right)
         {
-            Assert.IsTrue(test >= left,
-                   "{0} is smaller than {1}",
-                   test, left);
-            Assert.IsTrue(test <= right,
-                   "{0} is greater than {1}",
-                   test, right);
+            Between(test, left, right, null);
         }
 
         /// <summary>
@@ -2786,12 +2765,11 @@ namespace MbUnit.Framework
         /// </summary>
         static public void Between(float test, float left, float right, string message)
         {
-            Assert.IsTrue(test >= left,
-                   "{0} is smaller than {1}, {2}",
-                   test, left, message);
-            Assert.IsTrue(test <= right,
-                   "{0} is greater than {1}, {2}",
-                   test, right, message);
+            float min = Math.Min(left, right);
+            float max = Math.Max(left, right);
+
+            Assert.IsTrue(test >= min, "{0} is smaller than {1}" + (message == null ? "" : ", {2}"), test, min, message);
+            Assert.IsTrue(test <= max, "{0} is greater than {1}" + (message == null ? "" : ", {2}"), test, max, message);
         }
 
         /// <summary>
@@ -2810,15 +2788,7 @@ namespace MbUnit.Framework
         /// </summary>
         static public void Between(IComparable test, IComparable left, IComparable right)
         {
-            Assert.IsNotNull(test);
-            Assert.IsNotNull(left);
-            Assert.IsNotNull(right);
-            Assert.IsTrue(test.CompareTo(left) >= 0,
-                   "{0} is smaller than {1}",
-                   test, left);
-            Assert.IsTrue(test.CompareTo(right) <= 0,
-                   "{0} is greater than {1}",
-                   test, right);
+            Between(test, left, right, null);
         }
 
         /// <summary>
@@ -2834,12 +2804,12 @@ namespace MbUnit.Framework
             Assert.IsNotNull(test);
             Assert.IsNotNull(left);
             Assert.IsNotNull(right);
-            Assert.IsTrue(test.CompareTo(left) >= 0,
-                   "{0} is smaller than {1}, {2}",
-                   test, left, message);
-            Assert.IsTrue(test.CompareTo(right) <= 0,
-                   "{0} is greater than {1}, {2}",
-                   test, right, message);
+
+            IComparable min = (left.CompareTo(right) <= 0) ? left : right;
+            IComparable max = (right.CompareTo(left) >= 0) ? right : left;
+
+            Assert.IsTrue(test.CompareTo(min) >= 0, "{0} is smaller than {1}" + (message == null ? "" : ", {2}"), test, min, message);
+            Assert.IsTrue(test.CompareTo(max) <= 0, "{0} is greater than {1}" + (message == null ? "" : ", {2}"), test, max, message);
         }
 
         /// <summary>
@@ -2862,14 +2832,16 @@ namespace MbUnit.Framework
         static public void NotBetween(int test, int left, int right)
         {
             Assert.IncrementAssertCount();
-            if (test.CompareTo(left) < 0)
-                return;
-            if (test.CompareTo(right) > 0)
+
+            int min = Math.Min(left, right);
+            if (test.CompareTo(min) < 0)
                 return;
 
-            Assert.Fail(
-                   "{0} is in {1} - {2}",
-                   test, left, right);
+            int max = Math.Max(left, right);
+            if (test.CompareTo(max) > 0)
+                return;
+
+            Assert.Fail("{0} is in {1} - {2}",test, min, max);
 
         }
         /// <summary>
@@ -2879,15 +2851,16 @@ namespace MbUnit.Framework
         static public void NotBetween(short test, short left, short right)
         {
             Assert.IncrementAssertCount();
-            if (test.CompareTo(left) < 0)
-                return;
-            if (test.CompareTo(right) > 0)
+
+            short min = Math.Min(left, right);
+            if (test.CompareTo(min) < 0)
                 return;
 
-            Assert.Fail(
-                   "{0} is in {1} - {2}",
-                   test, left, right);
+            short max = Math.Max(left, right);
+            if (test.CompareTo(max) > 0)
+                return;
 
+            Assert.Fail("{0} is in {1} - {2}", test, min, max);
         }
         /// <summary>
         /// Asserts that <paramref name="test"/> is <strong>not</strong> between <paramref name="left"/> and
@@ -2896,16 +2869,18 @@ namespace MbUnit.Framework
         static public void NotBetween(byte test, byte left, byte right)
         {
             Assert.IncrementAssertCount();
-            if (test.CompareTo(left) < 0)
-                return;
-            if (test.CompareTo(right) > 0)
+
+            byte min = Math.Min(left, right);
+            if (test.CompareTo(min) < 0)
                 return;
 
-            Assert.Fail(
-                   "{0} is in {1} - {2}",
-                   test, left, right);
+            byte max = Math.Max(left, right);
+            if (test.CompareTo(max) > 0)
+                return;
 
+            Assert.Fail("{0} is in {1} - {2}", test, min, max);
         }
+
         /// <summary>
         /// Asserts that <paramref name="test"/> is <strong>not</strong> between <paramref name="left"/> and
         /// <paramref name="right"/>.
@@ -2913,14 +2888,16 @@ namespace MbUnit.Framework
         static public void NotBetween(long test, long left, long right)
         {
             Assert.IncrementAssertCount();
-            if (test.CompareTo(left) < 0)
-                return;
-            if (test.CompareTo(right) > 0)
+
+            long min = Math.Min(left, right);
+            if (test.CompareTo(min) < 0)
                 return;
 
-            Assert.Fail(
-                   "{0} is in {1} - {2}",
-                   test, left, right);
+            long max = Math.Max(left, right);
+            if (test.CompareTo(max) > 0)
+                return;
+
+            Assert.Fail("{0} is in {1} - {2}", test, min, max);
 
         }
         /// <summary>
@@ -2930,15 +2907,18 @@ namespace MbUnit.Framework
         static public void NotBetween(double test, double left, double right)
         {
             Assert.IncrementAssertCount();
-            if (test.CompareTo(left) < 0)
-                return;
-            if (test.CompareTo(right) > 0)
+
+            double min = Math.Min(left, right);
+            if (test.CompareTo(min) < 0)
                 return;
 
-            Assert.Fail(
-                   "{0} is in {1} - {2}",
-                   test, left, right);
+            double max = Math.Max(left, right);
+            if (test.CompareTo(max) > 0)
+                return;
+
+            Assert.Fail("{0} is in {1} - {2}", test, min, max);
         }
+
         /// <summary>
         /// Asserts that <paramref name="test"/> is <strong>not</strong> between <paramref name="left"/> and
         /// <paramref name="right"/>.
@@ -2946,14 +2926,16 @@ namespace MbUnit.Framework
         static public void NotBetween(float test, float left, float right)
         {
             Assert.IncrementAssertCount();
-            if (test.CompareTo(left) < 0)
-                return;
-            if (test.CompareTo(right) > 0)
+
+            float min = Math.Min(left, right);
+            if (test.CompareTo(min) < 0)
                 return;
 
-            Assert.Fail(
-                   "{0} is in {1} - {2}",
-                   test, left, right);
+            float max = Math.Max(left, right);
+            if (test.CompareTo(max) > 0)
+                return;
+
+            Assert.Fail("{0} is in {1} - {2}", test, min, max);
         }
         /// <summary>
         /// Asserts that <paramref name="test"/> is <strong>not</strong> between <paramref name="left"/> and
@@ -2964,14 +2946,16 @@ namespace MbUnit.Framework
             Assert.IsNotNull(test);
             Assert.IsNotNull(left);
             Assert.IsNotNull(right);
-            if (test.CompareTo(left) < 0)
+
+            IComparable min = (left.CompareTo(right) <= 0) ? left : right;
+            IComparable max = (right.CompareTo(left) >= 0) ? right : left;
+
+            if (test.CompareTo(min) < 0)
                 return;
-            if (test.CompareTo(right) > 0)
+            if (test.CompareTo(max) > 0)
                 return;
 
-            Assert.Fail(
-                   "{0} is in {1} - {2}",
-                   test, left, right);
+            Assert.Fail("{0} is in {1} - {2}", test, min, max);
         }
         #endregion
 
@@ -3615,6 +3599,7 @@ namespace MbUnit.Framework
         #endregion
     }
 }
+
 
 
 
