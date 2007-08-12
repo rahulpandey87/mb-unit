@@ -14,9 +14,13 @@
         Jeff Brown<br />
         Marc Stober<br />
         Johan Appelgren<br />
+	Dave Griffiths<br /> 
         <br />
         The documentation lead is
-        Dan Maharry</div>
+        Dan Maharry
+  	<br />
+        Logos designed by Mark A. Haley </div>
+</div>
     <div>
         &nbsp;</div>
     <div>
