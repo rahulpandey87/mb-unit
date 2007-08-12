@@ -7,6 +7,7 @@ using MbUnit.Core.Exceptions;
 namespace MbUnit.Framework.Tests.Asserts
 {
     [TestFixture]
+    [TestsOn(typeof(MbUnit.Framework.Assert))]
     public class Assert_Test
     {
 
@@ -110,7 +111,7 @@ namespace MbUnit.Framework.Tests.Asserts
         [Test]
         public void IsNullWithMessage()
         {
-            Assert.IsNull(null, "IsNotNull has failed.");
+            Assert.IsNull(null, "IsNull has failed.");
         }
 
         [Test]
@@ -385,7 +386,32 @@ namespace MbUnit.Framework.Tests.Asserts
         #region AreEqual
 
         [Test]
-        public void AreEqual_WithFormattedMessage()
+        public void AreEqualWithMessage()
+        {
+            Assert.AreEqual("abcd", "abcd", EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void AreEqualWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.AreEqual("abcd", "dcba", EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert AreEqual(message) has failed");
+        }
+
+        [Test]
+        public void AreEqualWithFormattedMessage()
         {
             Assert.AreEqual("abcd", "abcd", TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
         }
@@ -1551,231 +1577,644 @@ namespace MbUnit.Framework.Tests.Asserts
         #region Between
 
         #region int
-        [Test]
-        public void BetweenInt()
+        
+        // TODO: Swap the arguments (fails!)
+        [RowTest]
+        [Row(1, 0, 2, Description = "Valid Case")]
+        [Row(3, 0, 2, Description = "Fail, Above Upper Bound", ExpectedException = typeof(AssertionException))]
+        [Row(0, 0, 2, Description = "Valid Case, Equal To Lower Bound")]
+        [Row(2, 0, 2, Description = "Valid Case, Equal To Upper Bound")]
+        [Row(1, 2, 0, Description = "Valid Case, Left Greater than Right")]
+        [Row(3, 2, 0, Description = "Fail, Above Upper Bound, Left Greater than Right", ExpectedException = typeof(AssertionException))]
+        [Row(0, 2, 0, Description = "Valid Case, Equal To Lower Bound, Left Greater than Right")]
+        [Row(2, 2, 0, Description = "Valid Case, Equal To Upper Bound, Left Greater than Right")]
+        [Row(-3, 0, 2, Description = "Fail, Negative Below Lower Bound", ExpectedException = typeof(AssertionException))]
+        [Row(-1, -2, 0, Description = "Valid, Left Negative")]
+        [Row(-1, -2, 1, Description = "Valid, Left Negative, Right Positive")]
+        [Row(-2, -3, -1, Description = "Valid, Negative, Below Negative Bounds")]
+        [Row(-2, -1, -3, Description = "Valid, Negative, Below Negative Bounds, Left Greater than Right")]
+        public void BetweenIntParamTest(int test, int left, int right)
         {
-            Assert.Between(1, 0, 2);
+            Assert.Between(test, left, right);
         }
+
         [Test]
-        public void BetweenLowerEqualInt()
+        public void BetweenIntWithMessage()
         {
-            Assert.Between(1, 1, 2);
+            Assert.Between(1, 0, 2, EXPECTED_FAIL_MESSAGE);
         }
+
         [Test]
-        public void BetweenUpperEqualInt()
+        public void BetweenIntWithMessageFail()
         {
-            Assert.Between(2, 0, 2);
+            bool asserted = false;
+
+            try
+            {
+                Assert.Between(3, 0, 2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Between(message) has failed");
         }
+
+        [Test]
+        public void BetweenIntWithFormattedMessage()
+        {
+            Assert.Between(1, 0, 2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void BetweenIntWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Between(3, 0, 2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Between[int](message, args) has failed");
+        }
+
         #endregion
 
         #region short
-        [Test]
-        public void BetweenShort()
+
+        [RowTest]
+        [Row(1, 0, 2, Description = "Valid Case")]
+        [Row(3, 0, 2, Description = "Fail, Above Upper Bound", ExpectedException = typeof(AssertionException))]
+        [Row(0, 0, 2, Description = "Valid Case, Equal To Lower Bound")]
+        [Row(2, 0, 2, Description = "Valid Case, Equal To Upper Bound")]
+        [Row(1, 2, 0, Description = "Valid Case, Left Greater than Right")]
+        [Row(3, 2, 0, Description = "Fail, Above Upper Bound, Left Greater than Right", ExpectedException = typeof(AssertionException))]
+        [Row(0, 2, 0, Description = "Valid Case, Equal To Lower Bound, Left Greater than Right")]
+        [Row(2, 2, 0, Description = "Valid Case, Equal To Upper Bound, Left Greater than Right")]
+        [Row(-3, 0, 2, Description = "Fail, Negative Below Lower Bound", ExpectedException = typeof(AssertionException))]
+        [Row(-1, -2, 0, Description = "Valid, Left Negative")]
+        [Row(-1, -2, 1, Description = "Valid, Left Negative, Right Positive")]
+        [Row(-2, -3, -1, Description = "Valid, Negative, Below Negative Bounds")]
+        [Row(-2, -1, -3, Description = "Valid, Negative, Below Negative Bounds, Left Greater than Right")]
+        public void BetweenShortParamTest(short test, short left, short right)
         {
-            Assert.Between((short)1, (short)0, (short)2);
+            Assert.Between(test, left, right);
         }
+
         [Test]
-        public void BetweenLowerEqualShort()
+        public void BetweenShortWithMessage()
         {
-            Assert.Between((short)1, (short)1, (short)2);
+            Assert.Between((short)1, (short)0, (short)2, EXPECTED_FAIL_MESSAGE);
         }
+
         [Test]
-        public void BetweenUpperEqualShort()
+        public void BetweenShortWithMessageFail()
         {
-            Assert.Between((short)2, (short)0, (short)2);
+            bool asserted = false;
+
+            try
+            {
+                Assert.Between((short)2, (short)0, (short)1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Between[short](message) has failed");
         }
+
+        [Test]
+        public void BetweenShortWithFormattedMessage()
+        {
+            Assert.Between((short)1, (short)0, (short)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void BetweenShortWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Between((short)2, (short)0, (short)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Between[short](message, args) has failed");
+        }
+
         #endregion
 
         #region byte
-        [Test]
-        public void BetweenByte()
+
+        [RowTest]
+        [Row(1, 0, 2, Description = "Valid Case")]
+        [Row(3, 0, 2, Description = "Fail, Above Upper Bound", ExpectedException = typeof(AssertionException))]
+        [Row(0, 0, 2, Description = "Valid Case, Equal To Lower Bound")]
+        [Row(2, 0, 2, Description = "Valid Case, Equal To Upper Bound")]
+        [Row(1, 2, 0, Description = "Valid Case, Left Greater than Right")]
+        [Row(3, 2, 0, Description = "Fail, Above Upper Bound, Left Greater than Right", ExpectedException = typeof(AssertionException))]
+        [Row(0, 2, 0, Description = "Valid Case, Equal To Lower Bound, Left Greater than Right")]
+        [Row(2, 2, 0, Description = "Valid Case, Equal To Upper Bound, Left Greater than Right")]
+        public void BetweenByteParamTest(byte test, byte left, byte right)
         {
-            Assert.Between((byte)1, (byte)0, (byte)2);
+            Assert.Between(test, left, right);
         }
+
         [Test]
-        public void BetweenLowerEqualByte()
+        public void BetweenByteWithMessage()
         {
-            Assert.Between((byte)1, (byte)1, (byte)2);
+            Assert.Between((byte)1, (byte)0, (byte)2, EXPECTED_FAIL_MESSAGE);
         }
+
         [Test]
-        public void BetweenUpperEqualByte()
+        public void BetweenByteWithMessageFail()
         {
-            Assert.Between((byte)2, (byte)0, (byte)2);
+            bool asserted = false;
+
+            try
+            {
+                Assert.Between((byte)3, (byte)0, (byte) 2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Between[byte](message) has failed");
         }
+
+        [Test]
+        public void BetweenByteWithFormattedMessage()
+        {
+            Assert.Between((byte)1, (byte)0, (byte)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void BetweenByteWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Between((byte)3, (byte)0, (byte) 2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Between[byte](message, args) has failed");
+        }
+
         #endregion
 
         #region long
-        [Test]
-        public void BetweenLong()
+
+        [RowTest]
+        [Row(1, 0, 2, Description = "Valid Case")]
+        [Row(3, 0, 2, Description = "Fail, Above Upper Bound", ExpectedException = typeof(AssertionException))]
+        [Row(0, 0, 2, Description = "Valid Case, Equal To Lower Bound")]
+        [Row(2, 0, 2, Description = "Valid Case, Equal To Upper Bound")]
+        [Row(1, 2, 0, Description = "Valid Case, Left Greater than Right")]
+        [Row(3, 2, 0, Description = "Fail, Above Upper Bound, Left Greater than Right", ExpectedException = typeof(AssertionException))]
+        [Row(0, 2, 0, Description = "Valid Case, Equal To Lower Bound, Left Greater than Right")]
+        [Row(2, 2, 0, Description = "Valid Case, Equal To Upper Bound, Left Greater than Right")]
+        [Row(-3, 0, 2, Description = "Fail, Negative Below Lower Bound", ExpectedException = typeof(AssertionException))]
+        [Row(-1, -2, 0, Description = "Valid, Left Negative")]
+        [Row(-1, -2, 1, Description = "Valid, Left Negative, Right Positive")]
+        [Row(-2, -3, -1, Description = "Valid, Negative, Below Negative Bounds")]
+        [Row(-2, -1, -3, Description = "Valid, Negative, Below Negative Bounds, Left Greater than Right")]
+        public void BetweenLongParamTest(long test, long left, long right)
         {
-            Assert.Between((long)1, (long)0, (long)2);
+            Assert.Between(test, left, right);
         }
+
         [Test]
-        public void BetweenLowerEqualLong()
+        public void BetweenLongWithMessage()
         {
-            Assert.Between((long)1, (long)1, (long)2);
+            Assert.Between((long)1, (long)0, (long)2, EXPECTED_FAIL_MESSAGE);
         }
+
         [Test]
-        public void BetweenUpperEqualLong()
+        public void BetweenLongWithMessageFail()
         {
-            Assert.Between((long)2, (long)0, (long)2);
+            bool asserted = false;
+
+            try
+            {
+                Assert.Between((long)3, (long)0, (long)2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Between[long](message) has failed");
         }
-        #endregion
+
+        [Test]
+        public void BetweenLongWithFormattedMessage()
+        {
+            Assert.Between((long)1, (long)0, (long)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void BetweenLongWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Between((long)3, (long)0, (long)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Between[long](message, args) has failed");
+        }
+
+#endregion
 
         #region double
-        [Test]
-        public void BetweenDouble()
+
+        [RowTest]
+        [Row(1, 0, 2, Description = "Valid Case")]
+        [Row(3, 0, 2, Description = "Fail, Above Upper Bound", ExpectedException = typeof(AssertionException))]
+        [Row(0, 0, 2, Description = "Valid Case, Equal To Lower Bound")]
+        [Row(2, 0, 2, Description = "Valid Case, Equal To Upper Bound")]
+        [Row(1, 2, 0, Description = "Valid Case, Left Greater than Right")]
+        [Row(3, 2, 0, Description = "Fail, Above Upper Bound, Left Greater than Right", ExpectedException = typeof(AssertionException))]
+        [Row(0, 2, 0, Description = "Valid Case, Equal To Lower Bound, Left Greater than Right")]
+        [Row(2, 2, 0, Description = "Valid Case, Equal To Upper Bound, Left Greater than Right")]
+        [Row(-3, 0, 2, Description = "Fail, Negative Below Lower Bound", ExpectedException = typeof(AssertionException))]
+        [Row(-1, -2, 0, Description = "Valid, Left Negative")]
+        [Row(-1, -2, 1, Description = "Valid, Left Negative, Right Positive")]
+        [Row(-2, -3, -1, Description = "Valid, Negative, Below Negative Bounds")]
+        [Row(-2, -1, -3, Description = "Valid, Negative, Below Negative Bounds, Left Greater than Right")]
+        public void BetweenDoubleParamTest(double test, double left, double right)
         {
-            Assert.Between((double)1, (double)0, (double)2);
+            Assert.Between(test, left, right);
         }
+
         [Test]
-        public void BetweenLowerEqualDouble()
+        public void BetweenDoubleWithMessage()
         {
-            Assert.Between((double)1, (double)1, (double)2);
+            Assert.Between((double)1, (double)0, (double)2, EXPECTED_FAIL_MESSAGE);
         }
+
         [Test]
-        public void BetweenUpperEqualDouble()
+        public void BetweenDoubleWithMessageFail()
         {
-            Assert.Between((double)2, (double)0, (double)2);
+            bool asserted = false;
+
+            try
+            {
+                Assert.Between((double)3,(double)0,(double)2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Between[double](message) has failed");
         }
+
+        [Test]
+        public void BetweenDoubleWithFormattedMessage()
+        {
+            Assert.Between((double)1, (double)0, (double)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void BetweenDoubleWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Between((double)3,(double)0,(double)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Between[double](message, args) has failed");
+        }
+
         #endregion
 
         #region float
-        [Test]
-        public void BetweenFloat()
+
+        [RowTest]
+        [Row(1, 0, 2, Description = "Valid Case")]
+        [Row(3, 0, 2, Description = "Fail, Above Upper Bound", ExpectedException = typeof(AssertionException))]
+        [Row(0, 0, 2, Description = "Valid Case, Equal To Lower Bound")]
+        [Row(2, 0, 2, Description = "Valid Case, Equal To Upper Bound")]
+        [Row(1, 2, 0, Description = "Valid Case, Left Greater than Right")]
+        [Row(3, 2, 0, Description = "Fail, Above Upper Bound, Left Greater than Right", ExpectedException = typeof(AssertionException))]
+        [Row(0, 2, 0, Description = "Valid Case, Equal To Lower Bound, Left Greater than Right")]
+        [Row(2, 2, 0, Description = "Valid Case, Equal To Upper Bound, Left Greater than Right")]
+        [Row(-3, 0, 2, Description = "Fail, Negative Below Lower Bound", ExpectedException = typeof(AssertionException))]
+        [Row(-1, -2, 0, Description = "Valid, Left Negative")]
+        [Row(-1, -2, 1, Description = "Valid, Left Negative, Right Positive")]
+        [Row(-2, -3, -1, Description = "Valid, Negative, Below Negative Bounds")]
+        [Row(-2, -1, -3, Description = "Valid, Negative, Below Negative Bounds, Left Greater than Right")]
+        public void BetweenFloatParamTest(float test, float left, float right)
         {
-            Assert.Between((float)1, (float)0, (float)2);
+            Assert.Between(test, left, right);
         }
+
         [Test]
-        public void BetweenLowerEqualFloat()
+        public void BetweenFloatWithMessage()
         {
-            Assert.Between((float)1, (float)1, (float)2);
+            Assert.Between((float)1, (float)0, (float)2, EXPECTED_FAIL_MESSAGE);
         }
+
         [Test]
-        public void BetweenUpperEqualFloat()
+        public void BetweenFloatWithMessageFail()
         {
-            Assert.Between((float)2, (float)0, (float)2);
+            bool asserted = false;
+
+            try
+            {
+                Assert.Between((float)3,(float)0,(float)2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Between[float](message) has failed");
         }
-        #endregion
+
+        [Test]
+        public void BetweenFloatWithFormattedMessage()
+        {
+            Assert.Between((float)1,(float)0,(float)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void BetweenFloatWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Between((float)3,(float)0,(float)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Between[float](message, args) has failed");
+        }
+
+#endregion
+
+        #region IComparable
+
+        [RowTest]
+        [Row("b", "a", "c", Description = "Valid Case")]
+        [Row("d", "a", "c", Description = "Fail", ExpectedException = (typeof(AssertionException)))]
+        [Row(2, 1, 3)]
+        [Row(-1, -2, 0)]
+        [Row(-1, -2, 1)]
+        [Row(-2, -1, -3)]
+        [Row(-1, -3, -1)]
+        [Row(SpecialValue.Null, SpecialValue.Null, SpecialValue.Null, ExpectedException = (typeof(AssertionException)))]
+        [Row(SpecialValue.Null, 1, 3, ExpectedException = (typeof(AssertionException)))]
+        [Row(2, SpecialValue.Null, 3, ExpectedException = (typeof(AssertionException)))]
+        [Row(2, 1, SpecialValue.Null, ExpectedException = (typeof(AssertionException)))]
+        [Row(4, 1, 3, Description = "Fail", ExpectedException = (typeof(AssertionException)))]
+        public void BetweenIComparableParamTest(object test, object left, object right)
+        {
+            Assert.Between((IComparable) test, (IComparable) left, (IComparable) right);
+        }
+
+        [Test]
+        public void BetweenIComparableWithMessage()
+        {
+            Assert.Between((IComparable)"b", (IComparable)"a", (IComparable)"c", EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void BetweenIComparableWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Between((IComparable)"d", (IComparable)"a", (IComparable)"c", EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Between[IComparable](message) has failed");
+        }
+
+        [Test]
+        public void BetweenIComparableWithFormattedMessage()
+        {
+            Assert.Between((IComparable)"b", (IComparable)"a", (IComparable)"c", TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void BetweenIComparableWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Between((IComparable)"d", (IComparable)"a", (IComparable)"c", TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Between[IComparable](message, args) has failed");
+        }
+
+#endregion
 
         #endregion
 
         #region NotBetween
 
         #region int
-        [Test]
-        public void NotBetweenIntInside()
+
+        [RowTest]
+        [Row(4, 2, 3, Description = "Above Upper Bound")]
+        [Row(2, 1, 3, Description = "Fail", ExpectedException = (typeof(AssertionException)))]
+        [Row(2, 3, 1, Description = "Fail, Left Greater than Right", ExpectedException = (typeof(AssertionException)))]
+        [Row(4, 3, 2, Description = "Above Upper Bound, Left Greater than Right")]
+        [Row(1, 2, 3, Description = "Below Lower Bound")]
+        [Row(1, 3, 2, Description = "Below Lower Bound, Left Greater that Right")]
+        [Row(-1, -2, 0, Description = "Fail, Negative", ExpectedException = (typeof(AssertionException)))]
+        [Row(-1, 0, -2, Description = "Fail, Negative, Left Greater that Right", ExpectedException = (typeof(AssertionException)))]
+        [Row(-3, -2, -1, Description = "Below Lower Negative Bound")]
+        [Row(-3, -1, -2, Description = "Below Lower Negative Bound, Left Greater that Right")]
+        public void NotBetweenIntParamTest(int test, int left, int right)
         {
-            Assert.NotBetween(4, 2, 3);
+            Assert.NotBetween(test, left, right);
         }
 
-        [Test]
-        public void NotBetweenLowerInt()
-        {
-            Assert.NotBetween(0, 2, 3);
-        }
-
-        [Test]
-        public void NotBetweenUpperInt()
-        {
-            Assert.NotBetween(4, 2, 3);
-        }
         #endregion
 
         #region short
-        [Test]
-        public void NotBetweenShortInside()
-        {
-            Assert.NotBetween((short)4, (short)2, (short)3);
-        }
-        [Test]
-        public void NotBetweenLowerShort()
-        {
-            Assert.NotBetween((short)0, (short)2, (short)3);
-        }
 
-        [Test]
-        public void NotBetweenUpperShort()
+        [RowTest]
+        [Row(4, 2, 3, Description = "Above Upper Bound")]
+        [Row(2, 1, 3, Description = "Fail", ExpectedException = (typeof(AssertionException)))]
+        [Row(2, 3, 1, Description = "Fail, Left Greater than Right", ExpectedException = (typeof(AssertionException)))]
+        [Row(4, 3, 2, Description = "Above Upper Bound, Left Greater than Right")]
+        [Row(1, 2, 3, Description = "Below Lower Bound")]
+        [Row(1, 3, 2, Description = "Below Lower Bound, Left Greater that Right")]
+        [Row(-1, -2, 0, Description = "Fail, Negative", ExpectedException = (typeof(AssertionException)))]
+        [Row(-1, 0, -2, Description = "Fail, Negative, Left Greater that Right", ExpectedException = (typeof(AssertionException)))]
+        [Row(-3, -2, -1, Description = "Below Lower Negative Bound")]
+        [Row(-3, -1, -2, Description = "Below Lower Negative Bound, Left Greater that Right")]
+        public void NotBetweenIntParamTest(short test, short left, short right)
         {
-            Assert.NotBetween((short)4, (short)2, (short)3);
+            Assert.NotBetween(test, left, right);
         }
         #endregion
 
         #region byte
 
-        [Test]
-        public void NotBetweenByteInside()
+        [RowTest]
+        [Row(4, 2, 3, Description = "Above Upper Bound")]
+        [Row(2, 1, 3, Description = "Fail", ExpectedException = (typeof(AssertionException)))]
+        [Row(2, 3, 1, Description = "Fail, Left Greater than Right", ExpectedException = (typeof(AssertionException)))]
+        [Row(4, 3, 2, Description = "Above Upper Bound, Left Greater than Right")]
+        [Row(1, 2, 3, Description = "Below Lower Bound")]
+        [Row(1, 3, 2, Description = "Below Lower Bound, Left Greater that Right")]
+        public void NotBetweenByteParamTest(byte test, byte left, byte right)
         {
-            Assert.NotBetween((byte)4, (byte)2, (byte)3);
-        }
-        [Test]
-        public void NotBetweenLowerByte()
-        {
-            Assert.NotBetween((byte)0, (byte)2, (byte)3);
+            Assert.NotBetween(test, left, right);
         }
 
-        [Test]
-        public void NotBetweenUpperByte()
-        {
-            Assert.NotBetween((byte)4, (byte)2, (byte)3);
-        }
         #endregion
 
         #region long
-        [Test]
-        public void NotBetweenLongInside()
+        [RowTest]
+        [Row(4, 2, 3, Description = "Above Upper Bound")]
+        [Row(2, 1, 3, Description = "Fail", ExpectedException = (typeof(AssertionException)))]
+        [Row(2, 3, 1, Description = "Fail, Left Greater than Right", ExpectedException = (typeof(AssertionException)))]
+        [Row(4, 3, 2, Description = "Above Upper Bound, Left Greater than Right")]
+        [Row(1, 2, 3, Description = "Below Lower Bound")]
+        [Row(1, 3, 2, Description = "Below Lower Bound, Left Greater that Right")]
+        [Row(-1, -2, 0, Description = "Fail, Negative", ExpectedException = (typeof(AssertionException)))]
+        [Row(-1, 0, -2, Description = "Fail, Negative, Left Greater that Right", ExpectedException = (typeof(AssertionException)))]
+        [Row(-3, -2, -1, Description = "Below Lower Negative Bound")]
+        [Row(-3, -1, -2, Description = "Below Lower Negative Bound, Left Greater that Right")]
+        public void NotBetweenLongParamTest(long test, long left, long right)
         {
-            Assert.NotBetween((long)4, (long)2, (long)3);
-        }
-        [Test]
-        public void NotBetweenLowerLong()
-        {
-            Assert.NotBetween((long)0, (long)2, (long)3);
-        }
-
-        [Test]
-        public void NotBetweenUpperLong()
-        {
-            Assert.NotBetween((long)4, (long)2, (long)3);
+            Assert.NotBetween(test, left, right);
         }
         #endregion
 
         #region double
-        [Test]
-        public void NotBetweenDoubleInside()
+        
+        [RowTest]
+        [Row(4, 2, 3, Description = "Above Upper Bound")]
+        [Row(2, 1, 3, Description = "Fail", ExpectedException = (typeof(AssertionException)))]
+        [Row(2, 3, 1, Description = "Fail, Left Greater than Right", ExpectedException = (typeof(AssertionException)))]
+        [Row(4, 3, 2, Description = "Above Upper Bound, Left Greater than Right")]
+        [Row(1, 2, 3, Description = "Below Lower Bound")]
+        [Row(1, 3, 2, Description = "Below Lower Bound, Left Greater that Right")]
+        [Row(-1, -2, 0, Description = "Fail, Negative", ExpectedException = (typeof(AssertionException)))]
+        [Row(-1, 0, -2, Description = "Fail, Negative, Left Greater that Right", ExpectedException = (typeof(AssertionException)))]
+        [Row(-3, -2, -1, Description = "Below Lower Negative Bound")]
+        [Row(-3, -1, -2, Description = "Below Lower Negative Bound, Left Greater that Right")]
+        public void NotBetweenDoubleParamTest(double test, double left, double right)
         {
-            Assert.NotBetween((double)4, (double)2, (double)3);
-        }
-        [Test]
-        public void NotBetweenLowerDouble()
-        {
-            Assert.NotBetween((double)0, (double)2, (double)3);
+            Assert.NotBetween(test, left, right);
         }
 
-        [Test]
-        public void NotBetweenUpperDouble()
-        {
-            Assert.NotBetween((double)4, (double)2, (double)3);
-        }
         #endregion
 
         #region float
-        [Test] 
-        public void NotBetweenFloatInside()
+        
+        [RowTest]
+        [Row(4, 2, 3, Description = "Above Upper Bound")]
+        [Row(2, 1, 3, Description = "Fail", ExpectedException = (typeof(AssertionException)))]
+        [Row(2, 3, 1, Description = "Fail, Left Greater than Right", ExpectedException = (typeof(AssertionException)))]
+        [Row(4, 3, 2, Description = "Above Upper Bound, Left Greater than Right")]
+        [Row(1, 2, 3, Description = "Below Lower Bound")]
+        [Row(1, 3, 2, Description = "Below Lower Bound, Left Greater that Right")]
+        [Row(-1, -2, 0, Description = "Fail, Negative", ExpectedException = (typeof(AssertionException)))]
+        [Row(-1, 0, -2, Description = "Fail, Negative, Left Greater that Right", ExpectedException = (typeof(AssertionException)))]
+        [Row(-3, -2, -1, Description = "Below Lower Negative Bound")]
+        [Row(-3, -1, -2, Description = "Below Lower Negative Bound, Left Greater that Right")]
+        public void NotBetweenFloatParamTest(float test, float left, float right)
         {
-            Assert.NotBetween((float)4, (float)2, (float)3);
+            Assert.NotBetween(test, left, right);
         }
 
-        [Test]
-        public void NotBetweenLowerFloat()
-        {
-            Assert.NotBetween((float)0, (float)2, (float)3);
-        }
+        #endregion
 
-        [Test]
-        public void NotBetweenUpperFloat()
+        #region IComparable
+
+        [RowTest]
+        [Row("d", "a", "c", Description = "Valid Case")]
+        [Row("a", "b", "c", Description = "Valid Case")]
+        [Row("b", "a", "c", Description = "Fail", ExpectedException = (typeof(AssertionException)))]
+        [Row(4, 1, 3)]
+        [Row(1, 2, 3)]
+        [Row(SpecialValue.Null, SpecialValue.Null, SpecialValue.Null, ExpectedException = (typeof(AssertionException)))]
+        [Row(SpecialValue.Null, 1, 3, ExpectedException = (typeof(AssertionException)))]
+        [Row(2, SpecialValue.Null, 3, ExpectedException = (typeof(AssertionException)))]
+        [Row(2, 1, SpecialValue.Null, ExpectedException = (typeof(AssertionException)))]
+        [Row(2, 1, 3, Description = "Fail", ExpectedException = (typeof(AssertionException)))]
+        public void NotBetweenIComparableParamTest(object test, object left, object right)
         {
-            Assert.NotBetween((float)4, (float)2, (float)3);
+            Assert.NotBetween((IComparable) test, (IComparable)left, (IComparable)right);
         }
         #endregion
 
@@ -1783,192 +2222,1807 @@ namespace MbUnit.Framework.Tests.Asserts
 
         #region <, <=, >, >=
         #region LowerThan
-        [Test]
-        public void LowerThanInt()
+
+        #region int
+
+        [RowTest]
+        [Row(0,1, Description = "Valid Case")]
+        [Row(2,1, Description = "Invalid Case", ExpectedException = typeof (AssertionException))]
+        public void LowerThanIntParamTest(int left, int right)
         {
-            Assert.LowerThan(0, 1);
-        }
-        [Test]
-        public void LowerThanShort()
-        {
-            Assert.LowerThan((short)0, (short)1);
+            Assert.LowerThan(left, right);
         }
 
         [Test]
-        public void LowerThanByte()
+        public void LowerThanIntWithMessage()
         {
-            Assert.LowerThan((byte)0, (byte)1);
-        }
-        [Test]
-        public void LowerThanLong()
-        {
-            Assert.LowerThan((long)0, (long)1);
+            Assert.LowerThan(0,1, EXPECTED_FAIL_MESSAGE);
         }
 
         [Test]
-        public void LowerThanDouble()
+        public void LowerThanIntWithMessageFail()
         {
-            Assert.LowerThan((double)0, (double)1);
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerThan(2,1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerThan[int](message) has failed");
         }
 
         [Test]
-        public void LowerThanFloat()
+        public void LowerThanIntWithFormattedMessage()
         {
-            Assert.LowerThan((float)0, (float)1);
+            Assert.LowerThan(0,1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
         }
-        //[Test]
-        //public void LowerThanFailEqualFloat()
-        //{
-        //    Assert.LowerThan((float)0, (float)0);
-        //}
-        //[Test]
-        //public void LowerThanFailLessFloat()
-        //{
-        //    Assert.LowerThan((float)0, (float)-1);
-        //}
+
+        [Test]
+        public void LowerThanIntWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerThan(2,1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerThan[int](message, args) has failed");
+        }
+ 
         #endregion
 
-        #region LowerEqualThan
-        [Test]
-        public void LowerEqualThanInt()
+        #region short
+
+        [RowTest]
+        [Row((short)0, (short)1, Description = "Valid Case")]
+        [Row((short)2, (short)1, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void LowerThanShortParamTest(short left, short right)
         {
-            Assert.LowerEqualThan(0, 1);
-        }
-        [Test]
-        public void LowerEqualThanEqualInt()
-        {
-            Assert.LowerEqualThan(0, 0);
+            Assert.LowerThan(left, right);
         }
 
         [Test]
-        public void LowerEqualThanShort()
+        public void LowerThanShortWithMessage()
         {
-            Assert.LowerEqualThan((short)0, (short)1);
-        }
-        [Test]
-        public void LowerEqualThanEqualShort()
-        {
-            Assert.LowerEqualThan((short)0, (short)0);
+            Assert.LowerThan((short)0, (short)1, EXPECTED_FAIL_MESSAGE);
         }
 
         [Test]
-        public void LowerEqualThanByte()
+        public void LowerThanShortWithMessageFail()
         {
-            Assert.LowerEqualThan((byte)0, (byte)1);
-        }
-        [Test]
-        public void LowerEqualThanEqualByte()
-        {
-            Assert.LowerEqualThan((byte)0, (byte)0);
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerThan((short)2, (short)1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerThan[short](message) has failed");
         }
 
         [Test]
-        public void LowerEqualThanLong()
+        public void LowerThanShortWithFormattedMessage()
         {
-            Assert.LowerEqualThan((long)0, (long)1);
-        }
-        [Test]
-        public void LowerEqualThanEqualLong()
-        {
-            Assert.LowerEqualThan((long)0, (long)0);
+            Assert.LowerThan((short)0, (short)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
         }
 
         [Test]
-        public void LowerEqualThanDouble()
+        public void LowerThanShortWithFormattedMessageFail()
         {
-            Assert.LowerEqualThan((double)0, (double)1);
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerThan((short)2, (short) 1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerThan[short](message, args) has failed");
         }
-        [Test]
-        public void LowerEqualThanEqualDouble()
+
+
+        #endregion
+
+        #region byte
+
+        [RowTest]
+        [Row((byte) 0, (byte) 1, Description = "Valid Case")]
+        [Row((byte) 2, (byte) 1, Description = "Invalid Case", ExpectedException = typeof (AssertionException))]
+        public void LowerThanByteParamTest(byte left, byte right)
         {
-            Assert.LowerEqualThan((double)0, (double)0);
+            Assert.LowerThan(left, right);
         }
 
         [Test]
-        public void LowerEqualThanFloat()
+        public void LowerThanByteWithMessage()
         {
-            Assert.LowerEqualThan((float)0, (float)1);
+            Assert.LowerThan((byte)0, (byte)1, EXPECTED_FAIL_MESSAGE);
         }
+
         [Test]
-        public void LowerEqualThanEqualFloat()
+        public void LowerThanByteWithMessageFail()
         {
-            Assert.LowerEqualThan((float)0, (float)0);
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerThan((byte) 2, (byte) 1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerThan[byte](message) has failed");
         }
+
+        [Test]
+        public void LowerThanByteWithFormattedMessage()
+        {
+            Assert.LowerThan((byte)0, (byte)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LowerThanByteWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerThan((byte) 2, (byte) 1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerThan[byte](message, args) has failed");
+        }
+
+        #endregion
+
+        #region double
+
+        [RowTest]
+        [Row((double) 0, (double) 1, Description = "Valid Case")]
+        [Row((double) 3, (double) 1, Description = "Invalid Case", ExpectedException = typeof (AssertionException))]
+        public void LowerThanDoubleParamTest(double left, double right)
+        {
+            Assert.LowerThan(left, right);
+        }
+
+        [Test]
+        public void LowerThanDoubleWithMessage()
+        {
+            Assert.LowerThan((double) 0, (double) 1, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void LowerThanDoubleWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerThan((double) 3, (double) 1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerThan[double](message) has failed");
+        }
+
+        [Test]
+        public void LowerThanDoubleWithFormattedMessage()
+        {
+            Assert.LowerThan((double) 0, (double) 1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LowerThanDoubleWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerThan((double) 3, (double) 1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerThan[double](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region long
+
+        [RowTest]
+        [Row((long)0, (long) 1, Description = "Valid Case")]
+        [Row((long)3, (long) 1, Description = "Invalid Case", ExpectedException = typeof (AssertionException))]
+        public void LowerThanLongParamTest(long left, long right)
+        {
+            Assert.LowerThan(left, right);
+        }
+
+        [Test]
+        public void LowerThanLongWithMessage()
+        {
+            Assert.LowerThan((long)0, (long) 1, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void LowerThanLongWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerThan((long)3, (long) 1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerThan[long](message) has failed");
+        }
+
+        [Test]
+        public void LowerThanLongWithFormattedMessage()
+        {
+            Assert.LowerThan((long)0, (long) 1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LowerThanLongWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerThan((long)3, (long) 1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerThan[long](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region float
+
+        [RowTest]
+        [Row((float)0, (float)2, Description = "Valid Case")]
+        [Row((float)3, (float)2, Description = "Invalid Case", ExpectedException = typeof (AssertionException))]
+        public void LowerThanFloatParamTest(float left, float right)
+        {
+            Assert.LowerThan(left, right);
+        }
+
+        [Test]
+        public void LowerThanFloatWithMessage()
+        {
+            Assert.LowerThan((float)0, (float)2, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void LowerThanFloatWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerThan((float)3, (float)2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerThan[float](message) has failed");
+        }
+
+        [Test]
+        public void LowerThanFloatWithFormattedMessage()
+        {
+            Assert.LowerThan((float)0, (float)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LowerThanFloatWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerThan((float)3, (float)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerThan[float](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region IComparable
+
+        [RowTest]
+        [Row("aaaa", "zzzz", Description = "Valid Case")]
+        [Row(1, 2, Description = "Valid Case")]
+        [Row(SpecialValue.Null, SpecialValue.Null, ExpectedException = (typeof(AssertionException)))]
+        [Row(SpecialValue.Null, 1, ExpectedException = (typeof(AssertionException)))]
+        [Row(2, SpecialValue.Null, ExpectedException = (typeof(AssertionException)))]
+        [Row("zzzz", "aaaa", Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void LowerThanIComparableParamTest(object left, object right)
+        {
+            Assert.LowerThan((IComparable)left, (IComparable)right);
+        }
+
+        [Test]
+        public void LowerThanIComparableWithMessage()
+        {
+            Assert.LowerThan((IComparable)"aaaa", (IComparable)"zzzz", EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void LowerThanIComparableWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerThan((IComparable)"zzzz", (IComparable)"aaaa", EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerThan[IComparable](message) has failed");
+        }
+
+        [Test]
+        public void LowerThanIComparableWithFormattedMessage()
+        {
+            Assert.LowerThan((IComparable)"aaaa", (IComparable)"zzzz", TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LowerThanIComparableWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerThan((IComparable)"zzzz", (IComparable)"aaaa", TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerThan[IComparable](message, args) has failed");
+        }
+
+
+        #endregion
+
 
         #endregion
 
         #region Less
-        [Test]
-        public void LessInt()
+
+        #region int
+
+        [RowTest]
+        [Row(0, 1, Description = "Valid Case")]
+        [Row(2, 1, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void LessIntParamTest(int left, int right)
         {
-            Assert.Less(0, 1);
-        }
-        [Test]
-        public void LessShort()
-        {
-            Assert.Less((short)0, (short)1);
+            Assert.Less(left, right);
         }
 
         [Test]
-        public void LessByte()
+        public void LessIntWithMessage()
         {
-            Assert.Less((byte)0, (byte)1);
-        }
-        [Test]
-        public void LessLong()
-        {
-            Assert.Less((long)0, (long)1);
+            Assert.Less(0, 1, EXPECTED_FAIL_MESSAGE);
         }
 
         [Test]
-        public void LessDouble()
+        public void LessIntWithMessageFail()
         {
-            Assert.Less((double)0, (double)1);
+            bool asserted = false;
+
+            try
+            {
+                Assert.Less(2, 1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Less[int](message) has failed");
         }
 
         [Test]
-        public void LessFloat()
+        public void LessIntWithFormattedMessage()
         {
-            Assert.Less((float)0, (float)1);
+            Assert.Less(0, 1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
         }
+
+        [Test]
+        public void LessIntWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Less(2, 1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Less[int](message, args) has failed");
+        }
+
+        #endregion
+
+        #region uint
+
+        [RowTest]
+        [Row((uint)0, (uint)1, Description = "Valid Case")]
+        [Row((uint)2, (uint)1, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void LessUIntParamTest(uint left, uint right)
+        {
+            Assert.Less(left, right);
+        }
+
+        [Test]
+        public void LessUIntWithMessage()
+        {
+            Assert.Less((uint)0, (uint)1, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void LessUIntWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Less((uint)2, (uint)1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Less[uint](message) has failed");
+        }
+
+        [Test]
+        public void LessUIntWithFormattedMessage()
+        {
+            Assert.Less((uint)0, (uint)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LessUIntWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Less((uint)2, (uint)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Less[uint](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region decimal
+
+        [RowTest]
+        [Row(0, 1, Description = "Valid Case")]
+        [Row(2, 1, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void LessDecimalParamTest(decimal left, decimal right)
+        {
+            Assert.Less(left, right);
+        }
+
+        [Test]
+        public void LessDecimalWithMessage()
+        {
+            Assert.Less((decimal)0, (decimal)1, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void LessDecimalWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Less((decimal)2, (decimal)1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Less[decimal](message) has failed");
+        }
+
+        [Test]
+        public void LessDecimalWithFormattedMessage()
+        {
+            Assert.Less((decimal)0, (decimal)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LessDecimalWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Less((decimal)2, (decimal)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Less[decimal](message, args) has failed");
+        }
+
+        #endregion
+
+        #region double
+
+        [RowTest]
+        [Row((double)0, (double)1, Description = "Valid Case")]
+        [Row((double)3, (double)1, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void LessDoubleParamTest(double left, double right)
+        {
+            Assert.Less(left, right);
+        }
+
+        [Test]
+        public void LessDoubleWithMessage()
+        {
+            Assert.Less((double)0, (double)1, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void LessDoubleWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Less((double)3, (double)1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Less[double](message) has failed");
+        }
+
+        [Test]
+        public void LessDoubleWithFormattedMessage()
+        {
+            Assert.Less((double)0, (double)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LessDoubleWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Less((double)3, (double)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Less[double](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region long
+
+        [RowTest]
+        [Row((long)0, (long)1, Description = "Valid Case")]
+        [Row((long)3, (long)1, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void LessLongParamTest(long left, long right)
+        {
+            Assert.Less(left, right);
+        }
+
+        [Test]
+        public void LessLongWithMessage()
+        {
+            Assert.Less((long)0, (long)1, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void LessLongWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Less((long)3, (long)1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Less[long](message) has failed");
+        }
+
+        [Test]
+        public void LessLongWithFormattedMessage()
+        {
+            Assert.Less((long)0, (long)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LessLongWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Less((long)3, (long)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Less[long](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region float
+
+        [RowTest]
+        [Row((float)0, (float)2, Description = "Valid Case")]
+        [Row((float)3, (float)2, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void LessFloatParamTest(float left, float right)
+        {
+            Assert.Less(left, right);
+        }
+
+        [Test]
+        public void LessFloatWithMessage()
+        {
+            Assert.Less((float)0, (float)2, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void LessFloatWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Less((float)3, (float)2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Less[float](message) has failed");
+        }
+
+        [Test]
+        public void LessFloatWithFormattedMessage()
+        {
+            Assert.Less((float)0, (float)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LessFloatWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Less((float)3, (float)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Less[float](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region IComparable
+
+        [RowTest]
+        [Row("aaaa","zzzz", Description = "Valid Case")]
+        [Row(1, 2, Description = "Valid Case")]
+        [Row("zzzz", "aaaa", Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void LessIComparableParamTest(object left, object right)
+        {
+            Assert.Less((IComparable)left, (IComparable)right);
+        }
+
+        [Test]
+        public void LessIComparableWithMessage()
+        {
+            Assert.Less((IComparable)"aaaa", (IComparable)"zzzz", EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void LessIComparableWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Less((IComparable)"zzzz", (IComparable)"aaaa", EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Less[IComparable](message) has failed");
+        }
+
+        [Test]
+        public void LessIComparableWithFormattedMessage()
+        {
+            Assert.Less((IComparable)"aaaa", (IComparable)"zzzz", TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LessIComparableWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.Less((IComparable)"zzzz", (IComparable)"aaaa", TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert Less[IComparable](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #endregion
+
+        #region LowerEqualThan
+
+        #region int
+
+        [RowTest]
+        [Row((int) 0, (int) 1, Description = "Valid Case (Lower Than)")]
+        [Row((int)0, (int)0, Description = "Valid Case (Zero Equal)")]
+        [Row((int)1, (int)1, Description = "Valid Case (Positive Equal)")]
+        [Row((int)-1, (int)-1, Description = "Valid Case (Negative Equal)")]
+        [Row((int)2, (int)1, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void LowerEqualThanIntParamTest(int left, int right)
+        {
+            Assert.LowerEqualThan(left, right);
+        }
+
+        [Test]
+        public void LowerEqualThanIntWithMessage()
+        {
+            Assert.LowerEqualThan((int) 0, (int) 1, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void LowerEqualThanIntWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerEqualThan((int) 2, (int) 1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerEqualThan[int](message) has failed");
+        }
+
+        [Test]
+        public void LowerEqualThanIntWithFormattedMessage()
+        {
+            Assert.LowerEqualThan((int) 0, (int) 1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LowerEqualThanIntWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerEqualThan((int) 2, (int) 1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerEqualThan[int](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region short
+
+        [RowTest]
+        [Row(0, 1, Description = "Valid Case (Lower Than)")]
+        [Row(0, 0, Description = "Valid Case (Zero Equal)")]
+        [Row(1, 1, Description = "Valid Case (Positive Equal)")]
+        [Row(-1, -1, Description = "Valid Case (Negative Equal)")]
+        [Row(2, 1, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void LowerEqualThanShortParamTest(short left, short right)
+        {
+            Assert.LowerEqualThan(left, right);
+        }
+
+        [Test]
+        public void LowerEqualThanShortWithMessage()
+        {
+            Assert.LowerEqualThan((short) 0, (short) 1, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void LowerEqualThanShortWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerEqualThan((short) 2, (short) 1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerEqualThan[short](message) has failed");
+        }
+
+        [Test]
+        public void LowerEqualThanShortWithFormattedMessage()
+        {
+            Assert.LowerEqualThan((short) 0, (short) 1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LowerEqualThanShortWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerEqualThan((short) 2, (short) 1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerEqualThan[short](message, args) has failed");
+        }
+
+        #endregion
+
+        #region byte
+
+        [RowTest]
+        [Row(0, 1, Description = "Valid Case (Lower Than)")]
+        [Row(0, 0, Description = "Valid Case (Zero Equal)")]
+        [Row(1, 1, Description = "Valid Case (Positive Equal)")]
+        [Row(2, 1, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void LowerEqualThanByteParamTest(byte left, byte right)
+        {
+            Assert.LowerEqualThan(left, right);
+        }
+
+        [Test]
+        public void LowerEqualThanByteWithMessage()
+        {
+            Assert.LowerEqualThan((byte)0,(byte)1, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void LowerEqualThanByteWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerEqualThan((byte)2,(byte)1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerEqualThan[byte](message) has failed");
+        }
+
+        [Test]
+        public void LowerEqualThanByteWithFormattedMessage()
+        {
+            Assert.LowerEqualThan((byte)0,(byte)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LowerEqualThanByteWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerEqualThan((byte)2,(byte)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerEqualThan[byte](message, args) has failed");
+        }
+
+        #endregion
+
+        #region long
+
+        [RowTest]
+        [Row(0, 1, Description = "Valid Case (Lower Than)")]
+        [Row(0, 0, Description = "Valid Case (Zero Equal)")]
+        [Row(1, 1, Description = "Valid Case (Positive Equal)")]
+        [Row(-1, -1, Description = "Valid Case (Negative Equal)")]
+        [Row(2, 1, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void LowerEqualThanLongParamTest(long left, long right)
+        {
+            Assert.LowerEqualThan(left, right);
+        }
+
+        [Test]
+        public void LowerEqualThanLongWithMessage()
+        {
+            Assert.LowerEqualThan((long) 0, (long)1, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void LowerEqualThanLongWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerEqualThan((long) 2, (long)1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerEqualThan[long](message) has failed");
+        }
+
+        [Test]
+        public void LowerEqualThanLongWithFormattedMessage()
+        {
+            Assert.LowerEqualThan((long) 0, (long)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LowerEqualThanLongWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerEqualThan((long) 2, (long)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerEqualThan[long](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region double
+
+        [RowTest]
+        [Row(0, 1, Description = "Valid Case (Lower Than)")]
+        [Row(0, 0, Description = "Valid Case (Zero Equal)")]
+        [Row(1, 1, Description = "Valid Case (Positive Equal)")]
+        [Row(-1, -1, Description = "Valid Case (Negative Equal)")]
+        [Row(2, 1, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void LowerEqualThanDoubleParamTest(double left, double right)
+        {
+            Assert.LowerEqualThan(left, right);
+        }
+
+        [Test]
+        public void LowerEqualThanDoubleWithMessage()
+        {
+            Assert.LowerEqualThan((double)0,(double)1, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void LowerEqualThanDoubleWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerEqualThan((double)2,(double)1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerEqualThan[double](message) has failed");
+        }
+
+        [Test]
+        public void LowerEqualThanDoubleWithFormattedMessage()
+        {
+            Assert.LowerEqualThan((double)0,(double)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LowerEqualThanDoubleWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerEqualThan((double)2,(double)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerEqualThan[double](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region float
+
+        [RowTest]
+        [Row(0, 1, Description = "Valid Case (Lower Than)")]
+        [Row(0, 0, Description = "Valid Case (Zero Equal)")]
+        [Row(1, 1, Description = "Valid Case (Positive Equal)")]
+        [Row(-1, -1, Description = "Valid Case (Negative Equal)")]
+        [Row(2, 1, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void LowerEqualThanFloatParamTest(float left, float right)
+        {
+            Assert.LowerEqualThan(left, right);
+        }
+
+        [Test]
+        public void LowerEqualThanFloatWithMessage()
+        {
+            Assert.LowerEqualThan((float)0, (float)1, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void LowerEqualThanFloatWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerEqualThan((float)2, (float)1, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerEqualThan[float](message) has failed");
+        }
+
+        [Test]
+        public void LowerEqualThanFloatWithFormattedMessage()
+        {
+            Assert.LowerEqualThan((float)0, (float)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LowerEqualThanFloatWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerEqualThan((float)2, (float)1, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerEqualThan[float](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region IComparable
+
+        [RowTest]
+        [Row("aaaa", "zzzz", Description = "Valid Case")]
+        [Row("aaaa", "aaaa", Description = "Valid Case (Equals)")]
+        [Row(1, 2, Description = "Valid Case")]
+        [Row(1, 1, Description = "Valid Case (Equals)")]
+        [Row(SpecialValue.Null, SpecialValue.Null, ExpectedException = (typeof(AssertionException)))]
+        [Row(SpecialValue.Null, 1, ExpectedException = (typeof(AssertionException)))]
+        [Row(2, SpecialValue.Null, ExpectedException = (typeof(AssertionException)))]
+        [Row("zzzz", "aaaa", Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void LowerEqualThanIComparableParamTest(object left, object right)
+        {
+            Assert.LowerEqualThan((IComparable)left, (IComparable)right);
+        }
+
+        [Test]
+        public void LowerEqualThanIComparableWithMessage()
+        {
+            Assert.LowerEqualThan((IComparable)"aaaa", (IComparable)"zzzz", EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void LowerEqualThanIComparableWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerEqualThan((IComparable)"zzzz", (IComparable)"aaaa", EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerEqualThan[IComparable](message) has failed");
+        }
+
+        [Test]
+        public void LowerEqualThanIComparableWithFormattedMessage()
+        {
+            Assert.LowerEqualThan((IComparable)"aaaa", (IComparable)"zzzz", TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void LowerEqualThanIComparableWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.LowerEqualThan((IComparable)"zzzz", (IComparable)"aaaa", TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert LowerEqualThan[IComparable](message, args) has failed");
+        }
+
+
+        #endregion
+
         #endregion
 
         #region GreaterThan
-        [Test]
-        public void GreaterThanInt()
+
+        #region int
+
+        [RowTest]
+        [Row((int)1, (int)0, Description = "Valid Case (Greater Than)")]
+        [Row((int)1, (int)2, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void GreaterThanIntParamTest(int left, int right)
         {
-            Assert.GreaterThan(1, 0);
+            Assert.GreaterThan(left, right);
         }
 
         [Test]
-        public void GreaterThanShort()
+        public void GreaterThanIntWithMessage()
         {
-            Assert.GreaterThan((short)1, (short)0);
+            Assert.GreaterThan((int)1, (int)0, EXPECTED_FAIL_MESSAGE);
         }
 
         [Test]
-        public void GreaterThanByte()
+        public void GreaterThanIntWithMessageFail()
         {
-            Assert.GreaterThan((byte)1, (byte)0);
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterThan((int)1, (int)2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterThan[int](message) has failed");
         }
 
         [Test]
-        public void GreaterThanLong()
+        public void GreaterThanIntWithFormattedMessage()
         {
-            Assert.GreaterThan((long)1, (long)0);
+            Assert.GreaterThan((int)1, (int)0, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
         }
 
         [Test]
-        public void GreaterThanDouble()
+        public void GreaterThanIntWithFormattedMessageFail()
         {
-            Assert.GreaterThan((double)1, (double)0);
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterThan((int)1, (int)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterThan[int](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region short
+
+        [RowTest]
+        [Row(1, 0, Description = "Valid Case (Greater Than)")]
+        [Row(1, 2, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void GreaterThanShortParamTest(short left, short right)
+        {
+            Assert.GreaterThan(left, right);
         }
 
         [Test]
-        public void GreaterThanFloat()
+        public void GreaterThanShortWithMessage()
         {
-            Assert.GreaterThan((float)1, (float)0);
+            Assert.GreaterThan((short)1, (short)0, EXPECTED_FAIL_MESSAGE);
         }
+
+        [Test]
+        public void GreaterThanShortWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterThan((short)1, (short)2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterThan[short](message) has failed");
+        }
+
+        [Test]
+        public void GreaterThanShortWithFormattedMessage()
+        {
+            Assert.GreaterThan((short)1, (short)0, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void GreaterThanShortWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterThan((short)1, (short)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterThan[short](message, args) has failed");
+        }
+
+        #endregion
+
+        #region byte
+
+        [RowTest]
+        [Row(1, 0, Description = "Valid Case (Greater Than)")]
+        [Row(1, 2, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void GreaterThanByteParamTest(byte left, byte right)
+        {
+            Assert.GreaterThan(left, right);
+        }
+
+        [Test]
+        public void GreaterThanByteWithMessage()
+        {
+            Assert.GreaterThan((byte)1, (byte)0, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void GreaterThanByteWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterThan((byte)1, (byte)2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterThan[byte](message) has failed");
+        }
+
+        [Test]
+        public void GreaterThanByteWithFormattedMessage()
+        {
+            Assert.GreaterThan((byte)1, (byte)0, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void GreaterThanByteWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterThan((byte)1, (byte)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterThan[byte](message, args) has failed");
+        }
+
+        #endregion
+
+        #region long
+
+        [RowTest]
+        [Row(1, 0, Description = "Valid Case (Greater Than)")]
+        [Row(1, 2, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void GreaterThanLongParamTest(long left, long right)
+        {
+            Assert.GreaterThan(left, right);
+        }
+
+        [Test]
+        public void GreaterThanLongWithMessage()
+        {
+            Assert.GreaterThan((long)1, (long)0, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void GreaterThanLongWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterThan((long)1, (long)2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterThan[long](message) has failed");
+        }
+
+        [Test]
+        public void GreaterThanLongWithFormattedMessage()
+        {
+            Assert.GreaterThan((long)1, (long)0, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void GreaterThanLongWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterThan((long)1, (long)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterThan[long](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region double
+
+        [RowTest]
+        [Row(1, 0, Description = "Valid Case (Greater Than)")]
+        [Row(1, 2, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void GreaterThanDoubleParamTest(double left, double right)
+        {
+            Assert.GreaterThan(left, right);
+        }
+
+        [Test]
+        public void GreaterThanDoubleWithMessage()
+        {
+            Assert.GreaterThan((double)1, (double)0, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void GreaterThanDoubleWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterThan((double)1, (double)2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterThan[double](message) has failed");
+        }
+
+        [Test]
+        public void GreaterThanDoubleWithFormattedMessage()
+        {
+            Assert.GreaterThan((double)1, (double)0, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void GreaterThanDoubleWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterThan((double)1, (double)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterThan[double](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region float
+
+        [RowTest]
+        [Row(1, 0, Description = "Valid Case (Greater Than)")]
+        [Row(1, 2, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void GreaterThanFloatParamTest(float left, float right)
+        {
+            Assert.GreaterThan(left, right);
+        }
+
+        [Test]
+        public void GreaterThanFloatWithMessage()
+        {
+            Assert.GreaterThan((float)1, (float)0, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void GreaterThanFloatWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterThan((float)1, (float)2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterThan[float](message) has failed");
+        }
+
+        [Test]
+        public void GreaterThanFloatWithFormattedMessage()
+        {
+            Assert.GreaterThan((float)1, (float)0, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void GreaterThanFloatWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterThan((float)1, (float)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterThan[float](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region IComparable
+
+        [RowTest]
+        [Row("z", "a", Description = "Valid Case")]
+        [Row(2, 1, Description = "Valid Case")]
+        [Row(SpecialValue.Null, SpecialValue.Null, ExpectedException = (typeof(AssertionException)))]
+        [Row(SpecialValue.Null, 1, ExpectedException = (typeof(AssertionException)))]
+        [Row(2, SpecialValue.Null, ExpectedException = (typeof(AssertionException)))]
+        [Row("a", "z", Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void GreaterThanIComparableParamTest(object left, object right)
+        {
+            Assert.GreaterThan((IComparable)left, (IComparable)right);
+        }
+
+        [Test]
+        public void GreaterThanIComparableWithMessage()
+        {
+            Assert.GreaterThan((IComparable)"z", (IComparable)"a", EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void GreaterThanIComparableWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterThan((IComparable)"a", (IComparable)"z", EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterThan[IComparable](message) has failed");
+        }
+
+        [Test]
+        public void GreaterThanIComparableWithFormattedMessage()
+        {
+            Assert.GreaterThan((IComparable)"z", (IComparable)"a", TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void GreaterThanIComparableWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterThan((IComparable)"a", (IComparable)"z", TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterThan[IComparable](message, args) has failed");
+        }
+
+
+        #endregion
 
         #endregion
 
@@ -2141,72 +4195,471 @@ namespace MbUnit.Framework.Tests.Asserts
         #endregion
 
         #region GreaterEqualThan
-        [Test]
-        public void GreaterEqualThanInt()
+
+        #region int
+
+        [RowTest]
+        [Row((int)1, (int)0, Description = "Valid Case (Greater Than)")]
+        [Row((int)0, (int)0, Description = "Valid Case (Zero Equal)")]
+        [Row((int)1, (int)1, Description = "Valid Case (Positive Equal)")]
+        [Row((int)-1, (int)-1, Description = "Valid Case (Negative Equal)")]
+        [Row((int)1, (int)2, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void GreaterEqualThanIntParamTest(int left, int right)
         {
-            Assert.GreaterEqualThan(1, 0);
+            Assert.GreaterEqualThan(left, right);
         }
 
         [Test]
-        public void GreaterEqualThanShort()
+        public void GreaterEqualThanIntWithMessage()
         {
-            Assert.GreaterEqualThan((short)1, (short)0);
-        }
-        [Test]
-        public void GreaterEqualThanEqualShort()
-        {
-            Assert.GreaterEqualThan((short)0, (short)0);
+            Assert.GreaterEqualThan((int)1, (int)0, EXPECTED_FAIL_MESSAGE);
         }
 
         [Test]
-        public void GreaterEqualThanByte()
+        public void GreaterEqualThanIntWithMessageFail()
         {
-            Assert.GreaterEqualThan((byte)1, (byte)0);
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterEqualThan((int)1, (int)2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterEqualThan[int](message) has failed");
         }
 
         [Test]
-        public void GreaterEqualThanEqualByte()
+        public void GreaterEqualThanIntWithFormattedMessage()
         {
-            Assert.GreaterEqualThan((byte)0, (byte)0);
+            Assert.GreaterEqualThan((int)1, (int)0, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
         }
 
         [Test]
-        public void GreaterEqualThanLong()
+        public void GreaterEqualThanIntWithFormattedMessageFail()
         {
-            Assert.GreaterEqualThan((long)1, (long)0);
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterEqualThan((int)1, (int)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterEqualThan[int](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region short
+
+        [RowTest]
+        [Row(1, 0, Description = "Valid Case (Greater Than)")]
+        [Row(0, 0, Description = "Valid Case (Zero Equal)")]
+        [Row(1, 1, Description = "Valid Case (Positive Equal)")]
+        [Row(-1, -1, Description = "Valid Case (Negative Equal)")]
+        [Row(1, 2, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void GreaterEqualThanShortParamTest(short left, short right)
+        {
+            Assert.GreaterEqualThan(left, right);
         }
 
         [Test]
-        public void GreaterEqualThanEqualLong()
+        public void GreaterEqualThanShortWithMessage()
         {
-            Assert.GreaterEqualThan((long)0, (long)0);
+            Assert.GreaterEqualThan((short)1, (short)0, EXPECTED_FAIL_MESSAGE);
         }
 
         [Test]
-        public void GreaterEqualThanDouble()
+        public void GreaterEqualThanShortWithMessageFail()
         {
-            Assert.GreaterEqualThan((double)1, (double)0);
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterEqualThan((short)1, (short)2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterEqualThan[short](message) has failed");
         }
 
         [Test]
-        public void GreaterEqualThanEqualDouble()
+        public void GreaterEqualThanShortWithFormattedMessage()
         {
-            Assert.GreaterEqualThan((double)0, (double)0);
+            Assert.GreaterEqualThan((short)1, (short)0, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
         }
 
         [Test]
-        public void GreaterEqualThanFloat()
+        public void GreaterEqualThanShortWithFormattedMessageFail()
         {
-            Assert.GreaterEqualThan((float)1, (float)0);
-        }
+            bool asserted = false;
 
-        [Test]
-        public void GreaterEqualThanEqualFloat()
-        {
-            Assert.GreaterEqualThan((float)0, (float)0);
+            try
+            {
+                Assert.GreaterEqualThan((short)1, (short)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterEqualThan[short](message, args) has failed");
         }
 
         #endregion
+
+        #region byte
+
+        [RowTest]
+        [Row(1, 0, Description = "Valid Case (Greater Than)")]
+        [Row(0, 0, Description = "Valid Case (Zero Equal)")]
+        [Row(1, 1, Description = "Valid Case (Positive Equal)")]
+        [Row(1, 2, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void GreaterEqualThanByteParamTest(byte left, byte right)
+        {
+            Assert.GreaterEqualThan(left, right);
+        }
+
+        [Test]
+        public void GreaterEqualThanByteWithMessage()
+        {
+            Assert.GreaterEqualThan((byte)1, (byte)0, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void GreaterEqualThanByteWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterEqualThan((byte)1, (byte)2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterEqualThan[byte](message) has failed");
+        }
+
+        [Test]
+        public void GreaterEqualThanByteWithFormattedMessage()
+        {
+            Assert.GreaterEqualThan((byte)1, (byte)0, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void GreaterEqualThanByteWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterEqualThan((byte)1, (byte)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterEqualThan[byte](message, args) has failed");
+        }
+
+        #endregion
+
+        #region long
+
+        [RowTest]
+        [Row(1, 0, Description = "Valid Case (Greater Than)")]
+        [Row(0, 0, Description = "Valid Case (Zero Equal)")]
+        [Row(1, 1, Description = "Valid Case (Positive Equal)")]
+        [Row(-1, -1, Description = "Valid Case (Negative Equal)")]
+        [Row(1, 2, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void GreaterEqualThanLongParamTest(long left, long right)
+        {
+            Assert.GreaterEqualThan(left, right);
+        }
+
+        [Test]
+        public void GreaterEqualThanLongWithMessage()
+        {
+            Assert.GreaterEqualThan((long)1, (long)0, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void GreaterEqualThanLongWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterEqualThan((long)1, (long)2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterEqualThan[long](message) has failed");
+        }
+
+        [Test]
+        public void GreaterEqualThanLongWithFormattedMessage()
+        {
+            Assert.GreaterEqualThan((long)1, (long)0, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void GreaterEqualThanLongWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterEqualThan((long)1, (long)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterEqualThan[long](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region double
+
+        [RowTest]
+        [Row(1, 0, Description = "Valid Case (Greater Than)")]
+        [Row(0, 0, Description = "Valid Case (Zero Equal)")]
+        [Row(1, 1, Description = "Valid Case (Positive Equal)")]
+        [Row(-1, -1, Description = "Valid Case (Negative Equal)")]
+        [Row(1, 2, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void GreaterEqualThanDoubleParamTest(double left, double right)
+        {
+            Assert.GreaterEqualThan(left, right);
+        }
+
+        [Test]
+        public void GreaterEqualThanDoubleWithMessage()
+        {
+            Assert.GreaterEqualThan((double)1, (double)0, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void GreaterEqualThanDoubleWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterEqualThan((double)1, (double)2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterEqualThan[double](message) has failed");
+        }
+
+        [Test]
+        public void GreaterEqualThanDoubleWithFormattedMessage()
+        {
+            Assert.GreaterEqualThan((double)1, (double)0, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void GreaterEqualThanDoubleWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterEqualThan((double)1, (double)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterEqualThan[double](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region float
+
+        [RowTest]
+        [Row(1, 0, Description = "Valid Case (Greater Than)")]
+        [Row(0, 0, Description = "Valid Case (Zero Equal)")]
+        [Row(1, 1, Description = "Valid Case (Positive Equal)")]
+        [Row(-1, -1, Description = "Valid Case (Negative Equal)")]
+        [Row(1, 2, Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void GreaterEqualThanFloatParamTest(float left, float right)
+        {
+            Assert.GreaterEqualThan(left, right);
+        }
+
+        [Test]
+        public void GreaterEqualThanFloatWithMessage()
+        {
+            Assert.GreaterEqualThan((float)1, (float)0, EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void GreaterEqualThanFloatWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterEqualThan((float)1, (float)2, EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterEqualThan[float](message) has failed");
+        }
+
+        [Test]
+        public void GreaterEqualThanFloatWithFormattedMessage()
+        {
+            Assert.GreaterEqualThan((float)1, (float)0, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void GreaterEqualThanFloatWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterEqualThan((float)1, (float)2, TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterEqualThan[float](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #region IComparable
+
+        [RowTest]
+        [Row("z", "a", Description = "Valid Case")]
+        [Row("a", "a", Description = "Valid Case (Equals)")]
+        [Row(2, 1, Description = "Valid Case")]
+        [Row(1, 1, Description = "Valid Case (Equals)")]
+        [Row(SpecialValue.Null, SpecialValue.Null, ExpectedException = (typeof(AssertionException)))]
+        [Row(SpecialValue.Null, 1, ExpectedException = (typeof(AssertionException)))]
+        [Row(2, SpecialValue.Null, ExpectedException = (typeof(AssertionException)))]
+        [Row("a", "z", Description = "Invalid Case", ExpectedException = typeof(AssertionException))]
+        public void GreaterEqualThanIComparableParamTest(object left, object right)
+        {
+            Assert.GreaterEqualThan((IComparable)left, (IComparable)right);
+        }
+
+        [Test]
+        public void GreaterEqualThanIComparableWithMessage()
+        {
+            Assert.GreaterEqualThan((IComparable)"z", (IComparable)"a", EXPECTED_FAIL_MESSAGE);
+        }
+
+        [Test]
+        public void GreaterEqualThanIComparableWithMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterEqualThan((IComparable)"a", (IComparable)"z", EXPECTED_FAIL_MESSAGE);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FAIL_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterEqualThan[IComparable](message) has failed");
+        }
+
+        [Test]
+        public void GreaterEqualThanIComparableWithFormattedMessage()
+        {
+            Assert.GreaterEqualThan((IComparable)"z", (IComparable)"a", TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+        }
+
+        [Test]
+        public void GreaterEqualThanIComparableWithFormattedMessageFail()
+        {
+            bool asserted = false;
+
+            try
+            {
+                Assert.GreaterEqualThan((IComparable)"a", (IComparable)"z", TEST_FORMAT_STRING, TEST_FORMAT_STRING_PARAM1, TEST_FORMAT_STRING_PARAM2);
+            }
+            catch (AssertionException ex)
+            {
+                Assert.IsTrue(ex.Message.IndexOf(EXPECTED_FORMATTED_MESSAGE) >= 0);
+                asserted = true;
+            }
+
+            if (!asserted)
+                Assert.Fail("Assert GreaterEqualThan[IComparable](message, args) has failed");
+        }
+
+
+        #endregion
+
+        #endregion
+
         #endregion
 
         #region In, NotIn

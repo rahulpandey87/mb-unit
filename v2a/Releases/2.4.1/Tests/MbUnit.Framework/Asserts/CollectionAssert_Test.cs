@@ -67,10 +67,87 @@ namespace MbUnit.Framework.Tests.Asserts
             CollectionAssert.AreElementsEqual(arr, arr2);
         }
 
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreElementsEqualExpectedNullFail()
+        {
+            CollectionAssert.AreElementsEqual(null, arr2);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreElementsEqualActualNullFail()
+        {
+            CollectionAssert.AreElementsEqual(arr, null);
+        }
+
+        [Test]
+        public void AreElementsEqualNull()
+        {
+            CollectionAssert.AreElementsEqual(null, null);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreElementsEqualUnequalLengthFail()
+        {
+            ArrayList arr3 = new ArrayList();
+            arr3.Add("One");
+            arr3.Add("Two");
+            arr3.Add("Three");
+            arr3.Add("Four");
+            arr3.Add("Five");
+
+            CollectionAssert.AreElementsEqual(arr, arr3);
+        }
+
         [Test]
         public void AreEqual()
         {
             CollectionAssert.AreEqual(arr, arr2);
+        }
+
+        [Test]
+        public void AreEqualSwap()
+        {
+            CollectionAssert.AreEqual(arr2, arr);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreEqualExpectedNullFail()
+        {
+            CollectionAssert.AreEqual(null, arr2);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreEqualActualNullFail()
+        {
+            CollectionAssert.AreEqual(arr, null);
+        }
+
+        [Test]
+        public void AreEqualNullFail()
+        {
+            CollectionAssert.AreEqual(null, null);
+        }
+
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreEqualFail()
+        {
+            ArrayList arr3 = new ArrayList();
+            arr3.Add("One");
+
+            CollectionAssert.AreEqual(arr, arr3);
+        }
+
+        [Test, ExpectedException(typeof(AssertionException))]
+        public void AreEqualSameLengthFail()
+        {
+            ArrayList arr3 = new ArrayList();
+            arr3.Add("One");
+            arr3.Add("Two");
+            arr3.Add("One");
+            arr3.Add("Two");
+
+            CollectionAssert.AreEqual(arr, arr3);
         }
 
         #endregion
@@ -83,9 +160,21 @@ namespace MbUnit.Framework.Tests.Asserts
         }
 
         [Test]
+        public void AreCountEqualNull()
+        {
+            CollectionAssert.AreCountEqual(null, null);
+        }
+
+        [Test]
         public void IsCountCorrect()
         {
             CollectionAssert.IsCountCorrect(arr);
+        }
+
+        [Test, ExpectedArgumentNullException]
+        public void IsCountCorrectNull()
+        {
+            CollectionAssert.IsCountCorrect(null);
         }
 
         #endregion
