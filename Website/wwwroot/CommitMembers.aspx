@@ -20,7 +20,6 @@
         <a href="http://blogs.ipona.com/dan/">Dan Maharry</a>
   	<br />
         Logos designed by Mark A. Haley </div>
-</div>
     <div>
         &nbsp;</div>
     <div>
