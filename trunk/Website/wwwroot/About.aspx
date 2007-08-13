@@ -12,10 +12,7 @@
         Peli's departure to Microsoft in 2005 (working first as a SDE\T on the CLR and more
         recently in the Foundations
         for Software Engineering group in Microsoft Research)
-        the project was opensourced under its current lead, Andy Stopford. The projects
-        regular commit members include Graham
-    Hay, Vadim Kreynin, Julian
-        Hidalgo, Joey Calisay,&nbsp; Ben Hall, Jeff Brown, Marc Stober and Johan Appelgren.
+        the project was opensourced under its current lead, Andy Stopford. The projects regular commit members are listed <a href="CommitMembers.aspx">here</a>.
     </p>
     <p>
     Various projects and companies are currently using our framework, including:<br />
