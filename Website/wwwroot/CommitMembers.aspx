@@ -5,19 +5,19 @@
     <div>
         The commit members are:</div>
     <div>
-        Andrew Stopford<br />
-        Graham Hay<br />
-        Vadim Kreynin<br />
-        Julian Hidalgo<br />
-        Joey Calisay<br />
-        Ben Hall<br />
-        Jeff Brown<br />
-        Marc Stober<br />
         Johan Appelgren<br />
+        <a href="http://blog.bits-in-motion.com/">Jeff Brown</a><br />
+        <a href="http://community.devpinoy.org/blogs/joeycalisay/">Joey Calisay</a><br />
 	Dave Griffiths<br /> 
+        <a href="http://Blog.BenHall.me.uk">Ben Hall</a><br />
+        Graham Hay<br />
+        <a href="http://www.hpoffice.cl/julian/Default.aspx/">Julian Hidalgo</a><br />
+        <a href="http://vadim-net.blogspot.com/">Vadim Kreynin</a><br />
+        <a href="http://www.marcstober.com/blog/category/Software%20Blog">Marc Stober</a><br />
+        <a href="http://weblogs.asp.net/astopford/">Andy Stopford</a><br />
         <br />
         The documentation lead is
-        Dan Maharry
+        <a href="http://blogs.ipona.com/dan/">Dan Maharry</a>
   	<br />
         Logos designed by Mark A. Haley </div>
 </div>
