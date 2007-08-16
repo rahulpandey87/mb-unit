@@ -32,7 +32,8 @@
         Tomáš Chaloupka<br />
         Albert Weinert<br />
         Cathal Connolly<br />
-        Todd Menier.</div>
+        Todd Menier<br />
+        Richard Louapre</div>
     <p>
         If you would like to work on the project, then please read the <a href="Development.aspx">
             development page</a></p>
