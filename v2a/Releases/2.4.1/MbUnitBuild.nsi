@@ -62,6 +62,9 @@ Section "MainSection" SEC01
   File "build\MbUnit.AddIn.dll"
   File "build\log4net.dll"
   File "build\MbUnit.MSBuild.Tasks.dll"
+  File "MbUnit.url"
+  File "MbUnit Offline Documentation.url"
+  File "MbUnit Online Documentation.url"
 
   WriteRegStr HKCU "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit" "" "10"
   WriteRegStr HKCU "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit" "AssemblyPath" "$PROGRAMFILES\MbUnit\MbUnit.AddIn.dll"
@@ -119,6 +122,14 @@ Section "MainSection" SEC01
 
   File "build\Snippets\VSSnippets\MbUnitXMLSnippets\msbuild.snippet"
   File "build\Snippets\VSSnippets\MbUnitXMLSnippets\nant.snippet"
+  
+  ;Start menu items
+  CreateDirectory "$SMPROGRAMS\${PRODUCT_NAME}" 
+  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\MbUnit.GUI.lnk" "$INSTDIR\MbUnit.GUI.exe" 
+  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\MbUnit Offline Documentation.lnk" "$INSTDIR\MbUnit Offline Documentation.url"
+  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\MbUnit Online Documentation.lnk" "$INSTDIR\MbUnit Online Documentation.url"
+  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\MbUnit Website.lnk" "$INSTDIR\MbUnit.url"
+  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall.lnk" "$INSTDIR\uninst.exe"
   
   ;Register file association. 
   !define Index "Line${__LINE__}" 
@@ -219,6 +230,9 @@ Section Uninstall
   Delete "$INSTDIR\XsdTidy.exe"
   Delete "$INSTDIR\MbUnit.Cons.exe"
   Delete "$INSTDIR\MbUnit.Cons.exe.config"
+  Delete "$INSTDIR\MbUnit.url"
+  Delete "$INSTDIR\MbUnit Offline Documentation.url"
+  Delete "$INSTDIR\MbUnit Online Documentation.url"
 
   RMDir "$SMPROGRAMS\\"
   RMDir "$INSTDIR\VSSnippets\MbUnitXMLSnippets\"
@@ -232,6 +246,13 @@ Section Uninstall
   
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
+  
+  Delete "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall.lnk" 
+  Delete "$SMPROGRAMS\${PRODUCT_NAME}\MbUnit Website.lnk" 
+  Delete "$SMPROGRAMS\${PRODUCT_NAME}\MbUnit Online Documentation.lnk" 
+  Delete "$SMPROGRAMS\${PRODUCT_NAME}\MbUnit Offline Documentation.lnk" 
+  Delete "$SMPROGRAMS\${PRODUCT_NAME}\MbUnit.GUI.lnk" 
+  Delete "$SMPROGRAMS\${PRODUCT_NAME}"
   
   ;Unregister file association 
   !define Index "Line${__LINE__}" 
