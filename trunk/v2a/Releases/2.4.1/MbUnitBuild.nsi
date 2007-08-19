@@ -119,6 +119,26 @@ Section "MainSection" SEC01
 
   File "build\Snippets\VSSnippets\MbUnitXMLSnippets\msbuild.snippet"
   File "build\Snippets\VSSnippets\MbUnitXMLSnippets\nant.snippet"
+  
+  ;Register file association. 
+  !define Index "Line${__LINE__}" 
+  ReadRegStr $1 HKCR ".mbunit" "" 
+  StrCmp $1 "" "${Index}-NoBackup" 
+  StrCmp $1 "MbUnit" "${Index}-NoBackup" 
+  WriteRegStr HKCR ".mbunit" "backup_val" $1 
+  "${Index}-NoBackup:" 
+  WriteRegStr HKCR ".mbunit" "" "MbUnit" 
+  ReadRegStr $0 HKCR "MbUnit" "" 
+  StrCmp $0 "" 0 "${Index}-Skip" 
+  WriteRegStr HKCR "MbUnit" "" "MbUnit Project File" 
+  WriteRegStr HKCR "MbUnit\shell" "" "open" 
+  WriteRegStr HKCR "MbUnit\DefaultIcon" "" "$INSTDIR\MbUnit.GUI.exe,0" 
+  "${Index}-Skip:" 
+  WriteRegStr HKCR "MbUnit\shell\open\command" "" '$INSTDIR\MbUnit.GUI.exe "%1"' 
+
+  System::Call 'Shell32::SHChangeNotify(i 0x8000000, i 0, i 0, i 0)' 
+  !undef Index 
+  
 SectionEnd
 
 Section -Post
@@ -212,5 +232,25 @@ Section Uninstall
   
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
+  
+  ;Unregister file association 
+  !define Index "Line${__LINE__}" 
+  ReadRegStr $1 HKCR ".mbunit" "" 
+  StrCmp $1 "OptionsFile" 0 "${Index}-NoOwn" ; only do this if we own it 
+  ReadRegStr $1 HKCR ".mbunit" "backup_val" 
+  StrCmp $1 "" 0 "${Index}-Restore" ; if backup="" then delete the whole key 
+  DeleteRegKey HKCR ".mbunit" 
+  Goto "${Index}-NoOwn" 
+  "${Index}-Restore:" 
+  WriteRegStr HKCR ".mbunit" "" $1 
+  DeleteRegValue HKCR ".mbunit" "backup_val" 
+
+  DeleteRegKey HKCR "MbUnit" ;Delete key with association settings 
+
+  System::Call 'Shell32::SHChangeNotify(i 0x8000000, i 0, i 0, i 0)' 
+  "${Index}-NoOwn:" 
+  !undef Index 
+  
+  
   SetAutoClose true
 SectionEnd
