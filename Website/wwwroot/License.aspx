@@ -35,7 +35,7 @@
         MbUnit in source and binary form, if shipping a MbUnit variant is the sole purpose
         of your product, please let us know.</p>
     <h3>
-        MbUnit 3.0</h3>
+        MbUnit Gallio</h3>
     <p>
         Copyright 2007 MbUnit Project - http://www.mbunit.com/</p>
     <p>

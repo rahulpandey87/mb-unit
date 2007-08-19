@@ -29,7 +29,6 @@
                     <%} %>
                     </li>
                     <li><a href="About.aspx">About</a></li>
-                    <li><a href="GettingStarted.aspx">Getting Started</a></li>
                     <li><a href="Downloads.aspx">Downloads</a></li>
                     <li><a href="http://docs.mbunit.com">Documentation</a></li>
                     <li><a href="Blogs.aspx">Blogs</a></li>
