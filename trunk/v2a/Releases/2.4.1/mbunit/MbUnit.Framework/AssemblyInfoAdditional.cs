@@ -5,4 +5,5 @@ using System.Runtime.CompilerServices;
 
 #endregion
 
-[assembly: AssemblyTitle("MbUnit.Framework 2.4.1040")]
+[assembly: AssemblyTitle("MbUnit Framework")]
+[assembly: AssemblyDescription("MbUnit - a generative unit test framework.")]

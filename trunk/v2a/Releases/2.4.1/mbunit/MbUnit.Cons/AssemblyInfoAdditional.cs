@@ -5,4 +5,5 @@ using System.Runtime.CompilerServices;
 
 #endregion
 
-[assembly: AssemblyTitle("MbUnit.Cons 2.4.1040")]
+[assembly: AssemblyTitle("MbUnit Console")]
+[assembly: AssemblyDescription("The console runner for MbUnit tests.")]

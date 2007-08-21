@@ -1,5 +1,5 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<UsingTask AssemblyFile="$(OutputPath)\EditAssemblyInfo\EditAssemblyInfo.dll" TaskName="MbUnit.EditAssemblyInfo.UpdateAssemblyTitleTask" />
+	<UsingTask AssemblyFile="$(OutputPath)\EditAssemblyInfo\EditAssemblyInfo.dll" TaskName="MbUnit.EditAssemblyInfo.UpdateAssemblyVersionTask" />
 
 	<Import Project="Version.properties" />
 	
@@ -83,7 +83,7 @@
 	
 	<Target Name="BeforeBuild">	  
 		<MSBuild Projects="EditAssemblyInfo\EditAssemblyInfo.sln" Targets="Clean;Rebuild" Properties="OutputPath=$(OutputPath)\EditAssemblyInfo" />
-		<UpdateAssemblyTitleTask FilePath="$(MSBuildProjectDirectory)\MbUnit\" VersionMajor="$(VersionMajor)" VersionMinor="$(VersionMinor)" VersionBuild="$(VersionBuild)" />
+		<UpdateAssemblyVersionTask FilePath="$(MSBuildProjectDirectory)\MbUnit\" VersionMajor="$(VersionMajor)" VersionMinor="$(VersionMinor)" VersionBuild="$(VersionBuild)" />
  	</Target>
 		
 		

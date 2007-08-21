@@ -5,4 +5,5 @@ using System.Runtime.CompilerServices;
 
 #endregion
 
-[assembly: AssemblyTitle("MbUnit.AddIn 2.4.1040")]
+[assembly: AssemblyTitle("MbUnit AddIn")]
+[assembly: AssemblyDescription("MbUnit test runner for the NUnitAddin object.")]

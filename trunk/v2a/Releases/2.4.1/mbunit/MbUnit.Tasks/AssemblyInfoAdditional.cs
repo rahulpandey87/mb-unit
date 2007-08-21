@@ -5,4 +5,5 @@ using System.Runtime.CompilerServices;
 
 #endregion
 
-[assembly: AssemblyTitle("MbUnit.Tasks 2.4.1040")]
+[assembly: AssemblyTitle("MbUnit Task")]
+[assembly: AssemblyDescription("An NAnt task for running MbUnit tests.")]
