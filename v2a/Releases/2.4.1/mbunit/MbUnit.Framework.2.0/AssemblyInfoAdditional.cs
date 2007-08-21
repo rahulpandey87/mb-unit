@@ -5,4 +5,5 @@ using System.Runtime.CompilerServices;
 
 #endregion
 
-[assembly: AssemblyTitle("MbUnit.Framework.2.0 2.4.1040")]
+[assembly: AssemblyTitle("MbUnit Framework (.NET 2.0)")]
+[assembly: AssemblyDescription("Contains .NET 2.0 specific features of the MbUnit Framework.")]
