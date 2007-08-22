@@ -33,6 +33,9 @@
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
 OutFile "Setup.exe"
+
+RequestExecutionLevel admin
+
 InstallDir "$PROGRAMFILES\MbUnit"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails show
