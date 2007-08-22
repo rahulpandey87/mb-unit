@@ -252,7 +252,7 @@ Section Uninstall
   Delete "$SMPROGRAMS\${PRODUCT_NAME}\MbUnit Online Documentation.lnk" 
   Delete "$SMPROGRAMS\${PRODUCT_NAME}\MbUnit Offline Documentation.lnk" 
   Delete "$SMPROGRAMS\${PRODUCT_NAME}\MbUnit.GUI.lnk" 
-  Delete "$SMPROGRAMS\${PRODUCT_NAME}"
+  RMDir "$SMPROGRAMS\${PRODUCT_NAME}"
   
   ;Unregister file association 
   !define Index "Line${__LINE__}" 
