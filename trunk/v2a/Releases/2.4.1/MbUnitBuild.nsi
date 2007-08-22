@@ -34,14 +34,13 @@
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
 OutFile "Setup.exe"
 
-RequestExecutionLevel admin
-
 InstallDir "$PROGRAMFILES\MbUnit"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails show
 ShowUnInstDetails show
 
 Section "MainSection" SEC01
+  SetShellVarContext all
   SetOutPath "$INSTDIR"
   SetOverwrite ifnewer
   File "build\XsdTidy.exe"
@@ -177,6 +176,7 @@ Function un.onInit
 FunctionEnd
 
 Section Uninstall
+  SetShellVarContext all
   Delete "$INSTDIR\uninst.exe"
   Delete "$INSTDIR\VSSnippets\MbUnitCSharpSnippets\autorunner.snippet"
   Delete "$INSTDIR\VSSnippets\MbUnitCSharpSnippets\datafixture.snippet"
