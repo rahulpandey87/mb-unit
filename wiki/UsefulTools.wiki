@@ -1,0 +1,7 @@
+#summary A list of useful tools.
+
+Resharper:
+ - A very good refactoring add-in for Visual Studio.
+
+RGreatEx: http://www.safedevelop.com/Products/RGreatEx/default.aspx
+ - Adds resource and string refactoring actions to Resharper.
