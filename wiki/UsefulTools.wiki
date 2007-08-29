@@ -1,6 +1,6 @@
 #summary A list of useful tools.
 
-Resharper:
+Resharper: http://www.jetbrains.com/resharper/
  - A very good refactoring add-in for Visual Studio.
 
 RGreatEx: http://www.safedevelop.com/Products/RGreatEx/default.aspx
