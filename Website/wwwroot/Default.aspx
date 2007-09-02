@@ -2,7 +2,7 @@
 <asp:Content ID="content" ContentPlaceHolderID="contentPlaceHolder" Runat="Server">
     <h2>Welcome to MbUnit</h2>
     This is the home of the Generative Unit Test Framework for the .NET Framework.&nbsp; MbUnit
-    provides advanced using unit testing support with advanced fixtures to enable developers and testers to test all aspects of their software.&nbsp; MbUnit has just released
+    provides advanced unit testing support with advanced fixtures to enable developers and testers to test all aspects of their software.&nbsp; MbUnit has just released
     version 2.4 and has a dedicated development team working on MbUnit Gallio.<br />
     <br />
     <h3>
