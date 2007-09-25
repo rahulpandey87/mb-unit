@@ -1,0 +1,19 @@
+#summary This page provides resources for developers working with the MbUnit source.
+#labels Featured
+
+Welcome to the MbUnit development tree!  Here are some resources to get you started.
+
+= Getting the Code =
+
+  * Browse the source tree:
+    * [http://mb-unit.googlecode.com/svn/trunk/v3/ Gallio]
+    * [http://mb-unit.googlecode.com/svn/trunk/v2a/Releases/ MbUnit v2.x]
+  * Check out the source tree:
+    * [http://code.google.com/p/mb-unit/source Using Subversion]
+
+= Documentation =
+
+  * [CodeConventions]: Code conventions.
+  * [GallioArchitecture]: Gallio architecture documentation.
+  * [UsefulTools]: Some useful tools to install.
+  * [BuildInstructions]: Command-line build instructions.
