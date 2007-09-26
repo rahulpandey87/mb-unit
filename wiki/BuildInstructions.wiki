@@ -1,0 +1,33 @@
+#summary Build instructions.
+
+== Command-Line Builds ==
+
+To build all projects, run the unit tests, and place the binaries in a freshly cleaned _build_ folder in the project root directory, just run the build script:
+{{{
+Build.bat
+}}}
+
+To do all of the the above, plus generate documentation and the installer, run the release build script: (see note below)
+{{{
+Release.bat
+}}}
+
+_Of course, you can also run the Build.msbuild MSBuild project directly if you prefer._
+
+== Specifying Version Numbers ==
+
+To specify a particular version number for the build we need to define the $(Version) property of the MSBuild scripts, like this:
+
+{{{
+Release.bat /p:Version=3.0.0.0
+}}}
+
+_If no version is specified, then a default of 0.0.0.0 will be used._
+
+== Required Tools for the Release Build ==
+
+The release build requires a few additional tools to be installed.  Some of the tools are distributes in the _libs\Setup Files_ folder of the source tree.  Others must be downloaded.
+
+  * [http://nsis.sourceforge.net/Main_Page NSIS] _(setup files in libs\Setup Files)_
+  * [http://www.microsoft.com/downloads/details.aspx?FamilyID=00535334-C8A6-452F-9AA0-D597D16580CC&displaylang=en Html Help Workshop] _(setup files in libs\Setup Files)_
+  * [http://www.microsoft.com/downloads/details.aspx?familyid=51a5c65b-c020-4e08-8ac0-3eb9c06996f4&displaylang=en Visual Studio 2005 SDK] *(must be downloaded separately)*
