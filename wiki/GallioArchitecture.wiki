@@ -1,5 +1,27 @@
 #summary Gallio Architecture Documentation
 
+_This document is a work in progress.  I'm gradually collecting all of my notes together here._
+
 = Introduction =
 
 TODO.
+
+
+== Filters ==
+
+_Code: MbUnit.Framework.Kernel.Filters_
+
+Filters are composable predicates that select a subset of a test or template tree based on associated metadata.
+
+Filters are greedy.  When a filter matches a test or template, it also matches the entire subtree below it and the entire chain of ancestors leading up to the root.  Therefore to create a filter to match a particular test fixture and its ancestors, all of the tests within the fixture will automatically be selected.  Therefore to select some tests but not others, we must construct a composite filter that only matches certain children.
+
+Built-in filter types:
+  * And combinator
+  * Or combinator
+  * Not combinator
+  * By assembly
+  * By namespace
+  * By type
+  * By member
+  * By id
+  * By metadata
