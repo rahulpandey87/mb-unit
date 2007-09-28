@@ -27,6 +27,47 @@
 using System;
 namespace MbUnit.Framework
 {
+   /// <summary>
+   /// Can be used to define guard methods that will act at the assembly level. 
+   /// Typically, highly time consuming resources can be initialized and cleaned up using those methods.
+   /// <list type="bullet">
+   /// <listheader><term>Rationale</term></listheader>
+   /// <item>The user provides a class containing static methods tagged with <see cref="SetUpAttribute" /> and <see cref="TearDownAttribute" /> (both are optional).</item>
+   /// <item>A assembly-level attribute, <see cref="AssemblyCleanUpAttribute" />, is used to specify which class contains the method.</item>
+   /// <item>If the setup method fails, no tests are executed.</item>
+   /// <item>If the teardown method fails, all tests are failed.</item>
+   /// </list>
+   /// </summary>
+   /// <example>
+   /// <code>
+   /// // in AssemblyInfo.cs 
+   /// [assembly: MbUnit.Framework.AssemblyCleanup(typeof(MbUnit.Demo.AssemblyCleaner))]
+   ///
+   /// // in AssemblyCleaner.cs
+   /// using System;
+   /// using MbUnit.Framework;
+   /// 
+   /// namespace MbUnit.Demo
+   /// {
+   ///     public static class AssemblyCleaner
+   ///     {
+   ///         [SetUp]
+   ///         public static void SetUp()
+   ///         {
+   ///             Console.WriteLine("Setting up {0}", typeof(AssemblyCleaner).Assembly.FullName);
+   ///             Console.WriteLine(DateTime.Now.ToLongTimeString());
+   ///         }
+   ///         [TearDown]
+   ///         public static void TearDown()
+   ///         {
+   ///             Console.WriteLine("Cleaning up {0}", typeof(AssemblyCleaner).Assembly.FullName);
+   ///             Console.WriteLine(DateTime.Now.ToLongTimeString());
+   ///         }
+   ///     }
+   /// }
+   /// </code>
+   /// </example>
+
     [AttributeUsage(AttributeTargets.Assembly,AllowMultiple =false,Inherited =false)]
     public sealed class AssemblyCleanupAttribute : Attribute
     {
