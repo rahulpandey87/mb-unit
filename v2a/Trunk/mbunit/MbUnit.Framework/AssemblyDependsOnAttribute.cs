@@ -28,24 +28,34 @@ using System;
 
 namespace MbUnit.Framework
 {
-    [AttributeUsage(AttributeTargets.Assembly,AllowMultiple =true)]
-    public sealed class AssemblyDependsOnAttribute : Attribute
-    {
-        private string assemblyName;
+   /// <summary>
+   /// Can be used to specify the parent assemblies of the current assembly. 
+   /// If this is done, MbUnit will only execute tests from the child assembly if the tests on the parent assembly were successful.
+   /// </summary>
+   /// <example>
+   /// <code>
+   /// // in AssemblyInfo.cs 
+   /// [assembly: MbUnit.Core.Framework.AssemblyDependsOn("ParentAssembly")]
+   /// </code>
+   /// </example>
+   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
+   public sealed class AssemblyDependsOnAttribute : Attribute
+   {
+      private string assemblyName;
 
-        public AssemblyDependsOnAttribute(string assemblyName)
-        {
-            if (assemblyName == null)
-                throw new ArgumentNullException("assemblyName");
-            this.assemblyName = assemblyName;
-        }
+      public AssemblyDependsOnAttribute(string assemblyName)
+      {
+         if (assemblyName == null)
+            throw new ArgumentNullException("assemblyName");
+         this.assemblyName = assemblyName;
+      }
 
-        public string AssemblyName
-        {
-            get
-            {
-                return this.assemblyName;
-            }
-        }
-    }
+      public string AssemblyName
+      {
+         get
+         {
+            return this.assemblyName;
+         }
+      }
+   }
 }
