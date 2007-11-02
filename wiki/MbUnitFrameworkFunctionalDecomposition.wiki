@@ -2,62 +2,62 @@
 
 = Core Modules =
 
-* Gallio
+ * Gallio
   Not technically a part of MbUnit but provides the basic foundation.
 
-* MbUnit.Framework
+ * MbUnit.Framework
   Essential framework attributes and functionality such as [Test], [TestFixture], and Assert.
 
-* MbUnit.Model
+ * MbUnit.Model
   The code data model for the MbUnit Framework.  The MbUnit Framework model extends the basic Gallio test model with additional elements to handle data binding and setup/teardown concerns.
 
-* MbUnit.Attributes
+ * MbUnit.Attributes
   The basic custom attributes from which the framework is constructed.  They provide a pattern for extending MbUnit with new declaratively specified behavior.
 
 = Extension Modules =
 
-* MbUnit.Framework.Data
+ * MbUnit.Framework.Data
   Database testing extensions including [Rollback], data generators (eg. TestFu), and tabular data sources.
 
-* MbUnit.Framework.Xml
+ * MbUnit.Framework.Xml
   Xml testing extensions including XmlAssert.
 
-* MbUnit.Framework.Reflection
+ * MbUnit.Framework.Reflection
   Reflection helpers.
 
 = Tentative Modules =
 
 _Don't read too much into this list.  These are just rough ideas for modules and they may change as MbUnit evolves._
 
-* MbUnit.Framework.Integration
+ * MbUnit.Framework.Integration
   Integration testing extensions.  May include support for explicit test ordering, test scheduling, environmental configuration, etc.
 
-* MbUnit.Framework.Performance
+ * MbUnit.Framework.Performance
   Performance testing extensions.
 
-* MbUnit.Framework.Load
+ * MbUnit.Framework.Load
   Load / Stress testing extensions.
 
-* MbUnit.Framework.Coordination
+ * MbUnit.Framework.Coordination
   Concurrent test coordination extensions.  May include primitives used for representing agents interacting within a stateful system to simulate load profiles.  Might also provide some kind of persistence mechanism for resumable tests.
 
-* MbUnit.Framework.Web
+ * MbUnit.Framework.Web
   Web testing extensions.  May need to be broken down by technology platform (eg. WebForms, MVC, MonoRail).
 
-* MbUnit.Framework.Web.WatiN
+ * MbUnit.Framework.Web.WatiN
   Out-of-the-box WatiN integration.
 
-* MbUnit.Framework.Mocks
+ * MbUnit.Framework.Mocks
   Out-of-the-box Rhino.Mocks integration.
 
-* MbUnit.Framework.Forms
+ * MbUnit.Framework.Forms
   WinForms testing extensions.
 
-* MbUnit.Framework.Process
+ * MbUnit.Framework.Process
   Cross-process testing extensions.  Might provide some kind of automation facilities for console and GUI applications.
 
-* MbUnit.Framework.Scripting
+ * MbUnit.Framework.Scripting
   Scripting extensions to support scenarios that are managed through MbUnit but aren't really tests.  For example, might provide a [Script] attribute to distinguish a script from a test and present it differently in the GUI.
 
-* MbUnit.Framework.Configuration
+ * MbUnit.Framework.Configuration
   Support for configurable tests.
