@@ -1,0 +1,82 @@
+#summary One-sentence summary of this page.
+
+== Test Runner Lifecycle ==
+
+A typical test runner performs the following tasks in order:
+
+  # Runtime Initialization
+  # Test Runner Creation
+  # Test Domain Creation
+  # Test Harness Creation
+  # Test Assembly Loading
+  # Template Enumeration
+  # Test Enumeration
+  # Test Execution
+  # Report Generation
+
+_Tip: The TestLauncher class is a simple component that implements the entire test runner lifecycle as an end-to-end integrated process with a single Run method.  You might find it helpful to look at the source of this class to understand how the various phases of the test runner lifecycle work together._
+
+=== Runtime Initialization ===
+
+During runtime initialization, the platform's inversion of control container is configured with all built-in and plug-in services.  Initialization of the runtime is often performed quite early in the lifecycle of a test runner such as on startup.  An application may use runtime services for activities besides test execution.
+
+=== Test Runner Creation ===
+
+The ITestRunner abstraction encapsulates much of the lifecycle and state of test execution.  For example, the DefaultTestRunner takes care of managing the test domain given an appropriate test domain factory.
+
+An ITestRunner exposes many useful extension points for monitoring the progress of each phase of test execution.  Several common test runner monitors are provided for tracking test results, generating test reports, logging test outcome, and writing debug events.  Each test runner monitor is simply an object that implements the ITestRunnerMonitor.  It is designed to attach to events provided by the ITestRunner when its Attach method is called.
+
+=== Test Domain Creation ===
+
+The ITestDomain abstraction encapsulates concerns pertaining to communication with a test harness located within testing environment.  Different implementations of ITestDomain have different semantics.  The ITestDomain takes care of connecting to the test environment and marshalling requests and responses as necessary.
+
+Currently the following ITestDomain implementations are defined:
+
+  * LocalTestDomain: A test domain that runs within the current AppDomain.  Because the test code runs within the current AppDomain, it can potentially corrupt the state of the test runner.  Certain features may be disabled because the test runner is unable to control AppDomain-wide policies such as assembly binding.
+  * IsolatedTestDomain: A test domain that runs within a new AppDomain hosted within the current process.  The use of an AppDomain enables more control and reduces the likelihood of adverse interactions between the test runner and the tests.
+
+Another possible implementation of an ITestDomain would involve running tests remotely in a separate process either on the same machine or over the network.  However, no such implementation exists as of Nov. 5th, 2007.  (Feel free to create one!)
+
+=== Test Harness Creation ===
+
+The ITestHarness abstraction encapsulates yet more low-level concerns pertaining to the test runner lifecycle.  In fact, the DefaultTestHarness actually implements the algorithms for each phase.  For example, during template enumerate, the DefaultTestHarness queries each register ITestFramework component in turn to populate its portion of the template tree.
+
+=== Test Assembly Loading ===
+
+The test harness takes care of configuring the assembly resolver and loading assemblies.
+
+NB. In the future, the assembly loading process will be extended to support in-memory compilation of source files written in DLR-based languages.
+
+=== Template Enumeration ===
+
+The harness generates a template tree from a list of assemblies using a three step process:
+
+  # The harness creates a template tree with just a root template.
+  # The harness asks each registered test framework (see: ITestFramework) to build templates from the list of assemblies and append them to the tree (see: ITestFramework.BuildTemplates) in whatever manner it chooses.
+  # Once the entire template tree has been built, the harness calls any registered post-processing actions to resolve cross-references within the template tree.
+
+=== Test Enumeration ===
+
+The harness generates a test tree from a template tree using a four step process:
+
+  # The harness binds global argument values to the root template's parameters (see: ITemplate.Bind) to product a template binding object (see: ITemplateBinding).
+  # The harness asks the template binding to build its tests (see: ITemplateBinding.BuildTests) in whatever manner it chooses.
+  # As part of building its tests, the template binding may recurse into other template bindings to build nested test nodes and other subcomponents.
+  # Once the entire test tree has been build, the harness calls any registered post-processing actions to resolve cross-references within the test tree.
+
+=== Test Execution ===
+
+The harness executes tests using a six step process:
+
+  # The harness creates a test plan (see: ITestPlan) based on the test filters and other  execution options specified.  A test plan is essentially a sorted representation of tests  that takes into account test dependencies and test parallelism.
+  # The harness asks the test plan to run its tests.
+  # The test plan instantiates and executes the test controller (see: ITestController) associated with the ITestMonitor representing the root of the test tree.
+  # The standard root controller recurses through the tree of scheduled tests until it finds another test with a non-null test controller factory.  Such a test is known as a master test.  The root controlled then instantiates the test controller for the master test and passed control over to it along with the ITestMonitor for the current subtree of tests.
+  # The test controller runs the tests in whatever manner it chooses.  Exactly what it does will depend on the particular test framework.  It communicates results back to the test plan via the ITestMonitor and IStepMonitor objects.  Once finished, it returns control back to the test plan which will continue its search for tests with test controllers.
+  # Finally, the harness asks the test plan to clean up any incomplete tests it may have to ensure that the final reported outcome of each test is consistent even if unexpected runtime errors or test framework bugs were encountered during execution.
+
+=== Report Generation ===
+
+The report manager (see: IReportManager) provides services for loading, saving and formatting reports.
+
+Each report format is provided by a component that implements the IReportFormatter service.  All report formatters are contributed by plugins.  In particular, the Gallio.Plugin.Reports plugin defines the standard report formats such as XML, HTML and plain text.  A typical implementation strategy is to generate a report based on an [http://www.w3.org/TR/xslt XSL transformation] of an XML serialized Report object graph.
