@@ -1,0 +1,148 @@
+#summary One-sentence summary of this page.
+
+== The Gallio Object Model ==
+
+The Gallio object model consists of a declarative specification of tests
+and the components from which they are generated.  The primary constituents
+of the object model are tests and templates.
+
+=== Tests ===
+
+A test object (see: ITest) represents a single test case or an aggregation of tests such
+as test fixture or a test suite.  It has a stable identifier, a name, a reference to the code
+(see: CodeReference), a parent, a list of children, a flag that indicates
+whether it represents an test case rather than an aggregation of tests,
+and a reference to the template binding from which it was generated.
+
+Test objects are arranged in containment hierarchy to form a test tree.
+Parent tests can modify the behavior of their children.  They are presumed
+to capture pre-requisite initialization and cleanup concerns on behalf
+of their children.
+
+For example, a test fixture may set up an environment within which its
+individual test cases will execute.  Likewise, a test assembly may contain
+several fixtures that execute within a common environment.
+
+A typical test tree might look like this:
+
+ * Root: The root test.
+  * SomeFramework: A framework node.
+   * MyAssembly: An assembly node.
+    * MyFixture: A test fixture node.
+     * Test1: A test case node.
+     * Test2: Another test case node
+
+Gallio does not specify how test objects are constructed and arranged
+to form a tree.  Test enumeration concerns are left up to the specific
+test framework plugin to decide (see: ITestFramework).
+
+Likewise, Gallio does not impose any particular semantics on tests
+besides containment.  Test objects themselves are not self-executable.
+Instead the test framework provides a factory for creating a
+test controller (see: ITestController) that will be responsible for
+executing a subtree of tests in some appropriate fashion.
+
+To assist with supporting parameterized tests, a test is be associated
+with a template binding from which the test is said to have been "generated."
+How templates and template bindings are used is at the discretion
+of the test framework.  We will describe these components shortly.
+
+=== Templates ===
+
+A template object (see: ITemplate) represents a parameterized generator of
+tests.  A template may have zero or more typed parameters to which argument
+values are bound.
+
+Like tests, templates are arranged to form a tree.  However, the template
+tree does not participate in test execution.  Instead, the purpose of the
+template tree is to capture declarative information about tests that is
+used to generate the test tree during test enumeration.
+
+Templates support generative tests because the argument
+values bound to template parameters can modify how tests are generated during
+test enumeration.
+
+It follows that templates also support parameterized tests
+because the argument values bound to template parameters can be passed to
+the tests during test execution.
+
+There need not be a one-to-one correspondence between templates and tests.
+For example, the NUnit test framework adapter plugin uses just one template
+from which all of the NUnit tests are generated.  No additional templates
+are required because NUnit does not natively support generative or parameterized
+tests (these features are provided by extensions).
+
+=== Template Parameters ===
+
+A template parameter object (see: ITemplateParameter) represents a single
+parameter of a given template.  The parameter's name, type, and metadata
+may be used by a test framework for data-binding.
+
+=== Template Bindings ====
+
+A template binding object (see: ITemplateBinding) represents a template
+whose parameters have been bound to specific argument values.
+
+During test
+enumeration, zero or more template bindings are created for each template.
+Each template binding may generate zero or more tests.
+
+=== Code References ===
+
+A code reference (see: CodeReference) identifies a code element such as
+an assembly, a namespace, a type, a member or a parameter by name.
+A code reference is used to keep track of where a given entity in the
+object model was defined relative to the actual code.
+
+=== Metadata ===
+
+A metadata map (see: MetadataMap) is a dictionary of key/value pairs
+wherein one or more values may be associated with any given key.  Each
+model object has its own metadata map by which the model object may
+be associated with declarative information.
+
+Gallio pre-defines metadata keys for common sources of declarative information.
+For example, a test may be associated with a particular category by
+adding a value to the "Category" key.  Another interesting predefined metadata
+key is "XmlDocumentation" which includes the XML documentation for the
+associated member.
+
+MbUnit allows the test author to associate metadata with a test by
+means of custom attributes.  Likewise, the foreign test framework adapter plugins
+translate metadata from its native form into its common Gallio representation.
+
+Metadata is typically used to filter tests for execution based on various
+criteria such as the cateogory to which each test belongs or some other
+proprietary classification scheme.  In addition, the metadata can be exported
+from tests and displayed in reports.  The intent is that users can effortlessly
+extend the platform with their own custom metadata schemes to best suit
+their purposes.
+
+=== Alternate Views Of Model Objects ===
+
+CodeReference and MetadataMap are serializable and support read-only access.  However, most other model objects are not.  To ensure greater portability we wrap or encode the contents of these objects as needed.
+
+*Read Only View:*
+
+For reflection, model objects like ITest are wrapped within immutable wrappers such as TestInfo.  In general, these wrappers have names ending in the word "Info."
+
+*Serializable View*
+
+For serialization, model objects like ITest are encoded as plain data objects such as TestData that support binary and XML serialization.  In general, these data objects have named ending in the word "Data."
+
+=== Filters ===
+
+Filters are composable predicates that select a subset of a test or template tree based on associated metadata.
+
+Filters are greedy.  When a filter matches a test or template, it also matches the entire subtree below it and the entire chain of ancestors leading up to the root.  Therefore to select some tests but not others, we must construct a composite filter that only matches certain children.
+
+Built-in filter types:
+  * And combinator
+  * Or combinator
+  * Not combinator
+  * By assembly
+  * By namespace
+  * By type
+  * By member
+  * By id
+  * By metadata
