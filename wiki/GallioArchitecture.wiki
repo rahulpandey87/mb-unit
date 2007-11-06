@@ -1,19 +1,145 @@
 #summary Gallio Architecture Documentation
 
-_This document is a work in progress.  I'm gradually collecting all of my notes together here._
+(Work in progress)
 
-= Introduction =
+* [GallioObjectModel The Gallio object model]
+* [TestRunnerLifecycle The test runner lifecycle]
 
-TODO.
+== The Gallio Object Model ==
 
+The Gallio object model consists of a declarative specification of tests
+and the components from which they are generated.  The primary constituents
+of the object model are tests and templates.
 
-== Filters ==
+=== Tests ===
 
-_Code: MbUnit.Framework.Kernel.Filters_
+A test object (see: ITest) represents a single test case or an aggregation of tests such
+as test fixture or a test suite.  It has a stable identifier, a name, a reference to the code
+(see: CodeReference), a parent, a list of children, a flag that indicates
+whether it represents an test case rather than an aggregation of tests,
+and a reference to the template binding from which it was generated.
+
+Test objects are arranged in containment hierarchy to form a test tree.
+Parent tests can modify the behavior of their children.  They are presumed
+to capture pre-requisite initialization and cleanup concerns on behalf
+of their children.
+
+For example, a test fixture may set up an environment within which its
+individual test cases will execute.  Likewise, a test assembly may contain
+several fixtures that execute within a common environment.
+
+A typical test tree might look like this:
+
+* Root: The root test.
+** SomeFramework: A framework node.
+*** MyAssembly: An assembly node.
+**** MyFixture: A test fixture node.
+***** Test1: A test case node.
+***** Test2: Another test case node
+
+Gallio does not specify how test objects are constructed and arranged
+to form a tree.  Test enumeration concerns are left up to the specific
+test framework plugin to decide (see: ITestFramework).
+
+Likewise, Gallio does not impose any particular semantics on tests
+besides containment.  Test objects themselves are not self-executable.
+Instead the test framework provides a factory for creating a
+test controller (see: ITestController) that will be responsible for
+executing a subtree of tests in some appropriate fashion.
+
+To assist with supporting parameterized tests, a test is be associated
+with a template binding from which the test is said to have been "generated."
+How templates and template bindings are used is at the discretion
+of the test framework.  We will describe these components shortly.
+
+=== Templates ===
+
+A template object (see: ITemplate) represents a parameterized generator of
+tests.  A template may have zero or more typed parameters to which argument
+values are bound.
+
+Like tests, templates are arranged to form a tree.  However, the template
+tree does not participate in test execution.  Instead, the purpose of the
+template tree is to capture declarative information about tests that is
+used to generate the test tree during test enumeration.
+
+Templates support generative tests because the argument
+values bound to template parameters can modify how tests are generated during
+test enumeration.
+
+It follows that templates also support parameterized tests
+because the argument values bound to template parameters can be passed to
+the tests during test execution.
+
+There need not be a one-to-one correspondence between templates and tests.
+For example, the NUnit test framework adapter plugin uses just one template
+from which all of the NUnit tests are generated.  No additional templates
+are required because NUnit does not natively support generative or parameterized
+tests (these features are provided by extensions).
+
+=== Template Parameters ===
+
+A template parameter object (see: ITemplateParameter) represents a single
+parameter of a given template.  The parameter's name, type, and metadata
+may be used by a test framework for data-binding.
+
+=== Template Bindings ====
+
+A template binding object (see: ITemplateBinding) represents a template
+whose parameters have been bound to specific argument values.
+
+During test
+enumeration, zero or more template bindings are created for each template.
+Each template binding may generate zero or more tests.
+
+=== Code References ===
+
+A code reference (see: CodeReference) identifies a code element such as
+an assembly, a namespace, a type, a member or a parameter by name.
+A code reference is used to keep track of where a given entity in the
+object model was defined relative to the actual code.
+
+=== Metadata ===
+
+A metadata map (see: MetadataMap) is a dictionary of key/value pairs
+wherein one or more values may be associated with any given key.  Each
+model object has its own metadata map by which the model object may
+be associated with declarative information.
+
+Gallio pre-defines metadata keys for common sources of declarative information.
+For example, a test may be associated with a particular category by
+adding a value to the "Category" key.  Another interesting predefined metadata
+key is "XmlDocumentation" which includes the XML documentation for the
+associated member.
+
+MbUnit allows the test author to associate metadata with a test by
+means of custom attributes.  Likewise, the foreign test framework adapter plugins
+translate metadata from its native form into its common Gallio representation.
+
+Metadata is typically used to filter tests for execution based on various
+criteria such as the cateogory to which each test belongs or some other
+proprietary classification scheme.  In addition, the metadata can be exported
+from tests and displayed in reports.  The intent is that users can effortlessly
+extend the platform with their own custom metadata schemes to best suit
+their purposes.
+
+=== Alternate Views Of Model Objects ===
+
+CodeReference and MetadataMap are serializable and support read-only access.  However, most other model objects are not.  To ensure greater portability we wrap or encode the contents of these objects as needed.
+
+*Read Only View:*
+
+For reflection, model objects like ITest are wrapped within immutable wrappers such as TestInfo.  In general, these wrappers have names ending in the word "Info."
+
+*Serializable View*
+
+For serialization, model objects like ITest are encoded as plain data objects such as TestData that support binary and XML serialization.  In general, these data objects have named ending in the word "Data."
+
+=== Filters ===
 
 Filters are composable predicates that select a subset of a test or template tree based on associated metadata.
 
-Filters are greedy.  When a filter matches a test or template, it also matches the entire subtree below it and the entire chain of ancestors leading up to the root.  Therefore to create a filter to match a particular test fixture and its ancestors, all of the tests within the fixture will automatically be selected.  Therefore to select some tests but not others, we must construct a composite filter that only matches certain children.
+Filters are greedy.  When a filter matches a test or template, it also matches the entire subtree below it and the entire chain of ancestors leading up to the root.  Therefore to select some tests but not others, we must construct a composite filter that only matches certain children.
 
 Built-in filter types:
   * And combinator
@@ -25,3 +151,85 @@ Built-in filter types:
   * By member
   * By id
   * By metadata
+
+
+== Test Runner Lifecycle ==
+
+A typical test runner performs the following tasks in order:
+
+  # Runtime Initialization
+  # Test Runner Creation
+  # Test Domain Creation
+  # Test Harness Creation
+  # Test Assembly Loading
+  # Template Enumeration
+  # Test Enumeration
+  # Test Execution
+  # Report Generation
+
+The TestLauncher class is a simple component that implements the entire test runner lifecycle as an end-to-end integrated process with a single Run method.
+
+=== Runtime Initialization ===
+
+During runtime initialization, the platform's inversion of control container is configured with all built-in and plug-in services.  Initialization of the runtime is often performed quite early in the lifecycle of a test runner such as on startup.  An application may use runtime services for activities besides test execution.
+
+=== Test Runner Creation ===
+
+The ITestRunner abstraction encapsulates much of the lifecycle and state of test execution.  For example, the DefaultTestRunner takes care of managing the test domain given an appropriate test domain factory.
+
+An ITestRunner exposes many useful extension points for monitoring the progress of each phase of test execution.  Several common test runner monitors are provided for tracking test results, generating test reports, logging test outcome, and writing debug events.  Each test runner monitor is simply an object that implements the ITestRunnerMonitor.  It is designed to attach to events provided by the ITestRunner when its Attach method is called.
+
+=== Test Domain Creation ===
+
+The ITestDomain abstraction encapsulates concerns pertaining to communication with a test harness located within testing environment.  Different implementations of ITestDomain have different semantics.  The ITestDomain takes care of connecting to the test environment and marshalling requests and responses as necessary.
+
+Currently the following ITestDomain implementations are defined:
+
+  * LocalTestDomain: A test domain that runs within the current AppDomain.  Because the test code runs within the current AppDomain, it can potentially corrupt the state of the test runner.  Certain features may be disabled because the test runner is unable to control AppDomain-wide policies such as assembly binding.
+  * IsolatedTestDomain: A test domain that runs within a new AppDomain hosted within the current process.  The use of an AppDomain enables more control and reduces the likelihood of adverse interactions between the test runner and the tests.
+
+Another possible implementation of an ITestDomain would involve running tests remotely in a separate process either on the same machine or over the network.  However, no such implementation exists as of Nov. 5th, 2007.  (Feel free to create one!)
+
+=== Test Harness Creation ===
+
+The ITestHarness abstraction encapsulates yet more low-level concerns pertaining to the test runner lifecycle.  In fact, the DefaultTestHarness actually implements the algorithms for each phase.  For example, during template enumerate, the DefaultTestHarness queries each register ITestFramework component in turn to populate its portion of the template tree.
+
+=== Test Assembly Loading ===
+
+The test harness takes care of configuring the assembly resolver and loading assemblies.
+
+NB. In the future, the assembly loading process will be extended to support in-memory compilation of source files written in DLR-based languages.
+
+=== Template Enumeration ===
+
+The harness generates a template tree from a list of assemblies using a three step process:
+
+  # The harness creates a template tree with just a root template.
+  # The harness asks each registered test framework (see: ITestFramework) to build templates from the list of assemblies and append them to the tree (see: ITestFramework.BuildTemplates) in whatever manner it chooses.
+  # Once the entire template tree has been built, the harness calls any registered post-processing actions to resolve cross-references within the template tree.
+
+=== Test Enumeration ===
+
+The harness generates a test tree from a template tree using a four step process:
+
+  # The harness binds global argument values to the root template's parameters (see: ITemplate.Bind) to product a template binding object (see: ITemplateBinding).
+  # The harness asks the template binding to build its tests (see: ITemplateBinding.BuildTests) in whatever manner it chooses.
+  # As part of building its tests, the template binding may recurse into other template bindings to build nested test nodes and other subcomponents.
+  # Once the entire test tree has been build, the harness calls any registered post-processing actions to resolve cross-references within the test tree.
+
+=== Test Execution ===
+
+The harness executes tests using a six step process:
+
+  # The harness creates a test plan (see: ITestPlan) based on the test filters and other  execution options specified.  A test plan is essentially a sorted representation of tests  that takes into account test dependencies and test parallelism.
+  # The harness asks the test plan to run its tests.
+  # The test plan instantiates and executes the test controller (see: ITestController) associated with the ITestMonitor representing the root of the test tree.
+  # The standard root controller recurses through the tree of scheduled tests until it finds another test with a non-null test controller factory.  Such a test is known as a master test.  The root controlled then instantiates the test controller for the master test and passed control over to it along with the ITestMonitor for the current subtree of tests.
+  # The test controller runs the tests in whatever manner it chooses.  Exactly what it does will depend on the particular test framework.  It communicates results back to the test plan via the ITestMonitor and IStepMonitor objects.  Once finished, it returns control back to the test plan which will continue its search for tests with test controllers.
+  # Finally, the harness asks the test plan to clean up any incomplete tests it may have to ensure that the final reported outcome of each test is consistent even if unexpected runtime errors or test framework bugs were encountered during execution.
+
+=== Report Generation ===
+
+The report manager (see: IReportManager) provides services for loading, saving and formatting reports.
+
+Each report format is provided by a component that implements the IReportFormatter service.  All report formatters are contributed by plugins.  In particular, the Gallio.Plugin.Reports plugin defines the standard report formats such as XML, HTML and plain text.  A typical implementation strategy is to generate a report based on an [http://www.w3.org/TR/xslt XSL transformation] of an XML serialized Report object graph.
