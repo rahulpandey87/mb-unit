@@ -1,0 +1,59 @@
+#summary A vision statement for Gallio.
+
+= Synopsis =
+
+There is a growing movement towards consolidation in the testing space.
+
+After some serious soul-searching prompted by discussions at the ALT.Net conference, the MbUnit team realized the value of the test platform itself as a separate entity unto its own.  Consequently we are now working on two distinct projects: the MbUnit v3 framework and the common Gallio testing platform.
+
+The Gallio platform is an open, extensible, and neutral system that provides a common object model, runtime services and tools (such as test runners) that may be leveraged by any number of test frameworks.  In this vision of the world, MbUnit v3 itself is simply another test framework plugin with the same status as any other.  As a proof of concept, we have already implemented plugins for NUnit, xUnit.Net and MbUnit v2.
+
+We intend to foster the creation of a rich ecosystem of interoperable testing tools produced by and for the community at large so as to address a far wider range of testing needs than any previous independent testing framework has done before.  Unit tests, integration tests, performance tests, and even semi-automated test harnesses should all be able to leverage common facilities where appropriate.  Moreover, they should present consistent interfaces to the world so that they can easily be integrated into the systems and processes of the enterprise.
+
+= Pillars =
+
+== Community Participation ==
+
+=== Be Welcome Here ===
+
+=== Neutral Brand ===
+
+=== Open License ===
+
+=== Community Showcase ===
+
+=== Packaging ===
+
+== Many People, Many Needs, Many Tools, Many Languages, One Platform ==
+
+=== Testing in the Small ===
+
+=== Testing in the Large ===
+
+=== Different Philosophies ===
+
+=== Different Frameworks ===
+
+=== Common Platform ===
+
+== Shared Services ==
+
+=== Runtime Support ===
+
+=== Plug-in Extension Model ===
+
+=== Test Engine ===
+
+=== Rich Reporting ===
+
+=== Data Binding ===
+
+=== Data Generation ===
+
+=== Constraints ===
+
+=== Instrumentation ===
+
+=== And More... ===
+
+See also: [Roadmap Gallio Roadmap]
