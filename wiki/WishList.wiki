@@ -1,0 +1,19 @@
+#summary A project wish list.
+
+= Wish List =
+
+There are numerous projects that would be very interesting to consider but that are not currently on the [RoadMap road map].  These projects might make interesting third-party contributions: some could even become commercial products.
+
+If you are interested in pursuing these projects with us or on your own, please let us know!
+
+  * A Gallio or MbUnit v3 book.
+  * Gallio-Lite profile for use inside constrained runtime environments.
+  * Distributed test execution, monitoring and coordination.
+  * Parallel unit test execution.
+  * Yora, a WPF-based GUI.
+  * An instrumentation toolkit for profiling, mocking and monitoring.
+  * A test case management or test workbench for Gallio.
+  * Support FIT-style fixtures.
+  * Commercial partnership opportunities within the community.
+
+_Feel free to add your own wish-list items at the end of the list here.  You can also post them as feature requests in the issue tracker._
