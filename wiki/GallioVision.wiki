@@ -1,4 +1,5 @@
 #summary A vision statement for Gallio.
+#labels Featured
 
 = Synopsis =
 
