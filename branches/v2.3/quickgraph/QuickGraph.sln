@@ -1,0 +1,45 @@
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickGraph.Algorithms", "QuickGraph.Algorithms\QuickGraph.Algorithms.csproj", "{EB884293-9316-41E5-A026-8A0F036E5887}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickGraph", "QuickGraph\QuickGraph.csproj", "{5F42D0C5-A525-4891-9A5D-3D8BE4A21626}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickGraph.Algorithms.Graphviz", "QuickGraph.Algorithms.Graphviz\QuickGraph.Algorithms.Graphviz.csproj", "{2108A9E1-8D2F-4677-ACA1-4E88CFC188FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		StrongDebug|Any CPU = StrongDebug|Any CPU
+		StrongRelease|Any CPU = StrongRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB884293-9316-41E5-A026-8A0F036E5887}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB884293-9316-41E5-A026-8A0F036E5887}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB884293-9316-41E5-A026-8A0F036E5887}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB884293-9316-41E5-A026-8A0F036E5887}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB884293-9316-41E5-A026-8A0F036E5887}.StrongDebug|Any CPU.ActiveCfg = StrongDebug|Any CPU
+		{EB884293-9316-41E5-A026-8A0F036E5887}.StrongDebug|Any CPU.Build.0 = StrongDebug|Any CPU
+		{EB884293-9316-41E5-A026-8A0F036E5887}.StrongRelease|Any CPU.ActiveCfg = StrongRelease|Any CPU
+		{EB884293-9316-41E5-A026-8A0F036E5887}.StrongRelease|Any CPU.Build.0 = StrongRelease|Any CPU
+		{5F42D0C5-A525-4891-9A5D-3D8BE4A21626}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F42D0C5-A525-4891-9A5D-3D8BE4A21626}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F42D0C5-A525-4891-9A5D-3D8BE4A21626}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F42D0C5-A525-4891-9A5D-3D8BE4A21626}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F42D0C5-A525-4891-9A5D-3D8BE4A21626}.StrongDebug|Any CPU.ActiveCfg = StrongDebug|Any CPU
+		{5F42D0C5-A525-4891-9A5D-3D8BE4A21626}.StrongDebug|Any CPU.Build.0 = StrongDebug|Any CPU
+		{5F42D0C5-A525-4891-9A5D-3D8BE4A21626}.StrongRelease|Any CPU.ActiveCfg = StrongRelease|Any CPU
+		{5F42D0C5-A525-4891-9A5D-3D8BE4A21626}.StrongRelease|Any CPU.Build.0 = StrongRelease|Any CPU
+		{2108A9E1-8D2F-4677-ACA1-4E88CFC188FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2108A9E1-8D2F-4677-ACA1-4E88CFC188FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2108A9E1-8D2F-4677-ACA1-4E88CFC188FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2108A9E1-8D2F-4677-ACA1-4E88CFC188FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2108A9E1-8D2F-4677-ACA1-4E88CFC188FE}.StrongDebug|Any CPU.ActiveCfg = StrongDebug|Any CPU
+		{2108A9E1-8D2F-4677-ACA1-4E88CFC188FE}.StrongDebug|Any CPU.Build.0 = StrongDebug|Any CPU
+		{2108A9E1-8D2F-4677-ACA1-4E88CFC188FE}.StrongRelease|Any CPU.ActiveCfg = StrongRelease|Any CPU
+		{2108A9E1-8D2F-4677-ACA1-4E88CFC188FE}.StrongRelease|Any CPU.Build.0 = StrongRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
