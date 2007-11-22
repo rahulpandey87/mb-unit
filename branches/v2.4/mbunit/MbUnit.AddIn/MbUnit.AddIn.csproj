@@ -1,0 +1,348 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{53E13EE8-E19A-43DD-A623-55023BF74AD6}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>MbUnit.AddIn</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MbUnit.AddIn</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'StrongDebug|AnyCPU' ">
+    <OutputPath>..\..\..\..\..\..\..\Program Files\TestDriven.NET\TestRunners\MbUnit\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE;STRONGLY_NAMED</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'StrongRelease|AnyCPU' ">
+    <OutputPath>bin\StrongRelease\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>STRONGLY_NAMED</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <Reference Include="TestDriven.Framework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=50ecb853f8c6b8d2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="AssemblyInfoAdditional.cs" />
+    <Compile Include="MbUnitTestRunner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\build\MbUnit.Framework.dll">
+      <Link>lib\MbUnit.Framework.dll</Link>
+    </Content>
+    <Content Include="..\MbUnit.Framework\Core\Reports\mbunit-report.cruisecontrol.xsl">
+      <Link>CruiseControl\mbunit-report.cruisecontrol.xsl</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\TestDriven.Framework.dll" />
+    <None Include="..\Doc\MbUnit.Documentation.chm">
+      <Link>Doc\MbUnit.Documentation.chm</Link>
+      <CopyToOutputDirectory>True</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Doc\TestFu.Documentation.chm">
+      <Link>Doc\TestFu.Documentation.chm</Link>
+      <CopyToOutputDirectory>True</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Snippets\CodeSmith\AdjacencyGraph.cst">
+      <Link>Snippets\CodeSmith\AdjacencyGraph.cst</Link>
+      <CopyToOutputDirectory>True</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Snippets\CodeSmith\AssertWrapper.cst">
+      <Link>Snippets\CodeSmith\AssertWrapper.cst</Link>
+      <CopyToOutputDirectory>True</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Snippets\CodeSmith\CrudPopulator.cst">
+      <Link>Snippets\CodeSmith\CrudPopulator.cst</Link>
+      <CopyToOutputDirectory>True</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Snippets\CodeSmith\DatabasePopulator.cst">
+      <Link>Snippets\CodeSmith\DatabasePopulator.cst</Link>
+      <CopyToOutputDirectory>True</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Snippets\CodeSmith\DatabasePopulatorCrudTest.cst">
+      <Link>Snippets\CodeSmith\DatabasePopulatorCrudTest.cst</Link>
+      <CopyToOutputDirectory>True</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Snippets\CodeSmith\Exception.cst">
+      <Link>Snippets\CodeSmith\Exception.cst</Link>
+      <CopyToOutputDirectory>True</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Snippets\CodeSmith\GrammarPopulator.cst">
+      <Link>Snippets\CodeSmith\GrammarPopulator.cst</Link>
+      <CopyToOutputDirectory>True</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Snippets\CodeSmith\MockObject.cst">
+      <Link>Snippets\CodeSmith\MockObject.cst</Link>
+      <CopyToOutputDirectory>True</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Snippets\CodeSmith\perfcounterassert.cst">
+      <Link>Snippets\CodeSmith\perfcounterassert.cst</Link>
+      <CopyToOutputDirectory>True</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Snippets\CodeSmith\RapTierCrudPopulator.cst">
+      <Link>Snippets\CodeSmith\RapTierCrudPopulator.cst</Link>
+      <CopyToOutputDirectory>True</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Snippets\CodeSmith\SimpleFixture.cst">
+      <Link>Snippets\CodeSmith\SimpleFixture.cst</Link>
+      <CopyToOutputDirectory>True</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Snippets\CodeSmith\SqlppCrudPopulator.cst">
+      <Link>Snippets\CodeSmith\SqlppCrudPopulator.cst</Link>
+      <CopyToOutputDirectory>True</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Snippets\CodeSmith\TestFixture.cst">
+      <Link>Snippets\CodeSmith\TestFixture.cst</Link>
+      <CopyToOutputDirectory>True</CopyToOutputDirectory>
+    </None>
+    <Content Include="..\Snippets\VSSnippets\MbUnitVBSnippets\autorunner.snippet">
+      <Link>Snippets\VSSnippets\MbUnitVBSnippets\autorunner.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitVBSnippets\combinatorialtest.snippet">
+      <Link>Snippets\VSSnippets\MbUnitVBSnippets\combinatorialtest.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitVBSnippets\datafixture.snippet">
+      <Link>Snippets\VSSnippets\MbUnitVBSnippets\datafixture.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitVBSnippets\model.snippet">
+      <Link>Snippets\VSSnippets\MbUnitVBSnippets\model.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitVBSnippets\processtestfixture.snippet">
+      <Link>Snippets\VSSnippets\MbUnitVBSnippets\processtestfixture.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitVBSnippets\rowtest.snippet">
+      <Link>Snippets\VSSnippets\MbUnitVBSnippets\rowtest.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitVBSnippets\state.snippet">
+      <Link>Snippets\VSSnippets\MbUnitVBSnippets\state.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitVBSnippets\submodel.snippet">
+      <Link>Snippets\VSSnippets\MbUnitVBSnippets\submodel.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitVBSnippets\test.snippet">
+      <Link>Snippets\VSSnippets\MbUnitVBSnippets\test.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitVBSnippets\testexpectedexception.snippet">
+      <Link>Snippets\VSSnippets\MbUnitVBSnippets\testexpectedexception.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitVBSnippets\testfixture.snippet">
+      <Link>Snippets\VSSnippets\MbUnitVBSnippets\testfixture.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitVBSnippets\testsuitefixture.snippet">
+      <Link>Snippets\VSSnippets\MbUnitVBSnippets\testsuitefixture.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitVBSnippets\typefixture.snippet">
+      <Link>Snippets\VSSnippets\MbUnitVBSnippets\typefixture.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitVBSnippets\typefixturewithproviderfactory.snippet">
+      <Link>Snippets\VSSnippets\MbUnitVBSnippets\typefixturewithproviderfactory.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitVBSnippets\usingmbunit.snippet">
+      <Link>Snippets\VSSnippets\MbUnitVBSnippets\usingmbunit.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitXMLSnippets\msbuild.snippet">
+      <Link>Snippets\VSSnippets\MbUnitXMLSnippets\msbuild.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitXMLSnippets\nant.snippet">
+      <Link>Snippets\VSSnippets\MbUnitXMLSnippets\nant.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitCSharpSnippets\autorunner.snippet">
+      <Link>Snippets\VSSnippets\MbUnitCSharpSnippets\autorunner.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitCSharpSnippets\combinatorialtest.snippet">
+      <Link>Snippets\VSSnippets\MbUnitCSharpSnippets\combinatorialtest.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitCSharpSnippets\datafixture.snippet">
+      <Link>Snippets\VSSnippets\MbUnitCSharpSnippets\datafixture.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitCSharpSnippets\model.snippet">
+      <Link>Snippets\VSSnippets\MbUnitCSharpSnippets\model.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitCSharpSnippets\processtestfixture.snippet">
+      <Link>Snippets\VSSnippets\MbUnitCSharpSnippets\processtestfixture.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitCSharpSnippets\rowtest.snippet">
+      <Link>Snippets\VSSnippets\MbUnitCSharpSnippets\rowtest.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitCSharpSnippets\state.snippet">
+      <Link>Snippets\VSSnippets\MbUnitCSharpSnippets\state.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitCSharpSnippets\submodel.snippet">
+      <Link>Snippets\VSSnippets\MbUnitCSharpSnippets\submodel.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitCSharpSnippets\test.snippet">
+      <Link>Snippets\VSSnippets\MbUnitCSharpSnippets\test.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitCSharpSnippets\testexpectedexception.snippet">
+      <Link>Snippets\VSSnippets\MbUnitCSharpSnippets\testexpectedexception.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitCSharpSnippets\testfixture.snippet">
+      <Link>Snippets\VSSnippets\MbUnitCSharpSnippets\testfixture.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitCSharpSnippets\testsuitefixture.snippet">
+      <Link>Snippets\VSSnippets\MbUnitCSharpSnippets\testsuitefixture.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitCSharpSnippets\typefixture.snippet">
+      <Link>Snippets\VSSnippets\MbUnitCSharpSnippets\typefixture.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitCSharpSnippets\typefixturewithproviderfactory.snippet">
+      <Link>Snippets\VSSnippets\MbUnitCSharpSnippets\typefixturewithproviderfactory.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snippets\VSSnippets\MbUnitCSharpSnippets\usingmbunit.snippet">
+      <Link>Snippets\VSSnippets\MbUnitCSharpSnippets\usingmbunit.snippet</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MbUnit.Framework\MbUnit.Framework.csproj">
+      <Project>{F822ABA5-0F5F-44AF-A13C-EE62DDF5E397}</Project>
+      <Name>MbUnit.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <Import Project="$(MSBuildExtensionsPath)\MSBee\MSBuildExtras.FX1_1.CSharp.targets" Condition=" '$(BuildingInsideVisualStudio)' == '' AND '$(TargetFX1_1)'=='true'" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
