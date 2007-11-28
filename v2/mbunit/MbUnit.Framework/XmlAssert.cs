@@ -129,9 +129,9 @@ namespace MbUnit.Framework
 
                     if (r != null)
                     {
-                        if (!r.Identical)
+                        if (r.Identical)
                         {
-                            Assert.Fail("Xml does not match");
+                            Assert.Fail("Xml matches but should be different");
                         }
                     }
                 }
