@@ -108,21 +108,40 @@ namespace MbUnit.Framework
 
         private static void XmlEquals(XmlDiff xmlDiff, bool equal) 
 		{
-			if (equal)
-				xmlDiff.Compare();
-			else
-			{
-				try
-				{
-					xmlDiff.Compare();
-				}
-				catch(Exception ex)
-				{
-					if(ex.GetType()!=typeof(FlowControlException))
-						throw;
-				}
-			}
-        }
+            DiffResult r = null;
+            if (equal)
+            {
+                r = xmlDiff.Compare();
+
+                if (r != null)
+                {
+                    if (!r.Identical)
+                    {
+                        Assert.Fail("Xml does not match");
+                    }
+                }
+            }
+            else
+            {
+                try
+                {
+                    r = xmlDiff.Compare();
+
+                    if (r != null)
+                    {
+                        if (!r.Identical)
+                        {
+                            Assert.Fail("Xml does not match");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (ex.GetType() != typeof(FlowControlException))
+                        throw;
+                }
+            }
+		}
         
         public static void XmlIdentical(XmlDiff xmlDiff) {
             XmlIdentical(xmlDiff, true);
