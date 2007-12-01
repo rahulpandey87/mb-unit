@@ -929,13 +929,27 @@ namespace MbUnit.Forms
 		{
 			// create report
             string outputPath = XmlReport.RenderToXml(this.TestDomains.GetReport());
-            System.Diagnostics.Process.Start(outputPath);
+            try
+            {
+                System.Diagnostics.Process.Start(outputPath);
+            }
+            catch (Win32Exception)
+            {
+                MessageBox.Show("An error has occurred while trying to load the default xml viewer.  Please ensure the viewer is setup correctly.", "Viewer loading error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 		public void GenerateHtmlReport()
 		{
             string outputPath = HtmlReport.RenderToHtml(this.TestDomains.GetReport());
-            System.Diagnostics.Process.Start(outputPath);
+            try
+            {
+                System.Diagnostics.Process.Start(outputPath);
+            }
+            catch (Win32Exception)
+            {
+                MessageBox.Show("An error has occurred while trying to load the default browswer.  Please ensure the browser is setup correctly.", "Browser loading error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void GenerateTextReport()
