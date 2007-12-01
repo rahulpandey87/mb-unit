@@ -66,9 +66,7 @@ namespace MbUnit.Forms
 		private System.Windows.Forms.MenuItem nocoverToClipboard;
 		private System.Windows.Forms.MenuItem stopTestsMenuItem;
 		private System.Windows.Forms.MenuItem menuItem6;
-		private System.Windows.Forms.MenuItem menuItem5;
-		private System.Windows.Forms.MenuItem menuItem7;
-		private System.Windows.Forms.MenuItem menuItem8;
+        private System.Windows.Forms.MenuItem menuItem5;
 		private System.Windows.Forms.MenuItem reloadAssembliesMenuItem;
 		private System.Windows.Forms.MenuItem textReportMenuItem;
 		private System.Windows.Forms.MenuItem doxReportMenuItem;
@@ -169,187 +167,185 @@ namespace MbUnit.Forms
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
-			this.typeTree = new System.Windows.Forms.TreeView();
-			this.treeContextMenu = new System.Windows.Forms.ContextMenu();
-			this.menuItem5 = new System.Windows.Forms.MenuItem();
-			this.menuItem1 = new System.Windows.Forms.MenuItem();
-			this.stopTestsMenuItem = new System.Windows.Forms.MenuItem();
-			this.menuItem7 = new System.Windows.Forms.MenuItem();
-			this.menuItem8 = new System.Windows.Forms.MenuItem();
-			this.menuItem6 = new System.Windows.Forms.MenuItem();
-			this.addAssemblyItem = new System.Windows.Forms.MenuItem();
-			this.removeAssembliesItem = new System.Windows.Forms.MenuItem();
-			this.reloadAssembliesMenuItem = new System.Windows.Forms.MenuItem();
-			this.menuItem4 = new System.Windows.Forms.MenuItem();
-			this.menuItem3 = new System.Windows.Forms.MenuItem();
-			this.loadConfigItem = new System.Windows.Forms.MenuItem();
-			this.saveConfigItem = new System.Windows.Forms.MenuItem();
-			this.menuItem2 = new System.Windows.Forms.MenuItem();
-			this.menuItemGenerateXml = new System.Windows.Forms.MenuItem();
-			this.menuItemGenerateHtml = new System.Windows.Forms.MenuItem();
-			this.textReportMenuItem = new System.Windows.Forms.MenuItem();
-			this.doxReportMenuItem = new System.Windows.Forms.MenuItem();
-			this.runNCoverMenuItem = new System.Windows.Forms.MenuItem();
-			this.nocoverToClipboard = new System.Windows.Forms.MenuItem();
-			this.createNAntTaskMenuItem = new System.Windows.Forms.MenuItem();
+            this.components = new System.ComponentModel.Container();
+            this.typeTree = new System.Windows.Forms.TreeView();
+            this.treeContextMenu = new System.Windows.Forms.ContextMenu();
+            this.menuItem5 = new System.Windows.Forms.MenuItem();
+            this.menuItem1 = new System.Windows.Forms.MenuItem();
+            this.stopTestsMenuItem = new System.Windows.Forms.MenuItem();
+            this.menuItem6 = new System.Windows.Forms.MenuItem();
+            this.addAssemblyItem = new System.Windows.Forms.MenuItem();
+            this.removeAssembliesItem = new System.Windows.Forms.MenuItem();
+            this.reloadAssembliesMenuItem = new System.Windows.Forms.MenuItem();
+            this.menuItem4 = new System.Windows.Forms.MenuItem();
+            this.menuItem3 = new System.Windows.Forms.MenuItem();
+            this.loadConfigItem = new System.Windows.Forms.MenuItem();
+            this.saveConfigItem = new System.Windows.Forms.MenuItem();
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
+            this.menuItemGenerateXml = new System.Windows.Forms.MenuItem();
+            this.menuItemGenerateHtml = new System.Windows.Forms.MenuItem();
+            this.textReportMenuItem = new System.Windows.Forms.MenuItem();
+            this.doxReportMenuItem = new System.Windows.Forms.MenuItem();
+            this.runNCoverMenuItem = new System.Windows.Forms.MenuItem();
+            this.nocoverToClipboard = new System.Windows.Forms.MenuItem();
+            this.createNAntTaskMenuItem = new System.Windows.Forms.MenuItem();
             this.createMSBuildTaskMenuItem = new System.Windows.Forms.MenuItem();
             this.treeImageList = new System.Windows.Forms.ImageList(this.components);
             this.treeToolTip = new System.Windows.Forms.ToolTip(this.components);
-			this.SuspendLayout();
-			// 
-			// typeTree
-			// 
-			this.typeTree.ContextMenu = this.treeContextMenu;
-			this.typeTree.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.typeTree.ImageList = this.treeImageList;
-			this.typeTree.Location = new System.Drawing.Point(0, 0);
-			this.typeTree.Name = "typeTree";
-			this.typeTree.Size = new System.Drawing.Size(488, 344);
-			this.typeTree.TabIndex = 0;
-			this.typeTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.typeTree_AfterSelect);
-            this.typeTree.Sorted = true;
+            this.SuspendLayout();
+            // 
+            // typeTree
+            // 
+            this.typeTree.ContextMenu = this.treeContextMenu;
+            this.typeTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.typeTree.HideSelection = false;
-			// 
-			// treeContextMenu
-			// 
-			this.treeContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																							this.menuItem5,
-																							this.menuItem6,
-																							this.menuItem4,
-																							this.menuItem3,
-																							this.menuItem2,
-																							this.runNCoverMenuItem,
-																							this.createNAntTaskMenuItem,
-                                                                                            this.createMSBuildTaskMenuItem});
-			// 
-			// menuItem5
-			// 
-			this.menuItem5.Index = 0;
-			this.menuItem5.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					  this.menuItem1,
-																					  this.stopTestsMenuItem,
-																					  this.menuItem7,
-																					  this.menuItem8});
-			this.menuItem5.Text = "Tests";
-			// 
-			// menuItem1
-			// 
-			this.menuItem1.Index = 0;
-			this.menuItem1.Text = "Start Tests";
-			this.menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
-			// 
-			// stopTestsMenuItem
-			// 
-			this.stopTestsMenuItem.Index = 1;
-			this.stopTestsMenuItem.Text = "Stop Tests";
-			this.stopTestsMenuItem.Click += new System.EventHandler(this.stopTestsMenuItem_Click);
-			// 
-			// menuItem6
-			// 
-			this.menuItem6.Index = 1;
-			this.menuItem6.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					  this.addAssemblyItem,
-																					  this.removeAssembliesItem,
-																					  this.reloadAssembliesMenuItem});
-			this.menuItem6.Text = "Assemblies";
-			// 
-			// addAssemblyItem
-			// 
-			this.addAssemblyItem.Index = 0;
-			this.addAssemblyItem.Text = "Add Assemblies...";
-			this.addAssemblyItem.Click += new System.EventHandler(this.addAssemblyItem_Click);
-			// 
-			// removeAssembliesItem
-			// 
-			this.removeAssembliesItem.Index = 1;
-			this.removeAssembliesItem.Text = "Remove Assemblies";
-			this.removeAssembliesItem.Click += new System.EventHandler(this.removeAssembliesItem_Click);
-			// 
-			// reloadAssembliesMenuItem
-			// 
-			this.reloadAssembliesMenuItem.Index = 2;
-			this.reloadAssembliesMenuItem.Text = "ReLoad Assemblies";
-			this.reloadAssembliesMenuItem.Click += new System.EventHandler(this.reloadAssembliesMenuItem_Click);
-			// 
-			// menuItem4
-			// 
-			this.menuItem4.Index = 2;
-			this.menuItem4.Text = "Clear Results";
-			this.menuItem4.Click += new System.EventHandler(this.menuItem4_Click);
-			// 
-			// menuItem3
-			// 
-			this.menuItem3.Index = 3;
-			this.menuItem3.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					  this.loadConfigItem,
-																					  this.saveConfigItem});
-			this.menuItem3.Text = "Config";
-			// 
-			// loadConfigItem
-			// 
-			this.loadConfigItem.Index = 0;
-			this.loadConfigItem.Text = "Load Config...";
-			this.loadConfigItem.Click += new System.EventHandler(this.loadConfigItem_Click);
-			// 
-			// saveConfigItem
-			// 
-			this.saveConfigItem.Index = 1;
-			this.saveConfigItem.Text = "Save Config...";
-			this.saveConfigItem.Click += new System.EventHandler(this.saveConfigItem_Click);
-			// 
-			// menuItem2
-			// 
-			this.menuItem2.Index = 4;
-			this.menuItem2.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					  this.menuItemGenerateXml,
-																					  this.menuItemGenerateHtml,
-																					  this.textReportMenuItem,
-																					  this.doxReportMenuItem});
-			this.menuItem2.Text = "Report";
-			// 
-			// menuItemGenerateXml
-			// 
-			this.menuItemGenerateXml.Index = 0;
-			this.menuItemGenerateXml.Text = "XML";
-			this.menuItemGenerateXml.Click += new System.EventHandler(this.menuItemGenerateXml_Click);
-			// 
-			// menuItemGenerateHtml
-			// 
-			this.menuItemGenerateHtml.Index = 1;
-			this.menuItemGenerateHtml.Text = "HTML";
-			this.menuItemGenerateHtml.Click += new System.EventHandler(this.menuItemGenerateHtml_Click);
-			// 
-			// textReportMenuItem
-			// 
-			this.textReportMenuItem.Index = 2;
-			this.textReportMenuItem.Text = "&Text";
-			this.textReportMenuItem.Click += new System.EventHandler(this.textReportMenuItem_Click);
-			// 
-			// doxReportMenuItem
-			// 
-			this.doxReportMenuItem.Index = 3;
-			this.doxReportMenuItem.Text = "&Dox";
-			this.doxReportMenuItem.Click += new System.EventHandler(this.doxReportMenuItem_Click);
-			// 
-			// runNCoverMenuItem
-			// 
-			this.runNCoverMenuItem.Index = 5;
-			this.runNCoverMenuItem.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																							  this.nocoverToClipboard});
-			this.runNCoverMenuItem.Text = "NCover";
-			// 
-			// nocoverToClipboard
-			// 
-			this.nocoverToClipboard.Index = 0;
-			this.nocoverToClipboard.Text = "Run";
-			this.nocoverToClipboard.Click += new System.EventHandler(this.nocoverToClipboard_Click);
-			// 
-			// createNAntTaskMenuItem
-			// 
-			this.createNAntTaskMenuItem.Index = 6;
-			this.createNAntTaskMenuItem.Text = "Create NAnt task (Clipboard)";
-			this.createNAntTaskMenuItem.Click += new System.EventHandler(this.createNAntTaskMenuItem_Click);
+            this.typeTree.ImageIndex = 0;
+            this.typeTree.ImageList = this.treeImageList;
+            this.typeTree.Location = new System.Drawing.Point(0, 0);
+            this.typeTree.Name = "typeTree";
+            this.typeTree.SelectedImageIndex = 0;
+            this.typeTree.Size = new System.Drawing.Size(488, 344);
+            this.typeTree.Sorted = true;
+            this.typeTree.TabIndex = 0;
+            this.typeTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.typeTree_AfterSelect);
+            // 
+            // treeContextMenu
+            // 
+            this.treeContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem5,
+            this.menuItem6,
+            this.menuItem4,
+            this.menuItem3,
+            this.menuItem2,
+            this.runNCoverMenuItem,
+            this.createNAntTaskMenuItem,
+            this.createMSBuildTaskMenuItem});
+            // 
+            // menuItem5
+            // 
+            this.menuItem5.Index = 0;
+            this.menuItem5.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem1,
+            this.stopTestsMenuItem});
+            this.menuItem5.Text = "Tests";
+            // 
+            // menuItem1
+            // 
+            this.menuItem1.Index = 0;
+            this.menuItem1.Text = "Start Tests";
+            this.menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
+            // 
+            // stopTestsMenuItem
+            // 
+            this.stopTestsMenuItem.Index = 1;
+            this.stopTestsMenuItem.Text = "Stop Tests";
+            this.stopTestsMenuItem.Click += new System.EventHandler(this.stopTestsMenuItem_Click);
+            // 
+            // menuItem6
+            // 
+            this.menuItem6.Index = 1;
+            this.menuItem6.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.addAssemblyItem,
+            this.removeAssembliesItem,
+            this.reloadAssembliesMenuItem});
+            this.menuItem6.Text = "Assemblies";
+            // 
+            // addAssemblyItem
+            // 
+            this.addAssemblyItem.Index = 0;
+            this.addAssemblyItem.Text = "Add Assemblies...";
+            this.addAssemblyItem.Click += new System.EventHandler(this.addAssemblyItem_Click);
+            // 
+            // removeAssembliesItem
+            // 
+            this.removeAssembliesItem.Index = 1;
+            this.removeAssembliesItem.Text = "Remove Assemblies";
+            this.removeAssembliesItem.Click += new System.EventHandler(this.removeAssembliesItem_Click);
+            // 
+            // reloadAssembliesMenuItem
+            // 
+            this.reloadAssembliesMenuItem.Index = 2;
+            this.reloadAssembliesMenuItem.Text = "ReLoad Assemblies";
+            this.reloadAssembliesMenuItem.Click += new System.EventHandler(this.reloadAssembliesMenuItem_Click);
+            // 
+            // menuItem4
+            // 
+            this.menuItem4.Index = 2;
+            this.menuItem4.Text = "Clear Results";
+            this.menuItem4.Click += new System.EventHandler(this.menuItem4_Click);
+            // 
+            // menuItem3
+            // 
+            this.menuItem3.Index = 3;
+            this.menuItem3.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.loadConfigItem,
+            this.saveConfigItem});
+            this.menuItem3.Text = "Config";
+            // 
+            // loadConfigItem
+            // 
+            this.loadConfigItem.Index = 0;
+            this.loadConfigItem.Text = "Load Config...";
+            this.loadConfigItem.Click += new System.EventHandler(this.loadConfigItem_Click);
+            // 
+            // saveConfigItem
+            // 
+            this.saveConfigItem.Index = 1;
+            this.saveConfigItem.Text = "Save Config...";
+            this.saveConfigItem.Click += new System.EventHandler(this.saveConfigItem_Click);
+            // 
+            // menuItem2
+            // 
+            this.menuItem2.Index = 4;
+            this.menuItem2.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItemGenerateXml,
+            this.menuItemGenerateHtml,
+            this.textReportMenuItem,
+            this.doxReportMenuItem});
+            this.menuItem2.Text = "Report";
+            // 
+            // menuItemGenerateXml
+            // 
+            this.menuItemGenerateXml.Index = 0;
+            this.menuItemGenerateXml.Text = "XML";
+            this.menuItemGenerateXml.Click += new System.EventHandler(this.menuItemGenerateXml_Click);
+            // 
+            // menuItemGenerateHtml
+            // 
+            this.menuItemGenerateHtml.Index = 1;
+            this.menuItemGenerateHtml.Text = "HTML";
+            this.menuItemGenerateHtml.Click += new System.EventHandler(this.menuItemGenerateHtml_Click);
+            // 
+            // textReportMenuItem
+            // 
+            this.textReportMenuItem.Index = 2;
+            this.textReportMenuItem.Text = "&Text";
+            this.textReportMenuItem.Click += new System.EventHandler(this.textReportMenuItem_Click);
+            // 
+            // doxReportMenuItem
+            // 
+            this.doxReportMenuItem.Index = 3;
+            this.doxReportMenuItem.Text = "&Dox";
+            this.doxReportMenuItem.Click += new System.EventHandler(this.doxReportMenuItem_Click);
+            // 
+            // runNCoverMenuItem
+            // 
+            this.runNCoverMenuItem.Index = 5;
+            this.runNCoverMenuItem.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.nocoverToClipboard});
+            this.runNCoverMenuItem.Text = "NCover";
+            // 
+            // nocoverToClipboard
+            // 
+            this.nocoverToClipboard.Index = 0;
+            this.nocoverToClipboard.Text = "Run";
+            this.nocoverToClipboard.Click += new System.EventHandler(this.nocoverToClipboard_Click);
+            // 
+            // createNAntTaskMenuItem
+            // 
+            this.createNAntTaskMenuItem.Index = 6;
+            this.createNAntTaskMenuItem.Text = "Create NAnt task (Clipboard)";
+            this.createNAntTaskMenuItem.Click += new System.EventHandler(this.createNAntTaskMenuItem_Click);
             // 
             // createMSBuildTaskMenuItem
             // 
@@ -358,17 +354,17 @@ namespace MbUnit.Forms
             this.createMSBuildTaskMenuItem.Click += new System.EventHandler(this.createMSBuildTaskMenuItem_Click);
             // 
             // treeImageList
-			// 
-			this.treeImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-			this.treeImageList.ImageSize = new System.Drawing.Size(16, 16);
-			this.treeImageList.TransparentColor = System.Drawing.Color.Transparent;
-			// 
-			// ReflectorTreeView
-			// 
-			this.Controls.Add(this.typeTree);
-			this.Name = "ReflectorTreeView";
-			this.Size = new System.Drawing.Size(488, 344);
-			this.ResumeLayout(false);
+            // 
+            this.treeImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.treeImageList.ImageSize = new System.Drawing.Size(16, 16);
+            this.treeImageList.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // ReflectorTreeView
+            // 
+            this.Controls.Add(this.typeTree);
+            this.Name = "ReflectorTreeView";
+            this.Size = new System.Drawing.Size(488, 344);
+            this.ResumeLayout(false);
 
 		}
 		#endregion
