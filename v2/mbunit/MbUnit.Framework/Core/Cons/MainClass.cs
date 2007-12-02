@@ -178,6 +178,11 @@ namespace MbUnit.Core.Cons
                 consoleOut.WriteLine("[info] MbUnit execution finished in {0}s.", timer.Duration);
 		return (0==result.Counter.FailureCount) ? 0 : -1;
             }
+            catch (System.Runtime.Remoting.RemotingException remote)
+            {
+                consoleOut.WriteLine("Could not load test domain.  Please ensure you have referenced the installed version of MbUnit.Framework within your test assembly. \r\n The error message was: \r\n" + remote.Message);
+                return -3;
+            }
             catch (Exception ex)
             {
                 consoleOut.WriteLine(ex.ToString());

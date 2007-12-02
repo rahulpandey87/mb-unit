@@ -328,6 +328,10 @@ namespace MbUnit.Core.Graph
 
                 return graph;
             }
+            catch (System.Runtime.Remoting.RemotingException remote)
+            {
+                throw remote;
+            }
             catch(Exception ex)
             {
                 if (graph != null)
