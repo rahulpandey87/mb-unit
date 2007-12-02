@@ -531,6 +531,11 @@ namespace MbUnit.Forms
                 OnTreePopulated();
                 this.MessageOnStatusBar("");
             }
+            catch (System.Runtime.Remoting.RemotingException remote)
+            {
+                MessageBox.Show("Could not load test domain.  Please ensure you have referenced the installed version of MbUnit.Framework within your test assembly. \r\n\r\n The error message was: \r\n" + remote.Message, "Error loading test assembly", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                NewConfig();
+            }
             catch(Exception ex)
 			{
                 if (ex is System.Threading.ThreadAbortException)
