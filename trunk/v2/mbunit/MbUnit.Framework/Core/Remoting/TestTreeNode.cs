@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections;
+using System.Text;
 using System.Windows.Forms;
 
 namespace MbUnit.Core.Remoting
@@ -85,6 +86,29 @@ namespace MbUnit.Core.Remoting
 				return this.name;
 			}
 		}
+
+        public string FullPath
+        {
+            get
+            {
+                StringBuilder path = new StringBuilder();
+                GetFullPath(path, "\\");
+                return path.ToString();
+            }
+        }
+
+        private void GetFullPath(StringBuilder path, string pathSeparator)
+        {
+            if (this.parent != null)
+            {
+                this.parent.GetFullPath(path, pathSeparator);
+                if (this.parent.parent != null)
+                {
+                    path.Append(pathSeparator);
+                }
+                path.Append(this.name);
+            }
+        }
 
 		public TestNodeType NodeType
 		{

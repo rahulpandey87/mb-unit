@@ -109,6 +109,7 @@
     <Compile Include="Core\Monitoring\TimeMonitorTest.cs" />
     <Compile Include="Core\MultipleFixturePerClass.cs" />
     <Compile Include="Core\ProcessTestFixtureTest.cs" />
+    <Compile Include="Core\Remoting\FixtureCategoryTestTreePopulatorTest.cs" />
     <Compile Include="Core\Remoting\CustomAssemblyResolver.cs" />
     <Compile Include="Core\Remoting\NamespaceTestTreePopulatorTest.cs" />
     <Compile Include="Core\Remoting\RelativePathTest.cs" />
