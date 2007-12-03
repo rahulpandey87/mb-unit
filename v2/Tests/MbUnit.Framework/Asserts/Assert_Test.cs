@@ -550,7 +550,9 @@ namespace MbUnit.Framework.Tests.Asserts
         [Test, ExpectedException(typeof(NotEqualAssertionException))]
         public void AreEqualDoubleDeltaFail()
         {
-            Assert.AreEqual((double)0.0, (double)2.0, (double)1.0);
+            double d1 = (double) 0.0;
+            double d2 = (double) 2.0;
+            Assert.AreEqual(d1, d2, (double)1.0, "{0} is not equal to {1}", d1, d2);
         }
 
         [Test]
@@ -560,7 +562,6 @@ namespace MbUnit.Framework.Tests.Asserts
             Assert.AreEqual((double)0.0, (double)0.0, (double)-1.0);
         }
 
-        
         #endregion
 
         #region AreEqual (Float)
