@@ -95,7 +95,7 @@ namespace MbUnit.Core.Remoting
 			RunPipeStarter pipeStarter)
 		{
 			RunPipe pipe = pipeStarter.Pipe;
-			string key=pipe.FixtureName+parentNode.Name;
+			string key = pipe.FixtureName + parentNode.FullPath;
 			if (!this.fixtureNodes.Contains(key))
 			{
 				TestTreeNode  fixtureNode = new TestTreeNode(pipe.FixtureName,TestNodeType.Fixture);
