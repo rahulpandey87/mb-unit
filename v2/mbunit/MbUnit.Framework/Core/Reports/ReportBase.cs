@@ -69,7 +69,7 @@ namespace MbUnit.Core.Reports
 
             string outputFileName = String.Format(nameFormat + extension
 				, result.Date.ToShortDateString()
-				, result.Date.ToShortTimeString()
+				, result.Date.ToLongTimeString()
 				);
 
             outputFileName = outputFileName
