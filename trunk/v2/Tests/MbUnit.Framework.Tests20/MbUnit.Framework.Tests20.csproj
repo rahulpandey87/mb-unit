@@ -45,6 +45,7 @@
       <Link>AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AssemblyInfoAdditional.cs" />
+    <Compile Include="Asserts\RowTestFixture_Test.cs" />
     <Compile Include="Assert_Test.cs" />
     <Compile Include="Reflection\BaseSample.cs" />
     <Compile Include="Reflection\InstanceTests.cs" />

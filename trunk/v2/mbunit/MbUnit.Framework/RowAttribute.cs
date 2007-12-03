@@ -134,7 +134,14 @@ namespace MbUnit.Framework
                 else if ((row[index] as IConvertible) != null)
                 {
                     IFormatProvider formatProvider = GetFormatProvider(parameters[index].ParameterType);
-                    args[index] = Convert.ChangeType(row[index], parameters[index].ParameterType, formatProvider);
+                    if (formatProvider != null)
+                    {
+                        args[index] = Convert.ChangeType(row[index], parameters[index].ParameterType, formatProvider);
+                    }
+                    else
+                    {
+                        args[index] = row[index];
+                    }
                 }
                 // Give up, the value is an array or a Type.  Leave it alone!
                 else
@@ -158,14 +165,34 @@ namespace MbUnit.Framework
             return formatProvider;
         }
 
+
         private bool IsNumericType(Type t)
         {
-            return t == typeof(double) ||
-                   t == typeof(float) ||
-                   t == typeof(decimal) ||
-                   t == typeof(int) ||
-                   t == typeof(long) ||
-                   t == typeof(short);
+            if (null != t)
+            {
+                return t == typeof(byte) ||
+                    t == typeof(sbyte) ||
+                    t == typeof(decimal) ||
+                    t == typeof(double) ||
+                    t == typeof(float) ||
+                    t == typeof(int) ||
+                    t == typeof(uint) ||
+                    t == typeof(long) ||
+                    t == typeof(short) ||
+                    t == typeof(ushort) ||
+                    t == typeof(Byte) ||
+                    t == typeof(SByte) ||
+                    t == typeof(Decimal) ||
+                    t == typeof(Double) ||
+                    t == typeof(Single) ||
+                    t == typeof(Int32) ||
+                    t == typeof(UInt32) ||
+                    t == typeof(Int64) ||
+                    t == typeof(UInt64) ||
+                    t == typeof(Int16) ||
+                    t == typeof(UInt16);
+            }
+            return false;
         }
 
     }
