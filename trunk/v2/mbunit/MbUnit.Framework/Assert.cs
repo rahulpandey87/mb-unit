@@ -283,6 +283,23 @@ namespace MbUnit.Framework
         }
 
         /// <summary>
+        /// Verifies that two doubles are equal considering a delta. If the
+        /// expected value is infinity then the delta value is ignored. If
+        /// they are not equals then an <see cref="AssertionException"/> is
+        /// thrown.
+        /// </summary>
+        /// <param name="expected">The expected value</param>
+        /// <param name="actual">The actual value</param>
+        /// <param name="delta">The maximum acceptable difference between the
+        /// the expected and the actual</param>
+        /// <param name="format">The format of the error message</param>
+        /// <param name="args">The values for the error message</param>
+        static public void AreEqual(double expected, double actual, double delta, string format, params object[] args)
+        {
+            AreEqual(expected, actual, delta, String.Format(format, args));
+        }
+
+        /// <summary>
         /// Verifies that two floats are equal considering a delta. If the
         /// expected value is infinity then the delta value is ignored. If
         /// they are not equals then an <see cref="AssertionException"/> is
