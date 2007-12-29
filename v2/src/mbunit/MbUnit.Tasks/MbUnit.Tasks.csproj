@@ -111,15 +111,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.1.40796, Culture=neutral, PublicKeyToken=aaa0f432407c68df" />
-    <Reference Include="NAnt.Core, Version=0.85.1932.0, Culture=neutral" />
-    <Reference Include="QuickGraph, Version=2.21.1.0, Culture=neutral, PublicKeyToken=975e84d0c8d6464d, processorArchitecture=MSIL">
+    <Reference Include="log4net, Version=1.2.1.40796, Culture=neutral, PublicKeyToken=aaa0f432407c68df">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\QuickGraph\QuickGraph\obj\Debug\QuickGraph.dll</HintPath>
+      <HintPath>..\..\..\libs\nant\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="QuickGraph.Algorithms, Version=2.21.1.0, Culture=neutral, PublicKeyToken=975e84d0c8d6464d, processorArchitecture=MSIL">
+    <Reference Include="NAnt.Core, Version=0.85.1932.0, Culture=neutral">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\QuickGraph\QuickGraph.Algorithms\obj\Debug\QuickGraph.Algorithms.dll</HintPath>
+      <HintPath>..\..\..\libs\nant\NAnt.Core.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -132,24 +130,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="AssemblyInfoAdditional.cs" />
     <Compile Include="MbUnitTask.cs">
       <SubType>Code</SubType>
     </Compile>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\bin\nant\log4net.dll">
-      <Link>log4net.dll</Link>
-    </Content>
-    <Content Include="..\..\bin\nant\NAnt.Core.dll">
-      <Link>NAnt.Core.dll</Link>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\..\quickgraph\QuickGraph.Algorithms\QuickGraph.Algorithms.csproj">
+      <Project>{EB884293-9316-41E5-A026-8A0F036E5887}</Project>
+      <Name>QuickGraph.Algorithms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\quickgraph\QuickGraph\QuickGraph.csproj">
+      <Project>{5F42D0C5-A525-4891-9A5D-3D8BE4A21626}</Project>
+      <Name>QuickGraph %28QuickGraph\QuickGraph%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MbUnit.Framework\MbUnit.Framework.csproj">
       <Project>{F822ABA5-0F5F-44AF-A13C-EE62DDF5E397}</Project>
       <Name>MbUnit.Framework</Name>

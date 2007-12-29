@@ -139,10 +139,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.ico" />
-    <Compile Include="..\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="AssemblyInfoAdditional.cs" />
     <Compile Include="MainClass.cs">
       <SubType>Code</SubType>
     </Compile>

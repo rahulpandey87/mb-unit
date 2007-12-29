@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.40607</ProductVersion>
+    <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{16BAEFA2-73CC-40DB-B6FD-70AE437DA6F0}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -147,7 +147,7 @@
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
     <ProjectReference Include="..\QuickGraph\QuickGraph.csproj">
-      <Name>QuickGraph</Name>
+      <Name>QuickGraph %28QuickGraph\QuickGraph%29</Name>
       <Project>{5F42D0C5-A525-4891-9A5D-3D8BE4A21626}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
@@ -187,7 +187,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Forms\QuickNetronPanel.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\ZoomWheelMouseBehavior.cs">
       <SubType>Code</SubType>

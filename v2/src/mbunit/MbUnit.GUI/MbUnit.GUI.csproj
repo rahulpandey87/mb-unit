@@ -135,10 +135,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="App.ico" />
-    <Compile Include="..\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="AssemblyInfoAdditional.cs" />
     <Compile Include="ConsoleTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
