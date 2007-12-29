@@ -44,19 +44,6 @@ using System.Runtime.CompilerServices;
 [assembly:CLSCompliant(true)]
 
 //
-// Les informations de version pour un assembly se composent des quatre valeurs suivantes :
-//
-//      Version principale
-//      Version secondaire 
-//      Numéro de build
-//      Révision
-//
-// Vous pouvez spécifier toutes les valeurs ou indiquer des numéros de révision et de build par défaut 
-// en utilisant '*', comme ci-dessous :
-
-[assembly: AssemblyVersion("2.20")]
-
-//
 // Pour signer votre assembly, vous devez spécifier la clé à utiliser. Consultez 
 // la documentation Microsoft .NET Framework pour plus d'informations sur la signature d'un assembly.
 //

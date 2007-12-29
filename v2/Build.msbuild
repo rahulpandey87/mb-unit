@@ -2,9 +2,7 @@
   <PropertyGroup>
     <RootDir>$(MSBuildProjectDirectory)</RootDir>
     <BuildDir>$(RootDir)\build</BuildDir>
-    <BuildBinDir>$(BuildDir)\bin</BuildBinDir>
     <BuildReportsDir>$(BuildDir)\reports</BuildReportsDir>
-    <BuildDocsDir>$(BuildDir)\docs</BuildDocsDir>
     <BuildReleaseDir>$(BuildDir)\release</BuildReleaseDir>
     <LibsDir>$(RootDir)\libs</LibsDir>
     <SourceDir>$(RootDir)\src</SourceDir>
@@ -12,257 +10,57 @@
     <Version Condition="'$(Version)'==''">0.0.0.0</Version>
     <NonInteractive Condition="'$(NonInteractive)'==''">false</NonInteractive>
 
-    <HTMLHelpCompilerPath>$(ProgramFiles)\HTML Help Workshop\hhc.exe</HTMLHelpCompilerPath>
-    <VS2005SDKHelpPath>$(ProgramFiles)\Visual Studio 2005 SDK\HelpIntegrationWizard\MSHelp2</VS2005SDKHelpPath>
     <NSISPath>$(ProgramFiles)\NSIS\makensis.exe</NSISPath>
-    <MSBuildCommunityTasksPath>$(LibsDir)\MSBuildCommunityTasks</MSBuildCommunityTasksPath>
   </PropertyGroup>
-
-  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
 
   <!-- The C# projects to compile. -->
   <ItemGroup>
-    <CSharpProject Include="$(SourceDir)\Gallio\Gallio\Gallio.csproj" />
-    <CSharpProject Include="$(SourceDir)\MbUnit\MbUnit\MbUnit.csproj" />
+    <CSharpProject Include="$(SourceDir)\refly\Refly\Refly.csproj" />
+    <CSharpProject Include="$(SourceDir)\refly\XsdTidy\XsdTidy.csproj" />
 
-    <CSharpProject Include="$(SourceDir)\TestResources\Gallio.TestResources.MbUnit\Gallio.TestResources.MbUnit.csproj" />
-    <CSharpProject Include="$(SourceDir)\TestResources\Gallio.TestResources.MbUnit2\Gallio.TestResources.MbUnit2.csproj" />
-    <CSharpProject Include="$(SourceDir)\TestResources\Gallio.TestResources.NUnit\Gallio.TestResources.NUnit.csproj" />
-    <CSharpProject Include="$(SourceDir)\TestResources\Gallio.TestResources.Xunit\Gallio.TestResources.Xunit.csproj" />
+    <CSharpProject Include="$(SourceDir)\quickgraph\QuickGraph\QuickGraph.csproj" />
+    <CSharpProject Include="$(SourceDir)\quickgraph\QuickGraph.Algorithms\QuickGraph.Algorithms.csproj" />
+    <CSharpProject Include="$(SourceDir)\quickgraph\QuickGraph.Algorithms.GraphViz\QuickGraph.Algorithms.GraphViz.csproj" />
+    <CSharpProject Include="$(SourceDir)\quickgraph\QuickGraph.Tests\QuickGraph.UnitTests.csproj" />
 
-    <CSharpProject Include="$(SourceDir)\Gallio\Gallio.Tests\Gallio.Tests.csproj" />
-    <CSharpProject Include="$(SourceDir)\MbUnit\MbUnit.Tests\MbUnit.Tests.csproj" />
-
-    <CSharpProject Include="$(SourceDir)\MbUnit\Samples\MbUnit.Samples\MbUnit.Samples.csproj" />
-
-    <CSharpProject Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.Reports\Gallio.Plugin.Reports.csproj" />
-
-    <CSharpProject Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.MbUnit2Adapter\Gallio.Plugin.MbUnit2Adapter.csproj" />
-    <CSharpProject Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.MbUnit2Adapter.Tests\Gallio.Plugin.MbUnit2Adapter.Tests.csproj" />
-
-    <CSharpProject Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.NUnitAdapter\Gallio.Plugin.NUnitAdapter.csproj" />
-    <CSharpProject Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.NUnitAdapter.Tests\Gallio.Plugin.NUnitAdapter.Tests.csproj" />
-
-    <CSharpProject Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.XunitAdapter\Gallio.Plugin.XunitAdapter.csproj" />
-    <CSharpProject Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.XunitAdapter.Tests\Gallio.Plugin.XunitAdapter.Tests.csproj" />
-
-    <CSharpProject Include="$(SourceDir)\Gallio\Runners\Gallio.TDNetRunner\Gallio.TDNetRunner.csproj" />
-    <CSharpProject Include="$(SourceDir)\Gallio\Runners\Gallio.TDNetRunner.Tests\Gallio.TDNetRunner.Tests.csproj" />
-
-    <CSharpProject Include="$(SourceDir)\Gallio\Runners\Gallio.ReSharperRunner\Gallio.ReSharperRunner.csproj" />
-    <CSharpProject Include="$(SourceDir)\Gallio\Runners\Gallio.ReSharperRunner.Tests\Gallio.ReSharperRunner.Tests.csproj" />
-
-    <CSharpProject Include="$(SourceDir)\Gallio\Runners\Gallio.Echo\Gallio.Echo.csproj" />
-    <CSharpProject Include="$(SourceDir)\Gallio\Runners\Gallio.Echo.Tests\Gallio.Echo.Tests.csproj" />
-
-    <CSharpProject Include="$(SourceDir)\Gallio\Runners\Gallio.Icarus\Gallio.Icarus.csproj" />
-    <CSharpProject Include="$(SourceDir)\Gallio\Runners\Gallio.Icarus.Tests\Gallio.Icarus.Tests.csproj" />
-
-    <CSharpProject Include="$(SourceDir)\Gallio\Runners\Gallio.MSBuildTasks\Gallio.MSBuildTasks.csproj" />
-    <CSharpProject Include="$(SourceDir)\Gallio\Runners\Gallio.MSBuildTasks.Tests\Gallio.MSBuildTasks.Tests.csproj" />
-
-    <CSharpProject Include="$(SourceDir)\Gallio\Runners\Gallio.NAntTasks\Gallio.NAntTasks.csproj" />
-    <CSharpProject Include="$(SourceDir)\Gallio\Runners\Gallio.NAntTasks.Tests\Gallio.NAntTasks.Tests.csproj" />
-
-    <CSharpProject Include="$(SourceDir)\Gallio\Runners\Gallio.PowerShellCommands\Gallio.PowerShellCommands.csproj" />
-    <CSharpProject Include="$(SourceDir)\Gallio\Runners\Gallio.PowerShellCommands.Tests\Gallio.PowerShellCommands.Tests.csproj" />
+    <CSharpProject Include="$(SourceDir)\mbunit\TestFu\TestFu.csproj" />
+    <CSharpProject Include="$(SourceDir)\mbunit\TestFu.Tests\TestFu.Tests.csproj" />
+    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.Framework\MbUnit.Framework.csproj" />
+    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.Framework.2.0\MbUnit.Framework.2.0.csproj" />
+    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.Tasks\MbUnit.Tasks.csproj" />
+    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.MSBuild.Tasks\MbUnit.MSBuild.Tasks.csproj" />
+    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.Cons\MbUnit.Cons.csproj" />
+    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.GUI\MbUnit.GUI.csproj" />
+    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.AddIn\MbUnit.AddIn.csproj" />
+    <CSharpProject Include="$(SourceDir)\Tests\MbUnit.Framework\MbUnit.Framework.Tests.csproj" />
+    <CSharpProject Include="$(SourceDir)\Tests\MbUnit.Framework.Tests20\MbUnit.Framework.Tests20.csproj" />
   </ItemGroup>
 
-  <!-- The NDoc projects to compile. -->
+  <!-- The files to copy to the build folder. -->
   <ItemGroup>
-    <!-- Need to think about an incremental distribution model for Gallio.
-    <NDocProject Include="$(SourceDir)\Gallio\Docs\Gallio.ndoc" />
-    -->
-    <NDocProject Include="$(SourceDir)\MbUnit\Docs\MbUnit.ndoc" />
-  </ItemGroup>
+    <File Include="$(SourceDir)\refly\Refly\bin\Release\Refly.dll" />
+    <File Include="$(SourceDir)\refly\XsdTidy\bin\Release\XsdTidy.exe" />
 
-  <!-- The binaries to copy into the build folder after compilation. -->
-  <ItemGroup>
-    <Binary Include="$(LibsDir)\Castle\bin\Castle.Core.dll" />
-    <Binary Include="$(LibsDir)\Castle\bin\Castle.MicroKernel.dll" />
-    <Binary Include="$(LibsDir)\Castle\bin\Castle.Windsor.dll" />
-    <Binary Include="$(LibsDir)\Castle\bin\Castle.DynamicProxy2.dll" />
-    <Binary Include="$(LibsDir)\Components\ZedGraph.dll" />
-    <Binary Include="$(LibsDir)\Components\ICSharpCode.TextEditor.dll" />
-    <Binary Include="$(LibsDir)\ReferenceAssemblies\System.Core.dll" />
-    <Binary Include="$(LibsDir)\ReferenceAssemblies\System.Management.Automation.dll" />
+    <File Include="$(SourceDir)\quickgraph\QuickGraph\bin\Release\QuickGraph.dll" />
+    <File Include="$(SourceDir)\quickgraph\QuickGraph.Algorithms\bin\Release\QuickGraph.Algorithms.dll" />
+    <File Include="$(SourceDir)\quickgraph\QuickGraph.Algorithms.GraphViz\bin\Release\QuickGraph.Algorithms.GraphViz.dll" />
 
-    <Binary Include="$(SourceDir)\Gallio\Gallio\bin\Gallio.dll" />
-    <Binary Include="$(SourceDir)\Gallio\Gallio\Gallio.plugin" />
-
-    <Binary Include="$(SourceDir)\MbUnit\MbUnit\bin\MbUnit.dll" />
-    <Binary Include="$(SourceDir)\MbUnit\MbUnit\MbUnit.plugin" />
-
-    <Binary Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.Reports\bin\Gallio.Plugin.Reports.dll">
-        <Folder>Reports</Folder>
-    </Binary>
-    <Binary Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.Reports\Gallio.Plugin.Reports.plugin">
-        <Folder>Reports</Folder>
-    </Binary>
-    <Binary Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.Reports\Readme.txt">
-        <Folder>Reports</Folder>
-    </Binary>
-    <Binary Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.Reports\css\*">
-        <Folder>Reports\css</Folder>
-    </Binary>
-    <Binary Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.Reports\js\*">
-        <Folder>Reports\js</Folder>
-    </Binary>
-    <Binary Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.Reports\img\*">
-        <Folder>Reports\img</Folder>
-    </Binary>
-    <Binary Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.Reports\xsl\*">
-        <Folder>Reports\xsl</Folder>
-    </Binary>
-
-    <Binary Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.MbUnit2Adapter\bin\Gallio.Plugin.MbUnit2Adapter.dll">
-        <Folder>MbUnit2</Folder>
-    </Binary>
-    <Binary Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.MbUnit2Adapter\Gallio.Plugin.MbUnit2Adapter.plugin">
-        <Folder>MbUnit2</Folder>
-    </Binary>
-    <Binary Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.MbUnit2Adapter\Readme.txt">
-        <Folder>MbUnit2</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\MbUnit2\bin\MbUnit.Framework.dll">
-        <Folder>MbUnit2</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\MbUnit2\bin\MbUnit.Framework.2.0.dll">
-        <Folder>MbUnit2</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\MbUnit2\bin\QuickGraph.dll">
-        <Folder>MbUnit2</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\MbUnit2\bin\QuickGraph.Algorithms.dll">
-        <Folder>MbUnit2</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\MbUnit2\bin\TestFu.dll">
-        <Folder>MbUnit2</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\MbUnit2\bin\Refly.dll">
-        <Folder>MbUnit2</Folder>
-    </Binary>
-
-    <Binary Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.NUnitAdapter\bin\Gallio.Plugin.NUnitAdapter.dll">
-        <Folder>NUnit</Folder>
-    </Binary>
-    <Binary Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.NUnitAdapter\Gallio.Plugin.NUnitAdapter.plugin">
-        <Folder>NUnit</Folder>
-    </Binary>
-    <Binary Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.NUnitAdapter\Readme.txt">
-        <Folder>NUnit</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\NUnit\license.txt">
-        <Folder>NUnit</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\NUnit\bin\nunit.framework.dll">
-        <Folder>NUnit</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\NUnit\bin\nunit.framework.extensions.dll">
-        <Folder>NUnit</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\NUnit\bin\nunit.core.dll">
-        <Folder>NUnit</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\NUnit\bin\nunit.core.extensions.dll">
-        <Folder>NUnit</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\NUnit\bin\nunit.core.interfaces.dll">
-        <Folder>NUnit</Folder>
-    </Binary>
-
-    <Binary Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.XunitAdapter\bin\Gallio.Plugin.XunitAdapter.dll">
-        <Folder>Xunit</Folder>
-    </Binary>
-    <Binary Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.XunitAdapter\Gallio.Plugin.XunitAdapter.plugin">
-        <Folder>Xunit</Folder>
-    </Binary>
-    <Binary Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.XunitAdapter\Readme.txt">
-        <Folder>Xunit</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\Xunit\EULA.txt">
-        <Folder>Xunit</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\Xunit\xunit.dll">
-        <Folder>Xunit</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\Xunit\xunit.xml">
-        <Folder>Xunit</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\Xunit\xunitext.dll">
-        <Folder>Xunit</Folder>
-    </Binary>
-
-    <Binary Include="$(SourceDir)\Gallio\Runners\Gallio.TDNetRunner\bin\Gallio.TDNetRunner.dll" />
-
-    <Binary Include="$(SourceDir)\Gallio\Runners\Gallio.ReSharperRunner\bin\Gallio.ReSharperRunner.dll" />
-    <Binary Include="$(SourceDir)\Gallio\Runners\Gallio.ReSharperRunner\bin\Gallio.ReSharperRunner.dll.config" />
-
-    <Binary Include="$(SourceDir)\Gallio\Runners\Gallio.Echo\bin\Gallio.Echo.exe" />
-    <Binary Include="$(SourceDir)\Gallio\Runners\Gallio.Echo\bin\Gallio.Echo.exe.config" />
-
-    <Binary Include="$(SourceDir)\Gallio\Runners\Gallio.Icarus\bin\Gallio.Icarus.exe" />
-    <Binary Include="$(SourceDir)\Gallio\Runners\Gallio.Icarus\bin\Gallio.Icarus.exe.config" />
-
-    <Binary Include="$(SourceDir)\Gallio\Runners\Gallio.MSBuildTasks\bin\Gallio.MSBuildTasks.dll" />
-
-    <Binary Include="$(SourceDir)\Gallio\Runners\Gallio.NAntTasks\bin\Gallio.NAntTasks.dll" />
-
-    <Binary Include="$(SourceDir)\Gallio\Runners\Gallio.PowerShellCommands\bin\Gallio.PowerShellCommands.dll" />
-
-    <Binary Include="$(SourceDir)\MbUnit\Samples\*.sln">
-        <Folder>Samples</Folder>
-    </Binary>
-    <Binary Include="$(SourceDir)\MbUnit\Samples\**\*.cs" Exclude="$(SourceDir)\MbUnit\Samples\**\AdditionalAssemblyInfo.cs">
-        <Folder>Samples</Folder>
-    </Binary>
-    <Binary Include="$(SourceDir)\MbUnit\Samples\**\*.resx">
-        <Folder>Samples</Folder>
-    </Binary>
-    <Binary Include="$(SourceDir)\MbUnit\Samples\**\*.png">
-        <Folder>Samples</Folder>
-    </Binary>
-    <Binary Include="$(SourceDir)\MbUnit\Samples\**\*.csproj">
-        <Folder>Samples</Folder>
-    </Binary>
-    <Binary Include="$(SourceDir)\MbUnit\Samples\MbUnit.Samples\bin\MbUnit.Samples.dll">
-        <Folder>Samples\bin</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\WatiN\bin\Interop.SHDocVw.dll">
-        <Folder>Samples\bin</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\WatiN\bin\Microsoft.mshtml.dll">
-        <Folder>Samples\bin</Folder>
-    </Binary>
-    <Binary Include="$(LibsDir)\WatiN\bin\WatiN.Core.dll">
-        <Folder>Samples\bin</Folder>
-    </Binary>
-  </ItemGroup>
-
-  <!-- The documents to copy into the docs folder. -->
-  <ItemGroup>
-    <Document Include="$(RootDir)\MbUnit License.txt" />
-    <Document Include="$(RootDir)\Release Notes.txt" />
-    <Document Include="$(RootDir)\ASL - Apache Software Foundation License.txt" />
-    <Document Include="$(SourceDir)\Gallio\Docs\*.txt" />
+    <File Include="$(SourceDir)\mbunit\TestFu\bin\Release\TestFu.dll" />
+    <File Include="$(SourceDir)\mbunit\MbUnit.Framework\bin\Release\MbUnit.Framework.dll" />
+    <File Include="$(SourceDir)\mbunit\MbUnit.Framework.2.0\bin\Release\MbUnit.Framework.2.0.dll" />
+    <File Include="$(SourceDir)\mbunit\MbUnit.Tasks\bin\Release\MbUnit.Tasks.dll" />
+    <File Include="$(SourceDir)\mbunit\MbUnit.MSBuild.Tasks\bin\Release\MbUnit.MSBuild.Tasks.dll" />
+    <File Include="$(SourceDir)\mbunit\MbUnit.Cons\bin\Release\MbUnit.Cons.exe" />
+    <File Include="$(SourceDir)\mbunit\MbUnit.GUI\bin\Release\MbUnit.GUI.exe" />
+    <File Include="$(SourceDir)\mbunit\MbUnit.AddIn\bin\Release\MbUnit.AddIn.dll" />
   </ItemGroup>
 
   <!-- The test assemblies to run. -->
   <ItemGroup>
-    <TestAssembly Include="$(SourceDir)\Gallio\Gallio.Tests\bin\Gallio.Tests.dll" />
-    <TestAssembly Include="$(SourceDir)\MbUnit\MbUnit.Tests\bin\MbUnit.Tests.dll" />
-
-    <TestAssembly Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.MbUnit2Adapter.Tests\bin\Gallio.Plugin.MbUnit2Adapter.Tests.dll" />
-    <TestAssembly Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.NUnitAdapter.Tests\bin\Gallio.Plugin.NUnitAdapter.Tests.dll" />
-    <TestAssembly Include="$(SourceDir)\Gallio\Plugins\Gallio.Plugin.XunitAdapter.Tests\bin\Gallio.Plugin.XunitAdapter.Tests.dll" />
-
-    <TestAssembly Include="$(SourceDir)\Gallio\Runners\Gallio.TDNetRunner.Tests\bin\Gallio.TDNetRunner.Tests.dll" />
-    <TestAssembly Include="$(SourceDir)\Gallio\Runners\Gallio.ReSharperRunner.Tests\bin\Gallio.ReSharperRunner.Tests.dll" />
-    <TestAssembly Include="$(SourceDir)\Gallio\Runners\Gallio.Echo.Tests\bin\Gallio.Echo.Tests.dll" />
-    <TestAssembly Include="$(SourceDir)\Gallio\Runners\Gallio.Icarus.Tests\bin\Gallio.Icarus.Tests.dll" />
-    <TestAssembly Include="$(SourceDir)\Gallio\Runners\Gallio.MSBuildTasks.Tests\bin\Gallio.MSBuildTasks.Tests.dll" />
-    <TestAssembly Include="$(SourceDir)\Gallio\Runners\Gallio.NAntTasks.Tests\bin\Gallio.NAntTasks.Tests.dll" />
-    <TestAssembly Include="$(SourceDir)\Gallio\Runners\Gallio.PowerShellCommands.Tests\bin\Gallio.PowerShellCommands.Tests.dll" />
+    <TestAssembly Include="$(SourceDir)\quickgraph\QuickGraph.Tests\bin\Release\QuickGraph.UnitTests.dll" />
+    <TestAssembly Include="$(SourceDir)\mbunit\TestFu.Tests\bin\Release\TestFu.Tests.dll" />
+    <TestAssembly Include="$(SourceDir)\Tests\MbUnit.Framework\bin\Release\MbUnit.Framework.Tests.dll" />
+    <TestAssembly Include="$(SourceDir)\Tests\MbUnit.Framework.Tests20\bin\Release\MbUnit.Framework.Tests20.dll" />
   </ItemGroup>
 
   <Target Name="Build"
@@ -275,13 +73,13 @@
   </Target>
 
   <Target Name="Test">
-    <Exec Command="&quot;$(BuildBinDir)\Gallio.Echo.exe&quot; /report-type:Html /report-directory:&quot;$(BuildReportsDir)&quot; /show-reports @(TestAssembly->'&quot;%(Identity)&quot;', ' ')"
+    <Exec Command="&quot;$(BuildDir)\MbUnit.cons.exe&quot; /report-type:Html /report-directory:&quot;$(BuildReportsDir)&quot; /show-reports @(TestAssembly->'&quot;%(Identity)&quot;', ' ')"
           Condition="! $(NonInteractive)"
           IgnoreExitCode="true">
       <Output TaskParameter="ExitCode" PropertyName="MbUnitExitCode" />
     </Exec>
 
-    <Exec Command="&quot;$(BuildBinDir)\Gallio.Echo.exe&quot; /report-name-format:test-report /report-type:Xml /report-directory:&quot;$(BuildReportsDir)&quot; @(TestAssembly->'&quot;%(Identity)&quot;', ' ')"
+    <Exec Command="&quot;$(BuildDir)\MbUnit.Cons.exe&quot; /report-name-format:test-report /report-type:Xml /report-directory:&quot;$(BuildReportsDir)&quot; @(TestAssembly->'&quot;%(Identity)&quot;', ' ')"
           Condition="$(NonInteractive)"
           IgnoreExitCode="true">
       <Output TaskParameter="ExitCode" PropertyName="MbUnitExitCode" />
@@ -313,39 +111,9 @@
              " />
   </Target>
 
-  <Target Name="CopyBinaries">
-    <Copy SourceFiles="@(Binary)"
-          DestinationFolder="$(BuildBinDir)\%(Binary.Folder)\%(RecursiveDir)" />
-  </Target>
-
-  <Target Name="CopyDocuments">
-    <Copy SourceFiles="@(Document)"
-          DestinationFolder="$(BuildDocsDir)\%(Document.Folder)\%(RecursiveDir)" />
-  </Target>
-
-  <Target Name="BuildDocs"
-          DependsOnTargets="BuildXMLDocs;BuildCHMDocs;BuildHxSDocs" />
-
-  <!-- Produce clean Intellisense docs with "inheritdoc" accounted for. -->
-  <Target Name="BuildXMLDocs">
-    <Exec Command="&quot;$(LibsDir)\NDoc2\NDocConsole.exe&quot; -documenter=Intellisense -project=&quot;%(NDocProject.Identity)&quot;" />
-    <Delete Files="$(BuildBinDir)\ndoc_qa.log;$(BuildBinDir)\ndoc_build.log" />
-  </Target>
-
-  <Target Name="BuildCHMDocs">
-    <Warning Text="Microsoft HTML Help Workshop must be installed so that Compiled HTML help (CHM) documentation can be generated.  Look in libs\Setup Files for the Microsoft HTML Help Workshop installer."
-             Condition="! Exists('$(HTMLHelpCompilerPath)')" />
-
-    <Exec Command="&quot;$(LibsDir)\NDoc2\NDocConsole.exe&quot; -documenter=MSDN-CHM -project=&quot;%(NDocProject.Identity)&quot;"
-          Condition="Exists('$(HTMLHelpCompilerPath)')" />
-  </Target>
-
-  <Target Name="BuildHxSDocs">
-    <Warning Text="Visual Studio 2005 SDK must be installed so that HTML Help 2 (Hxs) documentation can be generated for integration with the Visual Studio 2005 help system.  Check Microsoft's site for the Visual Studio 2005 SDK installer."
-           Condition="! Exists('$(VS2005SDKHelpPath)')" />
-
-    <Exec Command="&quot;$(LibsDir)\NDoc2\NDocConsole.exe&quot; -documenter=MSDN-Help2 -project=&quot;%(NDocProject.Identity)&quot;"
-          Condition="Exists('$(VS2005SDKHelpPath)')" />
+  <Target Name="CopyFiles">
+    <Copy SourceFiles="@(File)"
+          DestinationFolder="$(BuildDir)\%(File.Folder)\%(RecursiveDir)" />
   </Target>
 
   <Target Name="BuildInstaller"
@@ -353,14 +121,13 @@
     <Warning Text="The NSIS tools must be installed to generate the installer.  Look in libs\Setup Files for the NSIS installer."
              Condition="! Exists('$(NSISPath)')" />
 
-    <Exec Command="&quot;$(NSISPath)&quot; /V2 /NOCONFIG /DVERSION=$(Version) &quot;$(SourceDir)\MbUnit\Installer\MbUnit.nsi&quot;"
+    <Exec Command="&quot;$(NSISPath)&quot; /V2 /NOCONFIG /DVERSION=$(Version) &quot;$(SourceDir)\installer\MbUnit.nsi&quot;"
           Condition="Exists('$(NSISPath)')" />
   </Target>
 
   <Target Name="BuildZip"
           DependsOnTargets="CreateBuildDir">
-    <CreateItem Include="$(BuildBinDir)\**\*.*;$(BuildDocsDir)\**\*.*"
-                Exclude="$(BuildDocsDir)\ndoc_msdn_temp\**\*.*">
+    <CreateItem Include="$(BuildDir)\*.*;$(BuildDocsDir)\**\*.*">
       <Output TaskParameter="Include" ItemName="ZipFiles" />
     </CreateItem>
 
@@ -371,6 +138,6 @@
   </Target>
 
   <Target Name="CreateBuildDir">
-    <MakeDir Directories="$(BuildDir);$(BuildBinDir);$(BuildReportsDir);$(BuildDocsDir);$(BuildReleaseDir)" />
+    <MakeDir Directories="$(BuildDir);$(BuildReportsDir);$(BuildReleaseDir)" />
   </Target>
 </Project>
