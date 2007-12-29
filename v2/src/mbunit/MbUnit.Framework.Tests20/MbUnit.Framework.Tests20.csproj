@@ -28,29 +28,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MbUnit.Framework, Version=1.0.2675.42109, Culture=neutral, PublicKeyToken=5e72ecd30bc408d5">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\build\MbUnit.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="MbUnit.Framework.2.0, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5e72ecd30bc408d5, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\build\MbUnit.Framework.2.0.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\mbunit\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="AssemblyInfoAdditional.cs" />
     <Compile Include="Asserts\RowTestFixture_Test.cs" />
     <Compile Include="Assert_Test.cs" />
     <Compile Include="Reflection\BaseSample.cs" />
     <Compile Include="Reflection\InstanceTests.cs" />
     <Compile Include="Reflection\StaticTests.cs" />
     <Compile Include="Reflection\TestSample.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MbUnit.Framework.2.0\MbUnit.Framework.2.0.csproj">
+      <Project>{15501EC2-F625-41C5-A1BF-3B17069C4F5B}</Project>
+      <Name>MbUnit.Framework.2.0</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MbUnit.Framework\MbUnit.Framework.csproj">
+      <Project>{F822ABA5-0F5F-44AF-A13C-EE62DDF5E397}</Project>
+      <Name>MbUnit.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

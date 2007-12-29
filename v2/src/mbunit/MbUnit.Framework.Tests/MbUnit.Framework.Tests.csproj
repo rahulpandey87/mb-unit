@@ -34,21 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.2.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
+    <Reference Include="nunit.framework, Version=2.4.0.2, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files\TestDriven.NET 2.0\NUnit\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="QuickGraph, Version=2.21.1.0, Culture=neutral, PublicKeyToken=975e84d0c8d6464d">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\build\QuickGraph.dll</HintPath>
-    </Reference>
-    <Reference Include="QuickGraph.Algorithms, Version=2.21.1.0, Culture=neutral, PublicKeyToken=975e84d0c8d6464d">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\build\QuickGraph.Algorithms.dll</HintPath>
-    </Reference>
-    <Reference Include="Refly, Version=2.21.1.0, Culture=neutral, PublicKeyToken=829676e11975a31c">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\build\Refly.dll</HintPath>
+      <HintPath>..\..\..\libs\NUnit\bin\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -56,11 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\mbunit\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="AssemblyCleanUp.cs" />
-    <Compile Include="AssemblyInfoAdditional.cs" />
     <Compile Include="Asserts\ArrayAssert_Test.cs" />
     <Compile Include="Asserts\Assert_Test.cs" />
     <Compile Include="Asserts\CollectionAssert_Test.cs" />
@@ -207,9 +191,25 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\mbunit\MbUnit.Framework\MbUnit.Framework.csproj">
+    <ProjectReference Include="..\..\quickgraph\QuickGraph.Algorithms\QuickGraph.Algorithms.csproj">
+      <Project>{EB884293-9316-41E5-A026-8A0F036E5887}</Project>
+      <Name>QuickGraph.Algorithms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\quickgraph\QuickGraph\QuickGraph.csproj">
+      <Project>{5F42D0C5-A525-4891-9A5D-3D8BE4A21626}</Project>
+      <Name>QuickGraph %28QuickGraph\QuickGraph%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\refly\Refly\Refly.csproj">
+      <Project>{1B1D1BA1-5D34-4C8B-9727-8ED6E14E7CB9}</Project>
+      <Name>Refly %28Refly\Refly%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MbUnit.Framework\MbUnit.Framework.csproj">
       <Project>{F822ABA5-0F5F-44AF-A13C-EE62DDF5E397}</Project>
       <Name>MbUnit.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestFu\TestFu.csproj">
+      <Project>{A88D4337-9198-4095-B889-63D6F11F3894}</Project>
+      <Name>TestFu</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
