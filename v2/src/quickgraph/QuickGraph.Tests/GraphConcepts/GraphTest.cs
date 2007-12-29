@@ -26,12 +26,12 @@
 
 using System;
 
-namespace QuickGraph.UnitTests.GraphConcepts
+namespace QuickGraph.Tests.GraphConcepts
 {
 	using MbUnit.Core.Framework;
 	using MbUnit.Framework;
 	using QuickGraph.Concepts;
-	using QuickGraph.UnitTests.Generators;
+	using QuickGraph.Tests.Generators;
 
 	[TypeFixture(typeof(IGraph),"Fixture for the IGraph concept")]
 	[ProviderFactory(typeof(AdjacencyGraphGenerator),typeof(IGraph))]

@@ -8,7 +8,7 @@ using QuickGraph.Concepts.Traversals;
 using MbUnit.Core.Framework;
 using MbUnit.Framework;
 
-namespace QuickGraph.UnitTests.Algorithms
+namespace QuickGraph.Tests.Algorithms
 {
 	[TestFixture]
 	public class StrongComponentAlgorithmTest

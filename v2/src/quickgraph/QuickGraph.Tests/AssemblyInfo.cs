@@ -33,7 +33,7 @@ using System.Runtime.CompilerServices;
 // l'ensemble d'attributs suivant. Pour modifier les informations
 // associées à un assembly, changez les valeurs de ces attributs.
 //
-[assembly:  AssemblyTitle("QuickGraph.UnitTests")]
+[assembly:  AssemblyTitle("QuickGraph.Tests")]
 [assembly: AssemblyDescription("QuickGraph Library MbUnit Testing")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]

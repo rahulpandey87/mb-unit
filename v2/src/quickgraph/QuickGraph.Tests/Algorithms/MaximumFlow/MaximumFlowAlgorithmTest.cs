@@ -27,12 +27,12 @@
 
 using System;
 
-namespace QuickGraph.UnitTests.Algorithms.MaximumFlow
+namespace QuickGraph.Tests.Algorithms.MaximumFlow
 {
 	using MbUnit.Core.Framework;
 	using MbUnit.Framework;
 
-	using QuickGraph.UnitTests.Generators;
+	using QuickGraph.Tests.Generators;
 
 	using QuickGraph.Concepts;
 	using QuickGraph.Algorithms;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using QuickGraph.Concepts;
 using QuickGraph.Concepts.Traversals;
 using QuickGraph.Representations;
@@ -10,7 +10,7 @@ using MbUnit.Framework;
 using QuickGraph.Collections;
 using QuickGraph.Exceptions;
 
-namespace QuickGraph.UnitTests.Algorithms
+namespace QuickGraph.Tests.Algorithms
 {
     [TestFixture]
     public class SourceFirstTopologicalSortAlgorithmTest

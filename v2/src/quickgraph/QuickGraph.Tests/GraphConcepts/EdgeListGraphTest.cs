@@ -25,11 +25,11 @@
 //		Author: Jonathan de Halleux
 using System;
 
-namespace QuickGraph.UnitTests.GraphConcepts
+namespace QuickGraph.Tests.GraphConcepts
 {
 	using MbUnit.Core.Framework;
 	using MbUnit.Framework;
-	using QuickGraph.UnitTests.Generators;
+	using QuickGraph.Tests.Generators;
 	using QuickGraph.Concepts;
 	using QuickGraph.Concepts.Traversals;
 	using QuickGraph.Representations;

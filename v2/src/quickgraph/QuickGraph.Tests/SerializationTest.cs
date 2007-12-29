@@ -7,7 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Schema;
 using System.IO;
 
-namespace QuickGraph.UnitTests
+namespace QuickGraph.Tests
 {
 	using QuickGraph;
 	using QuickGraph.Providers;

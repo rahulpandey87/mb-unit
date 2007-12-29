@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 
 using QuickGraph;
@@ -11,7 +11,7 @@ using QuickGraph.Concepts.Providers;
 using MbUnit.Core.Framework;
 using MbUnit.Framework;
 
-namespace QuickGraph.UnitTests.Algorithms
+namespace QuickGraph.Tests.Algorithms
 {
 	[TestFixture]
 	public class CondensationGraphTest

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using QuickGraph;
 using QuickGraph.Representations;
@@ -10,7 +10,7 @@ using QuickGraph.Algorithms.MinimumFlow;
 using MbUnit.Core.Framework;
 using MbUnit.Framework;
 
-namespace QuickGraph.UnitTests.Algorithms.MinimumFlow
+namespace QuickGraph.Tests.Algorithms.MinimumFlow
 {
     /// <summary>
     /// A <see cref="TestFixture"/> for the <see cref="GraphBalancerAlgorithm"/> 

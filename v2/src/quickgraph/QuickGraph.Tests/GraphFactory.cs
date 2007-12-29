@@ -1,6 +1,6 @@
 using System;
 
-namespace QuickGraph.UnitTests
+namespace QuickGraph.Tests
 {
 	using QuickGraph;
 	using QuickGraph.Concepts;

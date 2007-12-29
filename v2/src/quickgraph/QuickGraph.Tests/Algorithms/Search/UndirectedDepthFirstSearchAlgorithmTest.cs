@@ -1,4 +1,4 @@
-﻿// QuickGraph Library 
+// QuickGraph Library 
 // 
 // Copyright (c) 2004 Jonathan de Halleux
 //
@@ -27,12 +27,12 @@
 
 using System;
 
-namespace QuickGraph.UnitTests.Algorithms.Search
+namespace QuickGraph.Tests.Algorithms.Search
 {
     using MbUnit.Framework;
     using MbUnit.Core.Framework;
 
-    using QuickGraph.UnitTests.Generators;
+    using QuickGraph.Tests.Generators;
 
     using QuickGraph.Concepts;
     using QuickGraph.Concepts.Traversals;
