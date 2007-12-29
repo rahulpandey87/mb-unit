@@ -122,14 +122,6 @@
     <WarningLevel>1</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="QuickGraph, Version=2.21.1.0, Culture=neutral, PublicKeyToken=975e84d0c8d6464d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\QuickGraph\QuickGraph\obj\Debug\QuickGraph.dll</HintPath>
-    </Reference>
-    <Reference Include="QuickGraph.Algorithms, Version=2.21.1.0, Culture=neutral, PublicKeyToken=975e84d0c8d6464d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\QuickGraph\QuickGraph.Algorithms\obj\Debug\QuickGraph.Algorithms.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -152,13 +144,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="ArrayAssert.cs" />
     <Compile Include="AssemblyCleanupAttribute.cs" />
     <Compile Include="AssemblyDependsOnAttribute.cs" />
-    <Compile Include="AssemblyInfoAdditional.cs" />
     <Compile Include="AssemblyInfoKey.cs" />
     <Compile Include="AssemblyResolverAttribute.cs" />
     <Compile Include="Assert.cs" />
@@ -710,12 +698,6 @@
     <None Include="Core\Reports\xsdtocs.bat" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestFu\TestFu.csproj">
-      <Project>{A88D4337-9198-4095-B889-63D6F11F3894}</Project>
-      <Name>TestFu</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
       <Visible>False</Visible>
       <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
@@ -731,6 +713,20 @@
       <ProductName>.NET Framework 3.5</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\quickgraph\QuickGraph.Algorithms\QuickGraph.Algorithms.csproj">
+      <Project>{EB884293-9316-41E5-A026-8A0F036E5887}</Project>
+      <Name>QuickGraph.Algorithms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\quickgraph\QuickGraph\QuickGraph.csproj">
+      <Project>{5F42D0C5-A525-4891-9A5D-3D8BE4A21626}</Project>
+      <Name>QuickGraph %28QuickGraph\QuickGraph%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestFu\TestFu.csproj">
+      <Project>{A88D4337-9198-4095-B889-63D6F11F3894}</Project>
+      <Name>TestFu</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
