@@ -9,6 +9,7 @@
 
     <Version Condition="'$(Version)'==''">0.0.0.0</Version>
     <NonInteractive Condition="'$(NonInteractive)'==''">false</NonInteractive>
+    <TargetFX1_1 Condition="'$(TargetFX1_1)'==''">true</TargetFX1_1>
 
     <NSISPath>$(ProgramFiles)\NSIS\makensis.exe</NSISPath>
     <MSBuildCommunityTasksPath>$(LibsDir)\MSBuildCommunityTasks</MSBuildCommunityTasksPath>
@@ -134,6 +135,7 @@
              Properties="
                Configuration=Release;
                Version=$(Version);
+               TargetFX1_1=$(TargetFX1_1);
                CustomAfterMicrosoftCommonTargets=$(RootDir)\Build.Custom.Targets;
              " />
   </Target>
@@ -142,6 +144,7 @@
     <MSBuild Projects="@(CSharpProject)"
              Targets="Clean"
              Properties="
+               TargetFX1_1=$(TargetFX1_1);
                Configuration=Release;
              " />
   </Target>
