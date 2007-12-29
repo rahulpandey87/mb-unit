@@ -1,0 +1,7 @@
+MbUnit v2
+Copyright 2005-2007 MbUnit Project - http://www.mbunit.com/
+===========================================================
+
+RELEASE NOTES
+-------------
+
