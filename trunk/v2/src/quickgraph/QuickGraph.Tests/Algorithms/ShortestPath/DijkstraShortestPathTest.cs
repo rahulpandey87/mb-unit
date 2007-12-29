@@ -2,7 +2,7 @@ using System;
 using MbUnit.Core.Framework;
 using MbUnit.Framework;
 
-namespace QuickGraph.UnitTests.Algorithms.ShortestPath
+namespace QuickGraph.Tests.Algorithms.ShortestPath
 {
 	using QuickGraph.Algorithms.ShortestPath;
 	using QuickGraph.Concepts;

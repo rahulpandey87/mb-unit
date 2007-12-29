@@ -1,6 +1,6 @@
 // Automatically generated code, dot edit!
 
-namespace QuickGraph.UnitTests
+namespace QuickGraph.Tests
 {
 	using System;
 	using System.Collections;

@@ -17,7 +17,7 @@
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>MbUnit.Tests</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
@@ -26,7 +26,7 @@
     </FileUpgradeFlags>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>bin\debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -47,7 +47,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\bin\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -67,57 +67,10 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'StrongRelease|AnyCPU' ">
-    <OutputPath>bin\StrongRelease\</OutputPath>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <BaseAddress>285212672</BaseAddress>
-    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile>
-    </ConfigurationOverrideFile>
-    <DefineConstants>TRACE;STRONGLY_NAMED</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
-    <DebugSymbols>false</DebugSymbols>
-    <FileAlignment>4096</FileAlignment>
-    <NoStdLib>false</NoStdLib>
-    <NoWarn>
-    </NoWarn>
-    <Optimize>true</Optimize>
-    <RegisterForComInterop>false</RegisterForComInterop>
-    <RemoveIntegerChecks>false</RemoveIntegerChecks>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'StrongDebug|AnyCPU' ">
-    <OutputPath>bin\Debug\</OutputPath>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <BaseAddress>285212672</BaseAddress>
-    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile>
-    </ConfigurationOverrideFile>
-    <DefineConstants>DEBUG;TRACE;STRONGLY_NAMED</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
-    <DebugSymbols>true</DebugSymbols>
-    <FileAlignment>4096</FileAlignment>
-    <NoStdLib>false</NoStdLib>
-    <NoWarn>
-    </NoWarn>
-    <Optimize>false</Optimize>
-    <RegisterForComInterop>false</RegisterForComInterop>
-    <RemoveIntegerChecks>false</RemoveIntegerChecks>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.2.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77" />
-    <Reference Include="QuickGraph, Version=2.21.1.0, Culture=neutral, PublicKeyToken=975e84d0c8d6464d, processorArchitecture=MSIL">
-      <HintPath>..\..\QuickGraph\QuickGraph\obj\Debug\QuickGraph.dll</HintPath>
+    <Reference Include="nunit.framework, Version=2.4.0.2, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="QuickGraph.Algorithms, Version=2.21.1.0, Culture=neutral, PublicKeyToken=975e84d0c8d6464d, processorArchitecture=MSIL">
-      <HintPath>..\..\QuickGraph\QuickGraph.Algorithms\obj\Debug\QuickGraph.Algorithms.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\NUnit\bin\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -131,14 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="AssemblyCleanUp.cs" />
-    <Compile Include="AssemblyInfoAdditional.cs" />
-    <Compile Include="AutoRunTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Core\AssemblyLoadingTest.cs" />
     <Compile Include="Core\Cons\CommandLine\CommandLineUtilityTest.cs">
       <SubType>Code</SubType>
@@ -313,7 +259,6 @@
     <Compile Include="Core\SickFixturesTest.cs" />
     <EmbeddedResource Include="Samples\FixtureConstructorThrowsTest.cs" />
     <EmbeddedResource Include="Samples\FixtureSetUpThrowsTest.cs" />
-    <Compile Include="Framework\ThreadedRepeatTest.cs" />
     <Compile Include="Gui\GuiTest.cs" />
     <Compile Include="Samples\SampleCompiler.cs">
       <SubType>Code</SubType>
@@ -353,6 +298,14 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\quickgraph\QuickGraph.Algorithms\QuickGraph.Algorithms.csproj">
+      <Project>{EB884293-9316-41E5-A026-8A0F036E5887}</Project>
+      <Name>QuickGraph.Algorithms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\quickgraph\QuickGraph\QuickGraph.csproj">
+      <Project>{5F42D0C5-A525-4891-9A5D-3D8BE4A21626}</Project>
+      <Name>QuickGraph %28QuickGraph\QuickGraph%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MbUnit.Framework\MbUnit.Framework.csproj">
       <Project>{F822ABA5-0F5F-44AF-A13C-EE62DDF5E397}</Project>
       <Name>MbUnit.Framework</Name>

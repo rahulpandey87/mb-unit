@@ -27,12 +27,12 @@
 
 using System;
 
-namespace QuickGraph.UnitTests.Algorithms
+namespace QuickGraph.Tests.Algorithms
 {
 	using MbUnit.Core.Framework;
 	using MbUnit.Framework;
 
-	using QuickGraph.UnitTests.Generators;
+	using QuickGraph.Tests.Generators;
 	using QuickGraph.Exceptions;
 	using QuickGraph.Representations;
 	using QuickGraph.Providers;

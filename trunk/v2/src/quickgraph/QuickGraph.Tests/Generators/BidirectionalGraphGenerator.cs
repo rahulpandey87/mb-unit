@@ -28,7 +28,7 @@
 
 using System;
 
-namespace QuickGraph.UnitTests.Generators
+namespace QuickGraph.Tests.Generators
 {
 	using QuickGraph.Providers;
 	using QuickGraph.Concepts;

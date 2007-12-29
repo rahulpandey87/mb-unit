@@ -7,7 +7,7 @@
     <ProjectGuid>{15501EC2-F625-41C5-A1BF-3B17069C4F5B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MbUnit.Framework._2._0</RootNamespace>
+    <RootNamespace>MbUnit.Framework</RootNamespace>
     <AssemblyName>MbUnit.Framework.2.0</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -27,6 +27,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\MbUnit.Framework.2.0.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

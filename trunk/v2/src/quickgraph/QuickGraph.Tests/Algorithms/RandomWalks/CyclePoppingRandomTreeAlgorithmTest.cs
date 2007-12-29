@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using MbUnit.Core.Framework;
 using MbUnit.Framework;
 
@@ -6,7 +6,7 @@ using QuickGraph.Representations;
 using QuickGraph.Concepts;
 using QuickGraph.Algorithms.RandomWalks;
 
-namespace QuickGraph.UnitTests.Algorithms.RandomWalks
+namespace QuickGraph.Tests.Algorithms.RandomWalks
 {
     /// <summary>
     /// A <see cref="TestFixture"/> for the <see cref="CyclePoppingRandomTreeAlgorithm"/> 

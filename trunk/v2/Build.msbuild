@@ -16,12 +16,13 @@
   <!-- The C# projects to compile. -->
   <ItemGroup>
     <CSharpProject Include="$(SourceDir)\refly\Refly\Refly.csproj" />
+    <CSharpProject Include="$(SourceDir)\refly\Refly.Cons\Refly.Cons.csproj" />
     <CSharpProject Include="$(SourceDir)\refly\XsdTidy\XsdTidy.csproj" />
 
     <CSharpProject Include="$(SourceDir)\quickgraph\QuickGraph\QuickGraph.csproj" />
     <CSharpProject Include="$(SourceDir)\quickgraph\QuickGraph.Algorithms\QuickGraph.Algorithms.csproj" />
     <CSharpProject Include="$(SourceDir)\quickgraph\QuickGraph.Algorithms.GraphViz\QuickGraph.Algorithms.GraphViz.csproj" />
-    <CSharpProject Include="$(SourceDir)\quickgraph\QuickGraph.Tests\QuickGraph.UnitTests.csproj" />
+    <CSharpProject Include="$(SourceDir)\quickgraph\QuickGraph.Tests\QuickGraph.Tests.csproj" />
 
     <CSharpProject Include="$(SourceDir)\mbunit\TestFu\TestFu.csproj" />
     <CSharpProject Include="$(SourceDir)\mbunit\TestFu.Tests\TestFu.Tests.csproj" />
@@ -32,39 +33,58 @@
     <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.Cons\MbUnit.Cons.csproj" />
     <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.GUI\MbUnit.GUI.csproj" />
     <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.AddIn\MbUnit.AddIn.csproj" />
-    <CSharpProject Include="$(SourceDir)\Tests\MbUnit.Framework\MbUnit.Framework.Tests.csproj" />
-    <CSharpProject Include="$(SourceDir)\Tests\MbUnit.Framework.Tests20\MbUnit.Framework.Tests20.csproj" />
+    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.Tests\MbUnit.Tests.csproj" />
+    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.Framework.Tests\MbUnit.Framework.Tests.csproj" />
+    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.Framework.Tests.2.0\MbUnit.Framework.Tests.2.0.csproj" />
   </ItemGroup>
 
   <!-- The files to copy to the build folder. -->
   <ItemGroup>
+    <File Include="$(LibsDir)\TestDriven.Net\TestDriven.Framework.dll" />
+
     <File Include="$(SourceDir)\refly\Refly\bin\Release\Refly.dll" />
+    <File Include="$(SourceDir)\refly\Refly\bin\Release\Refly.xml" />
     <File Include="$(SourceDir)\refly\XsdTidy\bin\Release\XsdTidy.exe" />
 
     <File Include="$(SourceDir)\quickgraph\QuickGraph\bin\Release\QuickGraph.dll" />
+    <File Include="$(SourceDir)\quickgraph\QuickGraph\bin\Release\QuickGraph.xml" />
     <File Include="$(SourceDir)\quickgraph\QuickGraph.Algorithms\bin\Release\QuickGraph.Algorithms.dll" />
-    <File Include="$(SourceDir)\quickgraph\QuickGraph.Algorithms.GraphViz\bin\Release\QuickGraph.Algorithms.GraphViz.dll" />
+    <File Include="$(SourceDir)\quickgraph\QuickGraph.Algorithms\bin\Release\QuickGraph.Algorithms.xml" />
+    <File Include="$(SourceDir)\quickgraph\QuickGraph.Algorithms.Graphviz\bin\Release\QuickGraph.Algorithms.Graphviz.dll" />
+    <File Include="$(SourceDir)\quickgraph\QuickGraph.Algorithms.Graphviz\bin\Release\QuickGraph.Algorithms.Graphviz.xml" />
+
+    <File Include="$(SourceDir)\quickgraph\NGraphviz\NGraphviz.dll" />
+    <File Include="$(SourceDir)\quickgraph\NGraphviz\NGraphviz.Layout.dll" />
+    <File Include="$(SourceDir)\quickgraph\NGraphviz\NGraphviz.Helpers.dll" />
 
     <File Include="$(SourceDir)\mbunit\TestFu\bin\Release\TestFu.dll" />
+
     <File Include="$(SourceDir)\mbunit\MbUnit.Framework\bin\Release\MbUnit.Framework.dll" />
+    <File Include="$(SourceDir)\mbunit\MbUnit.Framework\bin\Release\MbUnit.Framework.xml" />
     <File Include="$(SourceDir)\mbunit\MbUnit.Framework.2.0\bin\Release\MbUnit.Framework.2.0.dll" />
+    <File Include="$(SourceDir)\mbunit\MbUnit.Framework.2.0\bin\Release\MbUnit.Framework.2.0.xml" />
+    <File Include="$(SourceDir)\mbunit\MbUnit.Cons\bin\Release\MbUnit.Cons.exe" />
+    <File Include="$(SourceDir)\mbunit\MbUnit.Cons\bin\Release\MbUnit.Cons.exe.config" />
+    <File Include="$(SourceDir)\mbunit\MbUnit.GUI\bin\Release\MbUnit.GUI.exe" />
+    <File Include="$(SourceDir)\mbunit\MbUnit.GUI\bin\Release\MbUnit.GUI.exe.config" />
+    <File Include="$(SourceDir)\mbunit\MbUnit.AddIn\bin\Release\MbUnit.AddIn.dll" />
     <File Include="$(SourceDir)\mbunit\MbUnit.Tasks\bin\Release\MbUnit.Tasks.dll" />
     <File Include="$(SourceDir)\mbunit\MbUnit.MSBuild.Tasks\bin\Release\MbUnit.MSBuild.Tasks.dll" />
-    <File Include="$(SourceDir)\mbunit\MbUnit.Cons\bin\Release\MbUnit.Cons.exe" />
-    <File Include="$(SourceDir)\mbunit\MbUnit.GUI\bin\Release\MbUnit.GUI.exe" />
-    <File Include="$(SourceDir)\mbunit\MbUnit.AddIn\bin\Release\MbUnit.AddIn.dll" />
+
+    <File Include="$(SourceDir)\mbunit\Snippets\**\*.*" />
   </ItemGroup>
 
   <!-- The test assemblies to run. -->
   <ItemGroup>
-    <TestAssembly Include="$(SourceDir)\quickgraph\QuickGraph.Tests\bin\Release\QuickGraph.UnitTests.dll" />
+    <TestAssembly Include="$(SourceDir)\quickgraph\QuickGraph.Tests\bin\Release\QuickGraph.Tests.dll" />
     <TestAssembly Include="$(SourceDir)\mbunit\TestFu.Tests\bin\Release\TestFu.Tests.dll" />
-    <TestAssembly Include="$(SourceDir)\Tests\MbUnit.Framework\bin\Release\MbUnit.Framework.Tests.dll" />
-    <TestAssembly Include="$(SourceDir)\Tests\MbUnit.Framework.Tests20\bin\Release\MbUnit.Framework.Tests20.dll" />
+    <TestAssembly Include="$(SourceDir)\mbunit\MbUnit.Tests\bin\Release\MbUnit.Tests.dll" />
+    <TestAssembly Include="$(SourceDir)\mbunit\MbUnit.Framework.Tests\bin\Release\MbUnit.Framework.Tests.dll" />
+    <TestAssembly Include="$(SourceDir)\mbunit\MbUnit.Framework.Tests.2.0\bin\Release\MbUnit.Framework.Tests.2.0.dll" />
   </ItemGroup>
 
   <Target Name="Build"
-          DependsOnTargets="BuildCSharpProjects;CopyBinaries;CopyDocuments" />
+          DependsOnTargets="BuildCSharpProjects;CopyFiles" />
 
   <Target Name="Clean"
           DependsOnTargets="CleanCSharpProjects">
@@ -73,13 +93,13 @@
   </Target>
 
   <Target Name="Test">
-    <Exec Command="&quot;$(BuildDir)\MbUnit.cons.exe&quot; /report-type:Html /report-directory:&quot;$(BuildReportsDir)&quot; /show-reports @(TestAssembly->'&quot;%(Identity)&quot;', ' ')"
+    <Exec Command="&quot;$(BuildDir)\MbUnit.cons.exe&quot; /report-type:Html /report-folder:&quot;$(BuildReportsDir)&quot; /show-reports @(TestAssembly->'&quot;%(Identity)&quot;', ' ')"
           Condition="! $(NonInteractive)"
           IgnoreExitCode="true">
       <Output TaskParameter="ExitCode" PropertyName="MbUnitExitCode" />
     </Exec>
 
-    <Exec Command="&quot;$(BuildDir)\MbUnit.Cons.exe&quot; /report-name-format:test-report /report-type:Xml /report-directory:&quot;$(BuildReportsDir)&quot; @(TestAssembly->'&quot;%(Identity)&quot;', ' ')"
+    <Exec Command="&quot;$(BuildDir)\MbUnit.Cons.exe&quot; /report-name-format:test-report /report-type:Xml /report-folder:&quot;$(BuildReportsDir)&quot; @(TestAssembly->'&quot;%(Identity)&quot;', ' ')"
           Condition="$(NonInteractive)"
           IgnoreExitCode="true">
       <Output TaskParameter="ExitCode" PropertyName="MbUnitExitCode" />

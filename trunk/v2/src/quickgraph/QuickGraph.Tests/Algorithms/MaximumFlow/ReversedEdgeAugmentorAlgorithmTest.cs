@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using QuickGraph;
 using QuickGraph.Algorithms;
 using QuickGraph.Algorithms.MaximumFlow;
@@ -8,7 +8,7 @@ using QuickGraph.Representations;
 using MbUnit.Core.Framework;
 using MbUnit.Framework;
 
-namespace QuickGraph.UnitTests.Algorithms.MaximumFlow
+namespace QuickGraph.Tests.Algorithms.MaximumFlow
 {
     /// <summary>
     /// A <see cref="TestFixture"/> for the <see cref="ReversedEdgeAugmentorAlgorithm"/> 
