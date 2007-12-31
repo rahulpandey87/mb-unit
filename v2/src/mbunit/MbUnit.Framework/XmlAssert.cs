@@ -110,7 +110,7 @@ namespace MbUnit.Framework
         private static void XmlEquals(XmlDiff xmlDiff, bool equal)
         {
             DiffResult diffResult = xmlDiff.Compare();
-            Assert.AreEqual(equal, diffResult.Identical, FailMessage(equal, xmlDiff.OptionalDescription));
+            Assert.AreEqual(equal, diffResult.Equal, FailMessage(equal, xmlDiff.OptionalDescription));
 
         }
 

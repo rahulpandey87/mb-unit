@@ -219,7 +219,7 @@ namespace MbUnit.Framework.Tests.Asserts.XmlUnit {
         		Assert.Fail("Expected dog not cat!");
         	} catch (AssertionException e) {
         		AvoidUnusedVariableCompilerWarning(e);
-        		if (exceptionExpected) {
+        		if (!exceptionExpected) {
         			throw e;
         		}
         	}
