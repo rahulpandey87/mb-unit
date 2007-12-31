@@ -106,42 +106,21 @@ namespace MbUnit.Framework
             XmlEquals(xmlDiff, false);
         }
 
-        private static void XmlEquals(XmlDiff xmlDiff, bool equal) 
-		{
-            DiffResult r = null;
-            if (equal)
-            {
-                r = xmlDiff.Compare();
 
-                if (r != null)
-                {
-                    if (!r.Identical)
-                    {
-                        Assert.Fail("Xml does not match");
-                    }
-                }
-            }
+        private static void XmlEquals(XmlDiff xmlDiff, bool equal)
+        {
+            DiffResult diffResult = xmlDiff.Compare();
+            Assert.AreEqual(equal, diffResult.Identical, FailMessage(equal, xmlDiff.OptionalDescription));
+
+        }
+
+        private static string FailMessage(bool equal, string optionalDescription)
+        {
+            if (string.IsNullOrEmpty(optionalDescription) || optionalDescription.Equals(DiffConfiguration.DEFAULT_DESCRIPTION))
+                return (equal == true) ? "Xml does not match" : "Xml matches but should be different";
             else
-            {
-                try
-                {
-                    r = xmlDiff.Compare();
-
-                    if (r != null)
-                    {
-                        if (r.Identical)
-                        {
-                            Assert.Fail("Xml matches but should be different");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (ex.GetType() != typeof(FlowControlException))
-                        throw;
-                }
-            }
-		}
+                return optionalDescription;
+        }
         
         public static void XmlIdentical(XmlDiff xmlDiff) {
             XmlIdentical(xmlDiff, true);

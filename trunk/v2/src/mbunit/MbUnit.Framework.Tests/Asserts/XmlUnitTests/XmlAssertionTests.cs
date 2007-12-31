@@ -5,16 +5,82 @@ namespace MbUnit.Framework.Tests.Asserts.XmlUnit {
 	using System.IO;
     
     [TestFixture]
-    public class XmlAssertionTests {        
+    public class XmlAssertionTests {
+        private string _xmlTrueTest;
+        private string _xmlFalseTest;
+
+        [TestFixtureSetUp]
+        public void StartTest()
+        {
+            _xmlTrueTest = "<assert>true</assert>";
+            _xmlFalseTest = "<assert>false</assert>";
+        }
+
+        #region XmlEquals
+        [Test]
+        public void XmlEqualsWithTextReader()
+        {
+            XmlAssert.XmlEquals(new StringReader(_xmlTrueTest), new StringReader(_xmlTrueTest));
+        }
+
+        [Test]
+        public void XmlEqualsWithString()
+        {
+            XmlAssert.XmlEquals(_xmlTrueTest, _xmlTrueTest);
+        }
+
+        [Test]
+        public void XmlEqualsWithXmlInput()
+        {
+            XmlAssert.XmlEquals(new XmlInput(_xmlTrueTest), new XmlInput(_xmlTrueTest));
+        }
+
+        [Test]
+        public void XmlEqualsWithXmlDiff()
+        {
+            XmlAssert.XmlEquals(new XmlDiff(_xmlTrueTest, _xmlTrueTest));
+        }
+
+        [Test]
+        public void XmlEqualsWithXmlDiffFail()
+        {
+            try
+            {
+                XmlAssert.XmlEquals(new XmlDiff(new XmlInput(_xmlTrueTest), new XmlInput(_xmlFalseTest)));
+            }
+            catch (AssertionException e)
+            {
+                Assert.AreEqual("Xml does not match", e.Message);
+            }
+        }
+
+        [RowTest]
+        [Row("Optional Description", "Optional Description")]
+        [Row("", "Xml does not match")]
+        [Row(null, "Xml does not match")]
+        [Row("XmlDiff", "Xml does not match")]
+        public void XmlEqualsWithXmlDiffFail_WithDiffConfiguration(string optionalDesciption, string expectedMessage)
+        {
+            try
+            {
+                XmlAssert.XmlEquals(new XmlDiff(new XmlInput(_xmlTrueTest), new XmlInput(_xmlFalseTest), new DiffConfiguration(optionalDesciption)));
+            }
+            catch (AssertionException e)
+            {
+                Assert.AreEqual(expectedMessage, e.Message);
+            }
+        }
+        #endregion
+
         [Test] 
 		public void AssertStringEqualAndIdenticalToSelf() 
 		{
-            string control = "<assert>true</assert>";
-            string test = "<assert>true</assert>";
+            string control = _xmlTrueTest;
+            string test = _xmlTrueTest;
             XmlAssert.XmlIdentical(control, test);
             XmlAssert.XmlEquals(control, test);
-        }        
-        
+        }
+
         [Test]
 		public void AssertDifferentStringsNotEqualNorIdentical() {
             string control = "<assert>true</assert>";
