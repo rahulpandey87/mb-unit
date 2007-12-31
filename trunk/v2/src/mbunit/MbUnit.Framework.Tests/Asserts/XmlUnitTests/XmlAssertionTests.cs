@@ -50,14 +50,13 @@ namespace MbUnit.Framework.Tests.Asserts.XmlUnit {
             }
             catch (AssertionException e)
             {
-                Assert.AreEqual("Xml does not match", e.Message);
+                Assert.AreEqual(true, e.Message.StartsWith("Xml does not match"));
             }
         }
 
         [RowTest]
         [Row("Optional Description", "Optional Description")]
         [Row("", "Xml does not match")]
-        [Row(null, "Xml does not match")]
         [Row("XmlDiff", "Xml does not match")]
         public void XmlEqualsWithXmlDiffFail_WithDiffConfiguration(string optionalDesciption, string expectedMessage)
         {
@@ -67,7 +66,20 @@ namespace MbUnit.Framework.Tests.Asserts.XmlUnit {
             }
             catch (AssertionException e)
             {
-                Assert.AreEqual(expectedMessage, e.Message);
+                Assert.AreEqual(true, e.Message.StartsWith(expectedMessage));
+            }
+        }
+
+        [Test]
+        public void XmlEqualsWithXmlDiffFail_WithNullOptionalDescription()
+        {
+            try
+            {
+                XmlAssert.XmlEquals(new XmlDiff(new XmlInput(_xmlTrueTest), new XmlInput(_xmlFalseTest), new DiffConfiguration(null)));
+            }
+            catch (AssertionException e)
+            {
+                Assert.AreEqual(true, e.Message.StartsWith("Xml does not match"));
             }
         }
         #endregion
