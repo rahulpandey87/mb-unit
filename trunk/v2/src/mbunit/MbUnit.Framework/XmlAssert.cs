@@ -116,7 +116,7 @@ namespace MbUnit.Framework
 
         private static string FailMessage(bool equal, string optionalDescription)
         {
-            if (string.IsNullOrEmpty(optionalDescription) || optionalDescription.Equals(DiffConfiguration.DEFAULT_DESCRIPTION))
+            if (optionalDescription == null || optionalDescription.Equals("") || optionalDescription.Equals(DiffConfiguration.DEFAULT_DESCRIPTION))
                 return (equal == true) ? "Xml does not match" : "Xml matches but should be different";
             else
                 return optionalDescription;
