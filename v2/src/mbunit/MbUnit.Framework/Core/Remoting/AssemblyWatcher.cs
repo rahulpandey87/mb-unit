@@ -21,7 +21,7 @@
 //		3. This notice may not be removed or altered from any source 
 //		distribution.
 //		
-//		MbUnit HomePage: http://www.mbunit.org
+//		MbUnit HomePage: http://www.mbunit.com
 //		Author: Jonathan de Halleux
 
 #region Copyright (c) 2002-2003, James W. Newkirk, Michael C. Two, Alexei A. Vorontsov, Charlie Poole, Philip A. Craig

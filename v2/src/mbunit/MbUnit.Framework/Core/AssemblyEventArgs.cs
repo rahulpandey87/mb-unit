@@ -22,7 +22,7 @@
 //		3. This notice may not be removed or altered from any source 
 //		distribution.
 //		
-//		MbUnit HomePage: http://www.mbunit.org
+//		MbUnit HomePage: http://www.mbunit.com
 //		Author: Jonathan de Halleux
 
 
