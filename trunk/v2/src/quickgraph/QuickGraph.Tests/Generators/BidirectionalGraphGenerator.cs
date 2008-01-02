@@ -21,8 +21,8 @@
 //		3. This notice may not be removed or altered from any source 
 //		distribution.
 //		
-//		QuickGraph Library HomePage: http://mbunit.tigris.org
-//		Author: Jonathan de Halleux: http://mbunit.tigris.org
+//		QuickGraph Library HomePage: http://www.mbunit.com
+//		Author: Jonathan de Halleux: http://www.mbunit.com
 ///		Author: Jonathan de Halleux
 
 
