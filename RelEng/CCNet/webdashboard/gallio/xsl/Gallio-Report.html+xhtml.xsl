@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:g="http://www.mbunit.com/gallio"
+                xmlns:g="http://www.gallio.org/"
                 xmlns="http://www.w3.org/1999/xhtml">
   <xsl:template match="g:report" mode="xhtml-document">
     <html xml:lang="en" lang="en" dir="ltr">
@@ -499,18 +499,18 @@
   <xsl:template match="g:attachment" mode="embed">
     <xsl:variable name="isImage" select="starts-with(@contentType, 'image/')" />
     <xsl:choose>
-      <xsl:when test="@contentDisposition = 'Link'">
+      <xsl:when test="@contentDisposition = 'link'">
         <xsl:variable name="attachmentUri" select="translate(@contentPath, '\', '/')" />
         <xsl:choose>
           <xsl:when test="$isImage">
-            <img src="{$attachmentUri}" alt="Attachment: {@name}" />
+            <img src="{$attachmentLinkPrefix}{$attachmentUri}" alt="Attachment: {@name}" />
           </xsl:when>
           <xsl:otherwise>
-            Attachment: <a href="{$attachmentUri}"><xsl:value-of select="@name" /></a>
+            Attachment: <a href="{$attachmentLinkPrefix}{$attachmentUri}"><xsl:value-of select="@name" /></a>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:when>
-      <xsl:when test="@contentDisposition = 'Inline' and $isImage and @encoding = 'base64'">
+      <xsl:when test="@contentDisposition = 'inline' and $isImage and @encoding = 'base64'">
         <img src="data:{@contentType};base64,{text()}" alt="Attachment: {@name}" />
       </xsl:when>
       <xsl:otherwise>
@@ -521,9 +521,9 @@
   
   <xsl:template match="g:attachment" mode="link">
     <xsl:choose>
-      <xsl:when test="@contentDisposition = 'Link'">
+      <xsl:when test="@contentDisposition = 'link'">
         <xsl:variable name="attachmentUri" select="translate(@contentPath, '\', '/')" />        
-        <a href="{$attachmentUri}"><xsl:value-of select="@name" /></a>
+        <a href="{$attachmentLinkPrefix}{$attachmentUri}"><xsl:value-of select="@name" /></a>
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="@name" /> (n/a)
