@@ -145,7 +145,10 @@ Section "MainSection" Main
 
 	File "${BUILDDIR}\Snippets\VSSnippets\MbUnitXMLSnippets\msbuild.snippet"
 	File "${BUILDDIR}\Snippets\VSSnippets\MbUnitXMLSnippets\nant.snippet"
-	
+
+	SetOutPath "$INSTDIR\CCNet"
+	File /r "${BUILDDIR}\CCNet\*.*"
+
 	;Start menu items
 	CreateDirectory "$SMPROGRAMS\${APPNAME}" 
 	CreateShortCut "$SMPROGRAMS\${APPNAME}\MbUnit.GUI.lnk" "$INSTDIR\MbUnit.GUI.exe" 
