@@ -86,6 +86,16 @@
     <File Include="$(SourceDir)\mbunit\Snippets\**\*.cst">
       <Folder>Snippets</Folder>
     </File>
+
+    <File Include="$(SourceDir)\mbunit\CCNet\How to use MbUnit v2 with CruiseControl.Net.txt">
+      <Folder>CCNet\xsl</Folder>
+    </File>    
+    <File Include="$(SourceDir)\mbunit\CCNet\xsl\*.xsl">
+      <Folder>CCNet\xsl</Folder>
+    </File>    
+    <File Include="$(SourceDir)\mbunit\CCNet\images\*.png">
+      <Folder>CCNet\images</Folder>
+    </File>    
   </ItemGroup>
 
   <!-- The test assemblies to run. -->
