@@ -1,11 +1,15 @@
 <Project DefaultTargets="Clean;Build;Test" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <RootDir>$(MSBuildProjectDirectory)</RootDir>
+
+    <LibsDir>$(RootDir)\libs</LibsDir>
+    <SourceDir>$(RootDir)\src</SourceDir>
+
     <BuildDir>$(RootDir)\build</BuildDir>
     <BuildReportsDir>$(BuildDir)\reports</BuildReportsDir>
     <BuildReleaseDir>$(BuildDir)\release</BuildReleaseDir>
-    <LibsDir>$(RootDir)\libs</LibsDir>
-    <SourceDir>$(RootDir)\src</SourceDir>
+
+    <TargetDir>$(BuildDir)\target</TargetDir>
 
     <Version Condition="'$(Version)'==''">0.0.0.0</Version>
     <NonInteractive Condition="'$(NonInteractive)'==''">false</NonInteractive>
@@ -13,6 +17,15 @@
 
     <NSISPath>$(ProgramFiles)\NSIS\makensis.exe</NSISPath>
     <MSBuildCommunityTasksPath>$(LibsDir)\MSBuildCommunityTasks</MSBuildCommunityTasksPath>
+
+    <CSharpProperties>
+      Configuration=Release;
+      Version=$(Version);
+      TargetFX1_1=$(TargetFX1_1);
+      BaseFX1_1OutputPath=bin\;
+      BaseIntermediateOutputPath=obj\;
+      CustomAfterMicrosoftCommonTargets=$(RootDir)\Build.Custom.Targets
+    </CSharpProperties>
   </PropertyGroup>
 
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
@@ -88,7 +101,7 @@
     </File>
 
     <File Include="$(SourceDir)\mbunit\CCNet\How to use MbUnit v2 with CruiseControl.Net.txt">
-      <Folder>CCNet\xsl</Folder>
+      <Folder>CCNet</Folder>
     </File>    
     <File Include="$(SourceDir)\mbunit\CCNet\xsl\*.xsl">
       <Folder>CCNet\xsl</Folder>
@@ -117,14 +130,14 @@
   </Target>
 
   <Target Name="Test">
-    <Exec Command="&quot;$(BuildDir)\MbUnit.cons.exe&quot; /report-type:Html /report-folder:&quot;$(BuildReportsDir)&quot; /show-reports @(TestAssembly->'&quot;%(Identity)&quot;', ' ')"
+    <Exec Command="&quot;$(TargetDir)\MbUnit.cons.exe&quot; /report-type:Html /report-folder:&quot;$(BuildReportsDir)&quot; /show-reports @(TestAssembly->'&quot;%(Identity)&quot;', ' ')"
           WorkingDirectory="$(BuildReportsDir)"
           Condition="! $(NonInteractive)"
           IgnoreExitCode="true">
       <Output TaskParameter="ExitCode" PropertyName="MbUnitExitCode" />
     </Exec>
 
-    <Exec Command="&quot;$(BuildDir)\MbUnit.Cons.exe&quot; /report-name-format:test-report /report-type:Xml /report-folder:&quot;$(BuildReportsDir)&quot; @(TestAssembly->'&quot;%(Identity)&quot;', ' ')"
+    <Exec Command="&quot;$(TargetDir)\MbUnit.Cons.exe&quot; /report-name-format:test-report /report-type:Xml /report-folder:&quot;$(BuildReportsDir)&quot; @(TestAssembly->'&quot;%(Identity)&quot;', ' ')"
           WorkingDirectory="$(BuildReportsDir)"
           Condition="$(NonInteractive)"
           IgnoreExitCode="true">
@@ -142,26 +155,18 @@
           DependsOnTargets="CreateBuildDir">
     <MSBuild Projects="@(CSharpProject)"
              Targets="Build"
-             Properties="
-               Configuration=Release;
-               Version=$(Version);
-               TargetFX1_1=$(TargetFX1_1);
-               CustomAfterMicrosoftCommonTargets=$(RootDir)\Build.Custom.Targets;
-             " />
+             Properties="$(CSharpProperties)" />
   </Target>
 
   <Target Name="CleanCSharpProjects">
     <MSBuild Projects="@(CSharpProject)"
              Targets="Clean"
-             Properties="
-               TargetFX1_1=$(TargetFX1_1);
-               Configuration=Release;
-             " />
+             Properties="$(CSharpProperties)" />
   </Target>
 
   <Target Name="CopyFiles">
     <Copy SourceFiles="@(File)"
-          DestinationFolder="$(BuildDir)\%(File.Folder)\%(RecursiveDir)" />
+          DestinationFolder="$(TargetDir)\%(File.Folder)\%(RecursiveDir)" />
   </Target>
 
   <Target Name="BuildInstaller"
@@ -169,23 +174,23 @@
     <Warning Text="The NSIS tools must be installed to generate the installer.  Look in libs\Setup Files for the NSIS installer."
              Condition="! Exists('$(NSISPath)')" />
 
-    <Exec Command="&quot;$(NSISPath)&quot; /V2 /NOCONFIG /DVERSION=$(Version) &quot;$(SourceDir)\installer\MbUnit.nsi&quot;"
+    <Exec Command="&quot;$(NSISPath)&quot; /V2 /NOCONFIG /DVERSION=$(Version) /DROOTDIR=&quot;$(RootDir)&quot; &quot;$(SourceDir)\installer\MbUnit.nsi&quot;"
           Condition="Exists('$(NSISPath)')" />
   </Target>
 
   <Target Name="BuildZip"
           DependsOnTargets="CreateBuildDir">
-    <CreateItem Include="$(BuildDir)\*.*;$(BuildDir)\Snippets\**\*.*">
+    <CreateItem Include="$(TargetDir)\**\*.*">
       <Output TaskParameter="Include" ItemName="ZipFiles" />
     </CreateItem>
 
     <Zip Files="@(ZipFiles)"
-         WorkingDirectory="$(BuildDir)"
+         WorkingDirectory="$(TargetDir)"
          ZipFileName="$(BuildReleaseDir)\MbUnit-$(Version).zip"
          ZipLevel="9" />
   </Target>
 
   <Target Name="CreateBuildDir">
-    <MakeDir Directories="$(BuildDir);$(BuildReportsDir);$(BuildReleaseDir)" />
+    <MakeDir Directories="$(BuildDir);$(BuildReportsDir);$(BuildReleaseDir);$(TargetDir)" />
   </Target>
 </Project>

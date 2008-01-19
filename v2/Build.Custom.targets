@@ -1,10 +1,11 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <AdditionalAssemblyInfoDir>$(IntermediateOutputPath)</AdditionalAssemblyInfoDir>
     <AdditionalAssemblyInfo>$(IntermediateOutputPath)AdditionalAssemblyInfo.cs</AdditionalAssemblyInfo>
-    <CoreCompileDependsOn>
-      $(CoreCompileDependsOn);
+    <CompileDependsOn>
       GenerateAdditionalAssemblyInfo;
-    </CoreCompileDependsOn>
+      $(CompileDependsOn);
+    </CompileDependsOn>
     <DefineConstants>$(DefineConstants);HAVE_ASSEMBLY_VERSION</DefineConstants>
   </PropertyGroup>
 
@@ -21,6 +22,8 @@
   </ItemGroup>
 
   <Target Name="GenerateAdditionalAssemblyInfo">
+    <MakeDir Directories="$(AdditionalAssemblyInfoDir)" />
+
     <WriteLinesToFile File="$(AdditionalAssemblyInfo)"
                       Lines="%(AdditionalAssemblyInfo.Contents)"
                       Overwrite="true">
