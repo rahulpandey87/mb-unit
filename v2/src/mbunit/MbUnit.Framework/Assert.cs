@@ -49,12 +49,14 @@ namespace MbUnit.Framework
 
       #region Private stuff
       /// <summary>
-      /// The Equals method throws an AssertionException. This is done
+      /// The Equals method throws an <see cref="MbUnit.Core.Exceptions.AssertionException" />. This is done
       /// to make sure there is no mistake by calling this function. Use
       /// <see cref="AreEqual(object,object)">AreEqual</see> instead or one of its overloads.
       /// </summary>
       /// <param name="a">The first <see cref="System.Object"/> to compare</param>
       /// <param name="b">The second <see cref="System.Object"/> to compare</param>
+      /// <returns>True if the values are equal, false otherwise</returns>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Always thrown as this method should not be used.</exception>
       [EditorBrowsable(EditorBrowsableState.Never)]
       public static new bool Equals(object a, object b)
       {
@@ -62,13 +64,14 @@ namespace MbUnit.Framework
       }
 
       /// <summary>
-      /// Overrides the default ReferenceEquals method inherited from <see cref="System.Object"/>
-      /// to throw an AssertionException instead. This is to ensure that there is no mistake in 
+      /// Overrides the default <see cref="System.Object.ReferenceEquals"/> method inherited from <see cref="System.Object"/>
+      /// to throw an <see cref="MbUnit.Core.Exceptions.AssertionException" /> instead. This is to ensure that there is no mistake in 
       /// calling this function as part of an Assert in your tests. Use <see cref="AreSame(object,object,string)">AreSame()</see>
       /// instead or one of its overloads. 
       /// </summary>
       /// <param name="a">The first <see cref="System.Object"/> to compare</param>
       /// <param name="b">The second <see cref="System.Object"/> to compare</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Always thrown as this method should not be used.</exception>
       public static new void ReferenceEquals(object a, object b)
       {
          throw new AssertionException("Assert.ReferenceEquals should not be used for Assertions");
@@ -157,15 +160,13 @@ namespace MbUnit.Framework
       #region IsTrue, IsFalse
       /// <summary>
       /// Asserts that a <paramref name="condition"/> is true. If false, the method throws
-      /// an <see cref="AssertionException"/> with a message defined via <paramref name="format"/> and <paramref name="args"/>
-      /// through <see cref="http://msdn2.microsoft.com/en-gb/library/b1csw23d.aspx">String.Format()</see>.
+      /// an <see cref="MbUnit.Core.Exceptions.AssertionException" /> with a message defined via <paramref name="format"/> and <paramref name="args"/>
+      /// through <see cref="System.String.Format(string, object[])">String.Format</see>.
       /// </summary>
       /// <param name="condition">The evaluated condition</param>
-      /// <param name="format">A <see cref="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format String</see></param>
+      /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
       /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
-      /// <exception cref="AssertionException"><paramref name="condition"/> is not true. Exception message is generated through 
-      /// <paramref name="format"/> and <paramref name="args"/>.
-      /// </exception>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown when <paramref name="condition"/> is not true. </exception>
       /// <example>
       /// The following code example demonstrates a success (IsTrue_True) and a failed test (IsTrue_False) together with the exception's formatted message
       /// <code>
@@ -204,12 +205,12 @@ namespace MbUnit.Framework
       }
 
       /// <summary>
-      /// Asserts that a <paramref name="condition"/> is true. If false, the method throws an <see cref="AssertionException"/> with the given <see cref="message"/>.
+      /// Asserts that a <paramref name="condition"/> is true. If false, the method throws an <see cref="MbUnit.Core.Exceptions.AssertionException" /> 
+      /// with the given <paramref name="message"/>.
       /// </summary>
       /// <param name="condition">The evaluated condition</param>
       /// <param name="message">The message printed out upon failure</param>
-      /// <exception cref="AssertionException"><paramref name="condition"/> is not true. 
-      /// </exception>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown when <paramref name="condition"/> is not true.</exception>
       /// <example>
       /// The following code example demonstrates a success (IsTrue_True) and a failed test (IsTrue_False) together with the exception's message
       /// <code>
@@ -247,12 +248,13 @@ namespace MbUnit.Framework
       }
 
       /// <summary>
-      /// Asserts that a <paramref name="condition"/> is true. If false, the method throws an <see cref="AssertionException"/> with no explanatory message. 
-      /// Use <see cref="IsTrue(bool,string)"/> or <see cref="IsTrue(bool,string,object[])"/> instead to specify a message for the exception
+      /// Asserts that a <paramref name="condition"/> is true. 
+      /// If false, the method throws an <see cref="MbUnit.Core.Exceptions.AssertionException" /> with no explanatory message. 
       /// </summary>
       /// <param name="condition">The evaluated condition</param>
-      /// <exception cref="AssertionException"><paramref name="condition"/> is not true. 
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="condition"/> is not true. 
       /// </exception>
+      /// <remarks>Use <see cref="IsTrue(bool,string)"/> or <see cref="IsTrue(bool,string,object[])"/> to specify a message for the exception if required.</remarks>
       /// <example>
       /// The following code example demonstrates a success (IsTrue_True) and a failed test (IsTrue_False) together with the exception's message
       /// <code>
@@ -280,7 +282,7 @@ namespace MbUnit.Framework
       /// }
       /// </code>
       /// </example>
-      /// <seealso cref="IsTrue(bool)"/>
+      /// <seealso cref="IsTrue(bool,string)"/>
       /// <seealso cref="IsTrue(bool,string,object[])"/>
       static public void IsTrue(bool condition)
       {
@@ -289,15 +291,13 @@ namespace MbUnit.Framework
 
       /// <summary>
       /// Asserts that a <paramref name="condition"/> is false. If true, the method throws
-      /// an <see cref="AssertionException"/> with a message defined via <paramref name="format"/> and <paramref name="args"/>
-      /// through <see cref="http://msdn2.microsoft.com/en-gb/library/b1csw23d.aspx">String.Format()</see>.
+      /// an <see cref="MbUnit.Core.Exceptions.AssertionException"/> with a message defined via <paramref name="format"/> and <paramref name="args"/>
+      /// through <see cref="System.String.Format(string, object[])" />.
       /// </summary>
       /// <param name="condition">The evaluated condition</param>
-      /// <param name="format">A <see cref="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format String</see></param>
+      /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
       /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
-      /// <exception cref="AssertionException"><paramref name="condition"/> is not false. Exception message is generated through 
-      /// <paramref name="format"/> and <paramref name="args"/>.
-      /// </exception>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown when <paramref name="condition"/> is not false.</exception>
       /// <example>
       /// The following code example demonstrates a success (IsFalse_False) and a failed test (IsFalse_True) together with the exception's formatted message
       /// <code>
@@ -336,11 +336,12 @@ namespace MbUnit.Framework
       }
 
       /// <summary>
-      /// Asserts that a <paramref name="condition"/> is false. If true, the method throws an <see cref="AssertionException"/> with the given <see cref="message"/>.
+      /// Asserts that a <paramref name="condition"/> is false. 
+      /// If true, the method throws an <see cref="MbUnit.Core.Exceptions.AssertionException"/> with the given <paramref name="message"/>.
       /// </summary>
       /// <param name="condition">The evaluated condition</param>
       /// <param name="message">The message printed out upon failure</param>
-      /// <exception cref="AssertionException"><paramref name="condition"/> is not false. 
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown when <paramref name="condition"/> is not false. 
       /// </exception>
       /// <example>
       /// The following code example demonstrates a success (IsFalse_False) and a failed test (IsFalse_True) together with the exception's message
@@ -379,12 +380,13 @@ namespace MbUnit.Framework
       }
 
       /// <summary>
-      /// Asserts that a <paramref name="condition"/> is false. If true, the method throws an <see cref="AssertionException"/> with no explanatory message. 
-      /// Use <see cref="IsFalse(bool,string)"/> or <see cref="IsFalse(bool,string,object[])"/> instead to specify a message for the exception
+      /// Asserts that a <paramref name="condition"/> is false. 
+      /// If true, the method throws an <see cref="MbUnit.Core.Exceptions.AssertionException"/> with no explanatory message. 
       /// </summary>
       /// <param name="condition">The evaluated condition</param>
-      /// <exception cref="AssertionException"><paramref name="condition"/> is not false. 
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown when <paramref name="condition"/> is not false. 
       /// </exception>
+      /// <remarks>Use <see cref="IsFalse(bool,string)"/> or <see cref="IsFalse(bool,string,object[])"/> instead to specify a message for the exception</remarks>
       /// <example>
       /// The following code example demonstrates a success (IsFalse_False) and a failed test (IsFalse_True) together with the exception's message
       /// <code>
@@ -412,7 +414,7 @@ namespace MbUnit.Framework
       /// }
       /// </code>
       /// </example>
-      /// <seealso cref="IsFalse(bool)"/>
+      /// <seealso cref="IsFalse(bool,string)"/>
       /// <seealso cref="IsFalse(bool,string,object[])"/>
       static public void IsFalse(bool condition)
       {
@@ -423,20 +425,20 @@ namespace MbUnit.Framework
       #region AreEqual
       /// <summary>
       /// Verifies that two doubles, <paramref name="expected"/> and <paramref name="actual"/>, 
-      /// are equal considering a <paramref name="delta"/>. If the
+      /// are equal given a <paramref name="delta"/>. If the
       /// expected value is infinity then the delta value is ignored. If
-      /// they are not equals then an <see cref="NotEqualsAssertionException"/> is
+      /// they are not equal then a <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is
       /// thrown with the given <paramref name="message"/>.
       /// </summary>
       /// <param name="expected">The expected value</param>
       /// <param name="actual">The actual value</param>
       /// <param name="delta">The maximum acceptable difference between <paramref name="expected"/> and <paramref name="actual"/></param>
       /// <param name="message">The message printed out upon failure</param>
-      /// <exception cref="ArgumentException"><paramref name="delta"/> has been given a negative value.</exception>
-      /// <exception cref="NotEqualAssertionException"><paramref name="expected"/> and <paramref name="actual"/> 
+      /// <exception cref="System.ArgumentException">Thrown if <paramref name="delta"/> has been given a negative value.</exception>
+      /// <exception cref="MbUnit.Core.Exceptions.NotEqualAssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> 
       /// are not values within the given <paramref name="delta"/>.</exception>
       /// <example>
-      /// The following example demonstrates Assert.AreEquals using a different variety of finite and infinite values
+      /// The following example demonstrates <c>Assert.AreEqual</c> using a different variety of finite and infinite values
       /// <code>
       /// using MbUnit.Framework;
       /// namespace AssertDocTests
@@ -496,8 +498,8 @@ namespace MbUnit.Framework
       /// }
       /// </code>
       /// </example>
-      /// <seealso cref="AreEqual(double,double,double)"/>
-      /// <seealso cref="AreEqual(double,double,double,string,object[]"/>
+      /// <seealso cref="AreEqual(double,double,double)" />
+      /// <seealso cref="AreEqual(double,double,double,string,Object[])"/>
       static public void AreEqual(double expected, double actual, double delta, string message)
       {
          // Delta must be positive otherwise the following case fails
@@ -519,16 +521,16 @@ namespace MbUnit.Framework
       /// <summary>
       /// Verifies that two doubles, <paramref name="expected"/> and <paramref name="actual"/>, are equal considering a <paramref name="delta"/>. If the
       /// expected value is infinity then the delta value is ignored. If
-      /// they are not equals then an <see cref="NotEqualsAssertionException"/> is
+      /// they are not equals then an <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is
       /// thrown with no explanation for the failure. Use <see cref="AreEqual(double,double,double,string)"/> if you want to provide an explanation.
       /// </summary>
       /// <param name="expected">The expected value</param>
       /// <param name="actual">The actual value</param>
       /// <param name="delta">The maximum acceptable difference between <paramref name="expected"/> and <paramref name="actual"/></param>
-      /// <exception cref="ArgumentException"><paramref name="delta"/> has been given a negative value.</exception>
-      /// <exception cref="NotEqualAssertionException"><paramref name="expected"/> and <paramref name="actual"/> are not values within the given <paramref name="delta"/>.</exception>
+      /// <exception cref="System.ArgumentException">Thrown if <paramref name="delta"/> has been given a negative value.</exception>
+      /// <exception cref="MbUnit.Core.Exceptions.NotEqualAssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are not values within the given <paramref name="delta"/>.</exception>
       /// <example>
-      /// The following example demonstrates Assert.AreEquals using a different variety of finite and infinite values
+      /// The following example demonstrates Assert.AreEqual using a different variety of finite and infinite values
       /// <code>
       /// using MbUnit.Framework;
       /// namespace AssertDocTests
@@ -598,20 +600,20 @@ namespace MbUnit.Framework
       /// <summary>
       /// Verifies that two doubles, <paramref name="expected"/> and <paramref name="actual"/>, are equal considering a <paramref name="delta"/>. If the
       /// expected value is infinity then the delta value is ignored. If
-      /// they are not equals then an <see cref="NotEqualsAssertionException"/> is thrown
+      /// they are not equal then a <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is thrown
       /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
-      /// through <see cref="http://msdn2.microsoft.com/en-gb/library/b1csw23d.aspx">String.Format()</see>.
+      /// through <see cref="System.String.Format(string, Object[])"/>.
       /// </summary>
       /// <param name="expected">The expected value</param>
       /// <param name="actual">The actual value</param>
       /// <param name="delta">The maximum acceptable difference between <paramref name="expected"/> and <paramref name="actual"/></param>
-      /// <param name="format">A <see cref="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format String</see></param>
+      /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
       /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
-      /// <exception cref="ArgumentException"><paramref name="delta"/> has been given a negative value.</exception>
-      /// <exception cref="NotEqualAssertionException"><paramref name="expected"/> and <paramref name="actual"/> are not values within the given <paramref name="delta"/>.Exception message is generated through 
-      /// <paramref name="format"/> and <paramref name="args"/>.</exception>
+      /// <exception cref="System.ArgumentException">Thrown if <paramref name="delta"/> has been given a negative value.</exception>
+      /// <exception cref="MbUnit.Core.Exceptions.NotEqualAssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are not values within the given <paramref name="delta"/>.
+      /// Exception message is generated through <paramref name="format"/> and <paramref name="args"/>.</exception>
       /// <example>
-      /// The following example demonstrates Assert.AreEquals using a different variety of finite and infinite values
+      /// The following example demonstrates Assert.AreEqual using a different variety of finite and infinite values
       /// <code>
       /// using MbUnit.Framework;
       /// namespace AssertDocTests
@@ -682,18 +684,18 @@ namespace MbUnit.Framework
       /// Verifies that two floats, <paramref name="expected"/> and <paramref name="actual"/>, 
       /// are equal considering a <paramref name="delta"/>. If the
       /// <paramref name="expected"/> value is infinity then the <paramref name="delta"/> value is ignored. If
-      /// they are not equals then an <see cref="NotEqualsAssertionException"/> is
+      /// they are not equal then an <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is
       /// thrown with the given <paramref name="message"/>.
       /// </summary>
       /// <param name="expected">The expected value</param>
       /// <param name="actual">The actual value</param>
       /// <param name="delta">The maximum acceptable difference between <paramref name="expected"/> and <paramref name="actual"/></param>
       /// <param name="message">The message printed out upon failure</param>
-      /// <exception cref="ArgumentException"><paramref name="delta"/> has been given a negative value.</exception>
-      /// <exception cref="NotEqualAssertionException"><paramref name="expected"/> and <paramref name="actual"/> 
+      /// <exception cref="System.ArgumentException">Thrown if <paramref name="delta"/> has been given a negative value.</exception>
+      /// <exception cref="MbUnit.Core.Exceptions.NotEqualAssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> 
       /// are not values within the given <paramref name="delta"/>.</exception>
       /// <example>
-      /// The following example demonstrates Assert.AreEquals using a different variety of finite and infinite values
+      /// The following example demonstrates Assert.AreEqual using a different variety of finite and infinite values
       /// <code>
       ///using MbUnit.Framework;
       ///
@@ -753,8 +755,9 @@ namespace MbUnit.Framework
       ///   }
       ///}
       /// </code>
-      /// <seealso cref="AreEquals(float,float,float)"/>
-      /// <seealso cref="AreEquals(float,float,float,string,object[])"/>
+      /// </example>
+      /// <seealso cref="AreEqual(float,float,float)"/>
+      /// <seealso cref="AreEqual(float,float,float,string,Object[])"/>
       static public void AreEqual(float expected, float actual, float delta, string message)
       {
          // Delta must be positive otherwise the following case fails
@@ -776,20 +779,20 @@ namespace MbUnit.Framework
       /// <summary>
       /// Verifies that two floats, <paramref name="expected"/> and <paramref name="actual"/>, are equal considering a <paramref name="delta"/>. If the
       /// <paramref name="expected"/> value is infinity then the <paramref name="delta"/> value is ignored. If
-      /// they are not equals then an <see cref="NotEqualsAssertionException"/> is thrown
+      /// they are not equals then an <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is thrown
       /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
-      /// through <see cref="http://msdn2.microsoft.com/en-gb/library/b1csw23d.aspx">String.Format()</see>.
+      /// through <see cref="System.String.Format(string, Object[])" />.
       /// </summary>
       /// <param name="expected">The expected value</param>
       /// <param name="actual">The actual value</param>
       /// <param name="delta">The maximum acceptable difference between <paramref name="expected"/> and <paramref name="actual"/></param>
-      /// <param name="format">A <see cref="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format String</see></param>
+      /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
       /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
-      /// <exception cref="ArgumentException"><paramref name="delta"/> has been given a negative value.</exception>
-      /// <exception cref="NotEqualAssertionException"><paramref name="expected"/> and <paramref name="actual"/> are not values within the given <paramref name="delta"/>.
+      /// <exception cref="System.ArgumentException">Thrown if <paramref name="delta"/> has been given a negative value.</exception>
+      /// <exception cref="MbUnit.Core.Exceptions.NotEqualAssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are not values within the given <paramref name="delta"/>.
       /// Exception message is generated through <paramref name="format"/> and <paramref name="args"/>.</exception>
       /// <example>
-      /// The following example demonstrates Assert.AreEquals using a different variety of finite and infinite values
+      /// The following example demonstrates Assert.AreEqual using a different variety of finite and infinite values
       /// <code>
       ///using MbUnit.Framework;
       ///
@@ -861,16 +864,16 @@ namespace MbUnit.Framework
       /// Verifies that two floats, <paramref name="expected"/> and <paramref name="actual"/>, 
       /// are equal considering a <paramref name="delta"/>. If the
       /// <paramref name="expected"/> value is infinity then the <paramref name="delta"/> value is ignored. If
-      /// they are not equals then an <see cref="NotEqualsAssertionException"/> is thrown.
+      /// they are not equals then an <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is thrown.
       /// </summary>
       /// <param name="expected">The expected value</param>
       /// <param name="actual">The actual value</param>
       /// <param name="delta">The maximum acceptable difference between <paramref name="expected"/> and <paramref name="actual"/></param>
-      /// <exception cref="ArgumentException"><paramref name="delta"/> has been given a negative value.</exception>
-      /// <exception cref="NotEqualAssertionException"><paramref name="expected"/> and <paramref name="actual"/> 
+      /// <exception cref="System.ArgumentException">Thrown if <paramref name="delta"/> has been given a negative value.</exception>
+      /// <exception cref="MbUnit.Core.Exceptions.NotEqualAssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> 
       /// are not values within the given <paramref name="delta"/>.</exception>
       /// <example>
-      /// The following example demonstrates Assert.AreEquals using a different variety of finite and infinite values
+      /// The following example demonstrates Assert.AreEqual using a different variety of finite and infinite values
       /// <code>
       ///using MbUnit.Framework;
       ///
@@ -932,7 +935,7 @@ namespace MbUnit.Framework
       /// </code>
       /// </example>
       /// <seealso cref="AreEqual(float,float,float,string)"/>
-      /// <seealso cref="AreEqual(float,float,float,string,object[]"/>
+      /// <seealso cref="AreEqual(float,float,float,string,object[])"/>
       static public void AreEqual(float expected, float actual, float delta)
       {
          Assert.AreEqual(expected, actual, delta, string.Empty);
@@ -940,14 +943,14 @@ namespace MbUnit.Framework
 
       /// <summary>
       /// Verifies that two decimals, <paramref name="expected"/> and <paramref name="actual"/>, are equal.
-      /// If they are not equal then an <see cref="NotEqualsAssertionException"/> is thrown with the given <paramref name="message"/>.
+      /// If they are not equal then an <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is thrown with the given <paramref name="message"/>.
       /// </summary>
       /// <param name="expected">The expected value</param>
       /// <param name="actual">The actual value</param>
       /// <param name="message">The message printed out upon failure</param>
-      /// <exception cref="NotEqualAssertionException"><paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
+      /// <exception cref="MbUnit.Core.Exceptions.NotEqualAssertionException"><paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
       /// <example>
-      /// The following example demonstrates Assert.AreEquals using a different variety of values
+      /// The following example demonstrates Assert.AreEqual using a different variety of values
       /// <code>
       /// using MbUnit.Framework;
       /// 
@@ -962,7 +965,7 @@ namespace MbUnit.Framework
       ///       {
       ///          Assert.AreEqual(1.0m, 1.0m, "These values are not equal");
       ///       }
-
+      ///
       ///       // This test fails with a NotEqualAssertionException
       ///       [Test]
       ///       public void AreEqual_DifferentValues()
@@ -972,8 +975,9 @@ namespace MbUnit.Framework
       ///    }
       /// }
       /// </code>
-      /// <seealso cref="AreEquals(decimal,decimal)"/>
-      /// <seealso cref="AreEquals(decimal,decimal,string,object[])"/>
+      /// </example>
+      /// <seealso cref="AreEqual(decimal,decimal)"/>
+      /// <seealso cref="AreEqual(decimal,decimal,string,Object[])"/>
       static public void AreEqual(decimal expected, decimal actual, string message)
       {
          Assert.IncrementAssertCount();
@@ -983,17 +987,17 @@ namespace MbUnit.Framework
 
       /// <summary>
       /// Verifies that two decimals, <paramref name="expected"/> and <paramref name="actual"/>, are equal.
-      /// If they are not equal then an <see cref="NotEqualsAssertionException"/> is thrown 
+      /// If they are not equal then a <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is thrown 
       /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
-      /// through <see cref="http://msdn2.microsoft.com/en-gb/library/b1csw23d.aspx">String.Format()</see>.
+      /// through <see cref="System.String.Format(String, Object[]) " />.
       /// </summary>
       /// <param name="expected">The expected value</param>
       /// <param name="actual">The actual value</param>
-      /// <param name="format">A <see cref="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format String</see></param>
+      /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
       /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
-      /// <exception cref="NotEqualAssertionException"><paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
+      /// <exception cref="MbUnit.Core.Exceptions.NotEqualAssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
       /// <example>
-      /// The following example demonstrates Assert.AreEquals using a different variety of values
+      /// The following example demonstrates Assert.AreEqual using a different variety of values
       /// <code>
       /// using MbUnit.Framework;
       /// 
@@ -1008,7 +1012,7 @@ namespace MbUnit.Framework
       ///       {
       ///          Assert.AreEqual(1.0m, 1.0m, "Test failed at {0}", DateTime.Now.ToString());
       ///       }
-
+      ///
       ///       // This test fails with a NotEqualAssertionException
       ///       [Test]
       ///       public void AreEqual_DifferentValues()
@@ -1018,8 +1022,9 @@ namespace MbUnit.Framework
       ///    }
       /// }
       /// </code>
-      /// <seealso cref="AreEquals(decimal,decimal)"/>
-      /// <seealso cref="AreEquals(decimal,decimal,string)"/>
+      /// </example>
+      /// <seealso cref="AreEqual(decimal,decimal)"/>
+      /// <seealso cref="AreEqual(decimal,decimal,string)"/>
       static public void AreEqual(decimal expected, decimal actual, string format, params object[] args)
       {
          Assert.IncrementAssertCount();
@@ -1029,13 +1034,13 @@ namespace MbUnit.Framework
 
       /// <summary>
       /// Verifies that two decimals, <paramref name="expected"/> and <paramref name="actual"/>, are equal.
-      /// If they are not equal then an <see cref="NotEqualsAssertionException"/> is thrown. 
+      /// If they are not equal then a <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is thrown. 
       /// </summary>
       /// <param name="expected">The expected value</param>
       /// <param name="actual">The actual value</param>
-      /// <exception cref="NotEqualAssertionException"><paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
+      /// <exception cref="MbUnit.Core.Exceptions.NotEqualAssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
       /// <example>
-      /// The following example demonstrates Assert.AreEquals using a different variety of values
+      /// The following example demonstrates Assert.AreEqual using a different variety of values
       /// <code>
       /// using MbUnit.Framework;
       /// 
@@ -1050,7 +1055,7 @@ namespace MbUnit.Framework
       ///       {
       ///          Assert.AreEqual(1.0m, 1.0m);
       ///       }
-
+      ///
       ///       // This test fails with a NotEqualAssertionException
       ///       [Test]
       ///       public void AreEqual_DifferentValues()
@@ -1060,8 +1065,9 @@ namespace MbUnit.Framework
       ///    }
       /// }
       /// </code>
-      /// <seealso cref="AreEquals(decimal,decimal,string)"/>
-      /// <seealso cref="AreEquals(decimal,decimal,string,object[])"/>
+      /// </example>
+      /// <seealso cref="AreEqual(decimal,decimal,string)"/>
+      /// <seealso cref="AreEqual(decimal,decimal,string,object[])"/>
       static public void AreEqual(decimal expected, decimal actual)
       {
          Assert.AreEqual(expected, actual, string.Empty);
@@ -1069,14 +1075,14 @@ namespace MbUnit.Framework
 
       /// <summary>
       /// Verifies that two integers, <paramref name="expected"/> and <paramref name="actual"/>, are equal.
-      /// If they are not equal then an <see cref="NotEqualsAssertionException"/> is thrown with the given <paramref name="message"/>.
+      /// If they are not equal then a <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is thrown with the given <paramref name="message"/>.
       /// </summary>
       /// <param name="expected">The expected value</param>
       /// <param name="actual">The actual value</param>
       /// <param name="message">The message printed out upon failure</param>
-      /// <exception cref="NotEqualAssertionException"><paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
+      /// <exception cref="MbUnit.Core.Exceptions.NotEqualAssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
       /// <example>
-      /// The following example demonstrates Assert.AreEquals using a different variety of values
+      /// The following example demonstrates Assert.AreEqual using a different variety of values
       /// <code>
       /// using MbUnit.Framework;
       /// 
@@ -1091,7 +1097,7 @@ namespace MbUnit.Framework
       ///       {
       ///          Assert.AreEqual(1, 1, "These values are not equal");
       ///       }
-
+      ///
       ///       // This test fails with a NotEqualAssertionException
       ///       [Test]
       ///       public void AreEqual_DifferentValues()
@@ -1101,8 +1107,9 @@ namespace MbUnit.Framework
       ///    }
       /// }
       /// </code>
-      /// <seealso cref="AreEquals(int,int)"/>
-      /// <seealso cref="AreEquals(int,int,string,object[])"/>
+      /// </example>
+      /// <seealso cref="AreEqual(int,int)"/>
+      /// <seealso cref="AreEqual(int,int,string,Object[])"/>
       static public void AreEqual(int expected, int actual, string message)
       {
          Assert.IncrementAssertCount();
@@ -1112,17 +1119,17 @@ namespace MbUnit.Framework
 
       /// <summary>
       /// Verifies that two integers, <paramref name="expected"/> and <paramref name="actual"/>, are equal.
-      /// If they are not equal then an <see cref="NotEqualsAssertionException"/> is thrown 
+      /// If they are not equal then an <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is thrown 
       /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
-      /// through <see cref="http://msdn2.microsoft.com/en-gb/library/b1csw23d.aspx">String.Format()</see>.
+      /// through <see cref="System.String.Format(String, Object[]) " />.
       /// </summary>
       /// <param name="expected">The expected value</param>
       /// <param name="actual">The actual value</param>
-      /// <param name="format">A <see cref="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format String</see></param>
+      /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
       /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
-      /// <exception cref="NotEqualAssertionException"><paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
+      /// <exception cref="MbUnit.Core.Exceptions.NotEqualAssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
       /// <example>
-      /// The following example demonstrates Assert.AreEquals using a different variety of values
+      /// The following example demonstrates Assert.AreEqual using a different variety of values
       /// <code>
       /// using MbUnit.Framework;
       /// 
@@ -1137,7 +1144,7 @@ namespace MbUnit.Framework
       ///       {
       ///          Assert.AreEqual(1, 1, "Test failed at {0}", DateTime.Now.ToString());
       ///       }
-
+      ///
       ///       // This test fails with a NotEqualAssertionException
       ///       [Test]
       ///       public void AreEqual_DifferentValues()
@@ -1147,8 +1154,9 @@ namespace MbUnit.Framework
       ///    }
       /// }
       /// </code>
-      /// <seealso cref="AreEquals(int,int)"/>
-      /// <seealso cref="AreEquals(int,int,string)"/>
+      /// </example>
+      /// <seealso cref="AreEqual(int,int)"/>
+      /// <seealso cref="AreEqual(int,int,string)"/>
       static public void AreEqual(int expected, int actual, string format, params object[] args)
       {
          Assert.IncrementAssertCount();
@@ -1158,13 +1166,13 @@ namespace MbUnit.Framework
 
       /// <summary>
       /// Verifies that two integers, <paramref name="expected"/> and <paramref name="actual"/>, are equal.
-      /// If they are not equal then an <see cref="NotEqualsAssertionException"/> is thrown. 
+      /// If they are not equal then a <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is thrown. 
       /// </summary>
       /// <param name="expected">The expected value</param>
       /// <param name="actual">The actual value</param>
-      /// <exception cref="NotEqualAssertionException"><paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
+      /// <exception cref="MbUnit.Core.Exceptions.NotEqualAssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
       /// <example>
-      /// The following example demonstrates Assert.AreEquals using a different variety of values
+      /// The following example demonstrates Assert.AreEqual using a different variety of values
       /// <code>
       /// using MbUnit.Framework;
       /// 
@@ -1179,7 +1187,7 @@ namespace MbUnit.Framework
       ///       {
       ///          Assert.AreEqual(1, 1);
       ///       }
-
+      ///
       ///       // This test fails with a NotEqualAssertionException
       ///       [Test]
       ///       public void AreEqual_DifferentValues()
@@ -1189,8 +1197,9 @@ namespace MbUnit.Framework
       ///    }
       /// }
       /// </code>
-      /// <seealso cref="AreEquals(int,int,string)"/>
-      /// <seealso cref="AreEquals(int,int,string,object[])"/>
+      /// </example>
+      /// <seealso cref="AreEqual(int,int,string)"/>
+      /// <seealso cref="AreEqual(int,int,string,object[])"/>
       static public void AreEqual(int expected, int actual)
       {
          Assert.AreEqual(expected, actual, string.Empty);
@@ -1198,17 +1207,18 @@ namespace MbUnit.Framework
 
       /// <summary>
       /// Verifies that two objects, <paramref name="expected"/> and <paramref name="actual"/>, are equal.
-      /// If they are not equal then an <see cref="NotEqualsAssertionException"/> is thrown 
+      /// If they are not equal then a <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is thrown 
       /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
-      /// through <see cref="http://msdn2.microsoft.com/en-gb/library/b1csw23d.aspx">String.Format()</see>.
+      /// through <see cref="System.String.Format(string, Object[])" />.
       /// </summary>
       /// <param name="expected">The expected value</param>
       /// <param name="actual">The actual value</param>
-      /// <param name="format">A <see cref="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format String</see></param>
+      /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
       /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
-      /// <exception cref="NotEqualAssertionException"><paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
+      /// <exception cref="MbUnit.Core.Exceptions.NotEqualAssertionException">
+      /// Thrown if <paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
       /// <example>
-      /// The following example demonstrates Assert.AreEquals using a different variety of values
+      /// The following example demonstrates Assert.AreEqual using a different variety of values
       /// <code>
       /// using MbUnit.Framework;
       ///
@@ -1273,18 +1283,19 @@ namespace MbUnit.Framework
       ///    }
       /// }
       /// </code>
+      /// </example>
       /// <remarks>
       /// In this case, the two objects are considered equal if either
       /// <list type="bullet">
       /// <item>Both objects are null</item>
       /// <item>Both objects have the same value when compared using their <c>Equals</c> method.</item>
       /// </list>
-      /// If the object does not have Equals defined for it, a <see cref="NotEqualsAssertionException"/> is thrown. 
+      /// If the object does not have an Equals method defined for it, a <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is thrown. 
       /// Compare and contrast this with <see cref="AreSame(Object,Object,string,object[])"/> which returns true if <paramref name="expected"/> and <paramref name="actual"/>
       /// are references to the same object rather than two objects which are equal in some defined way.
       /// </remarks>
-      /// <seealso cref="AreEquals(Object,Object)"/>
-      /// <seealso cref="AreEquals(Object,Object,string)"/>
+      /// <seealso cref="AreEqual(Object,Object)"/>
+      /// <seealso cref="AreEqual(Object,Object,string)"/>
       static public void AreEqual(Object expected, Object actual, string format, params object[] args)
       {
          AreEqual(expected, actual, String.Format(format, args));
@@ -1292,14 +1303,14 @@ namespace MbUnit.Framework
 
       /// <summary>
       /// Verifies that two objects, <paramref name="expected"/> and <paramref name="actual"/>, are equal.
-      /// If they are not equal then an <see cref="NotEqualsAssertionException"/> is thrown with a given <paramref name="message"/>.
+      /// If they are not equal then an <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is thrown with a given <paramref name="message"/>.
       /// </summary>
       /// <param name="expected">The expected value</param>
       /// <param name="actual">The actual value</param>
       /// <param name="message">The message printed out upon failure</param>
-      /// <exception cref="NotEqualAssertionException"><paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
+      /// <exception cref="MbUnit.Core.Exceptions.NotEqualAssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
       /// <example>
-      /// The following example demonstrates Assert.AreEquals using a different variety of values
+      /// The following example demonstrates Assert.AreEqual using a different variety of values
       /// <code>
       /// using MbUnit.Framework;
       ///
@@ -1364,18 +1375,19 @@ namespace MbUnit.Framework
       ///    }
       /// }
       /// </code>
+      /// </example>
       /// <remarks>
       /// In this case, the two objects are considered equal if either
       /// <list type="bullet">
       /// <item>Both objects are null</item>
       /// <item>Both objects have the same value when compared using their <c>Equals</c> method.</item>
       /// </list>
-      /// If the object does not have Equals defined for it, a <see cref="NotEqualsAssertionException"/> is thrown.
+      /// If the object does not have Equals defined for it, a <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is thrown.
       /// Compare and contrast this with <see cref="AreSame(Object,Object,string)"/> which returns true if <paramref name="expected"/> and <paramref name="actual"/>
       /// are references to the same object rather than two objects which are equal in some defined way.
       /// </remarks>
-      /// <seealso cref="AreEquals(Object,Object)"/>
-      /// <seealso cref="AreEquals(Object,Object,string,object[])"/>
+      /// <seealso cref="AreEqual(Object,Object)"/>
+      /// <seealso cref="AreEqual(Object,Object,string,object[])"/>
       static public void AreEqual(Object expected, Object actual, string message)
       {
          Assert.IncrementAssertCount();
@@ -1393,13 +1405,13 @@ namespace MbUnit.Framework
 
       /// <summary>
       /// Verifies that two objects, <paramref name="expected"/> and <paramref name="actual"/>, are equal.
-      /// If they are not equal then an <see cref="NotEqualsAssertionException"/> is thrown.
+      /// If they are not equal then an <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is thrown.
       /// </summary>
       /// <param name="expected">The expected value</param>
       /// <param name="actual">The actual value</param>
-      /// <exception cref="NotEqualAssertionException"><paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
+      /// <exception cref="MbUnit.Core.Exceptions.NotEqualAssertionException"><paramref name="expected"/> and <paramref name="actual"/> are not equal.</exception>
       /// <example>
-      /// The following example demonstrates Assert.AreEquals using a different variety of values
+      /// The following example demonstrates Assert.AreEqual using a different variety of values
       /// <code>
       /// using MbUnit.Framework;
       ///
@@ -1464,39 +1476,125 @@ namespace MbUnit.Framework
       ///    }
       /// }
       /// </code>
+      /// </example>
       /// <remarks>
       /// In this case, the two objects are considered equal if either
       /// <list type="bullet">
       /// <item>Both objects are null</item>
       /// <item>Both objects have the same value when compared using their <c>Equals</c> method.</item>
       /// </list>
-      /// If the object does not have Equals defined for it, a <see cref="NotEqualsAssertionException"/> is thrown.
+      /// If the object does not have Equals defined for it, a <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is thrown.
       /// Compare and contrast this with <see cref="AreSame(Object,Object)"/> which returns true if <paramref name="expected"/> and <paramref name="actual"/>
       /// are references to the same object rather than two objects which are equal in some defined way.      
       /// </remarks>
-      /// <seealso cref="AreEquals(Object,Object,string)"/>
-      /// <seealso cref="AreEquals(Object,Object,string,object[])"/>
+      /// <seealso cref="AreEqual(Object,Object,string)"/>
+      /// <seealso cref="AreEqual(Object,Object,string,object[])"/>
       static public void AreEqual(Object expected, Object actual)
       {
          Assert.AreEqual(expected, actual, string.Empty);
       }
 
       /// <summary>
-      /// Verifies that the value of the property described by <paramref name="pi"/> is the same
-      /// in both ojects.
+      /// Verifies that given two objects, <paramref name="expected"/> and <paramref name="actual"/>, 
+      /// the property described by the <see cref="System.Reflection.PropertyInfo" /> object <paramref name="pi"/>
+      /// is present in both objects, is not null, and that the value of the property in both objects is equal.
       /// </summary>
-      /// <param name="pi">
-      /// Property describing the value to test
-      /// </param>
-      /// <param name="expected">
-      /// Reference object
-      /// </param>
-      /// <param name="actual">
-      /// Actual object
-      /// </param>
-      /// <param name="indices">
-      /// Index of the property.
-      /// </param>
+      /// <param name="pi">The <see cref="System.Reflection.PropertyInfo" /> object indicating the property to be tested</param>
+      /// <param name="expected">The object containing the expected value of the property</param>
+      /// <param name="actual">The object containing the actual value of the property</param>
+      /// <param name="indices">The index of the value in the property if it is an indexed property</param>
+      /// <exception cref="AssertionException">One or both of <paramref name="expected"/> and <paramref name="actual"/> are null</exception>
+      /// <exception cref="AssertionException">The property that <paramref name="pi"/> describes is not present in either <paramref name="expected"/> or <paramref name="actual"/></exception>
+      /// <exception cref="NotEqualAssertionException">The property values in <paramref name="expected"/> and <paramref name="actual"/> are not equal</exception>
+      /// <remarks>Using the <see cref="System.Reflection.PropertyInfo.GetInfo(Object, Object[])" /> method to retrieve the actual values for comaprison</remarks>
+      /// <example>
+      /// <para>The following example demonstrates <c>Assert.AreValueEqual()</c> in five different ways showing its various pass and fail scenarios.</para> 
+      /// <para>Note that <c>AreValueEqual_PropertyNotPresentInOneObject()</c> below fails because the <see cref="System.String"/> class has a <see cref="System.String.Chars" />
+      /// property while the string value type does not. (One capitalised letter makes all the difference)</para>
+      /// <code>
+      ///using System;
+      ///using System.Reflection;
+      ///using MbUnit.Framework;
+      ///
+      ///namespace MbUnitAssertDocs
+      ///{
+      ///   [TestFixture]
+      ///   public class AreValueEqualTests
+      ///   {
+      ///      //This test passes
+      ///      [Test]
+      ///      public void AreValueEqual_SameValues()
+      ///      {
+      ///         // Create two arrays
+      ///         String[] a = new String[4] { "this", "is", "a", "test" };
+      ///         String[] b = new String[4] { "this", "is", "a", "camel" };
+      ///
+      ///         // Generate the PropertyInfo object for an array's length
+      ///         PropertyInfo pi = typeof(Array).GetProperty("Length");
+      ///
+      ///         Assert.AreValueEqual(pi, a, b);
+      ///      }
+      ///
+      ///      //This test passes
+      ///      [Test]
+      ///      public void AreValueEqual_SameValuesUsingIndices()
+      ///      {
+      ///         // Create two strings
+      ///         String a = "this is a test";
+      ///         String b = "this is a camel";
+      ///
+      ///         // Generate the PropertyInfo object for the string as a Char array 
+      ///         PropertyInfo pi = typeof(String).GetProperty("Chars");
+      ///
+      ///         // Test the fourth letter
+      ///         Assert.AreValueEqual(pi, a, b, new Object[] {4});
+      ///      }
+      ///
+      ///      // This test fails with an AssertionException
+      ///      [Test]
+      ///      public void AreValueEqual_OneValueIsNull()
+      ///      {
+      ///         // Create two arrays
+      ///         String[] a = new String[4] { "this", "is", "a", "test" };
+      ///
+      ///         // Generate the PropertyInfo object for an array's length
+      ///         PropertyInfo pi = typeof(Array).GetProperty("Length");
+      ///
+      ///         Assert.AreValueEqual(pi, a, null);
+      ///      }
+      ///
+      ///      //This test fails with an AssertionException
+      ///      [Test]
+      ///      public void AreValueEqual_PropertyNotPresentInOneObject()
+      ///      {
+      ///         // Create two arrays
+      ///         String[] a = new String[4] { "this", "is", "a", "test" };
+      ///         string[] b = new string[4] { "this", "is", "a", "camel" };
+      ///
+      ///         // Generate the PropertyInfo object for an array's length
+      ///         PropertyInfo pi = typeof(Array).GetProperty("Chars");
+      ///
+      ///         Assert.AreValueEqual(pi, a, b, new Object[] {4});
+      ///      }
+      ///
+      ///      //This test fails with a NotEqualAssertionException
+      ///      [Test]
+      ///      public void AreValueEqual_DifferentValues()
+      ///      {
+      ///         // Create two strings
+      ///         String a = "this is a test";
+      ///         String b = "this is a camel";
+      ///
+      ///         // Generate the PropertyInfo object for the string as a Char array 
+      ///         PropertyInfo pi = typeof(String).GetProperty("Chars");
+      ///
+      ///         // Test the tenth letter
+      ///         Assert.AreValueEqual(pi, a, b, new Object[] { 10 });
+      ///      }
+      ///   }
+      ///}
+      /// </code>
+      /// </example>
       static public void AreValueEqual(PropertyInfo pi, Object expected, Object actual, params Object[] indices)
       {
          Assert.IsNotNull(expected);
@@ -1521,28 +1619,42 @@ namespace MbUnit.Framework
 
       #region AreNotEqual
 
-      //NUnit Code
       #region Objects
       /// <summary>
-      /// Asserts that two objects are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two objects, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If they are equal then an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
+      /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+      /// through <see cref="System.String.Format(string,object[])" />.
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
-      /// <param name="message">The message to be displayed when the two objects are the same object.</param>
-      /// <param name="args">Arguments to be used in formatting the message</param>
+      /// <param name="expected">The expected value</param>
+      /// <param name="actual">The actual value</param>
+      /// <param name="message">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+      /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+      /// <remarks>
+      /// In this case, the two objects are considered not equal if 
+      /// <list type="bullet">
+      /// <item>One object is null but the other is not</item>
+      /// <item>The objects are not equal according to their <c>Equals</c> method.</item>
+      /// </list>
+      /// If the object does not have Equals defined for it, a 
+      /// </remarks>
+      /// <seealso cref="AreNotEqual(Object,Object)"/>
+      /// <seealso cref="AreNotEqual(Object,Object,string)"/>
       static public void AreNotEqual(Object expected, Object actual, string message, params object[] args)
       {
          AreNotEqual(expected, actual, String.Format(message, args));
       }
 
       /// <summary>
-      /// Asserts that two objects are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two objects, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If they are equal then an <see cref="AssertionException"/> is thrown 
+      /// with a message given in <paramref name="message"/>.
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
-      /// <param name="message">The message to be displayed when the objects are the same</param>
+      /// <param name="expected">The expected value</param>
+      /// <param name="actual">The actual value</param>
+      /// <param name="message">The message given on failure</param>
+      /// <seealso cref="AreNotEqual(Object,Object)"/>
+      /// <seealso cref="AreNotEqual(Object,Object,string,object[])"/>
       static public void AreNotEqual(Object expected, Object actual, string message)
       {
          Assert.IncrementAssertCount();
@@ -1555,11 +1667,13 @@ namespace MbUnit.Framework
       }
 
       /// <summary>
-      /// Asserts that two objects are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two objects, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If they are equal then an <see cref="AssertionException"/> is thrown.
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
+      /// <param name="expected">The expected value</param>
+      /// <param name="actual">The actual value</param>
+      /// <seealso cref="AreNotEqual(Object,Object,string)"/>
+      /// <seealso cref="AreNotEqual(Object,Object,string,object[])"/>
       static public void AreNotEqual(Object expected, Object actual)
       {
          Assert.AreNotEqual(expected, actual, string.Empty);
