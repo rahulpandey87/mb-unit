@@ -32,7 +32,7 @@ namespace MbUnit.Core.Exceptions
 	
 	
 	[Serializable]
-	public class ConstructorNotFoundException : System.Exception 
+	public class ConstructorNotFoundException : Exception 
 	{
 		private Type type;
 		private Type[] parameters;

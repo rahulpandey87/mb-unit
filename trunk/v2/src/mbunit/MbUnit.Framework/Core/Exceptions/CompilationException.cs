@@ -32,13 +32,22 @@ using System.CodeDom.Compiler;
 
 namespace MbUnit.Core.Exceptions
 {
-	/// <summary>
-	/// Exception throwed when not finding a vertex.
-	/// </summary>
+
+   /// <summary>
+   /// Exception thrown when not finding a vertex.
+   /// </summary>
 	[Serializable]
 	public class CompilationException : AssertionException
 	{		
 		private string message;
+
+      /// <summary>
+      /// Initializes a <see cref="CompilationException"/> including details of test compilation failure
+      /// </summary>
+      /// <param name="compiler">The <see cref="System.CodeDom.Compiler.ICodeCompiler"/> being used in the compilation</param>
+      /// <param name="parameters">The <see cref="System.CodeDom.Compiler.CompilerParameters"/> that were sent to the <paramref name="compiler"/></param>
+      /// <param name="results">The <see cref="System.CodeDom.Compiler.CompilerResults"/> sent back from the compiler</param>
+      /// <param name="sources">An array of source (code) being compiled</param>
 		public CompilationException(
 			ICodeCompiler compiler,
 			CompilerParameters parameters,
@@ -61,6 +70,9 @@ namespace MbUnit.Core.Exceptions
 			this.message =sw.ToString();
 		}
 
+      /// <summary>
+      /// The exception message
+      /// </summary>
 		public override string Message
 		{
 			get

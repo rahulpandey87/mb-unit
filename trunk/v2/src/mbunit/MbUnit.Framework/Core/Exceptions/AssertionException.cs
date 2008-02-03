@@ -39,24 +39,37 @@ namespace MbUnit.Core.Exceptions
 	public class AssertionException : ApplicationException 
 	{
 		/// <summary>
-		/// Initializes an empty <see cref="AssertionException"/>
-		/// instance.
+		/// Initializes an empty <see cref="AssertionException"/> instance.
 		/// </summary>
 		public AssertionException()
 		   :base()
 		{}
 		
+      /// <summary>
+      /// Initializes an <see cref="AssertionException"/> with the given assertion failure <paramref name="message"/>
+      /// </summary>
+      /// <param name="message">The message detailing the assertion failure</param>
 		public AssertionException(
 			String message)
 		:base(message)
 		{}
 		
+      /// <summary>
+      /// Initializes an <see cref="AssertionException"/> with the given serialization <paramref name="info"/> and <paramref name="context"/>
+      /// </summary>
+      /// <param name="info">Details of the serialization issue</param>
+      /// <param name="context">The streaming context within which it occured</param>
 		protected AssertionException(
 			SerializationInfo info, 
 			StreamingContext context)
 		:base(info,context)
 		{}
 		
+      /// <summary>
+      /// Initializes an <see cref="AssertionException"/> with the given assertion failure <paramref name="message"/> and <paramref name="innerException"/>
+      /// </summary>
+      /// <param name="message">The message detailing the assertion failure</param>
+      /// <param name="innerException">The exception to pass on</param>
 		public AssertionException(
 		    string message, 
 		    Exception innerException

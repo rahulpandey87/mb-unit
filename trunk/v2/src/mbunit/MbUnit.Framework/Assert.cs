@@ -423,6 +423,8 @@ namespace MbUnit.Framework
       #endregion
 
       #region AreEqual
+
+      #region Doubles
       /// <summary>
       /// Verifies that two doubles, <paramref name="expected"/> and <paramref name="actual"/>, 
       /// are equal given a <paramref name="delta"/>. If the
@@ -680,6 +682,9 @@ namespace MbUnit.Framework
          AreEqual(expected, actual, delta, String.Format(format, args));
       }
 
+      #endregion
+
+      #region floats
       /// <summary>
       /// Verifies that two floats, <paramref name="expected"/> and <paramref name="actual"/>, 
       /// are equal considering a <paramref name="delta"/>. If the
@@ -941,6 +946,10 @@ namespace MbUnit.Framework
          Assert.AreEqual(expected, actual, delta, string.Empty);
       }
 
+      #endregion
+
+      #region decimals
+
       /// <summary>
       /// Verifies that two decimals, <paramref name="expected"/> and <paramref name="actual"/>, are equal.
       /// If they are not equal then an <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is thrown with the given <paramref name="message"/>.
@@ -1072,6 +1081,10 @@ namespace MbUnit.Framework
       {
          Assert.AreEqual(expected, actual, string.Empty);
       }
+
+      #endregion
+
+      #region integers
 
       /// <summary>
       /// Verifies that two integers, <paramref name="expected"/> and <paramref name="actual"/>, are equal.
@@ -1205,6 +1218,9 @@ namespace MbUnit.Framework
          Assert.AreEqual(expected, actual, string.Empty);
       }
 
+      #endregion
+
+      #region objects
       /// <summary>
       /// Verifies that two objects, <paramref name="expected"/> and <paramref name="actual"/>, are equal.
       /// If they are not equal then a <see cref="MbUnit.Core.Exceptions.NotEqualAssertionException"/> is thrown 
@@ -1506,7 +1522,7 @@ namespace MbUnit.Framework
       /// <exception cref="AssertionException">One or both of <paramref name="expected"/> and <paramref name="actual"/> are null</exception>
       /// <exception cref="AssertionException">The property that <paramref name="pi"/> describes is not present in either <paramref name="expected"/> or <paramref name="actual"/></exception>
       /// <exception cref="NotEqualAssertionException">The property values in <paramref name="expected"/> and <paramref name="actual"/> are not equal</exception>
-      /// <remarks>Using the <see cref="System.Reflection.PropertyInfo.GetInfo(Object, Object[])" /> method to retrieve the actual values for comaprison</remarks>
+      /// <remarks>Uses the <see cref="System.Reflection.PropertyInfo.GetValue(Object, Object[])" /> method to retrieve the actual values for comparison</remarks>
       /// <example>
       /// <para>The following example demonstrates <c>Assert.AreValueEqual()</c> in five different ways showing its various pass and fail scenarios.</para> 
       /// <para>Note that <c>AreValueEqual_PropertyNotPresentInOneObject()</c> below fails because the <see cref="System.String"/> class has a <see cref="System.String.Chars" />
@@ -1615,46 +1631,200 @@ namespace MbUnit.Framework
                                        )
                          );
       }
+
+      #endregion
+
       #endregion
 
       #region AreNotEqual
 
       #region Objects
+
       /// <summary>
-      /// Verifies that two objects, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
-      /// If they are equal then an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
-      /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
-      /// through <see cref="System.String.Format(string,object[])" />.
+      /// Verifies that two <see cref="Object"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the <see cref="Object"/>s are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
+      /// with a message defined via <paramref name="format"/> and <paramref name="args"/> through <see cref="System.String.Format(string, object[])" />.
       /// </summary>
-      /// <param name="expected">The expected value</param>
-      /// <param name="actual">The actual value</param>
-      /// <param name="message">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+      /// <param name="expected">The <see cref="Object"/> to compare</param>
+      /// <param name="actual">The <see cref="Object"/> being compared</param>
+      /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
       /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
       /// <remarks>
-      /// In this case, the two objects are considered not equal if 
+      /// In this context, two objects are considered not equal if
       /// <list type="bullet">
-      /// <item>One object is null but the other is not</item>
-      /// <item>The objects are not equal according to their <c>Equals</c> method.</item>
+      /// <item>One of <paramref name="expected"/> and <paramref name="actual"/> are null - but not both</item>
+      /// <item>The objects are numeric and their string representation are not equal</item>
+      /// <item>The objects are arrays and their dimensions and contents are not equal</item>
+      /// <item>Their values according to their Equals() method are not equal. 
+      ///   <b>Note that if a class does not define an Equals method, two objects of that class will always be inequal even if they have the same value</b>
+      /// </item>
       /// </list>
-      /// If the object does not have Equals defined for it, a 
       /// </remarks>
       /// <seealso cref="AreNotEqual(Object,Object)"/>
-      /// <seealso cref="AreNotEqual(Object,Object,string)"/>
-      static public void AreNotEqual(Object expected, Object actual, string message, params object[] args)
+      /// <seealso cref="AreNotEqual(Object,Object,String)"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System;
+      ///using MbUnit.Framework;
+      ///
+      ///namespace AssertDocTests
+      ///{
+      ///   [TestFixture]
+      ///   public class AreNotEqualObjects
+      ///   {
+      ///      //This test passes
+      ///      [Test]
+      ///      public void AreNotEqual_ObjectsNotEqual()
+      ///      {
+      ///         Assert.AreNotEqual("Test", "Exam",  "Test failed at {0}", DateTime.Now.ToString());
+      ///      }
+      ///
+      ///      // This test fails : objects are equal
+      ///      [Test]
+      ///      public void AreNotEqual_EqualObjects()
+      ///      {
+      ///         Assert.AreNotEqual("Test", "Test",  "Test failed at {0}", DateTime.Now.ToString());
+      ///      }
+      ///
+      ///      //This test passes : expected value is null
+      ///      [Test]
+      ///      public void AreNotEqual_ExpectedIsNull()
+      ///      {
+      ///         Assert.AreNotEqual(null, "Test",  "Test failed at {0}", DateTime.Now.ToString());
+      ///      }
+      ///
+      ///      //This test passes : actual value is null
+      ///      [Test]
+      ///      public void AreNotEqual_ActualIsNull()
+      ///      {
+      ///         Assert.AreNotEqual("Test", null,  "Test failed at {0}", DateTime.Now.ToString());
+      ///      }
+      ///
+      ///      //This test fails : both values are null
+      ///      [Test]
+      ///      public void AreNotEqual_BothObjectsAreNull()
+      ///      {
+      ///         Assert.AreNotEqual(null, null, "Test failed at {0}", DateTime.Now.ToString());
+      ///      }
+      ///
+      ///      // This test passes
+      ///      [Test]
+      ///      public void AreNotEqual_ObjectHasNoEqualsMethod()
+      ///      {
+      ///         Assert.AreNotEqual(new TestObject("London", "drunk"), new TestObject("London", "drunk"), "Test failed at {0}", DateTime.Now.ToString());
+      ///      }
+      ///   }
+      ///
+      ///   public class TestObject
+      ///   {
+      ///      public string city;
+      ///      public string state;
+      ///
+      ///      public TestObject(string a, string b)
+      ///      {
+      ///         city = a;
+      ///         state = b;
+      ///      }
+      ///   }
+      ///}
+      /// </code>
+      /// </example>
+      static public void AreNotEqual(Object expected, Object actual, string format, params object[] args)
       {
-         AreNotEqual(expected, actual, String.Format(message, args));
+         AreNotEqual(expected, actual, String.Format(format, args));
       }
 
       /// <summary>
-      /// Verifies that two objects, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
-      /// If they are equal then an <see cref="AssertionException"/> is thrown 
-      /// with a message given in <paramref name="message"/>.
+      /// Verifies that two <see cref="Object"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the <see cref="Object"/>s are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>
       /// </summary>
-      /// <param name="expected">The expected value</param>
-      /// <param name="actual">The actual value</param>
-      /// <param name="message">The message given on failure</param>
+      /// <param name="expected">The <see cref="Object"/> to compare</param>
+      /// <param name="actual">The <see cref="Object"/> being compared</param>
+      /// <param name="message">The message to include if the test fails</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are equal.</exception>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are both null</exception>
+      /// <remarks>
+      /// In this context, two objects are considered not equal if
+      /// <list type="bullet">
+      /// <item>One of <paramref name="expected"/> and <paramref name="actual"/> are null - but not both</item>
+      /// <item>The objects are numeric and their string representation are not equal</item>
+      /// <item>The objects are arrays and their dimensions and contents are not equal</item>
+      /// <item>Their values according to their Equals() method are not equal. 
+      ///   <b>Note that if a class does not define an Equals method, two objects of that class will always be inequal even if they have the same value</b>
+      /// </item>
+      /// </list>
+      /// </remarks>
       /// <seealso cref="AreNotEqual(Object,Object)"/>
-      /// <seealso cref="AreNotEqual(Object,Object,string,object[])"/>
+      /// <seealso cref="AreNotEqual(Object,Object,String,Object[])"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System;
+      ///using MbUnit.Framework;
+      ///
+      ///namespace AssertDocTests
+      ///{
+      ///   [TestFixture]
+      ///   public class AreNotEqualObjects
+      ///   {
+      ///      //This test passes
+      ///      [Test]
+      ///      public void AreNotEqual_ObjectsNotEqual()
+      ///      {
+      ///         Assert.AreNotEqual("Test", "Exam", "This test failed");
+      ///      }
+      ///
+      ///      // This test fails : objects are equal
+      ///      [Test]
+      ///      public void AreNotEqual_EqualObjects()
+      ///      {
+      ///         Assert.AreNotEqual("Test", "Test", "This test failed");
+      ///      }
+      ///
+      ///      //This test passes : expected value is null
+      ///      [Test]
+      ///      public void AreNotEqual_ExpectedIsNull()
+      ///      {
+      ///         Assert.AreNotEqual(null, "Test", "This test failed");
+      ///      }
+      ///
+      ///      //This test passes : actual value is null
+      ///      [Test]
+      ///      public void AreNotEqual_ActualIsNull()
+      ///      {
+      ///         Assert.AreNotEqual("Test", null, "This test failed");
+      ///      }
+      ///
+      ///      //This test fails : both values are null
+      ///      [Test]
+      ///      public void AreNotEqual_BothObjectsAreNull()
+      ///      {
+      ///         Assert.AreNotEqual(null, null, "This test failed");
+      ///      }
+      ///
+      ///      // This test passes
+      ///      [Test]
+      ///      public void AreNotEqual_ObjectHasNoEqualsMethod()
+      ///      {
+      ///         Assert.AreNotEqual(new TestObject("London", "drunk"), new TestObject("London", "drunk"), "This test failed");
+      ///      }
+      ///   }
+      ///
+      ///   public class TestObject
+      ///   {
+      ///      public string city;
+      ///      public string state;
+      ///
+      ///      public TestObject(string a, string b)
+      ///      {
+      ///         city = a;
+      ///         state = b;
+      ///      }
+      ///   }
+      ///}
+      /// </code>
+      /// </example>
       static public void AreNotEqual(Object expected, Object actual, string message)
       {
          Assert.IncrementAssertCount();
@@ -1667,13 +1837,94 @@ namespace MbUnit.Framework
       }
 
       /// <summary>
-      /// Verifies that two objects, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
-      /// If they are equal then an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two <see cref="Object"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the <see cref="Object"/>s are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown.
       /// </summary>
-      /// <param name="expected">The expected value</param>
-      /// <param name="actual">The actual value</param>
+      /// <param name="expected">The <see cref="Object"/> to compare</param>
+      /// <param name="actual">The <see cref="Object"/> being compared</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are equal.</exception>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are both null</exception>
+      /// <remarks>
+      /// In this context, two objects are considered not equal if
+      /// <list type="bullet">
+      /// <item>One of <paramref name="expected"/> and <paramref name="actual"/> are null - but not both</item>
+      /// <item>The objects are numeric and their string representation are not equal</item>
+      /// <item>The objects are arrays and their dimensions and contents are not equal</item>
+      /// <item>Their values according to their Equals() method are not equal. 
+      ///   <b>Note that if a class does not define an Equals method, two objects of that class will always be inequal even if they have the same value</b>
+      /// </item>
+      /// </list>
+      /// </remarks>
       /// <seealso cref="AreNotEqual(Object,Object,string)"/>
       /// <seealso cref="AreNotEqual(Object,Object,string,object[])"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System;
+      ///using MbUnit.Framework;
+      ///
+      ///namespace AssertDocTests
+      ///{
+      ///   [TestFixture]
+      ///   public class AreNotEqualObjects
+      ///   {
+      ///      //This test passes
+      ///      [Test]
+      ///      public void AreNotEqual_ObjectsNotEqual()
+      ///      {
+      ///         Assert.AreNotEqual("Test", "Exam");
+      ///      }
+      ///
+      ///      // This test fails : objects are equal
+      ///      [Test]
+      ///      public void AreNotEqual_EqualObjects()
+      ///      {
+      ///         Assert.AreNotEqual("Test", "Test");
+      ///      }
+      ///
+      ///      //This test passes : expected value is null
+      ///      [Test]
+      ///      public void AreNotEqual_ExpectedIsNull()
+      ///      {
+      ///         Assert.AreNotEqual(null, "Test");
+      ///      }
+      ///
+      ///      //This test passes : actual value is null
+      ///      [Test]
+      ///      public void AreNotEqual_ActualIsNull()
+      ///      {
+      ///         Assert.AreNotEqual("Test", null);
+      ///      }
+      ///
+      ///      //This test fails : both values are null
+      ///      [Test]
+      ///      public void AreNotEqual_BothObjectsAreNull()
+      ///      {
+      ///         Assert.AreNotEqual(null, null);
+      ///      }
+      ///
+      ///      // This test passes
+      ///      [Test]
+      ///      public void AreNotEqual_ObjectHasNoEqualsMethod()
+      ///      {
+      ///         Assert.AreNotEqual(new TestObject("London", "drunk"), new TestObject("London", "drunk"));
+      ///      }
+      ///   }
+      ///
+      ///   public class TestObject
+      ///   {
+      ///      public string city;
+      ///      public string state;
+      ///
+      ///      public TestObject(string a, string b)
+      ///      {
+      ///         city = a;
+      ///         state = b;
+      ///      }
+      ///   }
+      ///}
+      /// </code>
+      /// </example>
       static public void AreNotEqual(Object expected, Object actual)
       {
          Assert.AreNotEqual(expected, actual, string.Empty);
@@ -1682,41 +1933,136 @@ namespace MbUnit.Framework
       #endregion
 
       #region Ints
+
       /// <summary>
-      /// Asserts that two ints are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two integers, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the integers are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
+      /// with a message defined via <paramref name="format"/> and <paramref name="args"/> through <see cref="System.String.Format(string, object[])" />.
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
-      /// <param name="message">The message to be displayed when the two objects are the same object.</param>
-      /// <param name="args">Arguments to be used in formatting the message</param>
-      static public void AreNotEqual(int expected, int actual, string message, params object[] args)
+      /// <param name="expected">The integer to compare</param>
+      /// <param name="actual">The integer being compared</param>
+      /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+      /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are equal.</exception>
+      /// <seealso cref="AreNotEqual(int,int)"/>
+      /// <seealso cref="AreNotEqual(int,int,string)"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System; 
+      ///using MbUnit.Framework;
+      ///
+      /// namespace AssertDocTests
+      /// {
+      ///    [TestFixture]
+      ///    public class AreNotEqualIntegers
+      ///    {
+      ///       // This test fails
+      ///       [Test]
+      ///       public void AreNotEqual_SameValues()
+      ///       {
+      ///          Assert.AreNotEqual(1, 1, "Test failed at {0}", DateTime.Now.ToString());
+      ///       }
+      ///
+      ///       // This test passes
+      ///       [Test]
+      ///       public void AreNotEqual_DifferentValues()
+      ///       {
+      ///          Assert.AreNotEqual(int.MaxValue, int.MinValue, "Test failed at {0}", DateTime.Now.ToString());
+      ///       }
+      ///    }
+      /// }
+      /// </code>
+      /// </example>
+      static public void AreNotEqual(int expected, int actual, string format, params object[] args)
       {
          if (actual == expected)
             if (args != null)
-               Assert.FailSame(expected, actual, message, args);
+               Assert.FailSame(expected, actual, format, args);
             else
-               Assert.FailSame(expected, actual, message);
+               Assert.FailSame(expected, actual, format);
       }
 
       /// <summary>
-      /// Asserts that two ints are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two integers, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the integers are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with a given <paramref name="message"/>.
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
-      /// <param name="message">The message to be displayed when the objects are the same</param>
+      /// <param name="expected">The integer to compare</param>
+      /// <param name="actual">The integer being compared</param>
+      /// <param name="message">The message to include if the test fails</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are equal.</exception>
+      /// <seealso cref="AreNotEqual(int,int)"/>
+      /// <seealso cref="AreNotEqual(int,int,string,object[])"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System; 
+      ///using MbUnit.Framework;
+      ///
+      /// namespace AssertDocTests
+      /// {
+      ///    [TestFixture]
+      ///    public class AreNotEqualIntegers
+      ///    {
+      ///       // This test fails
+      ///       [Test]
+      ///       public void AreNotEqual_SameValues()
+      ///       {
+      ///          Assert.AreNotEqual(1, 1, "This test failed");
+      ///       }
+      ///
+      ///       // This test passes
+      ///       [Test]
+      ///       public void AreNotEqual_DifferentValues()
+      ///       {
+      ///          Assert.AreNotEqual(int.MaxValue, int.MinValue, "This test failed");
+      ///       }
+      ///    }
+      /// }
+      /// </code>
+      /// </example>
       static public void AreNotEqual(int expected, int actual, string message)
       {
          Assert.AreNotEqual(expected, actual, message, null);
       }
 
       /// <summary>
-      /// Asserts that two ints are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two integers, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the integers are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
+      /// <param name="expected">The integer to compare</param>
+      /// <param name="actual">The integer being compared</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are equal.</exception>
+      /// <seealso cref="AreNotEqual(int,int,string)"/>
+      /// <seealso cref="AreNotEqual(int,int,string,object[])"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System; 
+      ///using MbUnit.Framework;
+      ///
+      /// namespace AssertDocTests
+      /// {
+      ///    [TestFixture]
+      ///    public class AreNotEqualIntegers
+      ///    {
+      ///       // This test fails
+      ///       [Test]
+      ///       public void AreNotEqual_SameValues()
+      ///       {
+      ///          Assert.AreNotEqual(1, 1);
+      ///       }
+      ///
+      ///       // This test passes
+      ///       [Test]
+      ///       public void AreNotEqual_DifferentValues()
+      ///       {
+      ///          Assert.AreNotEqual(int.MaxValue, int.MinValue);
+      ///       }
+      ///    }
+      /// }
+      /// </code>
+      /// </example>
       static public void AreNotEqual(int expected, int actual)
       {
          Assert.AreNotEqual(expected, actual, string.Empty, null);
@@ -1724,41 +2070,136 @@ namespace MbUnit.Framework
       #endregion
 
       #region UInts
+
       /// <summary>
-      /// Asserts that two uints are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two <see cref="uint"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the <see cref="uint"/>s are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
+      /// with a message defined via <paramref name="format"/> and <paramref name="args"/> through <see cref="System.String.Format(string, object[])" />.
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
-      /// <param name="message">The message to be displayed when the two objects are the same object.</param>
-      /// <param name="args">Arguments to be used in formatting the message</param>
-      static public void AreNotEqual(uint expected, uint actual, string message, params object[] args)
+      /// <param name="expected">The <see cref="uint"/> to compare</param>
+      /// <param name="actual">The <see cref="uint"/> being compared</param>
+      /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+      /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are equal.</exception>
+      /// <seealso cref="AreNotEqual(uint,uint)"/>
+      /// <seealso cref="AreNotEqual(uint,uint,string)"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System; 
+      ///using MbUnit.Framework;
+      ///
+      /// namespace AssertDocTests
+      /// {
+      ///    [TestFixture]
+      ///    public class AreNotEqualUnsignedIntegers
+      ///    {
+      ///       // This test fails
+      ///       [Test]
+      ///       public void AreNotEqual_SameValues()
+      ///       {
+      ///          Assert.AreNotEqual(1u, 1u, "Test failed at {0}", DateTime.Now.ToString());
+      ///       }
+      ///
+      ///       // This test passes
+      ///       [Test]
+      ///       public void AreNotEqual_DifferentValues()
+      ///       {
+      ///          Assert.AreNotEqual(UInt32.MaxValue, UInt32.MinValue, "Test failed at {0}", DateTime.Now.ToString());
+      ///       }
+      ///    }
+      /// }
+      /// </code>
+      /// </example>
+      static public void AreNotEqual(uint expected, uint actual, string format, params object[] args)
       {
          if (actual == expected)
             if (args != null)
-               Assert.FailSame(expected, actual, message, args);
+               Assert.FailSame(expected, actual, format, args);
             else
-               Assert.FailSame(expected, actual, message);
+               Assert.FailSame(expected, actual, format);
       }
 
       /// <summary>
-      /// Asserts that two uints are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two <see cref="uint"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the <see cref="uint"/>s are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
-      /// <param name="message">The message to be displayed when the objects are the same</param>
+      /// <param name="expected">The <see cref="uint"/> to compare</param>
+      /// <param name="actual">The <see cref="uint"/> being compared</param>
+      /// <param name="message">The message to include if the test fails</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are equal.</exception>
+      /// <seealso cref="AreNotEqual(uint,uint)"/>
+      /// <seealso cref="AreNotEqual(uint,uint,string,object[])"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System; 
+      ///using MbUnit.Framework;
+      ///
+      /// namespace AssertDocTests
+      /// {
+      ///    [TestFixture]
+      ///    public class AreNotEqualUnsignedIntegers
+      ///    {
+      ///       // This test fails
+      ///       [Test]
+      ///       public void AreNotEqual_SameValues()
+      ///       {
+      ///          Assert.AreNotEqual(1u, 1u, "Test failed");
+      ///       }
+      ///
+      ///       // This test passes
+      ///       [Test]
+      ///       public void AreNotEqual_DifferentValues()
+      ///       {
+      ///          Assert.AreNotEqual(UInt32.MaxValue, UInt32.MinValue, "Test failed");
+      ///       }
+      ///    }
+      /// }
+      /// </code>
+      /// </example>
       static public void AreNotEqual(uint expected, uint actual, string message)
       {
          Assert.AreNotEqual(expected, actual, message, null);
       }
 
       /// <summary>
-      /// Asserts that two uints are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two <see cref="uint"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the <see cref="uint"/>s are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown.
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
+      /// <param name="expected">The <see cref="uint"/> to compare</param>
+      /// <param name="actual">The <see cref="uint"/> being compared</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are equal.</exception>
+      /// <seealso cref="AreNotEqual(uint,uint,string)"/>
+      /// <seealso cref="AreNotEqual(uint,uint,string,object[])"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System; 
+      ///using MbUnit.Framework;
+      ///
+      /// namespace AssertDocTests
+      /// {
+      ///    [TestFixture]
+      ///    public class AreNotEqualUnsignedIntegers
+      ///    {
+      ///       // This test fails
+      ///       [Test]
+      ///       public void AreNotEqual_SameValues()
+      ///       {
+      ///          Assert.AreNotEqual(1u, 1u);
+      ///       }
+      ///
+      ///       // This test passes
+      ///       [Test]
+      ///       public void AreNotEqual_DifferentValues()
+      ///       {
+      ///          Assert.AreNotEqual(UInt32.MaxValue, UInt32.MinValue);
+      ///       }
+      ///    }
+      /// }
+      /// </code>
+      /// </example>
       static public void AreNotEqual(uint expected, uint actual)
       {
          Assert.AreNotEqual(expected, actual, string.Empty, null);
@@ -1767,40 +2208,134 @@ namespace MbUnit.Framework
 
       #region Decimals
       /// <summary>
-      /// Asserts that two decimals are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two <see cref="decimal"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the <see cref="decimal"/>s are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
+      /// with a message defined via <paramref name="format"/> and <paramref name="args"/> through <see cref="System.String.Format(string, object[])" />.
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
-      /// <param name="message">The message to be displayed when the two objects are the same object.</param>
-      /// <param name="args">Arguments to be used in formatting the message</param>
-      static public void AreNotEqual(decimal expected, decimal actual, string message, params object[] args)
+      /// <param name="expected">The <see cref="decimal"/> to compare</param>
+      /// <param name="actual">The <see cref="decimal"/> being compared</param>
+      /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+      /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are equal.</exception>
+      /// <seealso cref="AreNotEqual(decimal,decimal)"/>
+      /// <seealso cref="AreNotEqual(decimal,decimal,string)"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System; 
+      ///using MbUnit.Framework;
+      ///
+      /// namespace AssertDocTests
+      /// {
+      ///    [TestFixture]
+      ///    public class AreNotEqualDecimals
+      ///    {
+      ///       // This test fails
+      ///       [Test]
+      ///       public void AreNotEqual_SameValues()
+      ///       {
+      ///          Assert.AreNotEqual(1.0m, 1.0m, "Test failed at {0}", DateTime.Now.ToString());
+      ///       }
+      ///
+      ///       // This test passes
+      ///       [Test]
+      ///       public void AreNotEqual_DifferentValues()
+      ///       {
+      ///          Assert.AreNotEqual(decimal.MaxValue, decimal.Zero, "Test failed at {0}", DateTime.Now.ToString());
+      ///       }
+      ///    }
+      /// }
+      /// </code>
+      /// </example>
+      static public void AreNotEqual(decimal expected, decimal actual, string format, params object[] args)
       {
          if (actual == expected)
             if (args != null)
-               Assert.FailSame(expected, actual, message, args);
+               Assert.FailSame(expected, actual, format, args);
             else
-               Assert.FailSame(expected, actual, message);
+               Assert.FailSame(expected, actual, format);
       }
 
       /// <summary>
-      /// Asserts that two decimals are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two <see cref="decimal"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the <see cref="decimal"/>s are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
-      /// <param name="message">The message to be displayed when the objects are the same</param>
+      /// <param name="expected">The <see cref="decimal"/> to compare</param>
+      /// <param name="actual">The <see cref="decimal"/> being compared</param>
+      /// <param name="message">The message to include if the test fails</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are equal.</exception>
+      /// <seealso cref="AreNotEqual(decimal,decimal)"/>
+      /// <seealso cref="AreNotEqual(decimal,decimal,string,object[])"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System; 
+      ///using MbUnit.Framework;
+      ///
+      /// namespace AssertDocTests
+      /// {
+      ///    [TestFixture]
+      ///    public class AreNotEqualDecimals
+      ///    {
+      ///       // This test fails
+      ///       [Test]
+      ///       public void AreNotEqual_SameValues()
+      ///       {
+      ///          Assert.AreNotEqual(1.0m, 1.0m, "Test failed");
+      ///       }
+      ///
+      ///       // This test passes
+      ///       [Test]
+      ///       public void AreNotEqual_DifferentValues()
+      ///       {
+      ///          Assert.AreNotEqual(decimal.MaxValue, decimal.Zero, "Test failed");
+      ///       }
+      ///    }
+      /// }
+      /// </code>
+      /// </example>
       static public void AreNotEqual(decimal expected, decimal actual, string message)
       {
          Assert.AreNotEqual(expected, actual, message, null);
       }
 
       /// <summary>
-      /// Asserts that two decimals are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two <see cref="decimal"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the <see cref="decimal"/>s are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
+      /// <param name="expected">The <see cref="decimal"/> to compare</param>
+      /// <param name="actual">The <see cref="decimal"/> being compared</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are equal.</exception>
+      /// <seealso cref="AreNotEqual(decimal,decimal,string)"/>
+      /// <seealso cref="AreNotEqual(decimal,decimal,string,object[])"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System; 
+      ///using MbUnit.Framework;
+      ///
+      /// namespace AssertDocTests
+      /// {
+      ///    [TestFixture]
+      ///    public class AreNotEqualDecimals
+      ///    {
+      ///       // This test fails
+      ///       [Test]
+      ///       public void AreNotEqual_SameValues()
+      ///       {
+      ///          Assert.AreNotEqual(1.0m, 1.0m);
+      ///       }
+      ///
+      ///       // This test passes
+      ///       [Test]
+      ///       public void AreNotEqual_DifferentValues()
+      ///       {
+      ///          Assert.AreNotEqual(decimal.MaxValue, decimal.Zero);
+      ///       }
+      ///    }
+      /// }
+      /// </code>
+      /// </example>
       static public void AreNotEqual(decimal expected, decimal actual)
       {
          Assert.AreNotEqual(expected, actual, string.Empty, null);
@@ -1809,40 +2344,134 @@ namespace MbUnit.Framework
 
       #region Floats
       /// <summary>
-      /// Asserts that two floats are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two <see cref="float"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the <see cref="float"/>s are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
+      /// with a message defined via <paramref name="format"/> and <paramref name="args"/> through <see cref="System.String.Format(string, object[])" />.
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
-      /// <param name="message">The message to be displayed when the two objects are the same object.</param>
-      /// <param name="args">Arguments to be used in formatting the message</param>
-      static public void AreNotEqual(float expected, float actual, string message, params object[] args)
+      /// <param name="expected">The <see cref="float"/> to compare</param>
+      /// <param name="actual">The <see cref="float"/> being compared</param>
+      /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+      /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are equal.</exception>
+      /// <seealso cref="AreNotEqual(float,float)"/>
+      /// <seealso cref="AreNotEqual(float,float,string)"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System; 
+      ///using MbUnit.Framework;
+      ///
+      /// namespace AssertDocTests
+      /// {
+      ///    [TestFixture]
+      ///    public class AreNotEqualFloats
+      ///    {
+      ///       // This test fails
+      ///       [Test]
+      ///       public void AreNotEqual_SameValues()
+      ///       {
+      ///          Assert.AreNotEqual(1.0f, 1.0f, "Test failed at {0}", DateTime.Now.ToString());
+      ///       }
+      ///
+      ///       // This test passes
+      ///       [Test]
+      ///       public void AreNotEqual_DifferentValues()
+      ///       {
+      ///          Assert.AreNotEqual(float.MaxValue, float.MinValue, "Test failed at {0}", DateTime.Now.ToString());
+      ///       }
+      ///    }
+      /// }
+      /// </code>
+      /// </example>
+      static public void AreNotEqual(float expected, float actual, string format, params object[] args)
       {
          if (actual == expected)
             if (args != null)
-               Assert.FailSame(expected, actual, message, args);
+               Assert.FailSame(expected, actual, format, args);
             else
-               Assert.FailSame(expected, actual, message);
+               Assert.FailSame(expected, actual, format);
       }
 
       /// <summary>
-      /// Asserts that two floats are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two <see cref="float"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the <see cref="float"/>s are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
-      /// <param name="message">The message to be displayed when the objects are the same</param>
+      /// <param name="expected">The <see cref="float"/> to compare</param>
+      /// <param name="actual">The <see cref="float"/> being compared</param>
+      /// <param name="message">The message to include if the test fails</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are equal.</exception>
+      /// <seealso cref="AreNotEqual(float,float)"/>
+      /// <seealso cref="AreNotEqual(float,float,string,object[])"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System; 
+      ///using MbUnit.Framework;
+      ///
+      /// namespace AssertDocTests
+      /// {
+      ///    [TestFixture]
+      ///    public class AreNotEqualFloats
+      ///    {
+      ///       // This test fails
+      ///       [Test]
+      ///       public void AreNotEqual_SameValues()
+      ///       {
+      ///          Assert.AreNotEqual(1.0f, 1.0f, "Test failed");
+      ///       }
+      ///
+      ///       // This test passes
+      ///       [Test]
+      ///       public void AreNotEqual_DifferentValues()
+      ///       {
+      ///          Assert.AreNotEqual(float.MaxValue, float.MinValue, "Test failed");
+      ///       }
+      ///    }
+      /// }
+      /// </code>
+      /// </example>
       static public void AreNotEqual(float expected, float actual, string message)
       {
          Assert.AreNotEqual(expected, actual, message, null);
       }
 
       /// <summary>
-      /// Asserts that two floats are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two <see cref="float"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the <see cref="float"/>s are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
+      /// <param name="expected">The <see cref="float"/> to compare</param>
+      /// <param name="actual">The <see cref="float"/> being compared</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are equal.</exception>
+      /// <seealso cref="AreNotEqual(float,float,string)"/>
+      /// <seealso cref="AreNotEqual(float,float,string,object[])"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System; 
+      ///using MbUnit.Framework;
+      ///
+      /// namespace AssertDocTests
+      /// {
+      ///    [TestFixture]
+      ///    public class AreNotEqualFloats
+      ///    {
+      ///       // This test fails
+      ///       [Test]
+      ///       public void AreNotEqual_SameValues()
+      ///       {
+      ///          Assert.AreNotEqual(1.0f, 1.0f);
+      ///       }
+      ///
+      ///       // This test passes
+      ///       [Test]
+      ///       public void AreNotEqual_DifferentValues()
+      ///       {
+      ///          Assert.AreNotEqual(float.MaxValue, float.MinValue);
+      ///       }
+      ///    }
+      /// }
+      /// </code>
+      /// </example>
       static public void AreNotEqual(float expected, float actual)
       {
          Assert.AreNotEqual(expected, actual, string.Empty, null);
@@ -1851,40 +2480,134 @@ namespace MbUnit.Framework
 
       #region Doubles
       /// <summary>
-      /// Asserts that two doubles are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two <see cref="double"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the <see cref="double"/>s are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
+      /// with a message defined via <paramref name="format"/> and <paramref name="args"/> through <see cref="System.String.Format(string, object[])" />.
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
-      /// <param name="message">The message to be displayed when the two objects are the same object.</param>
-      /// <param name="args">Arguments to be used in formatting the message</param>
-      static public void AreNotEqual(double expected, double actual, string message, params object[] args)
+      /// <param name="expected">The <see cref="double"/> to compare</param>
+      /// <param name="actual">The <see cref="double"/> being compared</param>
+      /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+      /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are equal.</exception>
+      /// <seealso cref="AreNotEqual(double,double)"/>
+      /// <seealso cref="AreNotEqual(double,double,string)"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System; 
+      ///using MbUnit.Framework;
+      ///
+      /// namespace AssertDocTests
+      /// {
+      ///    [TestFixture]
+      ///    public class AreNotEqualDoubles
+      ///    {
+      ///       // This test fails
+      ///       [Test]
+      ///       public void AreNotEqual_SameValues()
+      ///       {
+      ///          Assert.AreNotEqual(1.0d, 1.0d, "Test failed at {0}", DateTime.Now.ToString());
+      ///       }
+      ///
+      ///       // This test passes
+      ///       [Test]
+      ///       public void AreNotEqual_DifferentValues()
+      ///       {
+      ///          Assert.AreNotEqual(double.MaxValue, double.MinValue, "Test failed at {0}", DateTime.Now.ToString());
+      ///       }
+      ///    }
+      /// }
+      /// </code>
+      /// </example>
+      static public void AreNotEqual(double expected, double actual, string format, params object[] args)
       {
          if (actual == expected)
             if (args != null)
-               Assert.FailSame(expected, actual, message, args);
+               Assert.FailSame(expected, actual, format, args);
             else
-               Assert.FailSame(expected, actual, message);
+               Assert.FailSame(expected, actual, format);
       }
 
       /// <summary>
-      /// Asserts that two doubles are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two <see cref="double"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the <see cref="double"/>s are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
-      /// <param name="message">The message to be displayed when the objects are the same</param>
+      /// <param name="expected">The <see cref="double"/> to compare</param>
+      /// <param name="actual">The <see cref="double"/> being compared</param>
+      /// <param name="message">The message to include if the test fails</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are equal.</exception>
+      /// <seealso cref="AreNotEqual(double,double)"/>
+      /// <seealso cref="AreNotEqual(double,double,string,object[])"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System; 
+      ///using MbUnit.Framework;
+      ///
+      /// namespace AssertDocTests
+      /// {
+      ///    [TestFixture]
+      ///    public class AreNotEqualDoubles
+      ///    {
+      ///       // This test fails
+      ///       [Test]
+      ///       public void AreNotEqual_SameValues()
+      ///       {
+      ///          Assert.AreNotEqual(1.0d, 1.0d, "Test failed");
+      ///       }
+      ///
+      ///       // This test passes
+      ///       [Test]
+      ///       public void AreNotEqual_DifferentValues()
+      ///       {
+      ///          Assert.AreNotEqual(double.MaxValue, double.MinValue, "Test failed");
+      ///       }
+      ///    }
+      /// }
+      /// </code>
+      /// </example>
       static public void AreNotEqual(double expected, double actual, string message)
       {
          Assert.AreNotEqual(expected, actual, message, null);
       }
 
       /// <summary>
-      /// Asserts that two doubles are not equal. If they are equal
-      /// an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two <see cref="double"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are not equal.
+      /// If the <see cref="double"/>s are equal an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
+      /// <param name="expected">The <see cref="double"/> to compare</param>
+      /// <param name="actual">The <see cref="double"/> being compared</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are equal.</exception>
+      /// <seealso cref="AreNotEqual(double,double,string)"/>
+      /// <seealso cref="AreNotEqual(double,double,string,object[])"/>
+      /// <example>
+      /// The following example demonstrates Assert.AreNotEqual using a different variety of values
+      /// <code>
+      ///using System; 
+      ///using MbUnit.Framework;
+      ///
+      /// namespace AssertDocTests
+      /// {
+      ///    [TestFixture]
+      ///    public class AreNotEqualDoubles
+      ///    {
+      ///       // This test fails
+      ///       [Test]
+      ///       public void AreNotEqual_SameValues()
+      ///       {
+      ///          Assert.AreNotEqual(1.0d, 1.0d);
+      ///       }
+      ///
+      ///       // This test passes
+      ///       [Test]
+      ///       public void AreNotEqual_DifferentValues()
+      ///       {
+      ///          Assert.AreNotEqual(double.MaxValue, double.MinValue);
+      ///       }
+      ///    }
+      /// }
+      /// </code>
+      /// </example>
       static public void AreNotEqual(double expected, double actual)
       {
          Assert.AreNotEqual(expected, actual, string.Empty, null);
@@ -1894,93 +2617,252 @@ namespace MbUnit.Framework
       #endregion
 
       #region IsNull, IsNotNull
+
       /// <summary>
-      /// Verifies that the object that is passed in is not equal to <code>null</code>
-      /// If the object is not <code>null</code> then an <see cref="AssertionException"/>
-      /// is thrown.
+      /// Verifies that the given <see cref="object"/> is not null. If it is null, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
+      /// with a message defined via <paramref name="format"/> and <paramref name="args"/> through <see cref="System.String.Format(string, object[])" />
       /// </summary>
-      /// <param name="anObject">The object that is to be tested</param>
-      /// <param name="format">
-      /// The format of the message to display if the assertion fails,
-      /// containing zero or more format items.
-      /// </param>
-      /// <param name="args">
-      /// An <see cref="Object"/> array containing zero or more objects to format.
-      /// </param>
-      /// <remarks>
-      /// <para>
-      /// The error message is formatted using <see cref="String.Format(string, object[])"/>.
-      /// </para>
-      /// </remarks>
+      /// <param name="anObject">The <see cref="object"/> to test</param>
+      /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+      /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="anObject"/> is null</exception>
+      /// <seealso cref="IsNotNull(object,string)" />
+      /// <seealso cref="IsNotNull(object)"/>
+      /// <example>
+      /// The following code demonstrates Assert.IsNotNull
+      /// <code>
+      ///using System;
+      ///using MbUnit.Framework;
+      ///
+      ///namespace AssertDocTests
+      ///{
+      ///   [TestFixture]
+      ///   public class IsNotNull
+      ///   {
+      ///      // This test succeeds
+      ///      [Test]
+      ///      public void IsNotNull_NotNull()
+      ///      {
+      ///         Assert.IsNotNull(String.Empty, "This test failed at {0}", DateTime.Now.ToShortDateString());
+      ///      }
+      ///
+      ///      //This test fails
+      ///      [Test]
+      ///      public void IsNotNull_Null()
+      ///      {
+      ///         Assert.IsNotNull(null, "This test failed at {0}", DateTime.Now.ToShortDateString());
+      ///      }
+      ///   }
+      ///}
+      /// </code>
+      /// </example>
       static public void IsNotNull(Object anObject, string format, params object[] args)
       {
          Assert.IsTrue(anObject != null, format, args);
       }
 
       /// <summary>
-      /// Verifies that the object that is passed in is not equal to <code>null</code>
-      /// If the object is <code>null</code> then an <see cref="AssertionException"/>
-      /// is thrown with the message that is passed in.
+      /// Verifies that the given <see cref="object"/> is not null. If it is null, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
+      /// with the given <paramref name="message"/>
       /// </summary>
-      /// <param name="anObject">The object that is to be tested</param>
-      /// <param name="message">The message to initialize the <see cref="AssertionException"/> with.</param>
+      /// <param name="anObject">The <see cref="object"/> to test</param>
+      /// <param name="message">The message to include if the test fails</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="anObject"/> is null</exception>
+      /// <seealso cref="IsNotNull(object,string,object[])" />
+      /// <seealso cref="IsNotNull(object)"/>
+      /// <example>
+      /// The following code demonstrates Assert.IsNotNull
+      /// <code>
+      ///using System;
+      ///using MbUnit.Framework;
+      ///
+      ///namespace AssertDocTests
+      ///{
+      ///   [TestFixture]
+      ///   public class IsNotNull
+      ///   {
+      ///      // This test succeeds
+      ///      [Test]
+      ///      public void IsNotNull_NotNull()
+      ///      {
+      ///         Assert.IsNotNull(String.Empty, "This test failed");
+      ///      }
+      ///
+      ///      //This test fails
+      ///      [Test]
+      ///      public void IsNotNull_Null()
+      ///      {
+      ///         Assert.IsNotNull(null, "This test failed");
+      ///      }
+      ///   }
+      ///}
+      /// </code>
+      /// </example>
       static public void IsNotNull(Object anObject, string message)
       {
          Assert.IsTrue(anObject != null, message);
       }
 
       /// <summary>
-      /// Verifies that the object that is passed in is not equal to <code>null</code>
-      /// If the object is not <code>null</code> then an <see cref="AssertionException"/>
-      /// is thrown.
+      /// Verifies that the given <see cref="object"/> is not null. If it is null, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
       /// </summary>
-      /// <param name="anObject">The object that is to be tested</param>
+      /// <param name="anObject">The <see cref="object"/> to test</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="anObject"/> is null</exception>
+      /// <seealso cref="IsNotNull(object,string,object[])" />
+      /// <seealso cref="IsNotNull(object,string)"/>
+      /// <example>
+      /// The following code demonstrates Assert.IsNotNull
+      /// <code>
+      ///using System;
+      ///using MbUnit.Framework;
+      ///
+      ///namespace AssertDocTests
+      ///{
+      ///   [TestFixture]
+      ///   public class IsNotNull
+      ///   {
+      ///      // This test succeeds
+      ///      [Test]
+      ///      public void IsNotNull_NotNull()
+      ///      {
+      ///         Assert.IsNotNull(String.Empty);
+      ///      }
+      ///
+      ///      //This test fails
+      ///      [Test]
+      ///      public void IsNotNull_Null()
+      ///      {
+      ///         Assert.IsNotNull(null);
+      ///      }
+      ///   }
+      ///}
+      /// </code>
+      /// </example>
       static public void IsNotNull(Object anObject)
       {
          Assert.IsNotNull(anObject, string.Empty);
       }
 
       /// <summary>
-      /// Verifies that the object that is passed in is equal to <code>null</code>
-      /// If the object is <code>null</code> then an <see cref="AssertionException"/>
-      /// is thrown.
+      /// Verifies that the given <see cref="object"/> is null. If it is not null, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
+      /// with a message defined via <paramref name="format"/> and <paramref name="args"/> through <see cref="System.String.Format(string, object[])" />
       /// </summary>
-      /// <param name="anObject">The object that is to be tested</param>
-      /// <param name="format">
-      /// The format of the message to display if the assertion fails,
-      /// containing zero or more format items.
-      /// </param>
-      /// <param name="args">
-      /// An <see cref="Object"/> array containing zero or more objects to format.
-      /// </param>
-      /// <remarks>
-      /// <para>
-      /// The error message is formatted using <see cref="String.Format(string, object[])"/>.
-      /// </para>
-      /// </remarks>
+      /// <param name="anObject">The <see cref="object"/> to test</param>
+      /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+      /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="anObject"/> is not null</exception>
+      /// <seealso cref="IsNull(object)" />
+      /// <seealso cref="IsNull(object,string)"/>
+      /// <example>
+      /// The following code demonstrates Assert.IsNull
+      /// <code>
+      ///using System;
+      ///using MbUnit.Framework;
+      ///
+      ///namespace AssertDocTests
+      ///{
+      ///   [TestFixture]
+      ///   public class IsNull
+      ///   {
+      ///      // This test succeeds
+      ///      [Test]
+      ///      public void IsNull_Null()
+      ///      {
+      ///         Assert.IsNull(null, "This test failed at {0}", DateTime.Now.ToShortDateString());
+      ///      }
+      ///
+      ///      //This test fails
+      ///      [Test]
+      ///      public void IsNull_NotNull()
+      ///      {
+      ///         Assert.IsNull(String.Empty, "This test failed at {0}", DateTime.Now.ToShortDateString());
+      ///      }
+      ///   }
+      ///}
+      /// </code>
+      /// </example>
       static public void IsNull(Object anObject, string format, params object[] args)
       {
          Assert.IsTrue(anObject == null, format, args);
       }
 
       /// <summary>
-      /// Verifies that the object that is passed in is equal to <code>null</code>
-      /// If the object is <code>null</code> then an <see cref="AssertionException"/>
-      /// is thrown with the message that is passed in.
+      /// Verifies that the given <see cref="object"/> is null. If it is not null, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
+      /// with the given <paramref name="message"/>
       /// </summary>
-      /// <param name="anObject">The object that is to be tested</param>
-      /// <param name="message">The message to initialize the <see cref="AssertionException"/> with.</param>
+      /// <param name="anObject">The <see cref="object"/> to test</param>
+      /// <param name="message">The message to include if the test fails</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="anObject"/> is not null</exception>
+      /// <seealso cref="IsNull(object)" />
+      /// <seealso cref="IsNull(object,string,object[])"/>
+      /// <example>
+      /// The following code demonstrates Assert.IsNull
+      /// <code>
+      ///using System;
+      ///using MbUnit.Framework;
+      ///
+      ///namespace AssertDocTests
+      ///{
+      ///   [TestFixture]
+      ///   public class IsNull
+      ///   {
+      ///      // This test succeeds
+      ///      [Test]
+      ///      public void IsNull_Null()
+      ///      {
+      ///         Assert.IsNull(null, "This test failed");
+      ///      }
+      ///
+      ///      //This test fails
+      ///      [Test]
+      ///      public void IsNull_NotNull()
+      ///      {
+      ///         Assert.IsNull(String.Empty, "This test failed");
+      ///      }
+      ///   }
+      ///}
+      /// </code>
+      /// </example>
       static public void IsNull(Object anObject, string message)
       {
          Assert.IsTrue(anObject == null, message);
       }
 
       /// <summary>
-      /// Verifies that the object that is passed in is equal to <code>null</code>
-      /// If the object is <code>null</code> then an <see cref="AssertionException"/>
-      /// is thrown.
+      /// Verifies that the given <see cref="object"/> is null. If it is not null, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
       /// </summary>
-      /// <param name="anObject">The object that is to be tested</param>
+      /// <param name="anObject">The <see cref="object"/> to test</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="anObject"/> is not null</exception>
+      /// <seealso cref="IsNull(object,string)" />
+      /// <seealso cref="IsNull(object,string,object[])"/>
+      /// <example>
+      /// The following code demonstrates Assert.IsNull
+      /// <code>
+      ///using System;
+      ///using MbUnit.Framework;
+      ///
+      ///namespace AssertDocTests
+      ///{
+      ///   [TestFixture]
+      ///   public class IsNull
+      ///   {
+      ///      // This test succeeds
+      ///      [Test]
+      ///      public void IsNull_Null()
+      ///      {
+      ///         Assert.IsNull(null);
+      ///      }
+      ///
+      ///      //This test fails
+      ///      [Test]
+      ///      public void IsNull_NotNull()
+      ///      {
+      ///         Assert.IsNull(String.Empty);
+      ///      }
+      ///   }
+      ///}
+      /// </code>
+      /// </example>
       static public void IsNull(Object anObject)
       {
          Assert.IsNull(anObject, string.Empty);
@@ -4559,14 +5441,25 @@ namespace MbUnit.Framework
       #endregion
 
       #region Assert Count
+      /// <summary>
+      /// Number of Asserts made so far this test run
+      /// </summary>
       public static int AssertCount
       {
          get { return Assert.assertCount; }
       }
+
+      /// <summary>
+      /// Resets <see cref="AssertCount"/> to 0
+      /// </summary>
       public static void ResetAssertCount()
       {
          Assert.assertCount = 0;
       }
+
+      /// <summary>
+      /// Increments <see cref="AssertCount"/> by 1
+      /// </summary>
       public static void IncrementAssertCount()
       {
          Assert.assertCount++;
@@ -4654,7 +5547,7 @@ namespace MbUnit.Framework
          string formatted = string.Empty;
          if (format != null)
             formatted = format + " ";
-         Assert.Fail(format + "expected same", args);
+         Assert.Fail(format + "The two objects were expected to be the same", args);
       }
 
       static private void FailSame(Object expected, Object actual, string format, params object[] args)
@@ -4662,7 +5555,7 @@ namespace MbUnit.Framework
          string formatted = string.Empty;
          if (format != null)
             formatted = format + " ";
-         Assert.Fail(format + "expected not same", args);
+         Assert.Fail(format + "The two objects were not expected to be the same", args);
       }
 
 
@@ -4671,7 +5564,7 @@ namespace MbUnit.Framework
          string formatted = string.Empty;
          if (format != null)
             formatted = format + " ";
-         Assert.Fail(format + "expected not to be empty", args);
+         Assert.Fail(format + "The object was expected to be empty but was not", args);
       }
 
       static private void FailIsNotEmpty(Object expected, string format, params object[] args)
@@ -4679,7 +5572,7 @@ namespace MbUnit.Framework
          string formatted = string.Empty;
          if (format != null)
             formatted = format + " ";
-         Assert.Fail(format + "expected to be empty", args);
+         Assert.Fail(format + "The object was expected not to be empty but was", args);
       }
       #endregion
    }
