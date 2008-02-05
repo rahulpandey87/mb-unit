@@ -1,0 +1,67 @@
+#summary A list of topic ideas for story-based documentation, tutorials and other articles.
+
+These are in no particular order...  Feel free to add to this list.
+
+ * Configuring Visual Studio for Source Server support to look inside Gallio and MbUnit while debugging.
+
+ * Overview of the Pattern Test Framework.
+
+ * Writing a new decorator.
+
+ * Writing a new data binder.
+
+ * Writing a new data attribute and data set.
+
+ * All about data binding with generic type parameters, constructor parameters, fields, properties, generic method parameters and method parameters.
+
+ * How to create a Gallio plugin.  The L0LTest framework.
+
+ * Using the MSBuild and NAnt tasks.
+
+ * Using the PowerShell cmdlets.
+
+ * Gallio and the R# test runner.
+
+ * The Gallio reflection API.
+
+ * Common Gallio extension points in the IoC container.
+
+ * The Gallio test model, an overview.
+
+ * Test steps.  What are they good for?
+
+ * Static vs. dynamic test instances.
+
+ * Configuring CCNet for Gallio, step by step.
+
+ * The Gallio constraint library.
+
+ * How to write a Gallio adapter for a new test framework.
+
+ * Fun things to do with execution log attachments.
+
+ * The filter expression language.
+
+ * Using Echo.
+
+ * Using Icarus.
+
+ * Test runner factories: LocalAppDomain, IsolatedAppDomain, IsolatedProcess, NCover, TypeMock.
+
+ * Using Gallio with NCover and NCoverExplorer.
+
+ * Getting started with the Gallio source tree and build system.
+
+ * Using Gallio with both NCover and TypeMock at the same time.
+
+ * MbUnit assertion rundown.
+
+ * Interpreting Gallio reports.
+
+ * Why you might want to use the Gallio test runner with NUnit, xUnit.Net, MbUnit v2, CSUnit, CppUnit, MSTest and other supported frameworks instead of the native ones.
+
+ * Test profiles for configuring tests by environment.
+
+ * Test assembly .config files.
+
+ * Gallio architecture 101.
