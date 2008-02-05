@@ -49,8 +49,7 @@
       <span class="kwrd">&lt;</span><span class="html">mbunit</span>
          <span class="attr">report-types</span><span class="kwrd">="Html"</span>
          <span class="attr">report-filename-format</span><span class="kwrd">="myreport{0}{1}"</span>
-         <span class="attr">report-output-directory</span><span class="kwrd">="."</span>
-         <span class="attr">halt-on-failure</span><span class="kwrd">="true"</span><span class="kwrd">&gt;</span>
+         <span class="attr">report-output-directory</span><span class="kwrd">="."</span><span class="kwrd">&gt;</span>
          <span class="kwrd">&lt;</span><span class="html">assemblies</span><span class="kwrd">&gt;</span>
             <span class="kwrd">&lt;</span><span class="html">include</span> <span class="attr">name</span><span
                class="kwrd">=&quot;FizzBuzzTests.dll"</span> <span class="kwrd">/&gt;</span> 
@@ -66,8 +65,7 @@
    <pre class="csharpcode"><strong>&lt;mbunit</strong>
    [report-types="<em>testType</em>"]
    [report-filename-format="<em>reportName</em>"]
-   <strong>report-output-directory="<em>reportDirectory</em>"</strong>
-   [halt-on-failure="<em>{true|false}</em>"<strong>&gt;</strong>
+   <strong>report-output-directory="<em>reportDirectory</em>"</strong>&gt;</strong>
    <strong>&lt;assemblies&gt;</strong>
       <strong>&lt;include</strong> name="<em>testAssembly</em>" <strong>/&gt;</strong>
       [<em>&lt;include name="testAssembly" /&gt; ...</em>]
@@ -88,10 +86,19 @@
          report file will be saved. <em>reportDirectory</em> can be either an absolute path
          or relative to the current directory when NAnt is run. Note that this attribute
          is mandatory and must be given a value.</li>
-      <li><strong>halt-on-failure</strong> : Specifies whether or not the rest of the NAnt
+      <!--<li><strong>halt-on-failure</strong> : Specifies whether or not the rest of the NAnt
          script should halt if test failures occur. It can have values of true or false.
-         The default is false.</li>
+         The default is false.</li>-->
    </ul>
+   <p>It also inherits the following attributes from the core NAnt Task element:</p>
+   <ul>
+		<li><strong>failonerror</strong> : Determines if task failure (ie. any unit tests failing) stops the build, or is just reported. The default is true</li>
+		<li><strong>verbose</strong> : Determines whether the task should report detailed build log messages. The default is false. </li>
+		<li><strong>if</strong> : If true then the task will be executed; otherwise, skipped. The default is true. </li>
+		<li><strong>unless</strong> : Opposite of if. If false then the task will be executed; otherwise, skipped. The default is false. </li>
+   </ul>
+   
+   
    <h3>
       &lt;mbunit&gt; Child Elements</h3>
    <p>
