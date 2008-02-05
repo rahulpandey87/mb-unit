@@ -65,3 +65,9 @@ These are in no particular order...  Feel free to add to this list.
  * Test assembly .config files.
 
  * Gallio architecture 101.
+
+ * Gallio converter service.  How to write a new conversion rule.
+
+ * Why choose a framework built on Gallio.
+
+ * Migrating MbUnit v2 tests to MbUnit v3.
