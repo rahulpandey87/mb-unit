@@ -2,13 +2,13 @@
 <IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ProjectName>MbUnit v2</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/MbUnit%20v2/default.aspx?_action_ViewFarmReport=true</ProjectUrl>
-  <BuildCondition>ForceBuild</BuildCondition>
-  <Label>2.4.2.10</Label>
+  <BuildCondition>IfModificationExists</BuildCondition>
+  <Label>2.4.2.102</Label>
   <WorkingDirectory>C:\RelEng\Projects\MbUnit v2\Work</WorkingDirectory>
   <ArtifactDirectory>C:\RelEng\Projects\MbUnit v2\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2007-12-29T08:52:05.984375-05:00</StartTime>
-  <EndTime>2007-12-29T08:53:22.375-05:00</EndTime>
+  <StartTime>2008-02-02T21:26:00.338-05:00</StartTime>
+  <EndTime>2008-02-02T21:27:29.74425-05:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>2.4.2.9</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>2.4.2.101</LastSuccessfulIntegrationLabel>
 </IntegrationResult>
