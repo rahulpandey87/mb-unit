@@ -23,10 +23,22 @@ namespace MbUnit.Framework.Tests.Asserts.XmlUnit {
             XmlAssert.XmlEquals(new StringReader(_xmlTrueTest), new StringReader(_xmlTrueTest));
         }
 
+        [Test, ExpectedException(typeof(NotEqualAssertionException))]
+        public void XmlEqualsWithTextReaderFail()
+        {
+            XmlAssert.XmlEquals(new StringReader(_xmlTrueTest), new StringReader(_xmlFalseTest));
+        }
+
         [Test]
         public void XmlEqualsWithString()
         {
             XmlAssert.XmlEquals(_xmlTrueTest, _xmlTrueTest);
+        }
+
+        [Test, ExpectedException(typeof(NotEqualAssertionException))]
+        public void XmlEqualsWithStringFail()
+        {
+            XmlAssert.XmlEquals(_xmlTrueTest, _xmlFalseTest);
         }
 
         [Test]
@@ -35,23 +47,22 @@ namespace MbUnit.Framework.Tests.Asserts.XmlUnit {
             XmlAssert.XmlEquals(new XmlInput(_xmlTrueTest), new XmlInput(_xmlTrueTest));
         }
 
+        [Test, ExpectedException(typeof(NotEqualAssertionException))]
+        public void XmlEqualsWithXmlInputFail()
+        {
+            XmlAssert.XmlEquals(new XmlInput(_xmlTrueTest), new XmlInput(_xmlFalseTest));
+        }
+
         [Test]
         public void XmlEqualsWithXmlDiff()
         {
             XmlAssert.XmlEquals(new XmlDiff(_xmlTrueTest, _xmlTrueTest));
         }
 
-        [Test]
+        [Test, ExpectedException(typeof(NotEqualAssertionException))]
         public void XmlEqualsWithXmlDiffFail()
         {
-            try
-            {
-                XmlAssert.XmlEquals(new XmlDiff(new XmlInput(_xmlTrueTest), new XmlInput(_xmlFalseTest)));
-            }
-            catch (AssertionException e)
-            {
-                Assert.AreEqual(true, e.Message.StartsWith("Xml does not match"));
-            }
+            XmlAssert.XmlEquals(new XmlDiff(new XmlInput(_xmlTrueTest), new XmlInput(_xmlFalseTest)));
         }
 
         [RowTest]
