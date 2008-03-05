@@ -46,6 +46,9 @@
     <Content Include="TestFixture.vstemplate" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="MbUnit.Framework, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5e72ecd30bc408d5" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="My Project\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />

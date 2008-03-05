@@ -164,16 +164,16 @@ Section "MbUnit v2 Visual Studio 2008 Templates" MbUnit2VS2008TemplatesSection
         ; VB Item Templates
 	SetOutPath "$0\ItemTemplates\VisualBasic\Test"
 	File "${TARGETDIR}\extras\Templates\VS2008\ItemTemplates\VisualBasic\Test\MbUnit2.TestFixtureTemplate.VisualBasic.zip"
-	File "${TARGETDIR}\extras\Templates\VS2008\ProjectTemplates\VisualBasic\Test\MbUnit3.MvcWebApplicationTestProjectTemplate.VisualBasic.zip"
+
+	; VB Project Templates
+	SetOutPath "$0\ProjectTemplates\VisualBasic\Test"
+	File "${TARGETDIR}\extras\Templates\VS2008\ProjectTemplates\VisualBasic\Test\MbUnit2.TestProjectTemplate.VisualBasic.zip"
+	File "${TARGETDIR}\extras\Templates\VS2008\ProjectTemplates\VisualBasic\Test\MbUnit2.MvcWebApplicationTestProjectTemplate.VisualBasic.zip"
 
 	WriteRegStr HKLM "SOFTWARE\Microsoft\VisualStudio\9.0\MVC\TestProjectTemplates\MbUnit2\VB" "Path" "VisualBasic\Test"
 	WriteRegStr HKLM "SOFTWARE\Microsoft\VisualStudio\9.0\MVC\TestProjectTemplates\MbUnit2\VB" "Template" "MbUnit2.MvcWebApplicationTestProjectTemplate.VisualBasic.zip"
 	WriteRegStr HKLM "SOFTWARE\Microsoft\VisualStudio\9.0\MVC\TestProjectTemplates\MbUnit2\VB" "TestFrameworkName" "MbUnit v2"
 	WriteRegStr HKLM "SOFTWARE\Microsoft\VisualStudio\9.0\MVC\TestProjectTemplates\MbUnit2\VB" "AdditionalInfo" "http://www.mbunit.com/"
-
-	; VB Project Templates
-	SetOutPath "$0\ProjectTemplates\VisualBasic\Test"
-	File "${TARGETDIR}\extras\Templates\VS2008\ProjectTemplates\VisualBasic\Test\MbUnit2.TestProjectTemplate.VisualBasic.zip"
 
 	; Run DevEnv /setup to register the templates.
 	ExecWait '"$0\devenv.exe" /setup'
@@ -331,17 +331,19 @@ FunctionEnd
 Function AddRemovePageLeave
 	!insertmacro MUI_INSTALLOPTIONS_READ $INI_VALUE "AddRemovePage.ini" "Field 2" "State"
 
-	MessageBox MB_OKCANCEL "Uninstall the current version?" IDOK Uninstall
+	; Note: We don't uninstall silently anymore because it takes too
+	;       long and it sucks not to get any feedback during the process.
+	ExecWait '"$OLD_INSTALL_DIR\uninstall.exe" _?=$OLD_INSTALL_DIR' $0
+	IntCmp $0 0 Ok
+	MessageBox MB_OK "Cannot proceed because the old version was not successfully uninstalled."
 	Abort
 
-	Uninstall:
-	ExecWait '"$OLD_INSTALL_DIR\uninstall.exe" /S _?=$OLD_INSTALL_DIR' $0
-	DetailPrint "Uninstaller returned $0"
-
+	Ok:
 	IntCmp $INI_VALUE 1 Upgrade
 	Quit
 
 	Upgrade:
+	BringToFront
 FunctionEnd
 
 ; User-selection page.

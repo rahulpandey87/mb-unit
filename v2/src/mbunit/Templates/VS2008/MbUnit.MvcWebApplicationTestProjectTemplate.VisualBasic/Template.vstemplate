@@ -2,7 +2,7 @@
 <VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.microsoft.com/developer/vstemplate/2005">
   <TemplateData>
     <Name>MbUnit v2 ASP.NET MVC Test</Name>
-    <Description>An MbUnit v2 project for testing an ASP.NET MVC web application (.NET Framework 3.5)</Description>
+    <Description>An MbUnit v2 project for testing an ASP.NET MVC web application</Description>
     <Icon>Template.ico</Icon>
     <ProjectType>VisualBasic</ProjectType>
     <SortOrder>100</SortOrder>

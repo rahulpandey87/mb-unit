@@ -12,7 +12,7 @@ namespace $rootnamespace$
         public void Test()
         {
             //
-            // TODO: Add test logic    here
+            // TODO: Add test logic here
             //
         }
     }
