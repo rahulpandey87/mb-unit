@@ -547,12 +547,20 @@ namespace MbUnit.Forms
 
 		public void ThreadedPopulateTree(bool saveTreeState)
 		{
-			if (saveTreeState)
-				this.state.Save();
+            if (saveTreeState)
+                SaveTreeState();
 
 			this.AbortWorkerThread();
 			this.workerThread =new Thread(new ThreadStart(this.PopulateTree));
 			this.workerThread.Start();
+        }
+
+        private void SaveTreeState()
+        {
+            if (InvokeRequired)
+                Invoke(new MethodInvoker(SaveTreeState));
+            else
+                state.Save();
         }
 
 		public event EventHandler TreeCleared;

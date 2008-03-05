@@ -233,8 +233,13 @@ namespace MbUnit.Forms
 
         public void Clear()
         {
-            this.exceptionTreeView.Nodes.Clear();
-            this.textBox1.Text = "";
+            if (InvokeRequired)
+                Invoke(new MethodInvoker(Clear));
+            else
+            {
+                exceptionTreeView.Nodes.Clear();
+                textBox1.Clear();
+            }
         }
 	}
 }
