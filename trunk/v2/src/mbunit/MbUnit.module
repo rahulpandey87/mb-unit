@@ -1,0 +1,66 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(RootDir)\Module.targets" />
+
+  <ItemGroup>
+    <NestedModule Include="*\*.module" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <CSharpProject Include="TestFu\TestFu.csproj" />
+    <CSharpProject Include="TestFu.Tests\TestFu.Tests.csproj" />
+    <CSharpProject Include="MbUnit.Framework\MbUnit.Framework.csproj" />
+    <CSharpProject Include="MbUnit.Framework.2.0\MbUnit.Framework.2.0.csproj" />
+    <CSharpProject Include="MbUnit.Tasks\MbUnit.Tasks.csproj" />
+    <CSharpProject Include="MbUnit.MSBuild.Tasks\MbUnit.MSBuild.Tasks.csproj" />
+    <CSharpProject Include="MbUnit.Cons\MbUnit.Cons.csproj" />
+    <CSharpProject Include="MbUnit.GUI\MbUnit.GUI.csproj" />
+    <CSharpProject Include="MbUnit.AddIn\MbUnit.AddIn.csproj" />
+    <CSharpProject Include="MbUnit.Tests\MbUnit.Tests.csproj" />
+    <CSharpProject Include="MbUnit.Framework.Tests\MbUnit.Framework.Tests.csproj" />
+    <CSharpProject Include="MbUnit.Framework.Tests.2.0\MbUnit.Framework.Tests.2.0.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Binary Include="TestFu\bin\Release\TestFu.dll" />
+
+    <Binary Include="MbUnit.Framework\bin\Release\MbUnit.Framework.dll" />
+    <Binary Include="MbUnit.Framework.2.0\bin\Release\MbUnit.Framework.2.0.dll" />
+    <Binary Include="MbUnit.Cons\bin\Release\MbUnit.Cons.exe" />
+    <Binary Include="MbUnit.Cons\bin\Release\MbUnit.Cons.exe.config" />
+    <Binary Include="MbUnit.GUI\bin\Release\MbUnit.GUI.exe" />
+    <Binary Include="MbUnit.GUI\bin\Release\MbUnit.GUI.exe.config" />
+    <Binary Include="MbUnit.AddIn\bin\Release\MbUnit.AddIn.dll" />
+    <Binary Include="MbUnit.Tasks\bin\Release\MbUnit.Tasks.dll" />
+    <Binary Include="MbUnit.MSBuild.Tasks\bin\Release\MbUnit.MSBuild.Tasks.dll" />
+
+    <Extra Include="Snippets\**\*.snippet">
+      <Folder>Snippets</Folder>
+    </Extra>
+    <Extra Include="Snippets\**\*.cst">
+      <Folder>Snippets</Folder>
+    </Extra>
+
+    <Extra Include="CCNet\How to use MbUnit v2 with CruiseControl.Net.txt">
+      <Folder>CCNet</Folder>
+    </Extra>    
+    <Extra Include="CCNet\xsl\*.xsl">
+      <Folder>CCNet\xsl</Folder>
+    </Extra>    
+    <Extra Include="CCNet\images\*.png">
+      <Folder>CCNet\images</Folder>
+    </Extra>    
+  </ItemGroup>
+
+  <ItemGroup>
+    <DocumentedAssembly Include="TestFu\bin\Release\TestFu.dll" />
+    <DocumentedAssembly Include="MbUnit.Framework\bin\Release\MbUnit.Framework.dll" />
+    <DocumentedAssembly Include="MbUnit.Framework.2.0\bin\Release\MbUnit.Framework.2.0.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TestAssembly Include="TestFu.Tests\bin\Release\TestFu.Tests.dll" />
+    <TestAssembly Include="MbUnit.Tests\bin\Release\MbUnit.Tests.dll" />
+    <TestAssembly Include="MbUnit.Framework.Tests\bin\Release\MbUnit.Framework.Tests.dll" />
+    <TestAssembly Include="MbUnit.Framework.Tests.2.0\bin\Release\MbUnit.Framework.Tests.2.0.dll" />
+  </ItemGroup>
+</Project>

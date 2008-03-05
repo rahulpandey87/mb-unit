@@ -1,0 +1,30 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(RootDir)\Module.targets" />
+
+  <ItemGroup>
+    <CSharpProject Include="QuickGraph\QuickGraph.csproj" />
+    <CSharpProject Include="QuickGraph.Algorithms\QuickGraph.Algorithms.csproj" />
+    <CSharpProject Include="QuickGraph.Algorithms.GraphViz\QuickGraph.Algorithms.GraphViz.csproj" />
+    <CSharpProject Include="QuickGraph.Tests\QuickGraph.Tests.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Binary Include="QuickGraph\bin\Release\QuickGraph.dll" />
+    <Binary Include="QuickGraph.Algorithms\bin\Release\QuickGraph.Algorithms.dll" />
+    <Binary Include="QuickGraph.Algorithms.Graphviz\bin\Release\QuickGraph.Algorithms.Graphviz.dll" />
+
+    <Binary Include="NGraphviz\NGraphviz.dll" />
+    <Binary Include="NGraphviz\NGraphviz.Layout.dll" />
+    <Binary Include="NGraphviz\NGraphviz.Helpers.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DocumentedAssembly Include="QuickGraph\bin\Release\QuickGraph.dll" />
+    <DocumentedAssembly Include="QuickGraph.Algorithms\bin\Release\QuickGraph.Algorithms.dll" />
+    <DocumentedAssemly Include="QuickGraph.Algorithms.Graphviz\bin\Release\QuickGraph.Algorithms.Graphviz.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TestAssembly Include="QuickGraph.Tests\bin\Release\QuickGraph.Tests.dll" />
+  </ItemGroup>
+</Project>

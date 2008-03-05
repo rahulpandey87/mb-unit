@@ -1,6 +1,5 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <AdditionalAssemblyInfoDir>$(IntermediateOutputPath)</AdditionalAssemblyInfoDir>
     <AdditionalAssemblyInfo>$(IntermediateOutputPath)AdditionalAssemblyInfo.cs</AdditionalAssemblyInfo>
     <CompileDependsOn>
       GenerateAdditionalAssemblyInfo;
@@ -22,8 +21,6 @@
   </ItemGroup>
 
   <Target Name="GenerateAdditionalAssemblyInfo">
-    <MakeDir Directories="$(AdditionalAssemblyInfoDir)" />
-
     <WriteLinesToFile File="$(AdditionalAssemblyInfo)"
                       Lines="%(AdditionalAssemblyInfo.Contents)"
                       Overwrite="true">

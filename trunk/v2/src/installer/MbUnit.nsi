@@ -6,6 +6,7 @@
 	!error "The /DRootDir=... argument must be specified."
 !endif
 
+; Common directories
 !define BUILDDIR "${ROOTDIR}\build"
 !define TARGETDIR "${BUILDDIR}\target"
 !define RELEASEDIR "${BUILDDIR}\release"
@@ -13,9 +14,6 @@
 ; Define your application name
 !define APPNAME "MbUnit"
 !define APPNAMEANDVERSION "MbUnit v${VERSION}"
-!define PRODUCT_WEB_SITE "http://www.mbunit.com"
-!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\XsdTidy.exe"
-!define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
@@ -39,6 +37,8 @@ ShowUnInstDetails show
 Page custom AddRemovePageEnter AddRemovePageLeave
 !insertmacro MUI_PAGE_LICENSE "${TARGETDIR}\MbUnit License.txt"
 Page custom UserSelectionPageEnter UserSelectionPageLeave
+!insertmacro MUI_PAGE_COMPONENTS
+!insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
 
@@ -60,103 +60,31 @@ Var INI_VALUE
 ; Stores "all" if installing for all users, else "current"
 Var UserContext
 
-Section "MainSection" Main
+Section "!MbUnit v2" MbUnit2Section
 	SectionIn RO
 	SetOverwrite on
 
 	SetOutPath "$INSTDIR"
-	File "${TARGETDIR}\ASL - Apache Software Foundation License.txt"
-	File "${TARGETDIR}\MbUnit License.txt"
-	File "${TARGETDIR}\Release Notes.txt"
+	File /r "${TARGETDIR}\*.*"
 
-	File "${TARGETDIR}\XsdTidy.exe"
-	File "${TARGETDIR}\TestDriven.Framework.dll"
-	File "${TARGETDIR}\Refly.dll"
-	File "${TARGETDIR}\Refly.xml"
-	File "${TARGETDIR}\QuickGraph.dll"
-	File "${TARGETDIR}\QuickGraph.xml"
-	File "${TARGETDIR}\QuickGraph.Algorithms.Graphviz.dll"
-	File "${TARGETDIR}\QuickGraph.Algorithms.Graphviz.xml"
-	File "${TARGETDIR}\QuickGraph.Algorithms.dll"
-	File "${TARGETDIR}\QuickGraph.Algorithms.xml"
-	File "${TARGETDIR}\NGraphviz.Layout.dll"
-	File "${TARGETDIR}\NGraphviz.Helpers.dll"
-	File "${TARGETDIR}\NGraphviz.dll"
-	File "${TARGETDIR}\TestFu.dll" 
-	File "${TARGETDIR}\TestFu.xml" 
-	File "${TARGETDIR}\MbUnit.Framework.dll"
-	File "${TARGETDIR}\MbUnit.Framework.xml"
-	File "${TARGETDIR}\MbUnit.Framework.2.0.dll"
-	File "${TARGETDIR}\MbUnit.Framework.2.0.xml"
-	File "${TARGETDIR}\MbUnit.Tasks.dll"
-	File "${TARGETDIR}\MbUnit.GUI.exe.config"
-	File "${TARGETDIR}\MbUnit.GUI.exe"
-	File "${TARGETDIR}\MbUnit.Cons.exe"
-	File "${TARGETDIR}\MbUnit.Cons.exe.config"
-	File "${TARGETDIR}\MbUnit.AddIn.dll"
-	File "${TARGETDIR}\MbUnit.MSBuild.Tasks.dll"
 	File "MbUnit.url"
-	File "MbUnit Offline Documentation.url"
 	File "MbUnit Online Documentation.url"
 
+	; Test Driven .Net
 	WriteRegStr SHCTX "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit" "" "10"
-	WriteRegStr SHCTX "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit" "AssemblyPath" "$PROGRAMFILES\MbUnit\MbUnit.AddIn.dll"
+	WriteRegStr SHCTX "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit" "AssemblyPath" "$INSTDIR\bin\MbUnit.AddIn.dll"
 	WriteRegStr SHCTX "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit" "TypeName" "MbUnit.AddIn.MbUnitTestRunner"
 	WriteRegStr SHCTX "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit" "TargetFrameworkAssemblyName" "MbUnit.Framework"
-	WriteRegStr SHCTX "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit" "Application" "$PROGRAMFILES\MbUnit\MbUnit.GUI.exe"
+	WriteRegStr SHCTX "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit" "Application" "$INSTDIR\bin\MbUnit.GUI.exe"
 	
-	WriteRegStr SHCTX "SOFTWARE\Microsoft\.NETFramework\v2.0.50727\AssemblyFoldersEx\MbUnit" "" "$PROGRAMFILES\MbUnit\"
-
-	SetOutPath "$INSTDIR\VSSnippets\MbUnitCSharpSnippets"
-	SetOverwrite try
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitCSharpSnippets\autorunner.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitCSharpSnippets\datafixture.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitCSharpSnippets\model.snippet"  
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitCSharpSnippets\rowtest.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitCSharpSnippets\state.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitCSharpSnippets\submodel.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitCSharpSnippets\test.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitCSharpSnippets\testexpectedexception.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitCSharpSnippets\testfixture.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitCSharpSnippets\testsuitefixture.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitCSharpSnippets\typefixturewithproviderfactory.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitCSharpSnippets\typefixture.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitCSharpSnippets\usingmbunit.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitCSharpSnippets\combinatorialtest.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitCSharpSnippets\processtestfixture.snippet"
-
-	SetOutPath "$INSTDIR\VSSnippets\MbUnitVBSnippets"
-	SetOverwrite try
-
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitVBSnippets\autorunner.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitVBSnippets\datafixture.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitVBSnippets\model.snippet"  
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitVBSnippets\rowtest.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitVBSnippets\state.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitVBSnippets\submodel.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitVBSnippets\test.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitVBSnippets\testexpectedexception.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitVBSnippets\testfixture.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitVBSnippets\testsuitefixture.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitVBSnippets\typefixturewithproviderfactory.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitVBSnippets\typefixture.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitVBSnippets\usingmbunit.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitVBSnippets\combinatorialtest.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitVBSnippets\processtestfixture.snippet"
-	
-	SetOutPath "$INSTDIR\VSSnippets\MbUnitXMLSnippets"
-	SetOverwrite try
-
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitXMLSnippets\msbuild.snippet"
-	File "${TARGETDIR}\Snippets\VSSnippets\MbUnitXMLSnippets\nant.snippet"
-
-	SetOutPath "$INSTDIR\CCNet"
-	File /r "${TARGETDIR}\CCNet\*.*"
+	; Register the folder so that Visual Studio Add References can find it
+	WriteRegStr SHCTX "SOFTWARE\Microsoft\.NETFramework\AssemblyFolders\MbUnit" "" "$INSTDIR\bin"
+	WriteRegStr SHCTX "SOFTWARE\Microsoft\.NETFramework\v2.0.50727\AssemblyFoldersEx\MbUnit" "" "$INSTDIR\bin"
 
 	;Start menu items
 	CreateDirectory "$SMPROGRAMS\${APPNAME}" 
-	CreateShortCut "$SMPROGRAMS\${APPNAME}\MbUnit.GUI.lnk" "$INSTDIR\MbUnit.GUI.exe" 
-	CreateShortCut "$SMPROGRAMS\${APPNAME}\MbUnit Offline Documentation.lnk" "$INSTDIR\MbUnit Offline Documentation.url"
+	CreateShortCut "$SMPROGRAMS\${APPNAME}\MbUnit.GUI.lnk" "$INSTDIR\bin\MbUnit.GUI.exe" 
+	CreateShortCut "$SMPROGRAMS\${APPNAME}\MbUnit Offline Documentation.lnk" "$INSTDIR\docs\MbUnit.chm"
 	CreateShortCut "$SMPROGRAMS\${APPNAME}\MbUnit Online Documentation.lnk" "$INSTDIR\MbUnit Online Documentation.url"
 	CreateShortCut "$SMPROGRAMS\${APPNAME}\MbUnit Website.lnk" "$INSTDIR\MbUnit.url"
 	CreateShortCut "$SMPROGRAMS\${APPNAME}\Uninstall.lnk" "$INSTDIR\uninstall.exe"
@@ -173,19 +101,97 @@ Section "MainSection" Main
 	StrCmp $0 "" 0 "${Index}-Skip" 
 	WriteRegStr HKCR "MbUnit" "" "MbUnit Project File" 
 	WriteRegStr HKCR "MbUnit\shell" "" "open" 
-	WriteRegStr HKCR "MbUnit\DefaultIcon" "" "$INSTDIR\MbUnit.GUI.exe,0" 
+	WriteRegStr HKCR "MbUnit\DefaultIcon" "" "$INSTDIR\bin\MbUnit.GUI.exe,0" 
 	"${Index}-Skip:" 
-	WriteRegStr HKCR "MbUnit\shell\open\command" "" '$INSTDIR\MbUnit.GUI.exe "%1"' 
+	WriteRegStr HKCR "MbUnit\shell\open\command" "" '$INSTDIR\bin\MbUnit.GUI.exe "%1"' 
 
 	System::Call 'Shell32::SHChangeNotify(i 0x8000000, i 0, i 0, i 0)' 
-	!undef Index 
-	
+	!undef Index 	
+SectionEnd
+
+Section "MbUnit v2 Visual Studio 2005 Templates" MbUnit2VS2005TemplatesSection
+	; Set Section properties
+	SetOverwrite on
+
+	ClearErrors
+	ReadRegStr $0 HKLM "SOFTWARE\Microsoft\VisualStudio\8.0" "InstallDir"
+	IfErrors SkipVS2005Templates
+
+        ; C# Item Templates
+	SetOutPath "$0\ItemTemplates\CSharp\Test"
+	File "${TARGETDIR}\extras\Templates\VS2005\ItemTemplates\CSharp\Test\MbUnit2.TestFixtureTemplate.CSharp.zip"
+
+	; C# Project Templates
+	SetOutPath "$0\ProjectTemplates\CSharp\Test"
+	File "${TARGETDIR}\extras\Templates\VS2005\ProjectTemplates\CSharp\Test\MbUnit2.TestProjectTemplate.CSharp.zip"
+
+        ; VB Item Templates
+	SetOutPath "$0\ItemTemplates\VisualBasic\Test"
+	File "${TARGETDIR}\extras\Templates\VS2005\ItemTemplates\VisualBasic\Test\MbUnit2.TestFixtureTemplate.VisualBasic.zip"
+
+	; VB Project Templates
+	SetOutPath "$0\ProjectTemplates\VisualBasic\Test"
+	File "${TARGETDIR}\extras\Templates\VS2005\ProjectTemplates\VisualBasic\Test\MbUnit2.TestProjectTemplate.VisualBasic.zip"
+
+	; Run DevEnv /setup to register the templates.
+	ExecWait '"$0\devenv.exe" /setup'
+
+	SkipVS2005Templates:
+SectionEnd
+
+Section "MbUnit v2 Visual Studio 2008 Templates" MbUnit2VS2008TemplatesSection
+	; Set Section properties
+	SetOverwrite on
+
+	ClearErrors
+	ReadRegStr $0 HKLM "SOFTWARE\Microsoft\VisualStudio\9.0" "InstallDir"
+	IfErrors SkipVS2008Templates
+
+        ; C# Item Templates
+	SetOutPath "$0\ItemTemplates\CSharp\Test"
+	File "${TARGETDIR}\extras\Templates\VS2008\ItemTemplates\CSharp\Test\MbUnit2.TestFixtureTemplate.CSharp.zip"
+
+	; C# Project Templates
+	SetOutPath "$0\ProjectTemplates\CSharp\Test"
+	File "${TARGETDIR}\extras\Templates\VS2008\ProjectTemplates\CSharp\Test\MbUnit2.TestProjectTemplate.CSharp.zip"
+	File "${TARGETDIR}\extras\Templates\VS2008\ProjectTemplates\CSharp\Test\MbUnit2.MvcWebApplicationTestProjectTemplate.CSharp.zip"
+
+	WriteRegStr HKLM "SOFTWARE\Microsoft\VisualStudio\9.0\MVC\TestProjectTemplates\MbUnit2\C#" "Path" "CSharp\Test"
+	WriteRegStr HKLM "SOFTWARE\Microsoft\VisualStudio\9.0\MVC\TestProjectTemplates\MbUnit2\C#" "Template" "MbUnit2.MvcWebApplicationTestProjectTemplate.CSharp.zip"
+	WriteRegStr HKLM "SOFTWARE\Microsoft\VisualStudio\9.0\MVC\TestProjectTemplates\MbUnit2\C#" "TestFrameworkName" "MbUnit v2"
+	WriteRegStr HKLM "SOFTWARE\Microsoft\VisualStudio\9.0\MVC\TestProjectTemplates\MbUnit2\C#" "AdditionalInfo" "http://www.mbunit.com/"
+
+        ; VB Item Templates
+	SetOutPath "$0\ItemTemplates\VisualBasic\Test"
+	File "${TARGETDIR}\extras\Templates\VS2008\ItemTemplates\VisualBasic\Test\MbUnit2.TestFixtureTemplate.VisualBasic.zip"
+	File "${TARGETDIR}\extras\Templates\VS2008\ProjectTemplates\VisualBasic\Test\MbUnit3.MvcWebApplicationTestProjectTemplate.VisualBasic.zip"
+
+	WriteRegStr HKLM "SOFTWARE\Microsoft\VisualStudio\9.0\MVC\TestProjectTemplates\MbUnit2\VB" "Path" "VisualBasic\Test"
+	WriteRegStr HKLM "SOFTWARE\Microsoft\VisualStudio\9.0\MVC\TestProjectTemplates\MbUnit2\VB" "Template" "MbUnit2.MvcWebApplicationTestProjectTemplate.VisualBasic.zip"
+	WriteRegStr HKLM "SOFTWARE\Microsoft\VisualStudio\9.0\MVC\TestProjectTemplates\MbUnit2\VB" "TestFrameworkName" "MbUnit v2"
+	WriteRegStr HKLM "SOFTWARE\Microsoft\VisualStudio\9.0\MVC\TestProjectTemplates\MbUnit2\VB" "AdditionalInfo" "http://www.mbunit.com/"
+
+	; VB Project Templates
+	SetOutPath "$0\ProjectTemplates\VisualBasic\Test"
+	File "${TARGETDIR}\extras\Templates\VS2008\ProjectTemplates\VisualBasic\Test\MbUnit2.TestProjectTemplate.VisualBasic.zip"
+
+	; Run DevEnv /setup to register the templates.
+	ExecWait '"$0\devenv.exe" /setup'
+
+	SkipVS2008Templates:
 SectionEnd
 
 Function un.onUninstSuccess
 	HideWindow
 	MessageBox MB_ICONINFORMATION|MB_OK "MbUnit was successfully removed from your computer."
 FunctionEnd
+
+; Component descriptions
+!insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
+	!insertmacro MUI_DESCRIPTION_TEXT ${MbUnit2Section} "Installs the MbUnit v2 test framework."
+	!insertmacro MUI_DESCRIPTION_TEXT ${MbUnit2VS2005TemplatesSection} "Installs the MbUnit v2 Visual Studio 2005 templates."
+	!insertmacro MUI_DESCRIPTION_TEXT ${MbUnit2VS2008TemplatesSection} "Installs the MbUnit v2 Visual Studio 2008 templates."
+!insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 ; Initialization code
 Function .onInit
@@ -236,11 +242,8 @@ SectionEnd
 
 Section Uninstall
 	DeleteRegKey SHCTX "SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit"
+	DeleteRegKey SHCTX "SOFTWARE\Microsoft\.NETFramework\AssemblyFolders\MbUnit"
 	DeleteRegKey SHCTX "SOFTWARE\Microsoft\.NETFramework\v2.0.50727\AssemblyFoldersEx\MbUnit"
-	
-	DeleteRegKey SHCTX "${PRODUCT_UNINST_KEY}"
-	DeleteRegKey SHCTX "${PRODUCT_DIR_REGKEY}"
-	
 	
 	;Unregister file association 
 	!define Index "Line${__LINE__}" 
@@ -259,6 +262,42 @@ Section Uninstall
 	System::Call 'Shell32::SHChangeNotify(i 0x8000000, i 0, i 0, i 0)' 
 	"${Index}-NoOwn:" 
 	!undef Index 
+
+	; Uninstall the Visual Studio 2005 templates
+	ClearErrors
+	ReadRegStr $0 HKLM "SOFTWARE\Microsoft\VisualStudio\8.0" "InstallDir"
+	IfErrors SkipVS2005Templates
+
+	Delete "$0\ItemTemplates\CSharp\Test\MbUnit2.TestFixtureTemplate.CSharp.zip"
+	Delete "$0\ProjectTemplates\CSharp\Test\MbUnit2.TestProjectTemplate.CSharp.zip"
+
+	Delete "$0\ItemTemplates\VisualBasic\Test\MbUnit2.TestFixtureTemplate.VisualBasic.zip"
+	Delete "$0\ProjectTemplates\VisualBasic\Test\MbUnit2.TestProjectTemplate.VisualBasic.zip"
+
+	; Run DevEnv /setup to unregister the templates.
+	ExecWait '"$0\devenv.exe" /setup'
+
+	SkipVS2005Templates:
+
+	; Uninstall the Visual Studio 2008 templates
+	ClearErrors
+	ReadRegStr $0 HKLM "SOFTWARE\Microsoft\VisualStudio\9.0" "InstallDir"
+	IfErrors SkipVS2008Templates
+
+	Delete "$0\ItemTemplates\CSharp\Test\MbUnit2.TestFixtureTemplate.CSharp.zip"
+	Delete "$0\ProjectTemplates\CSharp\Test\MbUnit2.TestProjectTemplate.CSharp.zip"
+	Delete "$0\ProjectTemplates\CSharp\Test\MbUnit2.MvcWebApplicationTestProjectTemplate.CSharp.zip"
+	DeleteRegKey HKLM "SOFTWARE\Microsoft\VisualStudio\9.0\MVC\TestProjectTemplates\MbUnit2\C#"
+
+	Delete "$0\ItemTemplates\VisualBasic\Test\MbUnit2.TestFixtureTemplate.VisualBasic.zip"
+	Delete "$0\ProjectTemplates\VisualBasic\Test\MbUnit2.TestProjectTemplate.VisualBasic.zip"
+	Delete "$0\ProjectTemplates\VisualBasic\Test\MbUnit2.MvcWebApplicationTestProjectTemplate.VisualBasic.zip"
+	DeleteRegKey HKLM "SOFTWARE\Microsoft\VisualStudio\9.0\MVC\TestProjectTemplates\MbUnit2\VB"
+
+	; Run DevEnv /setup to unregister the templates.
+	ExecWait '"$0\devenv.exe" /setup'
+
+	SkipVS2008Templates:
 
 	; Delete Shortcuts
 	RMDir /r "$SMPROGRAMS\${APPNAME}"
