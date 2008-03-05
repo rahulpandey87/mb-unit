@@ -74,17 +74,17 @@ namespace MbUnit.Core.Invokers
 			
 				// launch
 				runner.StartAll();
-				while(runner.AnyAlive)
-				{
-					foreach(ThreadedRunInvokerStarter starter in starters)
-					{
-						if (starter.HasThrown)
-						{
-							runner.WaitForFinishingSafe();
-							throw new Exception("Runner throwed.",starter.Exception);
-						}
-					}
-				}
+				runner.WaitForFinishingSafe();
+
+                // Now that we are done running, check to see if any exceptions were thrown.
+                // NOTE: This only reports the first thread that failed.
+                foreach ( ThreadedRunInvokerStarter starter in starters )
+                {
+                    if ( starter.HasThrown )
+                    {
+                        throw new Exception( "Runner throwed.", starter.Exception );
+                    }
+                }
 			}
 
 			return null;

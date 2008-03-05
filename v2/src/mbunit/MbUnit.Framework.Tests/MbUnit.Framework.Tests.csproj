@@ -55,6 +55,7 @@
     <EmbeddedResource Include="Asserts\CsSample.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Compile Include="Attributes\ThreadedRepeatAttributeTest.cs" />
     <Compile Include="Asserts\DataAssert_Test.cs" />
     <Compile Include="Asserts\DurationAttributeTest.cs" />
     <Compile Include="Asserts\FileAssert_Test.cs" />

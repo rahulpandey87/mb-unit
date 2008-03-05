@@ -89,15 +89,22 @@ namespace MbUnit.Core.Collections
 			while (alive && this.Threads.Count>0)
 			{
 				alive=false;
+                ThreadCollection removeList = new ThreadCollection();
 				foreach(Thread thread in this.Threads)
 				{
-					if (thread.IsAlive)
-					{
-						this.Threads.Remove(thread);
-						alive=true;
-						break;
-					}
+                    if ( thread.IsAlive )
+                    {
+                        alive = true;
+                    }
+                    else
+                    {
+                        removeList.Add( thread );
+                    }
 				}
+                foreach ( Thread thread in removeList )
+                {
+                    this.Threads.Remove( thread );
+                }
                 // Fix for http://www.mertner.com/jira/browse/MBUNIT-134 by Richard Louapre
                 Thread.Sleep(10);
 			}
@@ -107,25 +114,37 @@ namespace MbUnit.Core.Collections
 		{			
 			bool alive = true;
 			while (alive && this.Threads.Count>0)
-			{
-				try
-				{
-					alive=false;
-					foreach(Thread thread in this.Threads)
-					{
-						if (thread.IsAlive)
-						{
-							this.Threads.Remove(thread);
-							alive=true;
-							break;
-						}
-					}
-                    // Fix for http://www.mertner.com/jira/browse/MBUNIT-134 by Richard Louapre
-					Thread.Sleep(10);
-				}
-				catch(Exception)
-				{}
-			}
+            {
+                alive = false;
+                ThreadCollection removeList = new ThreadCollection();
+                foreach ( Thread thread in this.Threads )
+                {
+                    try
+                    {
+                        if ( thread.IsAlive )
+                        {
+                            alive = true;
+                        }
+                        else
+                        {
+                            removeList.Add( thread );
+                        }
+                    }
+                    catch ( Exception )
+                    { }
+                }
+                foreach ( Thread thread in removeList )
+                {
+                    try
+                    {
+                        this.Threads.Remove( thread );
+                    }
+                    catch ( Exception )
+                    { }
+                }
+                // Fix for http://www.mertner.com/jira/browse/MBUNIT-134 by Richard Louapre
+                Thread.Sleep( 10 );
+            }
 		}
 
 		public void Dispose()
