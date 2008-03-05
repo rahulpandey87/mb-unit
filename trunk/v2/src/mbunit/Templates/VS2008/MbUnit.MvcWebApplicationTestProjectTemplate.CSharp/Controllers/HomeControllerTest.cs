@@ -10,7 +10,6 @@ namespace $safeprojectname$.Controllers
     /// Summary description for HomeControllerTest
     /// </summary>
     [TestFixture]
-    [TestsOn(typeof(HomeController))]
     public class HomeControllerTest
     {
         [Test]
