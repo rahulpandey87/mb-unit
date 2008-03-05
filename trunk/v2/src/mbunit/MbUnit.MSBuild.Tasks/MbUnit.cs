@@ -78,6 +78,58 @@ namespace MbUnit.MSBuild.Tasks
             set { this.haltOnError = value; }
         }
 
+        #region output parameters
+        [Output]
+        public int FailureCount
+        {
+            get
+            {
+                return GetCounter("FailureCount");
+            }
+        }
+
+        private int GetCounter(string name)
+        {
+            int count = 0;
+            if(this.result != null && this.result.Counter != null)
+            {
+                count = (int)this.result.Counter.GetType().GetProperty(name).GetValue(this.result.Counter, null);
+            }
+
+            return count;
+        }
+
+        [Output]
+        public int SkipCount
+        {
+            get { return GetCounter("SkipCount"); }
+        }
+
+        [Output]
+        public int SuccessCount
+        {
+            get { return GetCounter("SuccessCount"); }
+        }
+
+        [Output]
+        public int RunCount
+        {
+            get { return GetCounter("RunCount"); }
+        }
+
+        [Output]
+        public int IgnoreCount
+        {
+            get { return GetCounter("IgnoreCount"); }
+        }
+
+        [Output]
+        public double Duration
+        {
+            get { return GetCounter("Duration"); }
+        }
+        #endregion
+
         public override bool Execute()
         {
             try
