@@ -1,22 +1,26 @@
 <Project DefaultTargets="Clean;Build;Test" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Configure the modules. -->
   <PropertyGroup>
     <RootDir>$(MSBuildProjectDirectory)</RootDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <NestedModule Include="Build.module" />
+  </ItemGroup>
 
-    <LibsDir>$(RootDir)\libs</LibsDir>
-    <SourceDir>$(RootDir)\src</SourceDir>
+  <Import Project="$(RootDir)\Module.targets" />
 
-    <BuildDir>$(RootDir)\build</BuildDir>
-    <BuildReportsDir>$(BuildDir)\reports</BuildReportsDir>
-    <BuildReleaseDir>$(BuildDir)\release</BuildReleaseDir>
-
-    <TargetDir>$(BuildDir)\target</TargetDir>
-
+  <!-- Configure other properties. -->
+  <PropertyGroup>
     <Version Condition="'$(Version)'==''">0.0.0.0</Version>
-    <NonInteractive Condition="'$(NonInteractive)'==''">false</NonInteractive>
+    
+    <ShowReports Condition="'$(ShowReports)'==''">true</ShowReports>
+    <ReportTypes Condition="'$(ReportTypes)'==''">Html</ReportTypes>
+
     <TargetFX1_1 Condition="'$(TargetFX1_1)'==''">true</TargetFX1_1>
 
+    <HTMLHelpCompilerPath>$(ProgramFiles)\HTML Help Workshop\hhc.exe</HTMLHelpCompilerPath>
     <NSISPath>$(ProgramFiles)\NSIS\makensis.exe</NSISPath>
-    <MSBuildCommunityTasksPath>$(LibsDir)\MSBuildCommunityTasks</MSBuildCommunityTasksPath>
+    <SourceServerIndexerPath>$(ProgramFiles)\Debugging Tools for Windows\sdk\srcsrv\ssindex.cmd</SourceServerIndexerPath>
 
     <CSharpProperties>
       Configuration=Release;
@@ -28,133 +32,67 @@
     </CSharpProperties>
   </PropertyGroup>
 
-  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
+  <PropertyGroup>
+    <BuildDependsOnTargets>
+      RecursiveBeforeBuild;
+      BuildCSharpProjects;
+      RecursiveAfterBuild;
+      CopyFiles
+    </BuildDependsOnTargets>
+    <RebuildDependsOnTargets>
+      RecursiveBeforeBuild;
+      RebuildCSharpProjects;
+      RecursiveAfterBuild;
+      CopyFiles
+    </RebuildDependsOnTargets>
+    <CleanDependsOnTargets>
+      CleanCSharpProjects;
+      RemoveBuildDir;
+    </CleanDependsOnTargets>
+  </PropertyGroup>
 
-  <!-- The C# projects to compile. -->
-  <ItemGroup>
-    <CSharpProject Include="$(SourceDir)\refly\Refly\Refly.csproj" />
-    <CSharpProject Include="$(SourceDir)\refly\Refly.Cons\Refly.Cons.csproj" />
-    <CSharpProject Include="$(SourceDir)\refly\XsdTidy\XsdTidy.csproj" />
-
-    <CSharpProject Include="$(SourceDir)\quickgraph\QuickGraph\QuickGraph.csproj" />
-    <CSharpProject Include="$(SourceDir)\quickgraph\QuickGraph.Algorithms\QuickGraph.Algorithms.csproj" />
-    <CSharpProject Include="$(SourceDir)\quickgraph\QuickGraph.Algorithms.GraphViz\QuickGraph.Algorithms.GraphViz.csproj" />
-    <CSharpProject Include="$(SourceDir)\quickgraph\QuickGraph.Tests\QuickGraph.Tests.csproj" />
-
-    <CSharpProject Include="$(SourceDir)\mbunit\TestFu\TestFu.csproj" />
-    <CSharpProject Include="$(SourceDir)\mbunit\TestFu.Tests\TestFu.Tests.csproj" />
-    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.Framework\MbUnit.Framework.csproj" />
-    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.Framework.2.0\MbUnit.Framework.2.0.csproj" />
-    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.Tasks\MbUnit.Tasks.csproj" />
-    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.MSBuild.Tasks\MbUnit.MSBuild.Tasks.csproj" />
-    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.Cons\MbUnit.Cons.csproj" />
-    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.GUI\MbUnit.GUI.csproj" />
-    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.AddIn\MbUnit.AddIn.csproj" />
-    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.Tests\MbUnit.Tests.csproj" />
-    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.Framework.Tests\MbUnit.Framework.Tests.csproj" />
-    <CSharpProject Include="$(SourceDir)\mbunit\MbUnit.Framework.Tests.2.0\MbUnit.Framework.Tests.2.0.csproj" />
-  </ItemGroup>
-
-  <!-- The files to copy to the build folder. -->
-  <ItemGroup>
-    <File Include="$(RootDir)\MbUnit License.txt" />
-    <File Include="$(RootDir)\Release Notes.txt" />
-    <File Include="$(RootDir)\ASL - Apache Software Foundation License.txt" />
-
-    <File Include="$(LibsDir)\TestDriven.Net\TestDriven.Framework.dll" />
-
-    <File Include="$(SourceDir)\refly\Refly\bin\Release\Refly.dll" />
-    <File Include="$(SourceDir)\refly\Refly\bin\Release\Refly.xml" />
-    <File Include="$(SourceDir)\refly\XsdTidy\bin\Release\XsdTidy.exe" />
-
-    <File Include="$(SourceDir)\quickgraph\QuickGraph\bin\Release\QuickGraph.dll" />
-    <File Include="$(SourceDir)\quickgraph\QuickGraph\bin\Release\QuickGraph.xml" />
-    <File Include="$(SourceDir)\quickgraph\QuickGraph.Algorithms\bin\Release\QuickGraph.Algorithms.dll" />
-    <File Include="$(SourceDir)\quickgraph\QuickGraph.Algorithms\bin\Release\QuickGraph.Algorithms.xml" />
-    <File Include="$(SourceDir)\quickgraph\QuickGraph.Algorithms.Graphviz\bin\Release\QuickGraph.Algorithms.Graphviz.dll" />
-    <File Include="$(SourceDir)\quickgraph\QuickGraph.Algorithms.Graphviz\bin\Release\QuickGraph.Algorithms.Graphviz.xml" />
-
-    <File Include="$(SourceDir)\quickgraph\NGraphviz\NGraphviz.dll" />
-    <File Include="$(SourceDir)\quickgraph\NGraphviz\NGraphviz.Layout.dll" />
-    <File Include="$(SourceDir)\quickgraph\NGraphviz\NGraphviz.Helpers.dll" />
-
-    <File Include="$(SourceDir)\mbunit\TestFu\bin\Release\TestFu.dll" />
-    <File Include="$(SourceDir)\mbunit\TestFu\bin\Release\TestFu.xml" />
-
-    <File Include="$(SourceDir)\mbunit\MbUnit.Framework\bin\Release\MbUnit.Framework.dll" />
-    <File Include="$(SourceDir)\mbunit\MbUnit.Framework\bin\Release\MbUnit.Framework.xml" />
-    <File Include="$(SourceDir)\mbunit\MbUnit.Framework.2.0\bin\Release\MbUnit.Framework.2.0.dll" />
-    <File Include="$(SourceDir)\mbunit\MbUnit.Framework.2.0\bin\Release\MbUnit.Framework.2.0.xml" />
-    <File Include="$(SourceDir)\mbunit\MbUnit.Cons\bin\Release\MbUnit.Cons.exe" />
-    <File Include="$(SourceDir)\mbunit\MbUnit.Cons\bin\Release\MbUnit.Cons.exe.config" />
-    <File Include="$(SourceDir)\mbunit\MbUnit.GUI\bin\Release\MbUnit.GUI.exe" />
-    <File Include="$(SourceDir)\mbunit\MbUnit.GUI\bin\Release\MbUnit.GUI.exe.config" />
-    <File Include="$(SourceDir)\mbunit\MbUnit.AddIn\bin\Release\MbUnit.AddIn.dll" />
-    <File Include="$(SourceDir)\mbunit\MbUnit.Tasks\bin\Release\MbUnit.Tasks.dll" />
-    <File Include="$(SourceDir)\mbunit\MbUnit.MSBuild.Tasks\bin\Release\MbUnit.MSBuild.Tasks.dll" />
-
-    <File Include="$(SourceDir)\mbunit\Snippets\**\*.snippet">
-      <Folder>Snippets</Folder>
-    </File>
-    <File Include="$(SourceDir)\mbunit\Snippets\**\*.cst">
-      <Folder>Snippets</Folder>
-    </File>
-
-    <File Include="$(SourceDir)\mbunit\CCNet\How to use MbUnit v2 with CruiseControl.Net.txt">
-      <Folder>CCNet</Folder>
-    </File>    
-    <File Include="$(SourceDir)\mbunit\CCNet\xsl\*.xsl">
-      <Folder>CCNet\xsl</Folder>
-    </File>    
-    <File Include="$(SourceDir)\mbunit\CCNet\images\*.png">
-      <Folder>CCNet\images</Folder>
-    </File>    
-  </ItemGroup>
-
-  <!-- The test assemblies to run. -->
-  <ItemGroup>
-    <TestAssembly Include="$(SourceDir)\quickgraph\QuickGraph.Tests\bin\Release\QuickGraph.Tests.dll" />
-    <TestAssembly Include="$(SourceDir)\mbunit\TestFu.Tests\bin\Release\TestFu.Tests.dll" />
-    <TestAssembly Include="$(SourceDir)\mbunit\MbUnit.Tests\bin\Release\MbUnit.Tests.dll" />
-    <TestAssembly Include="$(SourceDir)\mbunit\MbUnit.Framework.Tests\bin\Release\MbUnit.Framework.Tests.dll" />
-    <TestAssembly Include="$(SourceDir)\mbunit\MbUnit.Framework.Tests.2.0\bin\Release\MbUnit.Framework.Tests.2.0.dll" />
-  </ItemGroup>
+  <Target Name="Release"
+          DependsOnTargets="Clean;Build;Test;BuildSourceServerIndex;BuildDocs;BuildInstaller;BuildZip" />
 
   <Target Name="Build"
-          DependsOnTargets="BuildCSharpProjects;CopyFiles" />
+          DependsOnTargets="$(BuildDependsOnTargets)" />
+
+  <Target Name="Rebuild"
+          DependsOnTargets="$(RebuildDependsOnTargets)" />
 
   <Target Name="Clean"
-          DependsOnTargets="CleanCSharpProjects">
+          DependsOnTargets="$(CleanDependsOnTargets)">
+  </Target>
+
+  <Target Name="RemoveBuildDir">
     <RemoveDir Directories="$(BuildDir)"
                Condition="Exists('$(BuildDir)')" />
   </Target>
 
+  <PropertyGroup>
+    <MbUnitConsArgs>/report-type:$(ReportTypes) /report-name-format:test-report /report-folder:&quot;$(BuildReportsDir)&quot; @(TestAssembly->'&quot;%(Identity)&quot;', ' ')</MbUnitConsArgs>
+    <MbUnitConsArgs Condition="$(ShowReports)">$(MbUnitConsArgs) /show-reports</MbUnitConsArgs>
+  </PropertyGroup>
   <Target Name="Test">
-    <Exec Command="&quot;$(TargetDir)\MbUnit.cons.exe&quot; /report-type:Html /report-folder:&quot;$(BuildReportsDir)&quot; /show-reports @(TestAssembly->'&quot;%(Identity)&quot;', ' ')"
-          WorkingDirectory="$(BuildReportsDir)"
-          Condition="! $(NonInteractive)"
+    <Exec Command="&quot;$(TargetDir)\MbUnit.cons.exe&quot; $(MbUnitConsArgs)"
+          WorkingDirectory="$(BuildTempDir)"
           IgnoreExitCode="true">
       <Output TaskParameter="ExitCode" PropertyName="MbUnitExitCode" />
     </Exec>
 
-    <Exec Command="&quot;$(TargetDir)\MbUnit.Cons.exe&quot; /report-name-format:test-report /report-type:Xml /report-folder:&quot;$(BuildReportsDir)&quot; @(TestAssembly->'&quot;%(Identity)&quot;', ' ')"
-          WorkingDirectory="$(BuildReportsDir)"
-          Condition="$(NonInteractive)"
-          IgnoreExitCode="true">
-      <Output TaskParameter="ExitCode" PropertyName="MbUnitExitCode" />
-    </Exec>
-
-    <Warning Text="Some MbUnit tests failed!"
+    <Warning Text="Some tests failed!"
              Condition="'$(MbUnitExitCode)'!='0'" />
   </Target>
 
-  <Target Name="Release"
-          DependsOnTargets="Clean;Build;Test;BuildInstaller;BuildZip" />
-
-  <Target Name="BuildCSharpProjects"
-          DependsOnTargets="CreateBuildDir">
+  <Target Name="BuildCSharpProjects">
     <MSBuild Projects="@(CSharpProject)"
              Targets="Build"
+             Properties="$(CSharpProperties)" />
+  </Target>
+
+  <Target Name="RebuildCSharpProjects">
+    <MSBuild Projects="@(CSharpProject)"
+             Targets="Rebuild"
              Properties="$(CSharpProperties)" />
   </Target>
 
@@ -164,7 +102,16 @@
              Properties="$(CSharpProperties)" />
   </Target>
 
-  <Target Name="CopyFiles">
+  <Target Name="CopyFiles"
+          DependsOnTargets="CreateBuildDir">
+    <Message Text="Copying files to target folder..." Importance="High" />
+
+    <Copy SourceFiles="@(Binary)"
+          DestinationFolder="$(TargetBinDir)\%(Binary.Folder)\%(RecursiveDir)" />
+    <Copy SourceFiles="@(Document)"
+          DestinationFolder="$(TargetDocsDir)\%(Document.Folder)\%(RecursiveDir)" />
+    <Copy SourceFiles="@(Extra)"
+          DestinationFolder="$(TargetExtrasDir)\%(Extra.Folder)\%(RecursiveDir)" />
     <Copy SourceFiles="@(File)"
           DestinationFolder="$(TargetDir)\%(File.Folder)\%(RecursiveDir)" />
   </Target>
@@ -176,6 +123,35 @@
 
     <Exec Command="&quot;$(NSISPath)&quot; /V2 /NOCONFIG /DVERSION=$(Version) /DROOTDIR=&quot;$(RootDir)&quot; &quot;$(SourceDir)\installer\MbUnit.nsi&quot;"
           Condition="Exists('$(NSISPath)')" />
+  </Target>
+
+  <Target Name="BuildDocs"
+          DependsOnTargets="BuildXMLDocs;BuildCHMDocs" />
+
+  <PropertyGroup>
+    <CopyrightText>Copyright 2005-2008 MbUnit Project - http://www.mbunit.com/</CopyrightText>
+    <CopyrightHref>http://www.mbunit.com/</CopyrightHref>
+
+    <NDocCommonOptions>@(DocumentedAssembly->'"%(FullPath)"', ' ')</NDocCommonOptions>
+
+    <NDocXMLOptions>$(NDocCommonOptions) -documenter=Intellisense "-OutputDirectory=$(TargetBinDir)" -UseAssemblyShadowCache=False</NDocXMLOptions>
+
+    <NDocCHMOptions>$(NDocCommonOptions) -documenter=MSDN-CHM "-OutputDirectory=$(TargetDocsDir)" -HtmlHelpName=MbUnit "-Title=MbUnit API Documentation" -UseAssemblyShadowCache=False -AssemblyVersionInfo=AssemblyVersion "-CopyrightText=$(CopyrightText)" "-CopyrightHref=$(CopyrightHref)" -IncludeDefaultThreadSafety=False -CleanIntermediates=True</NDocCHMOptions>
+  </PropertyGroup>
+
+  <!-- Produce clean Intellisense docs with "inheritdoc" accounted for. -->
+  <Target Name="BuildXMLDocs">
+    <Exec Command="&quot;$(LibsDir)\NDoc2\NDocConsole.exe&quot; $(NDocXMLOptions)" />
+    <Delete Files="$(TargetBinDir)\ndoc_qa.log;$(TargetBinDir)\ndoc_build.log" />
+  </Target>
+
+  <Target Name="BuildCHMDocs">
+    <Warning Text="Microsoft HTML Help Workshop must be installed so that Compiled HTML help (CHM) documentation can be generated.  Look in libs\Setup Files for the Microsoft HTML Help Workshop installer."
+             Condition="! Exists('$(HTMLHelpCompilerPath)')" />
+
+    <Exec Command="&quot;$(LibsDir)\NDoc2\NDocConsole.exe&quot; $(NDocCHMOptions)"
+          Condition="Exists('$(HTMLHelpCompilerPath)')" />
+    <RemoveDir Directories="$(TargetDocsDir)\ndoc_msdn_temp" />
   </Target>
 
   <Target Name="BuildZip"
@@ -190,7 +166,16 @@
          ZipLevel="9" />
   </Target>
 
+  <Target Name="BuildSourceServerIndex"
+          DependsOnTargets="CreateBuildDir">
+    <Warning Text="The Debugging Tools for Windows must be installed along with the Source Source SDK in order to embed Source Server indexing information in the PDBs."
+             Condition="! Exists('$(SourceServerIndexerPath)')" />
+
+    <Exec Command="&quot;$(SourceServerIndexerPath)&quot; -System=svn -Ini=&quot;$(SourceDir)\srcsrv.ini&quot; -Source=&quot;$(SourceDir)&quot; -Symbols=&quot;$(TargetBinDir)&quot;"
+          Condition="Exists('$(SourceServerIndexerPath)')" />
+  </Target>
+
   <Target Name="CreateBuildDir">
-    <MakeDir Directories="$(BuildDir);$(BuildReportsDir);$(BuildReleaseDir);$(TargetDir)" />
+    <MakeDir Directories="$(BuildDir);$(TargetDir);$(TargetBinDir);$(TargetDocsDir);$(TargetExtrasDir);$(BuildReportsDir);$(BuildReleaseDir);$(BuildTempDir)" />
   </Target>
 </Project>
