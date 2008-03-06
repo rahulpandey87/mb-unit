@@ -14,9 +14,8 @@ namespace MbUnit.Framework.Tests.Core.Exceptions
     [FixtureCategory("Attributes.Decorators")]
 	public class ExpectedExceptionAttributeTest
 	{
-        [Test]
-        [ExpectedException(typeof(NotImplementedException))]
-        public void Exception()
+        [Test, ExpectedException(typeof(NotImplementedException))]
+        public virtual void Exception()
         {
             throw new NotImplementedException();
         }
@@ -47,4 +46,16 @@ namespace MbUnit.Framework.Tests.Core.Exceptions
             throw new NotImplementedException("This should match.", new ArgumentException());
         }
 	}
+
+    /// <summary>
+    /// Test inheritance of <see cref="ExpectedExceptionAttribute"/>.
+    /// </summary>
+    [TestFixture, FixtureCategory("Attributes.Decorators")]
+    public class InheritedExpectedExceptionAttributeTest : ExpectedExceptionAttributeTest
+    {
+        public override void Exception()
+        {
+            base.Exception();
+        }
+    }
 }
