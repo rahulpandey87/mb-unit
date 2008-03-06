@@ -137,6 +137,7 @@
     <Compile Include="CompositeFixtureAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\Exceptions\MissingResourceException.cs" />
     <Compile Include="NotInheritedExpectedExceptionAttribute.cs" />
     <Compile Include="Core\Invokers\TestSuiteGenerationFailedRunInvoker.cs" />
     <Compile Include="TestSuiteSetUpAttribute.cs" />

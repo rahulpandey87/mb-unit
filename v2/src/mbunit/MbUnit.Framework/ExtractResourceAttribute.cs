@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Reflection;
+
+using MbUnit.Core.Exceptions;
 using MbUnit.Core.Framework;
 using MbUnit.Core.Invokers;
-using MbUnit.Framework;
 
 namespace MbUnit.Framework
 {
@@ -34,9 +35,63 @@ namespace MbUnit.Framework
 	/// }
 	/// </code>
 	/// </remarks>
-	[AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
+	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
 	public class ExtractResourceAttribute : DecoratorPatternAttribute
 	{
+        private string resourceName;
+        private string destination;
+        private ResourceCleanup resourceCleanup;
+        [ThreadStatic]
+        private static Stream stream;
+        private Type type;
+
+        /// <summary>
+        /// The full name of the resource. Use Reflector to find this out 
+        /// if you don't know.
+        /// </summary>
+        public string ResourceName
+        {
+            get { return this.resourceName; }
+            set { this.resourceName = value; }
+        }
+
+        /// <summary>
+        /// The destination file to write the resource to. 
+        /// Should be a path.
+        /// </summary>
+        public string Destination
+        {
+            get { return this.destination; }
+            set { this.destination = value; }
+        }
+
+        /// <summary>
+        /// Whether or not to cleanup the resource.
+        /// </summary>
+        public ResourceCleanup ResourceCleanup
+        {
+            get { return this.resourceCleanup; }
+            set { this.resourceCleanup = value; }
+        }
+
+        /// <summary>
+        /// The current resource stream if using the attribute without specifying 
+        /// a destination.
+        /// </summary>
+        public static Stream Stream
+        {
+            get { return stream; }
+        }
+
+        /// <summary>
+        /// The type within the assembly that contains the embedded resource.
+        /// </summary>
+        public Type Type
+        {
+            get { return this.type; }
+            set { this.type = value; }
+        }
+
 		/// <summary>
 		/// Extracts the resource to a stream. Access the stream like so: <see cref="ExtractResourceAttribute.Stream" />.
 		/// </summary>
@@ -97,62 +152,6 @@ namespace MbUnit.Framework
 			this.resourceCleanup = cleanupOptions;
 		}
 
-		/// <summary>
-		/// The full name of the resource. Use Reflector to find this out 
-		/// if you don't know.
-		/// </summary>
-		public string ResourceName
-		{
-			get { return this.resourceName; }
-			set { this.resourceName = value; }
-		}
-		string resourceName;
-
-		/// <summary>
-		/// The destination file to write the resource to. 
-		/// Should be a path.
-		/// </summary>
-		public string Destination
-		{
-			get { return this.destination; }
-			set { this.destination = value; }
-		}
-		string destination;
-
-		/// <summary>
-		/// Whether or not to cleanup the resource.
-		/// </summary>
-		public ResourceCleanup ResourceCleanup
-		{
-			get { return this.resourceCleanup; }
-			set { this.resourceCleanup = value; }
-		}
-
-		private ResourceCleanup resourceCleanup;
-
-		/// <summary>
-		/// The current resource stream if using the attribute without specifying 
-		/// a destination.
-		/// </summary>
-		public static Stream Stream
-		{
-			get { return stream; }
-		}
-
-		[ThreadStatic]
-		private static Stream stream;
-
-		/// <summary>
-		/// The type within the assembly that contains the embedded resource.
-		/// </summary>
-		public Type Type
-		{
-			get { return this.type; }
-			set { this.type = value; }
-		}
-
-		private Type type;
-
 		public override IRunInvoker GetInvoker(IRunInvoker invoker)
 		{
 			return new ExtractResourceRunInvoker(invoker, this);
@@ -165,12 +164,12 @@ namespace MbUnit.Framework
 			public ExtractResourceRunInvoker(IRunInvoker invoker, ExtractResourceAttribute attribute)
 				: base(invoker)
 			{
-				MethodRunInvoker methodInvoker = invoker as MethodRunInvoker;
-				if (methodInvoker != null && attribute.Type == null)
-				{
-					attribute.Type = methodInvoker.Method.DeclaringType;
-				}
-
+                if (attribute.Type == null)
+                {
+                    MethodRunInvoker methodInvoker = invoker as MethodRunInvoker;
+                    if (methodInvoker != null)
+                        attribute.Type = methodInvoker.Method.DeclaringType;
+                }
 				this.attribute = attribute;
 			}
 
@@ -180,15 +179,16 @@ namespace MbUnit.Framework
 
 				using (Stream stream = assembly.GetManifestResourceStream(attribute.ResourceName))
 				{
-					if (attribute.Destination != "")
+                    if (stream == null)
+                        throw new MissingResourceException(attribute.ResourceName, assembly.FullName);
+
+					if (attribute.Destination == null || attribute.Destination == string.Empty)
 					{
 						ExtractResourceAttribute.stream = stream;
 						return this.Invoker.Execute(o, args);
 					}
 					else
-					{
 						WriteResourceToFile(stream);
-					}
 				}
 
 				try
