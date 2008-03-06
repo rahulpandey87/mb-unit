@@ -74,7 +74,7 @@
     <MbUnitConsArgs Condition="$(ShowReports)">$(MbUnitConsArgs) /show-reports</MbUnitConsArgs>
   </PropertyGroup>
   <Target Name="Test">
-    <Exec Command="&quot;$(TargetDir)\MbUnit.cons.exe&quot; $(MbUnitConsArgs)"
+    <Exec Command="&quot;$(TargetDir)\bin\MbUnit.cons.exe&quot; $(MbUnitConsArgs)"
           WorkingDirectory="$(BuildTempDir)"
           IgnoreExitCode="true">
       <Output TaskParameter="ExitCode" PropertyName="MbUnitExitCode" />
