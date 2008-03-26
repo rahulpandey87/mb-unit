@@ -9,8 +9,10 @@
     <meta name="description" content="This is the home of Gallio, an open source automation platform for .NET. " />
     <meta name="keywords" content="Gallio, C#, .NET, MbUnit, NUnit, XUnit, NBehave, Resharper, Team City, CSUnit, Unit Testing" />
     <meta name="author" content="Gallio Open Source Team / Original Site Design: Mark Haley adapting asp.net portions from original MbUnit.com site by Ben Hall." />
+    <meta name="verify-v1" content="Dh7FNgw5IAbIaC1E2bb9hhTs4luFSKZilQo8z3cM3gQ=" />
     <link href="gallio.css" rel="stylesheet" type="text/css" media="screen" title="gallio (screen)"/>
-    <link href="print.css" rel="stylesheet" type="text/css" media="print" /> 
+    <link href="print.css" rel="stylesheet" type="text/css" media="print" />
+    <link rel="alternate" type="application/rss+xml" href="rss/galliorss.xml" title="Gallio Automation Platform"/>
     <script type="text/javascript" src="menu.js"></script>
     <title>Gallio - Automation Platform for .NET</title>
     <link rel="shortcut icon" href="/favicon.ico" />
