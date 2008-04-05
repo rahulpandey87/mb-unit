@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  This stylesheet is used for all HTML detail reports.
+  It can be rendered in any of the following modes.
+  
+  Document / Fragment:
+      A report can either be rendered a self-contained document or as
+      a fragment meant to be included in another document.
+  
+  HTML / XHTML:
+      A report can either be rendered in HTML or in XHTML syntax.
+      
+  One very important characteristic of the report is that while it uses JavaScript,
+  it does not require it.  All of the report's contents may be accessed without error
+  or serious inconvenience even with JavaScript disabled.  This is extremely important
+  for Visual Studio integration since the IE browser prevents execution of scripts
+  in local files by default.
+-->
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:msxsl="urn:schemas-microsoft-com:xslt"
@@ -78,9 +95,7 @@
       <div class="section-content">
         <ul>
           <xsl:for-each select="g:assemblyFiles/g:assemblyFile">
-            <li>
-              <xsl:value-of select="."/>
-            </li>
+            <li><xsl:call-template name="print-text-with-breaks"><xsl:with-param name="text" select="text()" /></xsl:call-template></li>
           </xsl:for-each>
         </ul>
       </div>
@@ -98,7 +113,20 @@
         <xsl:variable name="status" select="g:result/g:outcome/@status"/>
         <xsl:if test="$status != 'passed' and (g:testStep/@isTestCase = 'true' or not(g:children/g:testStepRun))">
           <xsl:variable name="stripe-label"><xsl:value-of select="g:testStep/@name"/><xsl:text> </xsl:text><xsl:value-of select="$status"/>.</xsl:variable>
-          <a href="#testStepRun-{g:testStep/@id}" style="top:{position() * 98 div last() + 1}%" class="status-{$status}" title="{$stripe-label}"></a>
+          <a href="#testStepRun-{g:testStep/@id}" style="top:{position() * 98 div last() + 1}%" class="status-{$status}" title="{$stripe-label}">
+            <xsl:attribute name="onclick">
+              <xsl:text>expand([</xsl:text>
+              <xsl:for-each select="ancestor-or-self::g:testStepRun">
+                <xsl:if test="position() != 1">
+                  <xsl:text>,</xsl:text>
+                </xsl:if>
+                <xsl:text>'detailPanel-</xsl:text>
+                <xsl:value-of select="g:testStep/@id"/>
+                <xsl:text>'</xsl:text>
+              </xsl:for-each>
+              <xsl:text>]);</xsl:text>
+            </xsl:attribute>
+          </a>
         </xsl:if>
       </xsl:for-each>
     </div>
@@ -110,24 +138,12 @@
       <div class="section-content">
         <table class="statistics-table">
           <tr>
-            <td class="statistics-label-cell">
-              Start time:
-            </td>
-            <td>
-              <xsl:call-template name="format-datetime">
-                <xsl:with-param name="datetime" select="@startTime" />
-              </xsl:call-template>
-            </td>
+            <td class="statistics-label-cell">Start time:</td>
+            <td><xsl:call-template name="format-datetime"><xsl:with-param name="datetime" select="@startTime" /></xsl:call-template></td>
           </tr>
           <tr class="alternate-row">
-            <td class="statistics-label-cell">
-              End time:
-            </td>
-            <td>
-              <xsl:call-template name="format-datetime">
-                <xsl:with-param name="datetime" select="@endTime" />
-              </xsl:call-template>
-            </td>
+            <td class="statistics-label-cell">End time:</td>
+            <td><xsl:call-template name="format-datetime"><xsl:with-param name="datetime" select="@endTime" /></xsl:call-template></td>
           </tr>
           <xsl:apply-templates select="g:statistics" />
         </table>
@@ -137,38 +153,20 @@
 
   <xsl:template match="g:statistics">
     <tr>
-      <td class="statistics-label-cell">
-        Tests:
-      </td>
-      <td>
-        <xsl:value-of select="@testCount" /> (<xsl:value-of select="@stepCount" /> steps)
-      </td>
+      <td class="statistics-label-cell">Tests:</td>
+      <td><xsl:value-of select="@testCount" /> (<xsl:value-of select="@stepCount" /> steps)</td>
     </tr>
     <tr class="alternate-row">
-      <td class="statistics-label-cell">
-        Results:
-      </td>
-      <td>
-        <xsl:call-template name="format-statistics">
-          <xsl:with-param name="statistics" select="." />
-        </xsl:call-template>
-      </td>
+      <td class="statistics-label-cell">Results:</td>
+      <td><xsl:call-template name="format-statistics"><xsl:with-param name="statistics" select="." /></xsl:call-template></td>
     </tr>
     <tr>
-      <td class="statistics-label-cell">
-        Duration:
-      </td>
-      <td>
-        <xsl:value-of select="format-number(@duration, '0.00')" />s
-      </td>
+      <td class="statistics-label-cell">Duration:</td>
+      <td><xsl:value-of select="format-number(@duration, '0.00')" />s</td>
     </tr>
     <tr class="alternate-row">
-      <td class="statistics-label-cell">
-        Assertions:
-      </td>
-      <td>
-        <xsl:value-of select="@assertCount" />
-      </td>
+      <td class="statistics-label-cell">Assertions:</td>
+      <td><xsl:value-of select="@assertCount" /></td>
     </tr>
   </xsl:template>
 
@@ -214,7 +212,7 @@
             </xsl:otherwise>
           </xsl:choose>
 
-          <a href="#testStepRun-{$id}"><xsl:value-of select="g:testStep/@name" /></a>
+          <a href="#testStepRun-{$id}"><xsl:call-template name="print-text-with-breaks"><xsl:with-param name="text" select="g:testStep/@name" /></xsl:call-template></a>
 
           <xsl:call-template name="outcome-bar">
             <xsl:with-param name="statistics" select="$statistics" />
@@ -271,7 +269,7 @@
     <li id="testStepRun-{$id}">
       <span class="testStepRunHeading testStepRunHeading-Level{$nestingLevel}">
         <xsl:call-template name="toggle">
-          <xsl:with-param name="href">testStepRunPanel-<xsl:value-of select="$id"/></xsl:with-param>
+          <xsl:with-param name="href">detailPanel-<xsl:value-of select="$id"/></xsl:with-param>
         </xsl:call-template>
         <!--
         <xsl:call-template name="icon">
@@ -279,7 +277,7 @@
         </xsl:call-template>
         -->
 
-        <xsl:value-of select="g:testStep/@name" />
+        <xsl:call-template name="print-text-with-breaks"><xsl:with-param name="text" select="g:testStep/@name" /></xsl:call-template>
 
         <xsl:call-template name="outcome-bar">
           <xsl:with-param name="statistics" select="$statistics" />
@@ -287,35 +285,30 @@
         </xsl:call-template>
       </span>
 
-      <div id="testStepRunPanel-{$id}" class="panel">
+      <div id="detailPanel-{$id}" class="panel">
         <xsl:choose>
           <xsl:when test="$kind = 'Assembly' or $kind = 'Framework'">
             <table class="statistics-table">
               <tr class="alternate-row">
                 <td class="statistics-label-cell">Results:</td>
-                <td>
-                  <xsl:call-template name="format-statistics">
-                    <xsl:with-param name="statistics" select="$statistics" />
-                  </xsl:call-template>
-                </td>
+                <td><xsl:call-template name="format-statistics"><xsl:with-param name="statistics" select="$statistics" /></xsl:call-template></td>
               </tr>
               <tr>
                 <td class="statistics-label-cell">Duration:</td>
-                <td>
-                  <xsl:value-of select="format-number($statistics/@duration, '0.00')" />s
-                </td>
+                <td><xsl:value-of select="format-number($statistics/@duration, '0.00')" />s</td>
               </tr>
               <tr class="alternate-row">
                 <td class="statistics-label-cell">Assertions:</td>
-                <td>
-                  <xsl:value-of select="$statistics/@assertCount" />
-                </td>
+                <td><xsl:value-of select="$statistics/@assertCount" /></td>
               </tr>
             </table>
           </xsl:when>
           <xsl:otherwise>
-            Duration: <xsl:value-of select="format-number($statistics/@duration, '0.00')" />s,
-            Assertions: <xsl:value-of select="$statistics/@assertCount"/>.
+            <xsl:text>Duration: </xsl:text>
+            <xsl:value-of select="format-number($statistics/@duration, '0.00')" />
+            <xsl:text>s, Assertions: </xsl:text>
+            <xsl:value-of select="$statistics/@assertCount"/>
+            <xsl:text>.</xsl:text>
           </xsl:otherwise>
         </xsl:choose>
 
@@ -344,7 +337,7 @@
           </xsl:when>
           <xsl:otherwise>
             <xsl:call-template name="toggle-autoclose">
-              <xsl:with-param name="href">testStepRunPanel-<xsl:value-of select="$id"/></xsl:with-param>
+              <xsl:with-param name="href">detailPanel-<xsl:value-of select="$id"/></xsl:with-param>
             </xsl:call-template>
           </xsl:otherwise>
         </xsl:choose>
@@ -379,9 +372,7 @@
   </xsl:template>
 
   <xsl:template match="g:entry">
-    <li>
-      <xsl:value-of select="@key" />: <xsl:value-of select="g:value" />
-    </li>
+    <li><xsl:value-of select="@key" />: <xsl:call-template name="print-text-with-breaks"><xsl:with-param name="text" select="g:value" /></xsl:call-template></li>
   </xsl:template>
 
   <xsl:template match="g:executionLog">
@@ -455,7 +446,7 @@
     <xsl:param name="attachments" />
 
     <div>
-      <xsl:call-template name="print-text-with-line-breaks">
+      <xsl:call-template name="print-text-with-breaks">
         <xsl:with-param name="text" select="text()" />
       </xsl:call-template>
     </div>
@@ -480,7 +471,8 @@
             <img src="{$attachmentBrokerQuery}" alt="Attachment: {@name}" />
           </xsl:when>
           <xsl:otherwise>
-            Attachment: <a href="{$attachmentBrokerQuery}"><xsl:value-of select="@name" /></a>
+            <xsl:text>Attachment: </xsl:text>
+            <a href="{$attachmentBrokerQuery}"><xsl:value-of select="@name" /></a>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:when>
@@ -491,7 +483,8 @@
             <img src="{$attachmentUri}" alt="Attachment: {@name}" />
           </xsl:when>
           <xsl:otherwise>
-            Attachment: <a href="{$attachmentUri}"><xsl:value-of select="@name" /></a>
+            <xsl:text>Attachment: </xsl:text>
+            <a href="{$attachmentUri}"><xsl:value-of select="@name" /></a>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:when>
@@ -499,7 +492,9 @@
         <img src="data:{@contentType};base64,{text()}" alt="Attachment: {@name}" />
       </xsl:when>
       <xsl:otherwise>
-        Attachment: <xsl:value-of select="@name" /> (n/a)
+        <xsl:text>Attachment: </xsl:text>
+        <xsl:value-of select="@name" />
+        <xsl:text> (n/a)</xsl:text>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -571,7 +566,7 @@
         <td>
           <div>
             <xsl:choose>
-             <xsl:when test="$useProportionalOutcomeBars and not($condensed)">
+              <xsl:when test="$useProportionalOutcomeBars and not($condensed)">
                 <xsl:variable name="total" select="$statistics/@passedCount + $statistics/@failedCount + $statistics/@inconclusiveCount + $statistics/@skippedCount" />
                 <xsl:attribute name="class">outcome-bar</xsl:attribute>
                 <xsl:if test="$statistics/@passedCount > 0">
@@ -591,7 +586,7 @@
                 <xsl:attribute name="class">outcome-bar <xsl:call-template name="status-from-statistics"><xsl:with-param name="statistics" select="$statistics" /></xsl:call-template><xsl:if test="$condensed"> condensed</xsl:if></xsl:attribute>
               </xsl:otherwise>
             </xsl:choose>
-          </div>    
+          </div>
         </td>
       </tr>
     </table>
