@@ -1,12 +1,21 @@
-.gallio-report body
+html
+{
+	overflow: auto;
+}
+
+div.gallio-report, body.gallio-report
 {
 	margin: 0px 0px 0px 0px;
 	padding: 0px 0px 0px 0px;
+}
+
+.gallio-report
+{
 	font-family: Verdana, Arial, Helvetica, Helv, sans-serif;
 	font-size: 10pt;
 }
 
-.gallio-report div#header
+.gallio-report div.header
 {
 	margin: 0px 0px 0px 0px;
 	padding: 0px 0px 0px 0px;
@@ -14,149 +23,181 @@
 	background-image: url(../img/header-background.gif);
 	background-repeat: repeat-y;
 	width: 100%;
-	height: 60px; /*border: solid 1px red;*/
+	height: 59px;
+	border-bottom: solid black 1px;
 }
 
-.gallio-report h1
+.gallio-report div.header-image
 {
-	font-size: 18pt;
-	letter-spacing: 0.2em;
-	font-weight: normal;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
 	width: 100%;
 	height: 60px;
 	background-image: url(../img/GallioTestReportHeader.png);
 	background-repeat: no-repeat;
 	background-position: 0 0;
-	color: White;
-	text-indent: 110px;/*border: solid 1px white;*/
-	padding-top: 15px;
 }
 
+.gallio-report div.content
+{
+	width: 100%;
+}
+
+/* Generate a fixed layout when the report is the whole document */
+body.gallio-report > div.header
+{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+}
+
+body.gallio-report > div.content
+{
+	position: fixed; 
+	top: 60px;
+	left: 0px;
+	right: 16px;
+	bottom: 0px;
+	overflow: auto;
+	width: auto;
+}
+
+/* Section headings */
 .gallio-report h2
 {
 	font-size: 13pt;
 	letter-spacing: 0.15em;
 	color: #1f1f1f;
-	/*text-decoration: underline;*/
-	/* font-weight: normal;*/
-	/*padding: 8px;*/
 	padding: 0;
 	margin: 0 0 3px 0;
 	text-indent: 8px;
 }
 
-.gallio-report h3
-{
-	font-size: 10pt;
-}
-
+/* Toggle regions */
 .gallio-report ul
 {
 	list-style-type: none;
 	padding-left: 0px;
-	margin-left: 24px;
+	margin: 0px 0px 0px 0px;
 }
 
-.gallio-report ul.testStepRunContainer
+.gallio-report div.panel
 {
-	margin-left: 12px;
+	margin: 0px 0px 0px 24px;
+}
+
+.gallio-report img.toggle
+{
+	cursor: pointer;
+	margin-right: 6px;
+}
+
+/* Status colors */
+.gallio-report .status-passed
+{
+	background-color: #008000;
+}
+
+.gallio-report .status-failed
+{
+	background-color: #ff0000;
+}
+
+.gallio-report .status-inconclusive
+{
+	background-color: #ffff00;
+}
+
+.gallio-report .status-skipped
+{
+	background-color: #999999;
+}
+
+/* Navigation bar */
+.gallio-report div.navigator
+{
+	position: fixed;
+	top: 60px;
+	right: 0px;
+	bottom: 0px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 2px 0px 2px;
+	width: 12px;
+	background-color: #d0d4d8;
+	overflow: hidden;
+}
+
+.gallio-report div.navigator > a.navigator-box
+{
+	display: block;
+	cursor: pointer;
+	width: 8px;
+	height: 8px;
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	border: solid black 1px;
+}
+
+.gallio-report div.navigator div.navigator-stripes
+{
+	position: absolute;
+	top: 16px;
+	bottom: 0px;
+	width: 16px;
+}
+
+.gallio-report div.navigator div.navigator-stripes > a
+{
+	display: block;
+	cursor: pointer;
+	width: 12px;
+	height: 2px;
+	position: absolute;
 }
 
 
-/* Progress bars */
-.gallio-report table.progressBar
+/* Outcome bar */
+.gallio-report table.outcome-bar
 {
 	display: inline;
 	vertical-align: middle;
+	margin-left: 8px;
 }
 
-.gallio-report div.progressBar
+.gallio-report div.outcome-bar
 {
 	overflow: hidden;
 	
-	background-color: #DDDDDD;
 	border: solid 1px #000000;
 	padding: 0px 0px 0px 0px;
 	margin: 0px 0px 0px 0px;
-	
+
 	height: 8px;
 	width: 72px;
 }
 
-.gallio-report .progress-passed
+.gallio-report div.outcome-bar.condensed
 {
-	height:100%;
-	float:left;
-	background-color: #008000;
-}
-
-.gallio-report .progress-failed
-{
-	height:100%;
-	float:left;
-	background-color: #ff0000;
-}
-
-.gallio-report .progress-inconclusive
-{
-	height:100%;
-	float:left;
-	background-color: #ffff00;
-}
-
-.gallio-report .progress-skipped
-{
-	height:100%;
-	float:left;
-	background-color: #dddddd;
-}
-
-/* Outcome bar */
-.gallio-report table.outcomeBar
-{
-	display: inline;
-	vertical-align: middle;
-}
-
-.gallio-report div.outcomeBar
-{
-	overflow: hidden;
-	
-	border: solid 1px #000000;
-	padding: 0px 0px 0px 0px;
-	margin: 0px 0px 0px 0px;
-	
 	height: 6px;
 	width: 20px;
 }
 
-.gallio-report .outcome-passed
+.gallio-report div.outcome-bar > div
 {
-	background-color: #008000;
+	height:100%;
+	float:left;
 }
 
-.gallio-report .outcome-failed
+
+/* Outcome statistics */
+.gallio-report span.outcome-icons
 {
-	background-color: #ff0000;
+	font-size: 11pt;
 }
 
-.gallio-report .outcome-inconclusive
-{
-	background-color: #ffff00;
-}
 
-.gallio-report .outcome-skipped
-{
-	background-color: #dddddd;
-}
-
-/* Toggles */
-.gallio-report .toggle
-{
-	cursor: pointer;
-}
-
-/* Styles for test runs, including customized varieties per component kind */
+/* Test runs */
 .gallio-report .testStepRun
 {
 	margin-top: 12pt;
@@ -165,48 +206,42 @@
 
 .gallio-report .testStepRunHeading
 {
-	font-weight:bold;
-	font-size:10pt;
-	position:relative;
+	font-weight: bold;
+	font-size: 10pt;
 }
 
 .gallio-report .testStepRunHeading-Level1
 {
-	font-size:11pt;
+	font-size: 11pt;
 }
 
 .gallio-report .testStepRunHeading-Level2
 {
-	font-size:10pt;
+	font-size: 10pt;
 }
 
 .gallio-report .testStepRunHeading-Level3
 {
-	font-size:10pt;
+	font-size: 9pt;
 }
 
 .gallio-report .testStepRunHeading-Level4
 {
-	font-size:10pt;
+	font-size: 9pt;
 }
 
-.gallio-report .testStepRunPanel
-{
-	margin-left: 12pt;
-}
 
-/* Styles for metadata entries */
+/* Metadata entries */
 .gallio-report .metadata
 {
 	margin: 5px 5px 5px 0px;
 	padding: 5px 5px 5px 5px;
 	
-	/*border: solid 1px #505090;*/
 	background: #f4f4ff;
 	font-size: 9pt;
 }
 
-/* Styles used for execution logs */
+/* Execution logs */
 .gallio-report .log
 {
 	margin: 5px 0px 5px 0px;
@@ -228,7 +263,6 @@
 .gallio-report .logStream
 {
 	background-color: #f0f0f0;
-	/*border: dotted 1px #505050;*/
 	border-bottom: solid 1px #c6c6c6;
 	border-right: solid 1px #c6c6c6;
 	margin: 5px 5px 5px 0px;
@@ -263,7 +297,7 @@
 	text-decoration: underline;
 }
 
-/* Styles used for coloring different named streams */
+/* Execution log streams */
 .gallio-report .logStream-Failures
 {
 	background-color: #ffd8d8;
@@ -277,6 +311,7 @@
 }
 
 
+/* Sections */
 .gallio-report div.section
 {
 	background-color: #ebeaea;
@@ -289,41 +324,28 @@
 .gallio-report div.section-content
 {
 	background-color: #fbfbfb;
-	padding-top: 3px;
-	padding-bottom: 3px;
+	padding: 10px 10px 10px 10px;
 }
 
 .gallio-report table.statistics-table
 {
-	width: 99%;
-	margin: 0 20px 0 0;
-	/*border: solid 1px red;*/
 	border-collapse: collapse;
+}
+
+.gallio-report table.statistics-table td
+{
+	width: 100%;
 }
 
 .gallio-report table.statistics-table td.statistics-label-cell
 {
 	font-weight: bolder;
 	color: #646464;
-	padding: 0 10x 0 10px;
-	/*text-align: right;*/
+	padding: 0px 10px 0px 10px;
+	width: auto;
 }
 
 .gallio-report table.statistics-table tr.alternate-row td
 {
 	background-color: #f2f2f2;
-}
-
-.gallio-report div#statistics-section-content
-{
-	padding: 10px 20px 10px 20px;
-}
-
-.gallio-report div#statistics-section-content table.statistics-table
-{
-	width: 100%;
-}
-.gallio-report span.outcome-icons
-{
-	font-size: 11pt;
 }
