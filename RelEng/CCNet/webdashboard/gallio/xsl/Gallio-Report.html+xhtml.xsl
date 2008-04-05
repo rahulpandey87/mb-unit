@@ -40,15 +40,9 @@ html
 }          
         </style>
       </head>
-      <body>
-        <xsl:apply-templates select="." mode="xhtml-fragment" />
-      </body>
-      
-      <!--
       <body class="gallio-report">
         <xsl:apply-templates select="." mode="xhtml-body" />
       </body>
-      -->
     </html>
   </xsl:template>
   

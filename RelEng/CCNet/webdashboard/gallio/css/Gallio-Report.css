@@ -56,7 +56,7 @@ div.gallio-report, body.gallio-report
 	overflow: hidden;
 }
 
-.gallio-report div.navigator > a.navigator-box
+.gallio-report div.navigator a.navigator-box
 {
 	display: block;
 	cursor: pointer;
@@ -76,7 +76,7 @@ div.gallio-report, body.gallio-report
 	width: 16px;
 }
 
-.gallio-report div.navigator div.navigator-stripes > a
+.gallio-report div.navigator div.navigator-stripes a
 {
 	display: block;
 	cursor: pointer;
@@ -86,14 +86,14 @@ div.gallio-report, body.gallio-report
 }
 
 /* Generate a fixed layout when the report is the whole document */
-body.gallio-report > div.header
+body.gallio-report div.header
 {
 	position: fixed;
 	top: 0px;
 	left: 0px;
 }
 
-body.gallio-report > div.content
+body.gallio-report div.content
 {
 	position: fixed; 
 	top: 60px;
@@ -104,18 +104,18 @@ body.gallio-report > div.content
 	width: auto;
 }
 
-body.gallio-report > div.navigator
+body.gallio-report div.navigator
 {
 	top: 60px;
 }
 
 /* Generate an embedded layout when the report is only a fragment */
-div.gallio-report > div.header
+div.gallio-report div.header
 {
 	border: solid 1px black;
 }
 
-div.gallio-report > div.navigator
+div.gallio-report div.navigator
 {
 	top: 0px;
 }
@@ -197,7 +197,7 @@ div.gallio-report > div.navigator
 	width: 20px;
 }
 
-.gallio-report div.outcome-bar > div
+.gallio-report div.outcome-bar div
 {
 	height:100%;
 	float:left;
