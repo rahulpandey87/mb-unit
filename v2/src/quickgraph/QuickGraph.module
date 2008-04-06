@@ -9,9 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Binary Include="QuickGraph\bin\Release\QuickGraph.dll" />
-    <Binary Include="QuickGraph.Algorithms\bin\Release\QuickGraph.Algorithms.dll" />
-    <Binary Include="QuickGraph.Algorithms.Graphviz\bin\Release\QuickGraph.Algorithms.Graphviz.dll" />
+    <Binary Include="QuickGraph\bin\QuickGraph.dll" />
+    <Binary Include="QuickGraph\bin\QuickGraph.pdb" />
+    <Binary Include="QuickGraph.Algorithms\bin\QuickGraph.Algorithms.dll" />
+    <Binary Include="QuickGraph.Algorithms\bin\QuickGraph.Algorithms.pdb" />
+    
+    <Binary Include="QuickGraph.Algorithms.Graphviz\bin\QuickGraph.Algorithms.Graphviz.dll" />
 
     <Binary Include="NGraphviz\NGraphviz.dll" />
     <Binary Include="NGraphviz\NGraphviz.Layout.dll" />
@@ -19,12 +22,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <DocumentedAssembly Include="QuickGraph\bin\Release\QuickGraph.dll" />
-    <DocumentedAssembly Include="QuickGraph.Algorithms\bin\Release\QuickGraph.Algorithms.dll" />
-    <DocumentedAssemly Include="QuickGraph.Algorithms.Graphviz\bin\Release\QuickGraph.Algorithms.Graphviz.dll" />
+    <DocumentedAssembly Include="QuickGraph\bin\QuickGraph.dll" />
+    <DocumentedAssembly Include="QuickGraph.Algorithms\bin\QuickGraph.Algorithms.dll" />
+    <DocumentedAssemly Include="QuickGraph.Algorithms.Graphviz\bin\QuickGraph.Algorithms.Graphviz.dll" />
   </ItemGroup>
 
   <ItemGroup>
-    <TestAssembly Include="QuickGraph.Tests\bin\Release\QuickGraph.Tests.dll" />
+    <TestAssembly Include="QuickGraph.Tests\bin\QuickGraph.Tests.dll" />
   </ItemGroup>
 </Project>

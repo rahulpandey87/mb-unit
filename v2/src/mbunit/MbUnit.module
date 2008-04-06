@@ -21,17 +21,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Binary Include="TestFu\bin\Release\TestFu.dll" />
+    <Binary Include="TestFu\bin\TestFu.dll" />
+    <Binary Include="TestFu\bin\TestFu.pdb" />
 
-    <Binary Include="MbUnit.Framework\bin\Release\MbUnit.Framework.dll" />
-    <Binary Include="MbUnit.Framework.2.0\bin\Release\MbUnit.Framework.2.0.dll" />
-    <Binary Include="MbUnit.Cons\bin\Release\MbUnit.Cons.exe" />
-    <Binary Include="MbUnit.Cons\bin\Release\MbUnit.Cons.exe.config" />
-    <Binary Include="MbUnit.GUI\bin\Release\MbUnit.GUI.exe" />
-    <Binary Include="MbUnit.GUI\bin\Release\MbUnit.GUI.exe.config" />
-    <Binary Include="MbUnit.AddIn\bin\Release\MbUnit.AddIn.dll" />
-    <Binary Include="MbUnit.Tasks\bin\Release\MbUnit.Tasks.dll" />
-    <Binary Include="MbUnit.MSBuild.Tasks\bin\Release\MbUnit.MSBuild.Tasks.dll" />
+    <Binary Include="MbUnit.Framework\bin\MbUnit.Framework.dll" />
+    <Binary Include="MbUnit.Framework\bin\MbUnit.Framework.pdb" />
+    <Binary Include="MbUnit.Framework.2.0\bin\MbUnit.Framework.2.0.dll" />
+    <Binary Include="MbUnit.Framework.2.0\bin\MbUnit.Framework.2.0.pdb" />
+
+    <Binary Include="MbUnit.Cons\bin\MbUnit.Cons.exe" />
+    <Binary Include="MbUnit.Cons\bin\MbUnit.Cons.exe.config" />
+    <Binary Include="MbUnit.GUI\bin\MbUnit.GUI.exe" />
+    <Binary Include="MbUnit.GUI\bin\MbUnit.GUI.exe.config" />
+    <Binary Include="MbUnit.AddIn\bin\MbUnit.AddIn.dll" />
+    <Binary Include="MbUnit.Tasks\bin\MbUnit.Tasks.dll" />
+    <Binary Include="MbUnit.MSBuild.Tasks\bin\MbUnit.MSBuild.Tasks.dll" />
 
     <Extra Include="Snippets\**\*.snippet">
       <Folder>Snippets</Folder>
@@ -52,15 +56,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <DocumentedAssembly Include="TestFu\bin\Release\TestFu.dll" />
-    <DocumentedAssembly Include="MbUnit.Framework\bin\Release\MbUnit.Framework.dll" />
-    <DocumentedAssembly Include="MbUnit.Framework.2.0\bin\Release\MbUnit.Framework.2.0.dll" />
+    <DocumentedAssembly Include="TestFu\bin\TestFu.dll" />
+    <DocumentedAssembly Include="MbUnit.Framework\bin\MbUnit.Framework.dll" />
+    <DocumentedAssembly Include="MbUnit.Framework.2.0\bin\MbUnit.Framework.2.0.dll" />
   </ItemGroup>
 
   <ItemGroup>
-    <TestAssembly Include="TestFu.Tests\bin\Release\TestFu.Tests.dll" />
-    <TestAssembly Include="MbUnit.Tests\bin\Release\MbUnit.Tests.dll" />
-    <TestAssembly Include="MbUnit.Framework.Tests\bin\Release\MbUnit.Framework.Tests.dll" />
-    <TestAssembly Include="MbUnit.Framework.Tests.2.0\bin\Release\MbUnit.Framework.Tests.2.0.dll" />
+    <TestAssembly Include="TestFu.Tests\bin\TestFu.Tests.dll" />
+    <TestAssembly Include="MbUnit.Tests\bin\MbUnit.Tests.dll" />
+    <TestAssembly Include="MbUnit.Framework.Tests\bin\MbUnit.Framework.Tests.dll" />
+    <TestAssembly Include="MbUnit.Framework.Tests.2.0\bin\MbUnit.Framework.Tests.2.0.dll" />
   </ItemGroup>
 </Project>

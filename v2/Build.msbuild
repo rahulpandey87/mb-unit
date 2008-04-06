@@ -27,6 +27,7 @@
       Version=$(Version);
       TargetFX1_1=$(TargetFX1_1);
       BaseFX1_1OutputPath=bin\;
+      OutputPath=bin\;
       BaseIntermediateOutputPath=obj\;
       CustomAfterMicrosoftCommonTargets=$(RootDir)\Build.Custom.Targets
     </CSharpProperties>
