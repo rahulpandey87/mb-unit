@@ -8,11 +8,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Binary Include="Refly\bin\Release\Refly.dll" />
-    <Binary Include="XsdTidy\bin\Release\XsdTidy.exe" />
+    <Binary Include="Refly\bin\Refly.dll" />
+    <Binary Include="Refly\bin\Refly.pdb" />
+
+    <Binary Include="XsdTidy\bin\XsdTidy.exe" />
   </ItemGroup>
 
   <ItemGroup>
-    <DocumentedAssembly Include="Refly\bin\Release\Refly.dll" />
+    <DocumentedAssembly Include="Refly\bin\Refly.dll" />
   </ItemGroup>
 </Project>
