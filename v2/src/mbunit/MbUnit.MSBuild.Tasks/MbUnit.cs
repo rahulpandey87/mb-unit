@@ -134,7 +134,7 @@ namespace MbUnit.MSBuild.Tasks
         {
             try
             {
-                return this.InternalExecute();
+                return this.InternalExecute() || !this.HaltOnFailure;
             }
             catch (Exception ex)
             {
