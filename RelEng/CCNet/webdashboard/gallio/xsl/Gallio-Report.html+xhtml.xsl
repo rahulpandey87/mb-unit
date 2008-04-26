@@ -64,7 +64,7 @@ html
 html
 {
 	margin: 0px 0px 0px 0px;
-	padding: 0px 16px 0px 0px;
+	padding: 0px 17px 0px 0px;
 	overflow: auto;
 }
       </style>
@@ -87,17 +87,18 @@ html
       <div class="header-image"></div>
     </div>
     <div id="Navigator" class="navigator">
-      <xsl:apply-templates select="g:packageRun" mode="navigator" />
+      <xsl:apply-templates select="g:testPackageRun" mode="navigator" />
     </div>
     <div id="Content" class="content">
-      <xsl:apply-templates select="g:packageRun" mode="statistics" />
-      <xsl:apply-templates select="g:packageConfig" mode="assemblies" />
-      <xsl:apply-templates select="g:packageRun" mode="summary"/>
-      <xsl:apply-templates select="g:packageRun" mode="details"/>
+      <xsl:apply-templates select="g:testPackageRun" mode="statistics" />
+      <xsl:apply-templates select="g:testPackageConfig" mode="assemblies" />
+      <xsl:apply-templates select="g:testModel/g:annotations" mode="annotations"/>
+      <xsl:apply-templates select="g:testPackageRun" mode="summary"/>
+      <xsl:apply-templates select="g:testPackageRun" mode="details"/>
     </div>
   </xsl:template>
   
-  <xsl:template match="g:packageConfig" mode="assemblies">
+  <xsl:template match="g:testPackageConfig" mode="assemblies">
     <div id="Assemblies" class="section">
       <h2>Assemblies</h2>
       <div class="section-content">
@@ -110,7 +111,53 @@ html
     </div>
   </xsl:template>
 
-  <xsl:template match="g:packageRun" mode="navigator">
+  <xsl:template match="g:annotations" mode="annotations">
+    <xsl:if test="g:annotation">
+      <div id="Annotations" class="section">
+        <h2>Annotations</h2>
+        <div class="section-content">
+          <ul>
+            <xsl:apply-templates select="g:annotation[@type='error']" mode="annotations"/>
+            <xsl:apply-templates select="g:annotation[@type='warning']" mode="annotations"/>
+            <xsl:apply-templates select="g:annotation[@type='info']" mode="annotations"/>
+          </ul>
+        </div>
+      </div>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="g:annotation" mode="annotations">
+    <li>
+      <xsl:attribute name="class">annotation annotation-type-<xsl:value-of select="@type"/></xsl:attribute>
+      <div class="annotation-message">
+        <xsl:text>[</xsl:text><xsl:value-of select="@type"/><xsl:text>] </xsl:text>
+        <xsl:call-template name="print-text-with-breaks"><xsl:with-param name="text" select="@message" /></xsl:call-template>
+      </div>
+      
+      <xsl:if test="g:codeLocation/@path">
+        <div class="annotation-location">
+          <xsl:text>Location: </xsl:text>
+          <xsl:call-template name="format-code-location"><xsl:with-param name="codeLocation" select="g:codeLocation" /></xsl:call-template>
+        </div>
+      </xsl:if>
+      
+      <xsl:if test="g:codeReference/@assembly">
+        <div class="annotation-reference">
+          <xsl:text>Reference: </xsl:text>
+          <xsl:call-template name="format-code-reference"><xsl:with-param name="codeReference" select="g:codeReference" /></xsl:call-template>
+        </div>
+      </xsl:if>
+      
+      <xsl:if test="@details">
+        <div class="annotation-location">
+          <xsl:text>Details: </xsl:text>
+          <xsl:call-template name="print-text-with-breaks"><xsl:with-param name="text" select="@details" /></xsl:call-template>
+        </div>
+      </xsl:if>
+    </li>
+  </xsl:template>
+  
+  <xsl:template match="g:testPackageRun" mode="navigator">
     <xsl:variable name="box-label"><xsl:call-template name="format-statistics"><xsl:with-param name="statistics" select="g:statistics" /></xsl:call-template></xsl:variable>
     <a href="#Statistics" title="{$box-label}">
       <xsl:attribute name="class">navigator-box <xsl:call-template name="status-from-statistics"><xsl:with-param name="statistics" select="g:statistics" /></xsl:call-template></xsl:attribute>
@@ -140,7 +187,7 @@ html
     </div>
   </xsl:template>
   
-  <xsl:template match="g:packageRun" mode="statistics">
+  <xsl:template match="g:testPackageRun" mode="statistics">
     <div id="Statistics" class="section">
       <h2>Statistics</h2>
       <div class="section-content">
@@ -178,7 +225,7 @@ html
     </tr>
   </xsl:template>
 
-  <xsl:template match="g:packageRun" mode="summary">
+  <xsl:template match="g:testPackageRun" mode="summary">
     <div id="Summary" class="section">
       <h2>Summary</h2>
       <div class="section-content">
@@ -210,7 +257,7 @@ html
       <li>
         <span>
           <xsl:choose>
-            <xsl:when test="g:children/g:testStepRun">
+            <xsl:when test="g:children/g:testStepRun/g:testStep/@isTestCase='false'">
               <xsl:call-template name="toggle">
                 <xsl:with-param name="href">summaryPanel-<xsl:value-of select="$id"/></xsl:with-param>
               </xsl:call-template>
@@ -220,7 +267,21 @@ html
             </xsl:otherwise>
           </xsl:choose>
 
-          <a href="#testStepRun-{$id}"><xsl:call-template name="print-text-with-breaks"><xsl:with-param name="text" select="g:testStep/@name" /></xsl:call-template></a>
+          <a href="#testStepRun-{$id}">
+            <xsl:attribute name="onclick">
+              <xsl:text>expand([</xsl:text>
+              <xsl:for-each select="ancestor-or-self::g:testStepRun">
+                <xsl:if test="position() != 1">
+                  <xsl:text>,</xsl:text>
+                </xsl:if>
+                <xsl:text>'detailPanel-</xsl:text>
+                <xsl:value-of select="g:testStep/@id"/>
+                <xsl:text>'</xsl:text>
+              </xsl:for-each>
+              <xsl:text>]);</xsl:text>
+            </xsl:attribute>
+            <xsl:call-template name="print-text-with-breaks"><xsl:with-param name="text" select="g:testStep/@name" /></xsl:call-template>
+          </a>
 
           <xsl:call-template name="outcome-bar">
             <xsl:with-param name="statistics" select="$statistics" />
@@ -238,7 +299,7 @@ html
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="g:packageRun" mode="details">
+  <xsl:template match="g:testPackageRun" mode="details">
     <div id="Details" class="section">
       <h2>Details</h2>
       <div class="section-content">
@@ -554,7 +615,7 @@ html
   </xsl:template>
   
   <xsl:template name="toggle-stop">
-    <img src="{$imgDir}FullStop.gif" alt="Toggle Placeholder" />
+    <img src="{$imgDir}FullStop.gif" class="toggle" alt="Toggle Placeholder" />
   </xsl:template>
   
   <xsl:template name="toggle-autoclose">
@@ -601,11 +662,11 @@ html
     
     <xsl:if test="not($condensed)">
       <span class="outcome-icons">
-        <img src="{$imgDir}Passed.gif" />
-        <xsl:value-of select="$statistics/@passedCount" />
-        <img src="{$imgDir}Failed.gif" />
-        <xsl:value-of select="$statistics/@failedCount" />
-        <img src="{$imgDir}Ignored.gif" />
+        <img src="{$imgDir}Passed.gif" alt="Passed"/>
+        <xsl:value-of select="$statistics/@passedCount"/>
+        <img src="{$imgDir}Failed.gif" alt="Failed"/>
+        <xsl:value-of select="$statistics/@failedCount"/>
+        <img src="{$imgDir}Ignored.gif" alt="Inconclusive or Skipped"/>
         <xsl:value-of select="$statistics/@inconclusiveCount + $statistics/@skippedCount" />            
       </span>
     </xsl:if>
