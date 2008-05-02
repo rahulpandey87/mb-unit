@@ -19,7 +19,7 @@
 <!ENTITY EmailPublisher '
   <email from="builds@gallio.org" mailhost="mail.gallio.org" includeDetails="TRUE">
     <users>
-      <user name="BuildMaster" group="buildmasters" address="mbunit-core@googlegroups.com" />
+      <user name="BuildMaster" group="buildmasters" address="gallio-commits@googlegroups.com" />
       <!--
       <user name="jeff.brown" group="buildmasters" address="jeff.brown@gallio.org" />
       -->
