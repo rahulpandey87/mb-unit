@@ -38,7 +38,7 @@ namespace MbUnit.Framework
     }
 
     /// <summary>
-    /// Tag use to mark a mark a unit test method.
+    /// Tag use to mark a mark a combinatorial unit test method.
     /// </summary>
     /// <include file="MbUnit.Framework.Doc.xml" path="doc/remarkss/remarks[@name='TestAttribute']"/>		
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
@@ -47,8 +47,16 @@ namespace MbUnit.Framework
         private CombinationType combinationType = CombinationType.AllPairs;
 
         private string tupleValidatorMethod = null;
+
+	/// <summary>
+	/// Specifies a combinatorial test of type <see cref="CombinationType.AllPairs" />.
+	/// </summary>
         public CombinatorialTestAttribute()
         { }
+
+	/// <summary>
+	/// Specifies a combinatorial test of the specified type.
+	/// </summary>
         public CombinatorialTestAttribute(CombinationType combinationType)
         {
             this.combinationType = combinationType;
