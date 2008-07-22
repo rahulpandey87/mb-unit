@@ -2871,12 +2871,50 @@ namespace MbUnit.Framework
 
       #region Are same
       /// <summary>
-      /// Asserts that two objects refer to the same object. If they
-      /// are not the same an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two <see cref="Object"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are the same object. That is, the two variables reference the same <see cref="Object"/>.
+      /// If the <see cref="Object"/>s are not the same, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>
       /// </summary>
-      /// <param name="message">The message to be printed when the two objects are not the same object.</param>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
+      /// <param name="expected">The <see cref="Object"/> to compare</param>
+      /// <param name="actual">The <see cref="Object"/> being compared</param>
+      /// <param name="message">The message to include if the test fails</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are not references to the same <see cref="Object"/>.</exception>
+      /// <remarks>
+      /// The comparison is made by calling <seealso cref="System.Object.ReferenceEquals(Object,Object)"/>
+      /// </remarks>
+      /// <seealso cref="AreSame(Object,Object)"/>
+      /// <seealso cref="AreSame(Object,Object,String,Object[])"/>
+      /// <example>
+      /// The following code demonstrates Assert.AreSame
+      /// <code>
+      ///using System;
+      ///using MbUnit.Framework;
+      ///
+      ///namespace AssertDocTests
+      ///{
+      ///   [TestFixture]
+      ///   public class AreSame
+      ///   {
+      ///      // This test passes
+      ///      [Test]
+      ///      public void AreSame_True()
+      ///      {
+      ///         object a = new Object();
+      ///         object b = a;
+      ///         Assert.AreSame(a, b, "These two variables do not reference the same object");
+      ///      }
+      ///   
+      ///      //This test fails with AssertionException
+      ///      [Test]
+      ///      public void AreSame_False()
+      ///      {
+      ///         object a = new Object();
+      ///         object b = new Object();
+      ///         Assert.AreSame(a, b, "These two variables do not reference the same object");
+      ///      }
+      ///   }
+      ///}
+      /// </code>
+      /// </example>
       static public void AreSame(Object expected, Object actual, string message)
       {
          Assert.IncrementAssertCount();
@@ -2886,34 +2924,101 @@ namespace MbUnit.Framework
       }
 
       /// <summary>
-      /// Asserts that two objects refer to the same object. If they
-      /// are not the same an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two <see cref="Object"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are the same object. That is, the two variables reference the same <see cref="Object"/>.
+      /// If the <see cref="Object"/>s are not the same, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with 
+      /// with a message defined via <paramref name="format"/> and <paramref name="args"/> through <see cref="System.String.Format(String, Object[])" />.
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
-      /// <param name="format">
-      /// The format of the message to display if the assertion fails,
-      /// containing zero or more format items.
-      /// </param>
-      /// <param name="args">
-      /// An <see cref="Object"/> array containing zero or more objects to format.
-      /// </param>
+      /// <param name="expected">The <see cref="Object"/> to compare</param>
+      /// <param name="actual">The <see cref="Object"/> being compared</param>
+      /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+      /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are not references to the same <see cref="Object"/>.</exception>
       /// <remarks>
-      /// <para>
-      /// The error message is formatted using <see cref="String.Format(string, object[])"/>.
-      /// </para>
+      /// The comparison is made by calling <seealso cref="System.Object.ReferenceEquals(Object,Object)"/>
       /// </remarks>
+      /// <seealso cref="AreSame(Object,Object)"/>
+      /// <seealso cref="AreSame(Object,Object,String)"/>
+      /// <example>
+      /// The following code demonstrates Assert.AreSame
+      /// <code>
+      ///using System;
+      ///using MbUnit.Framework;
+      ///
+      ///namespace AssertDocTests
+      ///{
+      ///   [TestFixture]
+      ///   public class AreSame
+      ///   {
+      ///      // This test passes
+      ///      [Test]
+      ///      public void AreSame_True()
+      ///      {
+      ///         object a = new Object();
+      ///         object b = a;
+      ///         Assert.AreSame(a, b, "These two variables do not reference the same object as of {0}", DateTime.Now.ToString());
+      ///      }
+      ///   
+      ///      //This test fails with AssertionException
+      ///      [Test]
+      ///      public void AreSame_False()
+      ///      {
+      ///         object a = new Object();
+      ///         object b = new Object();
+      ///         Assert.AreSame(a, b, "These two variables do not reference the same object as of {0}", DateTime.Now.ToString());
+      ///      }
+      ///   }
+      ///}
+      /// </code>
+      /// </example>
       static public void AreSame(Object expected, Object actual, string format, params object[] args)
       {
          AreSame(expected, actual, String.Format(format, args));
       }
 
       /// <summary>
-      /// Asserts that two objects refer to the same object. If they
-      /// are not the same an <see cref="AssertionException"/> is thrown.
+      /// Verifies that two <see cref="Object"/>s, <paramref name="expected"/> and <paramref name="actual"/>, are the same object. That is, the two variables reference the same <see cref="Object"/>.
+      /// If the <see cref="Object"/>s are not the same, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown.
       /// </summary>
-      /// <param name="expected">The expected object</param>
-      /// <param name="actual">The actual object</param>
+      /// <param name="expected">The <see cref="Object"/> to compare</param>
+      /// <param name="actual">The <see cref="Object"/> being compared</param>
+      /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="expected"/> and <paramref name="actual"/> are not references to the same <see cref="Object"/>.</exception>
+      /// <remarks>
+      /// The comparison is made by calling <seealso cref="System.Object.ReferenceEquals(Object,Object)"/>
+      /// </remarks>
+      /// <seealso cref="AreSame(Object,Object,String)"/>
+      /// <seealso cref="AreSame(Object,Object,String,Object[])"/>
+      /// <example>
+      /// The following code demonstrates Assert.AreSame
+      /// <code>
+      ///using System;
+      ///using MbUnit.Framework;
+      ///
+      ///namespace AssertDocTests
+      ///{
+      ///   [TestFixture]
+      ///   public class AreSame
+      ///   {
+      ///      // This test passes
+      ///      [Test]
+      ///      public void AreSame_True()
+      ///      {
+      ///         object a = new Object();
+      ///         object b = a;
+      ///         Assert.AreSame(a, b);
+      ///      }
+      ///   
+      ///      //This test fails with AssertionException
+      ///      [Test]
+      ///      public void AreSame_False()
+      ///      {
+      ///         object a = new Object();
+      ///         object b = new Object();
+      ///         Assert.AreSame(a, b);
+      ///      }
+      ///   }
+      ///}
+      /// </code>
+      /// </example>
       static public void AreSame(Object expected, Object actual)
       {
          Assert.AreSame(expected, actual, string.Empty);
