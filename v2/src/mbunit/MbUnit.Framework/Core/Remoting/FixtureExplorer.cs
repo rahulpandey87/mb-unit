@@ -64,8 +64,8 @@ namespace MbUnit.Core.Remoting
 
 			this.FixtureFactories.Add( new AttributeFixtureFactory() );
             this.FixtureFactories.Add( new FrameworkFixtureFactory() );
-            this.FixtureFactories.Add( new NakedFixtureFactory() );
-            this.FixtureFactories.Add( new SSCLIFixtureFactory() );
+            //this.FixtureFactories.Add( new NakedFixtureFactory() );
+            //this.FixtureFactories.Add( new SSCLIFixtureFactory() );
         }
 
         public FixtureFactoryCollection FixtureFactories
