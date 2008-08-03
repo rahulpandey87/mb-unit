@@ -22,14 +22,13 @@
 //		MbUnit HomePage: http://www.mbunit.com
 
 using System;
-
 using MbUnit.Core.Framework;
 using MbUnit.Core.Invokers;
 
 namespace MbUnit.Framework 
 {
 	/// <summary>
-	/// Tags test methods that are ignored.
+	/// Tags test methods that should be ignored.
 	/// </summary>
 	/// <include file="MbUnit.Framework.Doc.xml" path="doc/remarkss/remarks[@name='IgnoreAttribute']"/>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false, Inherited = true)]

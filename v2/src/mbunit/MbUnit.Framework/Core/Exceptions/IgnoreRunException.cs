@@ -31,22 +31,47 @@ namespace MbUnit.Core.Exceptions
 	using System.Runtime.Serialization;
 	using System.Collections;
 	using System.IO;
-	
+
+
+    /// <summary>
+    /// Exception thrown when <see cref="MbUnit.Framework.Assert.Ignore(string)"/> is called.
+    /// MbUnit test runner interpret this to mean that the test throwing this exception should be ignored.
+    /// </summary>
 	[Serializable]
 	public class IgnoreRunException : AssertionException 
 	{
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IgnoreRunException"/> class.
+        /// </summary>
+        /// <param name="message">The message explaining why the test was ignored.</param>
 		public IgnoreRunException(string message)
 		:base(message)
 		{}
-		
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IgnoreRunException"/> class with the given serialization <paramref name="info"/> and <paramref name="context"/>.
+        /// </summary>
+        /// <param name="info">Details of the serialization issue</param>
+        /// <param name="context">The streaming context within which it occured</param>
 		protected IgnoreRunException(SerializationInfo info, StreamingContext context)
 		:base(info,context)
 		{}
-		
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IgnoreRunException"/> class with the given assertion failure <paramref name="message"/> and <paramref name="innerException"/>.
+        /// </summary>
+        /// <param name="message">The message explaining why the test was ignored.</param>
+        /// <param name="innerException">The exception to pass on.</param>
 		public IgnoreRunException(string message, Exception innerException)
 		:base(message,innerException)
 		{}
-		
+
+        /// <summary>
+        /// Gets a message that describes why the test is to be ignored.
+        /// </summary>
+        /// <returns>The message to be displayed by the test runner</returns>
+        /// <remarks>Will always be prefixed with 'Test Ignored: '</remarks>
 		public override string Message
 		{
 			get
