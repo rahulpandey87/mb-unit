@@ -4068,7 +4068,7 @@ namespace MbUnit.Framework {
         ///        // This test fails
         ///        [Test]
         ///        public void LowerThan_SameValues() {
-        ///            Assert.LowerThan(1, 1);
+        ///            Assert.LowerThan(1f, 1f);
         ///        }
         ///
         ///        // This test fails
@@ -6682,9 +6682,63 @@ namespace MbUnit.Framework {
 
         #region GreaterThan
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two integers, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="left">An integer</param>
+        /// <param name="right">An integer</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_2Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan(1, 1);
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(int.MaxValue, int.MinValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(int.MinValue, int.MaxValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, int.MinValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(int.MinValue, null);
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(int,int,string)"/>
+        /// <seealso cref="GreaterThan(int,int,string,object[])"/>
         static public void GreaterThan(int left, int right) {
             Assert.IsTrue(left > right,
                           "{0} is not strictly greater than {1}",
@@ -6692,9 +6746,64 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two integers, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/> 
         /// </summary>
+        /// <param name="left">An integer</param>
+        /// <param name="right">An integer</param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_3Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan(1, 1, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(int.MaxValue, int.MinValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(int.MinValue, int.MaxValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, int.MinValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(int.MinValue, null, "Left is not greater than right");
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(int,int)"/>
+        /// <seealso cref="GreaterThan(int,int,string,object[])"/>
         static public void GreaterThan(int left, int right, string message) {
             Assert.IsTrue(left > right,
                           "{0} is not strictly greater than {1}, {2}",
@@ -6702,17 +6811,134 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two integers, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />. 
         /// </summary>
+        /// <param name="left">An integer</param>
+        /// <param name="right">An integer</param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_4Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan(1, 1,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(int.MaxValue, int.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(int.MinValue, int.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, int.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(int.MinValue, null,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(int,int)"/>
+        /// <seealso cref="GreaterThan(int,int,string)"/>
         static public void GreaterThan(int left, int right, string format, params object[] args) {
             GreaterThan(left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Int16">short integer</see> values, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="left">A <see cref="System.Int16">short integer</see> value</param>
+        /// <param name="right">A <see cref="System.Int16">short integer</see> value</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_2Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan((short)1, (short)1);
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(short.MaxValue, short.MinValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(short.MinValue, short.MaxValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, short.MinValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(short.MinValue, null);
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(short,short,string)"/>
+        /// <seealso cref="GreaterThan(short,short,string,object[])"/>
         static public void GreaterThan(short left, short right) {
             Assert.IsTrue(left > right,
                           "{0} is not strictly greater than {1}",
@@ -6720,9 +6946,64 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Int16">short integer</see> values, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/> 
         /// </summary>
+        /// <param name="left">A <see cref="System.Int16">short integer</see> value</param>
+        /// <param name="right">A <see cref="System.Int16">short integer</see> value</param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_3Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan((short)1, (short)1, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(short.MaxValue, short.MinValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(short.MinValue, short.MaxValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, short.MinValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(short.MinValue, null, "Left is not greater than right");
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(short,short)"/>
+        /// <seealso cref="GreaterThan(short,short,string,object[])"/>
         static public void GreaterThan(short left, short right, string message) {
             Assert.IsTrue(left > right,
                           "{0} is not strictly greater than {1}, {2}",
@@ -6730,17 +7011,134 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Int16">short integer</see> values, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />. 
         /// </summary>
+        /// <param name="left">A <see cref="System.Int16">short integer</see> value</param>
+        /// <param name="right">A <see cref="System.Int16">short integer</see> value</param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_4Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan((short)1, (short)1,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(short.MaxValue, short.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(short.MinValue, short.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, short.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(short.MinValue, null,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(short,short)"/>
+        /// <seealso cref="GreaterThan(short,short,string)"/>
         static public void GreaterThan(short left, short right, string format, params object[] args) {
             GreaterThan(left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Byte" />s, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="left">A <see cref="System.Byte" /> value (0 to 255)</param>
+        /// <param name="right">A <see cref="System.Byte" /> value (0 to 255)</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_2Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan((byte)1, (byte)1);
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(byte.MaxValue, byte.MinValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(byte.MinValue, byte.MaxValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, byte.MinValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(byte.MinValue, null);
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(byte,byte,string)"/>
+        /// <seealso cref="GreaterThan(byte,byte,string,object[])"/>
         static public void GreaterThan(byte left, byte right) {
             Assert.IsTrue(left > right,
                           "{0} is not strictly greater equal than {1}",
@@ -6748,9 +7146,64 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Byte" />s, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/> 
         /// </summary>
+        /// <param name="left">A <see cref="System.Byte" /> value (0 to 255)</param>
+        /// <param name="right">A <see cref="System.Byte" /> value (0 to 255)</param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_3Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan((byte)1, (byte)1, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(byte.MaxValue, byte.MinValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(byte.MinValue, byte.MaxValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, byte.MinValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(byte.MinValue, null, "Left is not greater than right");
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(byte,byte)"/>
+        /// <seealso cref="GreaterThan(byte,byte,string,object[])"/>
         static public void GreaterThan(byte left, byte right, string message) {
             Assert.IsTrue(left > right,
                           "{0} is not strictly greater equal than {1}, {2}",
@@ -6758,17 +7211,134 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Byte" />s, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />. 
         /// </summary>
+        /// <param name="left">A <see cref="System.Byte" /> value (0 to 255)</param>
+        /// <param name="right">A <see cref="System.Byte" /> value (0 to 255)</param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_4Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan((byte)1, (byte)1,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(byte.MaxValue, byte.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(byte.MinValue, byte.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, byte.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(byte.MinValue, null,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(byte,byte)"/>
+        /// <seealso cref="GreaterThan(byte,byte,string)"/>
         static public void GreaterThan(byte left, byte right, string format, params object[] args) {
             GreaterThan(left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Int64">long integer</see>s, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="left">A <see cref="System.Int64">long integer</see></param>
+        /// <param name="right">A <see cref="System.Int64">long integer</see></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_2Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan(1L, 1L);
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(long.MaxValue, long.MinValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(long.MinValue, long.MaxValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, long.MinValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(long.MinValue, null);
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(long,long,string)"/>
+        /// <seealso cref="GreaterThan(long,long,string,object[])"/>
         static public void GreaterThan(long left, long right) {
             Assert.IsTrue(left > right,
                           "{0} is not strictly greater than {1}",
@@ -6776,9 +7346,64 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Int64">long integer</see>s, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/> 
         /// </summary>
+        /// <param name="left">A <see cref="System.Int64">long integer</see></param>
+        /// <param name="right">A <see cref="System.Int64">long integer</see></param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_3Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan(1L, 1L, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(long.MaxValue, long.MinValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(long.MinValue, long.MaxValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, long.MinValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(long.MinValue, null, "Left is not greater than right");
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(long,long)"/>
+        /// <seealso cref="GreaterThan(long,long,string,object[])"/>
         static public void GreaterThan(long left, long right, string message) {
             Assert.IsTrue(left > right,
                           "{0} is not strictly greater than {1}, {2}",
@@ -6786,17 +7411,134 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Int64">long integer</see>s, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />. 
         /// </summary>
+        /// <param name="left">A <see cref="System.Int64">long integer</see></param>
+        /// <param name="right">A <see cref="System.Int64">long integer</see></param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_4Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan(1L, 1L,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(long.MaxValue, long.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(long.MinValue, long.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, long.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(long.MinValue, null,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(long,long)"/>
+        /// <seealso cref="GreaterThan(long,long,string)"/>
         static public void GreaterThan(long left, long right, string format, params object[] args) {
             GreaterThan(left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two doubles, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="left">A double</param>
+        /// <param name="right">A double</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_2Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan(1d, 1d);
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(double.MaxValue, double.MinValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(double.MinValue, double.MaxValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, double.MinValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(double.MinValue, null);
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(double,double,string)"/>
+        /// <seealso cref="GreaterThan(double,double,string,object[])"/>
         static public void GreaterThan(double left, double right) {
             Assert.IsTrue(left > right,
                           "{0} is not strictly greater than {1}",
@@ -6804,9 +7546,64 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two doubles, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/> 
         /// </summary>
+        /// <param name="left">A double</param>
+        /// <param name="right">A double</param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_3Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan(1d, 1d, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(double.MaxValue, double.MinValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(double.MinValue, double.MaxValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, double.MinValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(double.MinValue, null, "Left is not greater than right");
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(double,double)"/>
+        /// <seealso cref="GreaterThan(double,double,string,object[])"/>
         static public void GreaterThan(double left, double right, string message) {
             Assert.IsTrue(left > right,
                           "{0} is not strictly greater than {1}, {2}",
@@ -6814,17 +7611,134 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two doubles, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />. 
         /// </summary>
+        /// <param name="left">A double</param>
+        /// <param name="right">A double</param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_4Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan(1d, 1d,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(double.MaxValue, double.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(double.MinValue, double.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, double.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(double.MinValue, null,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(double,double)"/>
+        /// <seealso cref="GreaterThan(double,double,string)"/>
         static public void GreaterThan(double left, double right, string format, params object[] args) {
             GreaterThan(left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two floats, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="left">A float</param>
+        /// <param name="right">A float</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_2Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan(1f, 1f);
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(float.MaxValue, float.MinValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(float.MinValue, float.MaxValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, float.MinValue);
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(float.MinValue, null);
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(float,float,string)"/>
+        /// <seealso cref="GreaterThan(float,float,string,object[])"/>
         static public void GreaterThan(float left, float right) {
             Assert.IsTrue(left > right,
                           "{0} is not strictly greater than {1}",
@@ -6832,28 +7746,212 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two floats, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/> 
         /// </summary>
+        /// <param name="left">A float</param>
+        /// <param name="right">A float</param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_3Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan(1f, 1f, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(float.MaxValue, float.MinValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(float.MinValue, float.MaxValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, float.MinValue, "Left is not greater than right");
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(float.MinValue, null, "Left is not greater than right");
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(float,float)"/>
+        /// <seealso cref="GreaterThan(float,float,string,object[])"/>
         static public void GreaterThan(float left, float right, string message) {
             Assert.IsTrue(left > right,
                           "{0} is not strictly greater than {1}, {2}",
                           left, right, message);
         }
 
-
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two floats, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />. 
         /// </summary>
+        /// <param name="left">A float</param>
+        /// <param name="right">A float</param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class GreaterThan_4Arguments
+        ///    {
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_SameValues()
+        ///       {
+        ///          Assert.GreaterThan(1f, 1f,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test succeeds
+        ///       [Test]
+        ///       public void GreaterThan_GreaterThan()
+        ///       {
+        ///          Assert.GreaterThan(float.MaxValue, float.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LowerThan()
+        ///       {
+        ///          Assert.GreaterThan(float.MinValue, float.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_LeftNull()
+        ///       {
+        ///          Assert.GreaterThan(null, float.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///
+        ///       // This test fails
+        ///       [Test]
+        ///       public void GreaterThan_RightNull()
+        ///       {
+        ///          Assert.GreaterThan(float.MinValue, null,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///       }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(float,float)"/>
+        /// <seealso cref="GreaterThan(float,float,string)"/>
         static public void GreaterThan(float left, float right, string format, params object[] args) {
             GreaterThan(left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two objects derived from <see cref="System.IComparable"/>, <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="left">An object derived from <see cref="System.IComparable"/></param>
+        /// <param name="right">An object derived from <see cref="System.IComparable"/></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="left"/> is equal to or greater than <paramref name="right"/> or if either value is null.</exception>
+        /// <exception cref="System.ArgumentException">
+        ///     Thrown if <paramref name="left"/> and <paramref name="right"/> are not of the same type</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///[TestFixture]
+        ///public class GreaterThan_IComparable 
+        /// {    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterThan_SameValues() {
+        ///        TimeSpan hour1 = new TimeSpan(0, 1, 0);
+        ///        TimeSpan hour2 = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterThan(hour1, hour2);
+        ///    }
+        ///    
+        ///    // This test passes
+        ///    [Test]
+        ///    public void GreaterThan_GreaterThan() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.GreaterThan(day, hour);
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterThan_LowerThan() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.GreaterThan(hour, day);
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterThan_LeftNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterThan(null, hour);
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterThan_RightNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterThan(hour, null);
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterThan_NotSameType() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        String day = "A Day";
+        ///        Assert.GreaterThan(hour, day);
+        ///    }
+        ///}
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(IComparable,IComparable,string)"/>
+        /// <seealso cref="GreaterThan(IComparable,IComparable,string,object[])"/>
         static public void GreaterThan(IComparable left, IComparable right) {
             Assert.IsNotNull(left);
             Assert.IsNotNull(right);
@@ -6863,9 +7961,79 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two objects derived from <see cref="System.IComparable"/>,
+        /// <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> 
+        /// is thrown with the given <paramref name="message"/> 
         /// </summary>
+        /// <param name="left">An object derived from <see cref="System.IComparable"/></param>
+        /// <param name="right">An object derived from <see cref="System.IComparable"/></param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="left"/> is equal to or greater than <paramref name="right"/> or if either value is null.</exception>
+        /// <exception cref="System.ArgumentException">
+        ///     Thrown if <paramref name="left"/> and <paramref name="right"/> are not of the same type</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///[TestFixture]
+        ///public class GreaterThan_IComparable 
+        /// {    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterThan_SameValues() {
+        ///        TimeSpan hour1 = new TimeSpan(0, 1, 0);
+        ///        TimeSpan hour2 = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterThan(hour1, hour2, "Left is not greater than right");
+        ///    }
+        ///    
+        ///    // This test passes
+        ///    [Test]
+        ///    public void GreaterThan_GreaterThan() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.GreaterThan(day, hour, "Left is not greater than right");
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterThan_LowerThan() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.GreaterThan(hour, day, "Left is not greater than right");
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterThan_LeftNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterThan(null, hour, "Left is not greater than right");
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterThan_RightNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterThan(hour, null, "Left is not greater than right");
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterThan_NotSameType() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        String day = "A Day";
+        ///        Assert.GreaterThan(hour, day, "Left is not greater than right");
+        ///    }
+        ///}
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(IComparable,IComparable)"/>
+        /// <seealso cref="GreaterThan(IComparable,IComparable,string,object[])"/>
         static public void GreaterThan(IComparable left, IComparable right, string message) {
             Assert.IsNotNull(left);
             Assert.IsNotNull(right);
@@ -6875,9 +8043,80 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two objects derived from <see cref="System.IComparable"/>, 
+        /// <paramref name="left"/> is strictly greater than <paramref name="right"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />. 
         /// </summary>
+        /// <param name="left">An object derived from <see cref="System.IComparable"/></param>
+        /// <param name="right">An object derived from <see cref="System.IComparable"/></param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is equal to or greater than <paramref name="right"/> or if either value is null.</exception>
+        /// <exception cref="System.ArgumentException">
+        ///     Thrown if <paramref name="left"/> and <paramref name="right"/> are not of the same type</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///[TestFixture]
+        ///public class GreaterThan_IComparable 
+        /// {    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterThan_SameValues() {
+        ///        TimeSpan hour1 = new TimeSpan(0, 1, 0);
+        ///        TimeSpan hour2 = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterThan(hour1, hour2, "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///    
+        ///    // This test passes
+        ///    [Test]
+        ///    public void GreaterThan_GreaterThan() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.GreaterThan(day, hour, "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterThan_LowerThan() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.GreaterThan(hour, day, "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterThan_LeftNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterThan(null, hour, "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterThan_RightNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterThan(hour, null, "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterThan_NotSameType() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        String day = "A Day";
+        ///        Assert.GreaterThan(hour, day, "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///}
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterThan(IComparable,IComparable)"/>
+        /// <seealso cref="GreaterThan(IComparable,IComparable,string)"/>
         static public void GreaterThan(IComparable left, IComparable right,
             string format, params object[] args) {
             GreaterThan(left, right, String.Format(format, args));
@@ -6889,38 +8128,147 @@ namespace MbUnit.Framework {
         #region Ints
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two integers, <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="message"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
-        /// <param name="message">The message that will be displayed on failure</param>
-        /// <param name="args">Arguments to be used in formatting the message</param>
+        /// <param name="arg1">An integer</param>
+        /// <param name="arg2">An integer</param>
+        /// <param name="message">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using System;
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_4Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1, 1,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(int.MaxValue, int.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(int.MinValue, int.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(int,int)"/>
+        /// <seealso cref="Greater(int,int,string)"/>
         static public void Greater(int arg1,
             int arg2, string message, params object[] args) {
             Assert.GreaterThan(arg1, arg2, message, args);
         }
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two integers, <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> 
+        /// is thrown with the given <paramref name="message"/>.
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
-        /// <param name="message">The message that will be displayed on failure</param>
+        /// <param name="arg1">An integer</param>
+        /// <param name="arg2">An integer</param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1, 1, "Left is not greater than right");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(int.MaxValue, int.MinValue, "Left is not greater than right");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(int.MinValue, int.MaxValue, "Left is not greater than right");
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(int,int)"/>
+        /// <seealso cref="Greater(int,int,string,object[])"/>
         static public void Greater(int arg1, int arg2, string message) {
             Assert.GreaterThan(arg1, arg2, message);
         }
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two integers, <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
+        /// <param name="arg1">An integer</param>
+        /// <param name="arg2">An integer</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_2Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1, 1);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(int.MaxValue, int.MinValue);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(int.MinValue, int.MaxValue);
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(int,int,string)"/>
+        /// <seealso cref="Greater(int,int,string,object[])"/>
         static public void Greater(int arg1, int arg2) {
             Assert.GreaterThan(arg1, arg2);
         }
@@ -6930,38 +8278,147 @@ namespace MbUnit.Framework {
         #region UInts
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two <see cref="System.UInt32">unsigned integers</see>, <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="message"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
-        /// <param name="message">The message that will be displayed on failure</param>
-        /// <param name="args">Arguments to be used in formatting the message</param>
+        /// <param name="arg1">An <see cref="System.UInt32">unsigned integers</see></param>
+        /// <param name="arg2">An <see cref="System.UInt32">unsigned integers</see></param>
+        /// <param name="message">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using System;
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_4Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1u, 1u,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(uint.MaxValue, uint.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(uint.MinValue, uint.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(uint,uint)"/>
+        /// <seealso cref="Greater(uint,uint,string)"/>
         static public void Greater(uint arg1,
             uint arg2, string message, params object[] args) {
             Assert.GreaterThan(arg1, arg2, message, args);
         }
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two <see cref="System.UInt32">unsigned integers</see>, <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> 
+        /// is thrown with the given <paramref name="message"/>.
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
-        /// <param name="message">The message that will be displayed on failure</param>
+        /// <param name="arg1">An <see cref="System.UInt32">unsigned integers</see></param>
+        /// <param name="arg2">An <see cref="System.UInt32">unsigned integers</see></param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1u, 1u, "Left is not greater than right");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(uint.MaxValue, uint.MinValue, "Left is not greater than right");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(uint.MinValue, uint.MaxValue, "Left is not greater than right");
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(uint,uint)"/>
+        /// <seealso cref="Greater(uint,uint,string,object[])"/>
         static public void Greater(uint arg1, uint arg2, string message) {
             Assert.GreaterThan(arg1, arg2, message);
         }
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two <see cref="System.UInt32">unsigned integers</see>, <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
+        /// <param name="arg1">An <see cref="System.UInt32">unsigned integers</see></param>
+        /// <param name="arg2">An <see cref="System.UInt32">unsigned integers</see></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_2Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1u, 1u);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(uint.MaxValue, uint.MinValue);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(uint.MinValue, uint.MaxValue);
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(uint,uint,string)"/>
+        /// <seealso cref="Greater(uint,uint,string,object[])"/>
         static public void Greater(uint arg1, uint arg2) {
             Assert.GreaterThan(arg1, arg2);
         }
@@ -6971,38 +8428,147 @@ namespace MbUnit.Framework {
         #region Decimals
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two <see cref="System.Decimal">128-bit integers</see>, <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="message"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
-        /// <param name="message">The message that will be displayed on failure</param>
-        /// <param name="args">Arguments to be used in formatting the message</param>
+        /// <param name="arg1">A <see cref="System.Decimal">128-bit integer</see></param>
+        /// <param name="arg2">A <see cref="System.Decimal">128-bit integer</see></param>
+        /// <param name="message">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using System;
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_4Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1m, 1m,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(decimal.MaxValue, decimal.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(decimal.MinValue, decimal.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(decimal,decimal)"/>
+        /// <seealso cref="Greater(decimal,decimal,string)"/>
         static public void Greater(decimal arg1,
             decimal arg2, string message, params object[] args) {
             Assert.GreaterThan(arg1, arg2, message, args);
         }
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two <see cref="System.Decimal">128-bit integers</see>, <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> 
+        /// is thrown with the given <paramref name="message"/>.
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
-        /// <param name="message">The message that will be displayed on failure</param>
+        /// <param name="arg1">A <see cref="System.Decimal">128-bit integer</see></param>
+        /// <param name="arg2">A <see cref="System.Decimal">128-bit integer</see></param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1m, 1m, "Left is not greater than right");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(decimal.MaxValue, decimal.MinValue, "Left is not greater than right");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(decimal.MinValue, decimal.MaxValue, "Left is not greater than right");
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(decimal,decimal)"/>
+        /// <seealso cref="Greater(decimal,decimal,string,object[])"/>
         static public void Greater(decimal arg1, decimal arg2, string message) {
             Assert.GreaterThan(arg1, arg2, message);
         }
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two <see cref="System.Decimal">128-bit integers</see>, <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
+        /// <param name="arg1">A <see cref="System.Decimal">128-bit integer</see></param>
+        /// <param name="arg2">A <see cref="System.Decimal">128-bit integer</see></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_2Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1m, 1m);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(decimal.MaxValue, decimal.MinValue);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(decimal.MinValue, decimal.MaxValue);
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(decimal,decimal,string)"/>
+        /// <seealso cref="Greater(decimal,decimal,string,object[])"/>
         static public void Greater(decimal arg1, decimal arg2) {
             Assert.GreaterThan(arg1, arg2);
         }
@@ -7012,38 +8578,147 @@ namespace MbUnit.Framework {
         #region Long
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two <see cref="System.Int64">long integers</see>, <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="message"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
-        /// <param name="message">The message that will be displayed on failure</param>
-        /// <param name="args">Arguments to be used in formatting the message</param>
+        /// <param name="arg1">A <see cref="System.Int64">long integer</see></param>
+        /// <param name="arg2">A <see cref="System.Int64">long integer</see></param>
+        /// <param name="message">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using System;
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_4Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1L, 1L,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(long.MaxValue, long.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(long.MinValue, long.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(long,long)"/>
+        /// <seealso cref="Greater(long,long,string)"/>
         static public void Greater(long arg1,
             long arg2, string message, params object[] args) {
             Assert.GreaterThan(arg1, arg2, message, args);
         }
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two <see cref="System.Int64">long integers</see>, <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> 
+        /// is thrown with the given <paramref name="message"/>.
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
-        /// <param name="message">The message that will be displayed on failure</param>
+        /// <param name="arg1">A <see cref="System.Int64">long integer</see></param>
+        /// <param name="arg2">A <see cref="System.Int64">long integer</see></param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1L, 1L, "Left is not greater than right");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(long.MaxValue, long.MinValue, "Left is not greater than right");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(long.MinValue, long.MaxValue, "Left is not greater than right");
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(long,long)"/>
+        /// <seealso cref="Greater(long,long,string,object[])"/>
         static public void Greater(long arg1, long arg2, string message) {
             Assert.GreaterThan(arg1, arg2, message);
         }
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two <see cref="System.Int64">long integers</see>, <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
+        /// <param name="arg1">A <see cref="System.Int64">long integer</see></param>
+        /// <param name="arg2">A <see cref="System.Int64">long integer</see></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_2Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1L, 1L);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(long.MaxValue, long.MinValue);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(long.MinValue, long.MaxValue);
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(long,long,string)"/>
+        /// <seealso cref="Greater(long,long,string,object[])"/>
         static public void Greater(long arg1, long arg2) {
             Assert.GreaterThan(arg1, arg2);
         }
@@ -7053,39 +8728,149 @@ namespace MbUnit.Framework {
         #region Doubles
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two <see cref="System.Double">doubles</see>, <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="message"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
-        /// <param name="message">The message that will be displayed on failure</param>
-        /// <param name="args">Arguments to be used in formatting the message</param>
+        /// <param name="arg1">A <see cref="System.Double">double</see></param>
+        /// <param name="arg2">A <see cref="System.Double">doubles</see></param>
+        /// <param name="message">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using System;
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_4Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1d, 1d,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(double.MaxValue, double.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(double.MinValue, double.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(double,double)"/>
+        /// <seealso cref="Greater(double,double,string)"/>
         static public void Greater(double arg1,
             double arg2, string message, params object[] args) {
             Assert.GreaterThan(arg1, arg2, message, args);
         }
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two <see cref="System.Double">doubles</see>, <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> 
+        /// is thrown with the given <paramref name="message"/>.
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
-        /// <param name="message">The message that will be displayed on failure</param>
+        /// <param name="arg1">A <see cref="System.Double">double</see></param>
+        /// <param name="arg2">A <see cref="System.Double">double</see></param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1d, 1d, "Left is not greater than right");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(double.MaxValue, double.MinValue, "Left is not greater than right");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(double.MinValue, double.MaxValue, "Left is not greater than right");
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(double,double)"/>
+        /// <seealso cref="Greater(double,double,string,object[])"/>
         static public void Greater(double arg1,
             double arg2, string message) {
             Assert.GreaterThan(arg1, arg2, message);
         }
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two <see cref="System.Double">doubles</see>, 
+        /// <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
+        /// <param name="arg1">A <see cref="System.Double">double</see></param>
+        /// <param name="arg2">A <see cref="System.Double">double</see></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_2Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1d, 1d);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(double.MaxValue, double.MinValue);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(double.MinValue, double.MaxValue);
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(double,double,string)"/>
+        /// <seealso cref="Greater(double,double,string,object[])"/>
         static public void Greater(double arg1, double arg2) {
             Assert.GreaterThan(arg1, arg2);
         }
@@ -7095,38 +8880,147 @@ namespace MbUnit.Framework {
         #region Floats
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two <see cref="System.Single">floats</see>, <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="message"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
-        /// <param name="message">The message that will be displayed on failure</param>
-        /// <param name="args">Arguments to be used in formatting the message</param>
+        /// <param name="arg1">A <see cref="System.Single">float</see></param>
+        /// <param name="arg2">A <see cref="System.Single">float</see></param>
+        /// <param name="message">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using System;
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_4Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1f, 1f,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(float.MaxValue, float.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(float.MinValue, float.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(float,float)"/>
+        /// <seealso cref="Greater(float,float,string)"/>
         static public void Greater(float arg1,
             float arg2, string message, params object[] args) {
             Assert.GreaterThan(arg1, arg2, message, args);
         }
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two <see cref="System.Single">floats</see>, <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> 
+        /// is thrown with the given <paramref name="message"/>.
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
-        /// <param name="message">The message that will be displayed on failure</param>
+        /// <param name="arg1">A <see cref="System.Single">float</see></param>
+        /// <param name="arg2">A <see cref="System.Single">float</see></param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1f, 1f, "Left is not greater than right");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(float.MaxValue, float.MinValue, "Left is not greater than right");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(float.MinValue, float.MaxValue, "Left is not greater than right");
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(float,float)"/>
+        /// <seealso cref="Greater(float,float,string,object[])"/>
         static public void Greater(float arg1, float arg2, string message) {
             Assert.GreaterThan(arg1, arg2, message);
         }
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two <see cref="System.Single">floats</see>, <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
+        /// <param name="arg1">A <see cref="System.Single">float</see></param>
+        /// <param name="arg2">A <see cref="System.Single">float</see></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class Greater_2Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_SameValues() {
+        ///            Assert.Greater(1f, 1f);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Greater_GreaterThan() {
+        ///            Assert.Greater(float.MaxValue, float.MinValue);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Greater_LowerThan() {
+        ///            Assert.Greater(float.MinValue, float.MaxValue);
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(float,float,string)"/>
+        /// <seealso cref="Greater(float,float,string,object[])"/>
         static public void Greater(float arg1, float arg2) {
             Assert.GreaterThan(arg1, arg2);
         }
@@ -7136,38 +9030,241 @@ namespace MbUnit.Framework {
         #region IComparables
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two objects derived from <see cref="System.IComparable"/>, 
+        /// <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="message"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
-        /// <param name="message">The message that will be displayed on failure</param>
-        /// <param name="args">Arguments to be used in formatting the message</param>
+        /// <param name="arg1">An object derived from <see cref="System.IComparable"/></param>
+        /// <param name="arg2">An object derived from <see cref="System.IComparable"/></param>
+        /// <param name="message">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <exception cref="System.ArgumentException">
+        ///     Thrown if <paramref name="arg1"/> and <paramref name="arg2"/> are not of the same type</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using System;
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///   [TestFixture]
+        ///   public class Greater_IComparable {
+        ///
+        ///    // This test fails
+        ///    [Test]
+        ///    public void Greater_SameValues() {
+        ///        TimeSpan hour1 = new TimeSpan(0, 1, 0);
+        ///        TimeSpan hour2 = new TimeSpan(0 ,1, 0);
+        ///        Assert.Greater(hour1, hour2,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///
+        ///    // This test passes
+        ///    [Test]
+        ///    public void Greater_Greater() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.Greater(day, hour,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///
+        ///    // This test fails
+        ///    [Test]
+        ///    public void Greater_LowerThan() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.Greater(hour, day,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///
+        ///    // This test fails
+        ///    [Test]
+        ///    public void Greater_LeftNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.Greater(null, hour,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///
+        ///    // This test fails
+        ///    [Test]
+        ///    public void Greater_RightNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.Greater(hour, null,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///
+        ///    // This test fails
+        ///    [Test]
+        ///    public void Greater_NotSameType()
+        ///    {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        String day = "A Day";
+        ///        Assert.Greater(hour, day,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(IComparable,IComparable)"/>
+        /// <seealso cref="Greater(IComparable,IComparable,string)"/>
         static public void Greater(IComparable arg1,
             IComparable arg2, string message, params object[] args) {
             Assert.GreaterThan(arg1, arg2, message, args);
         }
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two objects derived from <see cref="System.IComparable"/>, 
+        /// <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> 
+        /// is thrown with the given <paramref name="message"/>.
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
-        /// <param name="message">The message that will be displayed on failure</param>
+        /// <param name="arg1">An object derived from <see cref="System.IComparable"/></param>
+        /// <param name="arg2">An object derived from <see cref="System.IComparable"/></param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using System;
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///   [TestFixture]
+        ///   public class Greater_IComparable {
+        ///
+        ///    // This test fails
+        ///    [Test]
+        ///    public void Greater_SameValues() {
+        ///        TimeSpan hour1 = new TimeSpan(0, 1, 0);
+        ///        TimeSpan hour2 = new TimeSpan(0 ,1, 0);
+        ///        Assert.Greater(hour1, hour2, "Left is not greater than right");
+        ///    }
+        ///
+        ///    // This test passes
+        ///    [Test]
+        ///    public void Greater_Greater() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.Greater(day, hour, "Left is not greater than right");
+        ///    }
+        ///
+        ///    // This test fails
+        ///    [Test]
+        ///    public void Greater_LowerThan() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.Greater(hour, day, "Left is not greater than right");
+        ///    }
+        ///
+        ///    // This test fails
+        ///    [Test]
+        ///    public void Greater_LeftNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.Greater(null, hour, "Left is not greater than right");
+        ///    }
+        ///
+        ///    // This test fails
+        ///    [Test]
+        ///    public void Greater_RightNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.Greater(hour, null, "Left is not greater than right");
+        ///    }
+        ///
+        ///    // This test fails
+        ///    [Test]
+        ///    public void Greater_NotSameType()
+        ///    {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        String day = "A Day";
+        ///        Assert.Greater(hour, day, "Left is not greater than right");
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(IComparable,IComparable)"/>
+        /// <seealso cref="Greater(IComparable,IComparable,string,object[])"/>
         static public void Greater(IComparable arg1, IComparable arg2, string message) {
             Assert.GreaterThan(arg1, arg2, message);
         }
 
         /// <summary>
-        /// Verifies that the first value is greater than the second
-        /// value. If they are not, then an
-        /// <see cref="AssertionException"/> is thrown.
+        /// Verifies that for two objects derived from <see cref="System.IComparable"/>, 
+        /// <paramref name="arg1"/> is strictly greater than <paramref name="arg2"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
-        /// <param name="arg1">The first value, expected to be greater</param>
-        /// <param name="arg2">The second value, expected to be less</param>
+        /// <param name="arg1">An object derived from <see cref="System.IComparable"/></param>
+        /// <param name="arg2">An object derived from <see cref="System.IComparable"/></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="arg1"/> is equal to or less than <paramref name="arg2"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Greater using a different variety of values
+        /// <code>
+        /// using System;
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///   [TestFixture]
+        ///   public class Greater_IComparable {
+        ///
+        ///    // This test fails
+        ///    [Test]
+        ///    public void Greater_SameValues() {
+        ///        TimeSpan hour1 = new TimeSpan(0, 1, 0);
+        ///        TimeSpan hour2 = new TimeSpan(0 ,1, 0);
+        ///        Assert.Greater(hour1, hour2);
+        ///    }
+        ///
+        ///    // This test passes
+        ///    [Test]
+        ///    public void Greater_Greater() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.Greater(day, hour);
+        ///    }
+        ///
+        ///    // This test fails
+        ///    [Test]
+        ///    public void Greater_LowerThan() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.Greater(hour, day);
+        ///    }
+        ///
+        ///    // This test fails
+        ///    [Test]
+        ///    public void Greater_LeftNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.Greater(null, hour);
+        ///    }
+        ///
+        ///    // This test fails
+        ///    [Test]
+        ///    public void Greater_RightNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.Greater(hour, null9);
+        ///    }
+        ///
+        ///    // This test fails
+        ///    [Test]
+        ///    public void Greater_NotSameType()
+        ///    {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        String day = "A Day";
+        ///        Assert.Greater(hour, day);
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Greater(IComparable,IComparable,string)"/>
+        /// <seealso cref="Greater(IComparable,IComparable,string,object[])"/>
         static public void Greater(IComparable arg1, IComparable arg2) {
             Assert.GreaterThan(arg1, arg2);
         }
@@ -7178,9 +9275,46 @@ namespace MbUnit.Framework {
 
         #region GreaterEqualThan
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two integers, <paramref name="left"/> is greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="left">An integer</param>
+        /// <param name="right">An integer</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_2Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan(1, 1);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(int.MaxValue, int.MinValue);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(int.MinValue, int.MaxValue);
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(int,int,string)"/>
+        /// <seealso cref="GreaterEqualThan(int,int,string,object[])"/>
         static public void GreaterEqualThan(int left, int right) {
             Assert.IsTrue(left >= right,
                           "{0} is not greater than {1}",
@@ -7188,9 +9322,46 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two integers, <paramref name="left"/> is greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>.
         /// </summary>
+        /// <param name="left">An integer</param>
+        /// <param name="right">An integer</param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_3Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan(1, 1, "Left is not greater than or equal to right");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(int.MaxValue, int.MinValue, "Left is not greater than or equal to right");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(int.MinValue, int.MaxValue, "Left is not greater than or equal to right");
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(int,int)"/>
+        /// <seealso cref="GreaterEqualThan(int,int,string,object[])"/>
         static public void GreaterEqualThan(int left, int right, string message) {
             Assert.IsTrue(left >= right,
                           "{0} is not greater than {1}, {2}",
@@ -7198,18 +9369,100 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two integers, <paramref name="left"/> is strictly greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
+        /// <param name="left">An integer</param>
+        /// <param name="right">An integer</param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using System;
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_4Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan(1, 1,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(int.MaxValue, int.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(int.MinValue, int.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(int,int)"/>
+        /// <seealso cref="GreaterEqualThan(int,int,string)"/>
         static public void GreaterEqualThan(int left, int right,
             string format, params object[] args) {
             GreaterEqualThan(left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Int16">short integers</see>, <paramref name="left"/> is greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="left">A <see cref="System.Int16">short integer</see></param>
+        /// <param name="right">A <see cref="System.Int16">short integer</see></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_2Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan((short)1, (short)1);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(short.MaxValue, short.MinValue);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(short.MinValue, short.MaxValue);
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(short,short,string)"/>
+        /// <seealso cref="GreaterEqualThan(short,short,string,object[])"/>
         static public void GreaterEqualThan(short left, short right) {
             Assert.IsTrue(left >= right,
                           "{0} is not greater than {1}",
@@ -7217,9 +9470,46 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Int16">short integers</see>, <paramref name="left"/> is greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>.
         /// </summary>
+        /// <param name="left">A <see cref="System.Int16">short integer</see></param>
+        /// <param name="right">A <see cref="System.Int16">short integer</see></param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_3Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan((short)1, (short)1, "Left is not greater than or equal to right");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(short.MaxValue, short.MinValue, "Left is not greater than or equal to right");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(short.MinValue, short.MaxValue, "Left is not greater than or equal to right");
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(short,short)"/>
+        /// <seealso cref="GreaterEqualThan(short,short,string,object[])"/>
         static public void GreaterEqualThan(short left, short right, string message) {
             Assert.IsTrue(left >= right,
                           "{0} is not greater than {1}, {2}",
@@ -7227,18 +9517,100 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Int16">short integers</see>, <paramref name="left"/> is strictly greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
+        /// <param name="left">A <see cref="System.Int16">short integer</see></param>
+        /// <param name="right">A <see cref="System.Int16">short integer</see></param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using System;
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_4Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan(1, 1,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(short.MaxValue, short.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(short.MinValue, short.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(short,short)"/>
+        /// <seealso cref="GreaterEqualThan(short,short,string)"/>
         static public void GreaterEqualThan(short left, short right,
             string format, params object[] args) {
             GreaterEqualThan(left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Byte" />s, <paramref name="left"/> is greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="left">A <see cref="System.Byte" /> value (0 to 255)</param>
+        /// <param name="right">A <see cref="System.Byte" /> value (0 to 255)</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_2Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan((byte)1, (byte)1);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(byte.MaxValue, byte.MinValue);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(byte.MinValue, byte.MaxValue);
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(byte,byte,string)"/>
+        /// <seealso cref="GreaterEqualThan(byte,byte,string,object[])"/>
         static public void GreaterEqualThan(byte left, byte right) {
             Assert.IsTrue(left >= right,
                           "{0} is not greater than {1}",
@@ -7246,9 +9618,46 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Byte" />s, <paramref name="left"/> is greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>.
         /// </summary>
+        /// <param name="left">A <see cref="System.Byte" /> value (0 to 255)</param>
+        /// <param name="right">A <see cref="System.Byte" /> value (0 to 255)</param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_3Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan((byte)1, (byte)1, "Left is not greater than or equal to right");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(byte.MaxValue, byte.MinValue, "Left is not greater than or equal to right");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(byte.MinValue, byte.MaxValue, "Left is not greater than or equal to right");
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(byte,byte)"/>
+        /// <seealso cref="GreaterEqualThan(byte,byte,string,object[])"/>
         static public void GreaterEqualThan(byte left, byte right, string message) {
             Assert.IsTrue(left >= right,
                           "{0} is not greater than {1}, {2}",
@@ -7257,18 +9666,100 @@ namespace MbUnit.Framework {
 
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Byte" />s, <paramref name="left"/> is strictly greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
+        /// <param name="left">A <see cref="System.Byte" /> value (0 to 255)</param>
+        /// <param name="right">A <see cref="System.Byte" /> value (0 to 255)</param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using System;
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_4Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan((byte)1, (byte)1,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(byte.MaxValue, byte.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(byte.MinValue, byte.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(byte,byte)"/>
+        /// <seealso cref="GreaterEqualThan(byte,byte,string)"/>
         static public void GreaterEqualThan(byte left, byte right,
             string format, params object[] args) {
             GreaterEqualThan(left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Int64">long integer</see>s, <paramref name="left"/> is greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="left">A <see cref="System.Int64">long integer</see></param>
+        /// <param name="right">A <see cref="System.Int64">long integer</see></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_2Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan(1L, 1L);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(long.MaxValue, long.MinValue);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(long.MinValue, long.MaxValue);
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(long,long,string)"/>
+        /// <seealso cref="GreaterEqualThan(long,long,string,object[])"/>
         static public void GreaterEqualThan(long left, long right) {
             Assert.IsTrue(left >= right,
                           "{0} is not greater than {1}",
@@ -7276,9 +9767,46 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Int64">long integer</see>s, <paramref name="left"/> is greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>.
         /// </summary>
+        /// <param name="left">A <see cref="System.Int64">long integer</see></param>
+        /// <param name="right">A <see cref="System.Int64">long integer</see></param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_3Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan(1L, 1L, "Left is not greater than or equal to right");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(long.MaxValue, long.MinValue, "Left is not greater than or equal to right");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(long.MinValue, long.MaxValue, "Left is not greater than or equal to right");
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(long,long)"/>
+        /// <seealso cref="GreaterEqualThan(long,long,string,object[])"/>
         static public void GreaterEqualThan(long left, long right, string message) {
             Assert.IsTrue(left >= right,
                           "{0} is not greater than {1}, {2}",
@@ -7286,18 +9814,100 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two <see cref="System.Int64">long integer</see>s, <paramref name="left"/> is strictly greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
+        /// <param name="left">A <see cref="System.Int64">long integer</see></param>
+        /// <param name="right">A <see cref="System.Int64">long integer</see></param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using System;
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_4Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan(1L, 1L,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(long.MaxValue, long.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(long.MinValue, long.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(long,long)"/>
+        /// <seealso cref="GreaterEqualThan(long,long,string)"/>
         static public void GreaterEqualThan(long left, long right,
             string format, params object[] args) {
             GreaterEqualThan(left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two doubles, <paramref name="left"/> is greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="left">A double</param>
+        /// <param name="right">A double</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_2Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan(1d, 1d);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(double.MaxValue, double.MinValue);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(double.MinValue, double.MaxValue);
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(double,double,string)"/>
+        /// <seealso cref="GreaterEqualThan(double,double,string,object[])"/>
         static public void GreaterEqualThan(double left, double right) {
             Assert.IsTrue(left >= right,
                           "{0} is not greater than {1}",
@@ -7305,9 +9915,46 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two doubles, <paramref name="left"/> is greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>.
         /// </summary>
+        /// <param name="left">A double</param>
+        /// <param name="right">A double</param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_3Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan(1d, 1d, "Left is not greater than or equal to right");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(double.MaxValue, double.MinValue, "Left is not greater than or equal to right");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(double.MinValue, double.MaxValue, "Left is not greater than or equal to right");
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(double,double)"/>
+        /// <seealso cref="GreaterEqualThan(double,double,string,object[])"/>
         static public void GreaterEqualThan(double left, double right, string message) {
             Assert.IsTrue(left >= right,
                           "{0} is not greater than {1}, {2}",
@@ -7315,18 +9962,100 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two doubles, <paramref name="left"/> is strictly greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
+        /// <param name="left">A double</param>
+        /// <param name="right">A double</param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using System;
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_4Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan(1d, 1d,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(double.MaxValue, double.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(double.MinValue, double.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(double,double)"/>
+        /// <seealso cref="GreaterEqualThan(double,double,string)"/>
         static public void GreaterEqualThan(double left, double right,
             string format, params object[] args) {
             GreaterEqualThan(left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two floats, <paramref name="left"/> is greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="left">A float</param>
+        /// <param name="right">A float</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_2Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan(1f, 1f);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(float.MaxValue, float.MinValue);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(float.MinValue, float.MaxValue);
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(float,float,string)"/>
+        /// <seealso cref="GreaterEqualThan(float,float,string,object[])"/>
         static public void GreaterEqualThan(float left, float right) {
             Assert.IsTrue(left >= right,
                           "{0} is not greater than {1}",
@@ -7334,9 +10063,46 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two floats, <paramref name="left"/> is greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>.
         /// </summary>
+        /// <param name="left">A float</param>
+        /// <param name="right">A float</param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_3Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan(1f, 1f, "Left is not greater than or equal to right");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(float.MaxValue, float.MinValue, "Left is not greater than or equal to right");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(float.MinValue, float.MaxValue, "Left is not greater than or equal to right");
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(float,float)"/>
+        /// <seealso cref="GreaterEqualThan(float,float,string,object[])"/>
         static public void GreaterEqualThan(float left, float right, string message) {
             Assert.IsTrue(left >= right,
                           "{0} is not greater than {1}, {2}",
@@ -7345,18 +10111,131 @@ namespace MbUnit.Framework {
 
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two floats, <paramref name="left"/> is strictly greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
+        /// <param name="left">A float</param>
+        /// <param name="right">A float</param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using System;
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///    [TestFixture]
+        ///    public class GreaterEqualThan_4Arguments {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_SameValues() {
+        ///            Assert.GreaterEqualThan(1f, 1f,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void GreaterEqualThan_GreaterThan() {
+        ///            Assert.GreaterEqualThan(float.MaxValue, float.MinValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void GreaterEqualThan_LowerThan() {
+        ///            Assert.GreaterEqualThan(float.MinValue, float.MaxValue,
+        ///                "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///        }
+        ///   }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(float,float)"/>
+        /// <seealso cref="GreaterEqualThan(float,float,string)"/>
         static public void GreaterEqualThan(float left, float right,
             string format, params object[] args) {
             GreaterEqualThan(left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two objects derived from <see cref="System.IComparable"/>, 
+        /// <paramref name="left"/> is greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="left">An object derived from <see cref="System.IComparable"/></param>
+        /// <param name="right">An object derived from <see cref="System.IComparable"/></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="left"/> is equal to or greater than <paramref name="right"/> or if either value is null.</exception>
+        /// <exception cref="System.ArgumentException">
+        ///     Thrown if <paramref name="left"/> and <paramref name="right"/> are not of the same type</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///[TestFixture]
+        ///public class GreaterEqualThan_IComparable 
+        /// {    
+        ///    // This test passes
+        ///    [Test]
+        ///    public void GreaterEqualThan_SameValues() {
+        ///        TimeSpan hour1 = new TimeSpan(0, 1, 0);
+        ///        TimeSpan hour2 = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterEqualThan(hour1, hour2);
+        ///    }
+        ///    
+        ///    // This test passes
+        ///    [Test]
+        ///    public void GreaterEqualThan_GreaterThan() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.GreaterEqualThan(day, hour);
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterEqualThan_LowerThan() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.GreaterEqualThan(hour, day);
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterEqualThan_LeftNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterEqualThan(null, hour);
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterEqualThan_RightNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterEqualThan(hour, null);
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterEqualThan_NotSameType() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        String day = "A Day";
+        ///        Assert.GreaterEqualThan(hour, day);
+        ///    }
+        ///}
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(IComparable,IComparable,string)"/>
+        /// <seealso cref="GreaterEqualThan(IComparable,IComparable,string,object[])"/>
         static public void GreaterEqualThan(IComparable left, IComparable right) {
             Assert.IsNotNull(left);
             Assert.IsNotNull(right);
@@ -7366,9 +10245,77 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two objects derived from <see cref="System.IComparable"/>, 
+        /// <paramref name="left"/> is greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>.
         /// </summary>
+        /// <param name="left">An object derived from <see cref="System.IComparable"/></param>
+        /// <param name="right">An object derived from <see cref="System.IComparable"/></param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">Thrown if <paramref name="left"/> is less than <paramref name="right"/> or if either value is null.</exception>
+        /// <exception cref="System.ArgumentException">
+        ///     Thrown if <paramref name="left"/> and <paramref name="right"/> are not of the same type</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///[TestFixture]
+        ///public class GreaterEqualThan_IComparable 
+        /// {    
+        ///    // This test passes
+        ///    [Test]
+        ///    public void GreaterEqualThan_SameValues() {
+        ///        TimeSpan hour1 = new TimeSpan(0, 1, 0);
+        ///        TimeSpan hour2 = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterEqualThan(hour1, hour2, "Left is not greater than or equal to right");
+        ///    }
+        ///    
+        ///    // This test passes
+        ///    [Test]
+        ///    public void GreaterEqualThan_GreaterThan() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.GreaterEqualThan(day, hour, "Left is not greater than or equal to right");
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterEqualThan_LowerThan() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.GreaterEqualThan(hour, day, "Left is not greater than or equal to right");
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterEqualThan_LeftNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterEqualThan(null, hour, "Left is not greater than or equal to right");
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterEqualThan_RightNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterEqualThan(hour, null, "Left is not greater than or equal to right");
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterEqualThan_NotSameType() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        String day = "A Day";
+        ///        Assert.GreaterEqualThan(hour, day, "Left is not greater than or equal to right");
+        ///    }
+        ///}
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(IComparable,IComparable)"/>
+        /// <seealso cref="GreaterEqualThan(IComparable,IComparable,string,object[])"/>
         static public void GreaterEqualThan(IComparable left, IComparable right, string message) {
             Assert.IsNotNull(left);
             Assert.IsNotNull(right);
@@ -7378,9 +10325,81 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that <paramref name="left"/> is strictly greater than
-        /// <paramref name="right"/>.
+        /// Verifies that for two objects derived from <see cref="System.IComparable"/>, 
+        /// <paramref name="left"/> is strictly greater than or equal to <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
+        /// <param name="left">An object derived from <see cref="System.IComparable"/></param>
+        /// <param name="right">An object derived from <see cref="System.IComparable"/></param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        ///     Thrown if <paramref name="left"/> is equal to or greater than <paramref name="right"/> or if either value is null.</exception>
+        /// <exception cref="System.ArgumentException">
+        ///     Thrown if <paramref name="left"/> and <paramref name="right"/> are not of the same type</exception>
+        /// <example>
+        /// The following example demonstrates Assert.GreaterEqualThan using a different variety of values
+        /// <code>
+        /// using MbUnit.Framework;
+        /// 
+        /// namespace MbUnitAssertDocs 
+        /// {
+        ///[TestFixture]
+        ///public class GreaterEqualThan_IComparable 
+        /// {    
+        ///    // This test passes
+        ///    [Test]
+        ///    public void GreaterEqualThan_SameValues() {
+        ///        TimeSpan hour1 = new TimeSpan(0, 1, 0);
+        ///        TimeSpan hour2 = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterEqualThan(hour1, hour2, "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///    
+        ///    // This test passes
+        ///    [Test]
+        ///    public void GreaterEqualThan_GreaterThan() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.GreaterEqualThan(day, hour, "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterEqualThan_LowerThan() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        TimeSpan day = new TimeSpan(1, 0, 0);
+        ///        Assert.GreaterEqualThan(hour, day, "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterEqualThan_LeftNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterEqualThan(null, hour, "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterEqualThan_RightNull() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        Assert.GreaterEqualThan(hour, null, "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///    
+        ///    // This test fails
+        ///    [Test]
+        ///    public void GreaterEqualThan_NotSameType() {
+        ///        TimeSpan hour = new TimeSpan(0, 1, 0);
+        ///        String day = "A Day";
+        ///        Assert.GreaterEqualThan(hour, day, "This test failed at {0}", DateTime.Now.ToShortTimeString());
+        ///    }
+        ///}
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="GreaterEqualThan(IComparable,IComparable)"/>
+        /// <seealso cref="GreaterEqualThan(IComparable,IComparable,string)"/>
         static public void GreaterEqualThan(IComparable left, IComparable right,
             string format, params object[] args) {
             GreaterEqualThan(left, right, String.Format(format, args));
@@ -7389,17 +10408,132 @@ namespace MbUnit.Framework {
 
         #region Between
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three integers, <paramref name="test"/> is between or equal to 
+        /// one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The integer being tested</param>
+        /// <param name="left">An integer marking one of end of a range</param>
+        /// <param name="right">An integer marking the other end of a range</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>	
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0, 1, 10);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1, 1, 10);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5, 1, 10);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1, 1, 1);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10, 1, 10);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15, 1, 10);
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(int,int,int,string)"/>
+        /// <seealso cref="Between(int,int,int,string,object[])"/>		 
         static public void Between(int test, int left, int right) {
             Between(test, left, right, null);
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three integers, <paramref name="test"/> is between or equal to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>.
         /// </summary>
+        /// <param name="test">The integer being tested</param>
+        /// <param name="left">An integer marking one of end of a range</param>
+        /// <param name="right">An integer marking the other end of a range</param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_4Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0, 1, 10, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1, 1, 10, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5, 1, 10, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1, 1, 1, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10, 1, 10, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15, 1, 10, "The test value is not within the range defined");
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(int,int,int)"/>
+        /// <seealso cref="Between(int,int,int,string,object[])"/>		
         static public void Between(int test, int left, int right, string message) {
             int min = Math.Min(left, right);
             int max = Math.Max(left, right);
@@ -7409,25 +10543,210 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three integers, <paramref name="test"/> is between or equal to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
+        /// <param name="test">The integer being tested</param>
+        /// <param name="left">An integer marking one of end of a range</param>
+        /// <param name="right">An integer marking the other end of a range</param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_5Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0, 1, 10,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1, 1, 10,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5, 1, 10,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1, 1, 1,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10, 1, 10,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15, 1, 10,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(int,int,int)"/>
+        /// <seealso cref="Between(int,int,int,string)"/>	
         static public void Between(int test, int left, int right, string format, params object[] args) {
             Between(test, left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three <see cref="System.Int16">short integers</see>, <paramref name="test"/> is between or equal to 
+        /// one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The <see cref="System.Int16">short integer</see> being tested</param>
+        /// <param name="left">A <see cref="System.Int16">short integer</see> marking one of end of a range</param>
+        /// <param name="right">A <see cref="System.Int16">short integer</see> marking the other end of a range</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>	
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0, 1, 10);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1, 1, 10);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5, 1, 10);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1, 1, 1);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10, 1, 10);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15, 1, 10);
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(short,short,short,string)"/>
+        /// <seealso cref="Between(short,short,short,string,object[])"/>		 
         static public void Between(short test, short left, short right) {
             Between(test, left, right, null);
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three <see cref="System.Int16">short integer</see>s, <paramref name="test"/> is between or equal to one 
+        /// of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the 
+        /// given <paramref name="message"/>.
         /// </summary>
+        /// <param name="test">The <see cref="System.Int16">short integer</see> being tested</param>
+        /// <param name="left">A <see cref="System.Int16">short integer</see> marking one of end of a range</param>
+        /// <param name="right">A <see cref="System.Int16">short integer</see> marking the other end of a range</param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_4Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0, 1, 10, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1, 1, 10, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5, 1, 10, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1, 1, 1, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10, 1, 10, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15, 1, 10, "The test value is not within the range defined");
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(short,short,short)"/>
+        /// <seealso cref="Between(short,short,short,string,object[])"/>		
         static public void Between(short test, short left, short right, string message) {
             short min = Math.Min(left, right);
             short max = Math.Max(left, right);
@@ -7437,26 +10756,210 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three <see cref="System.Int16">short integer</see>s, <paramref name="test"/> is between or equal to one of 
+        /// <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
+        /// <param name="test">The <see cref="System.Int16">short integer</see> being tested</param>
+        /// <param name="left">A <see cref="System.Int16">short integer</see> marking one of end of a range</param>
+        /// <param name="right">A <see cref="System.Int16">short integer</see> marking the other end of a range</param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_5Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0, 1, 10,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1, 1, 10,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5, 1, 10,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1, 1, 1,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10, 1, 10,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15, 1, 10,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(short,short,short)"/>
+        /// <seealso cref="Between(short,short,short,string)"/>	
         static public void Between(short test, short left, short right,
             string format, params object[] args) {
             Between(test, left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three <see cref="System.Byte" />s, <paramref name="test"/> is between or equal to one 
+        /// of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The value between 0 and 255 being tested</param>
+        /// <param name="left">The value between 0 and 255 marking one of end of a range</param>
+        /// <param name="right">The value between 0 and 255 marking the other end of a range</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>	
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0, 1, 10);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1, 1, 10);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5, 1, 10);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1, 1, 1);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10, 1, 10);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15, 1, 10);
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(byte,byte,byte,string)"/>
+        /// <seealso cref="Between(byte,byte,byte,string,object[])"/>		 
         static public void Between(byte test, byte left, byte right) {
             Between(test, left, right, null);
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three <see cref="System.Byte" />s, <paramref name="test"/> is between or equal to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>.
         /// </summary>
+        /// <param name="test">The value between 0 and 255 being tested</param>
+        /// <param name="left">The value between 0 and 255 marking one of end of a range</param>
+        /// <param name="right">The value between 0 and 255 marking the other end of a range</param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_4Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0, 1, 10, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1, 1, 10, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5, 1, 10, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1, 1, 1, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10, 1, 10, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15, 1, 10, "The test value is not within the range defined");
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(byte,byte,byte)"/>
+        /// <seealso cref="Between(byte,byte,byte,string,object[])"/>		
         static public void Between(byte test, byte left, byte right, string message) {
             byte min = Math.Min(left, right);
             byte max = Math.Max(left, right);
@@ -7466,26 +10969,211 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three <see cref="System.Byte" />s, <paramref name="test"/> is between or equal to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
+        /// <param name="test">The value between 0 and 255 being tested</param>
+        /// <param name="left">The value between 0 and 255 marking one of end of a range</param>
+        /// <param name="right">The value between 0 and 255 marking the other end of a range</param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_5Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0, 1, 10,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1, 1, 10,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5, 1, 10,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1, 1, 1,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10, 1, 10,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15, 1, 10,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(byte,byte,byte)"/>
+        /// <seealso cref="Between(byte,byte,byte,string)"/>	
         static public void Between(byte test, byte left, byte right,
             string format, params object[] args) {
             Between(test, left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three <see cref="System.Int64">long integer</see>s, <paramref name="test"/> is between or equal to one 
+        /// of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The <see cref="System.Int64">long integer</see> being tested</param>
+        /// <param name="left">A <see cref="System.Int64">long integer</see> marking one of end of a range</param>
+        /// <param name="right">A <see cref="System.Int64">long integer</see> marking the other end of a range</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>	
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0L, 1L, 10L);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1L, 1L, 10L);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5L, 1L, 10L);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1L, 1L, 1L);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10L, 1L, 10L);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15L, 1L, 10L);
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(long,long,long,string)"/>
+        /// <seealso cref="Between(long,long,long,string,object[])"/>		 
         static public void Between(long test, long left, long right) {
             Between(test, left, right, null);
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three <see cref="System.Int64">long integer</see>s, <paramref name="test"/> is between 
+        /// or equal to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with 
+        /// the given <paramref name="message"/>.
         /// </summary>
+        /// <param name="test">The <see cref="System.Int64">long integer</see> being tested</param>
+        /// <param name="left">A <see cref="System.Int64">long integer</see> marking one of end of a range</param>
+        /// <param name="right">A <see cref="System.Int64">long integer</see> marking the other end of a range</param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_4Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0L, 1L, 10L, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1L, 1L, 10L, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5L, 1L, 10L, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1L, 1L, 1L, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10L, 1L, 10L, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15L, 1L, 10L, "The test value is not within the range defined");
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(long,long,long)"/>
+        /// <seealso cref="Between(long,long,long,string,object[])"/>		
         static public void Between(long test, long left, long right, string message) {
             long min = Math.Min(left, right);
             long max = Math.Max(left, right);
@@ -7495,26 +11183,210 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three <see cref="System.Int64">long integer</see>s, <paramref name="test"/> is between or 
+        /// equal to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
+        /// <param name="test">The <see cref="System.Int64">long integer</see> being tested</param>
+        /// <param name="left">A <see cref="System.Int64">long integer</see> marking one of end of a range</param>
+        /// <param name="right">A <see cref="System.Int64">long integer</see> marking the other end of a range</param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_5Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0L, 1L, 10L,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1L, 1L, 10L,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5L, 1L, 10L,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1L, 1L, 1L,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10L, 1L, 10L,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15L, 1L, 10L,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(long,long,long)"/>
+        /// <seealso cref="Between(long,long,long,string)"/>	
         static public void Between(long test, long left, long right,
             string format, params object[] args) {
             Between(test, left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three doubles, <paramref name="test"/> is between or equal to one of 
+        /// <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The double being tested</param>
+        /// <param name="left">A double marking one of end of a range</param>
+        /// <param name="right">A double marking the other end of a range</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>	
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0d, 1d, 10d);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1d, 1d, 10d);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5d, 1d, 10d);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1d, 1d, 1d);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10d, 1d, 10d);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15d, 1d, 10d);
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(double,double,double,string)"/>
+        /// <seealso cref="Between(double,double,double,string,object[])"/>		 
         static public void Between(double test, double left, double right) {
             Between(test, left, right, null);
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three doubles, <paramref name="test"/> is between or equal to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>.
         /// </summary>
+        /// <param name="test">The double being tested</param>
+        /// <param name="left">A double marking one of end of a range</param>
+        /// <param name="right">A double marking the other end of a range</param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_4Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0d, 1d, 10d, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1d, 1d, 10d, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5d, 1d, 10d, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1d, 1d, 1d, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10d, 1d, 10d, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15d, 1d, 10d, "The test value is not within the range defined");
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(double,double,double)"/>
+        /// <seealso cref="Between(double,double,double,string,object[])"/>		
         static public void Between(double test, double left, double right, string message) {
             double min = Math.Min(left, right);
             double max = Math.Max(left, right);
@@ -7524,26 +11396,208 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three doubles, <paramref name="test"/> is between or equal to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
+        /// <param name="test">The double being tested</param>
+        /// <param name="left">A double marking one of end of a range</param>
+        /// <param name="right">A double marking the other end of a range</param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_5Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0d, 1d, 10d,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1d, 1d, 10d,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5d, 1d, 10d,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1d, 1d, 1d,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10d, 1d, 10d,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15d, 1d, 10d,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(double,double,double)"/>
+        /// <seealso cref="Between(double,double,double,string)"/>	
         static public void Between(double test, double left, double right,
             string format, params object[] args) {
             Between(test, left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three floats, <paramref name="test"/> is between or equal to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The float being tested</param>
+        /// <param name="left">A float marking one of end of a range</param>
+        /// <param name="right">A float marking the other end of a range</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>	
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0f, 1f, 10f);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1f, 1f, 10f);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5f, 1f, 10f);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1f, 1f, 1f);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10f, 1f, 10f);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15f, 1f, 10f);
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(float,float,float,string)"/>
+        /// <seealso cref="Between(float,float,float,string,object[])"/>		 
         static public void Between(float test, float left, float right) {
             Between(test, left, right, null);
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three floats, <paramref name="test"/> is between or equal to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>.
         /// </summary>
+        /// <param name="test">The float being tested</param>
+        /// <param name="left">A float marking one of end of a range</param>
+        /// <param name="right">A float marking the other end of a range</param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_4Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0f, 1f, 10f, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1f, 1f, 10f, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5f, 1f, 10f, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1f, 1f, 1f, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10f, 1f, 10f, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15f, 1f, 10f, "The test value is not within the range defined");
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(float,float,float)"/>
+        /// <seealso cref="Between(float,float,float,string,object[])"/>		
         static public void Between(float test, float left, float right, string message) {
             float min = Math.Min(left, right);
             float max = Math.Max(left, right);
@@ -7553,26 +11607,257 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three floats, <paramref name="test"/> is between or equal to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
+        /// <param name="test">The float being tested</param>
+        /// <param name="left">A float marking one of end of a range</param>
+        /// <param name="right">A float marking the other end of a range</param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_5Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            Assert.Between(0f, 1f, 10f,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            Assert.Between(1f, 1f, 10f,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            Assert.Between(5f, 1f, 10f,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            Assert.Between(1f, 1f, 1f,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            Assert.Between(10f, 1f, 10f,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            Assert.Between(15f, 1f, 10f,
+        ///                "This test failed at {0}", DateTime.Now.ToShortDateString());
+        ///        }
+        ///    }        
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(float,float,float)"/>
+        /// <seealso cref="Between(float,float,float,string)"/>	
         static public void Between(float test, float left, float right,
             string format, params object[] args) {
             Between(test, left, right, String.Format(format, args));
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three objects derived from <see cref="System.IComparable"/>, 
+        /// <paramref name="test"/> is between or equal to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The object derived from <see cref="System.IComparable"/> being tested</param>
+        /// <param name="left">The object derived from <see cref="System.IComparable"/> marking one of end of a range</param>
+        /// <param name="right">The object derived from <see cref="System.IComparable"/> marking the other end of a range</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <exception cref="System.ArgumentException">
+        ///     Thrown if <paramref name="test"/>, <paramref name="left"/> and <paramref name="right"/> are not of the same type</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>	
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///    [TestFixture]
+        ///    public class Between_IComparable {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan minute = new TimeSpan(0, 1, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.Between(second, hour, minute);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.Between(second, hour, second);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan minute = new TimeSpan(0, 1, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.Between(minute, hour, second);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            Assert.Between(hour, hour, hour);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.Between(hour, hour, second);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan minute = new TimeSpan(0, 1, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.Between(hour, second, minute);
+        ///        }
+        ///
+        ///        //This test fails
+        ///        [Test]
+        ///        public void Between_MixedValues() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            string minute = "minute";
+        ///            Assert.Between(1d, hour, minute);
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(IComparable,IComparable,IComparable,string)"/>
+        /// <seealso cref="Between(IComparable,IComparable,IComparable,string,object[])"/>		 
         static public void Between(IComparable test, IComparable left, IComparable right) {
             Between(test, left, right, null);
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three objects derived from <see cref="System.IComparable"/>,
+        /// <paramref name="test"/> is between or equal to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
+        /// with the given <paramref name="message"/>.
         /// </summary>
+        /// <param name="test">The object derived from <see cref="System.IComparable"/> being tested</param>
+        /// <param name="left">The object derived from <see cref="System.IComparable"/> marking one of end of a range</param>
+        /// <param name="right">The object derived from <see cref="System.IComparable"/> marking the other end of a range</param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <exception cref="System.ArgumentException">
+        ///     Thrown if <paramref name="test"/>, <paramref name="left"/> and <paramref name="right"/> are not of the same type</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///    [TestFixture]
+        ///    public class Between_IComparable {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan minute = new TimeSpan(0, 1, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.Between(second, hour, minute, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.Between(second, hour, second, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan minute = new TimeSpan(0, 1, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.Between(minute, hour, second, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            Assert.Between(hour, hour, hour, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.Between(hour, hour, second, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan minute = new TimeSpan(0, 1, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.Between(hour, second, minute, "The test value is not within the range defined");
+        ///        }
+        ///
+        ///        //This test fails
+        ///        [Test]
+        ///        public void Between_MixedValues() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            string minute = "minute";
+        ///            Assert.Between(1d, hour, minute, "The test value is not within the range defined");
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(int,int,int)"/>
+        /// <seealso cref="Between(int,int,int,string,object[])"/>		
         static public void Between(
             IComparable test,
             IComparable left,
@@ -7590,9 +11875,102 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three objects derived from <see cref="System.IComparable"/>, <paramref name="test"/> is 
+        /// between or equal to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If this is not the case, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="format"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
+        /// <param name="test">The object derived from <see cref="System.IComparable"/> being tested</param>
+        /// <param name="left">The object derived from <see cref="System.IComparable"/> marking one of end of a range</param>
+        /// <param name="right">The object derived from <see cref="System.IComparable"/> marking the other end of a range</param>
+        /// <param name="format">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <exception cref="System.ArgumentException">
+        ///     Thrown if <paramref name="test"/>, <paramref name="left"/> and <paramref name="right"/> are not of the same type</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Between using a different variety of values
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class Between_IComparable {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_LessThanMin() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan minute = new TimeSpan(0, 1, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.Between(second, hour, minute,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMin() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.Between(second, hour, second,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_Between() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan minute = new TimeSpan(0, 1, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.Between(minute, hour, second,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_AllSameValues() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            Assert.Between(hour, hour, hour,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Between_EqualToMax() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.Between(hour, hour, second,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Between_GreaterThanMax() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan minute = new TimeSpan(0, 1, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.Between(hour, second, minute,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///
+        ///        //This test fails
+        ///        [Test]
+        ///        public void Between_MixedValues() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            string minute = "minute";
+        ///            Assert.Between(1d, hour, minute,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="Between(IComparable,IComparable,IComparable)"/>
+        /// <seealso cref="Between(IComparable,IComparable,IComparable,string)"/>	
         static public void Between(IComparable test, IComparable left, IComparable right,
             string format, params object[] args) {
             Between(test, left, right, String.Format(format, args));
@@ -7602,9 +11980,71 @@ namespace MbUnit.Framework {
 
         #region NotBetween
         /// <summary>
-        /// Asserts that <paramref name="test"/> is <strong>not</strong> between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three integers, <paramref name="test"/> is not in the range defined by or equal 
+        /// to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If it is in the defined range, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The integer being tested</param>
+        /// <param name="left">An integer marking one of end of a range</param>
+        /// <param name="right">An integer marking the other end of a range</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.NotBetween using a different variety of values
+        /// <code>	
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class NotBetween_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_AllSameValues() {
+        ///            Assert.NotBetween(1, 1, 1);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotBetween_LessThanMin() {
+        ///            Assert.NotBetween(0, 1, 10);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_EqualToMin() {
+        ///            Assert.NotBetween(1, 1, 10);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_Between() {
+        ///            Assert.NotBetween(5, 1, 10);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_EqualToMax() {
+        ///            Assert.NotBetween(10, 1, 10);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotBetween_GreaterThanMax() {
+        ///            Assert.NotBetween(15, 1, 10);
+        ///        }
+        /// 
+        ///        //This test passes
+        ///        [Test]
+        ///        public void NotBetween_MixedValues() {
+        ///            Assert.NotBetween(1f, 5, 10d);
+        ///        }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
         static public void NotBetween(int test, int left, int right) {
             Assert.IncrementAssertCount();
 
@@ -7619,10 +12059,73 @@ namespace MbUnit.Framework {
             Assert.Fail("{0} is in {1} - {2}", test, min, max);
 
         }
+
         /// <summary>
-        /// Asserts that <paramref name="test"/> is <strong>not</strong> between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three <see cref="System.Int16">short integers</see>, <paramref name="test"/> is not in the range defined by or equal 
+        /// to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If it is in the defined range, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The <see cref="System.Int16">short integer</see> being tested</param>
+        /// <param name="left">A <see cref="System.Int16">short integer</see> marking one of end of a range</param>
+        /// <param name="right">A <see cref="System.Int16">short integer</see> marking the other end of a range</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.NotBetween using a different variety of values
+        /// <code>	
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class NotBetween_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_AllSameValues() {
+        ///            Assert.NotBetween(1, 1, 1);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotBetween_LessThanMin() {
+        ///            Assert.NotBetween(0, 1, 10);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_EqualToMin() {
+        ///            Assert.NotBetween(1, 1, 10);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_Between() {
+        ///            Assert.NotBetween(5, 1, 10);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_EqualToMax() {
+        ///            Assert.NotBetween(10, 1, 10);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotBetween_GreaterThanMax() {
+        ///            Assert.NotBetween(15, 1, 10);
+        ///        }
+        /// 
+        ///        //This test passes
+        ///        [Test]
+        ///        public void NotBetween_MixedValues() {
+        ///            Assert.NotBetween(1f, 5, 10d);
+        ///        }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
         static public void NotBetween(short test, short left, short right) {
             Assert.IncrementAssertCount();
 
@@ -7636,10 +12139,73 @@ namespace MbUnit.Framework {
 
             Assert.Fail("{0} is in {1} - {2}", test, min, max);
         }
+
         /// <summary>
-        /// Asserts that <paramref name="test"/> is <strong>not</strong> between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three <see cref="System.Byte">bytes</see> (0 to 255), <paramref name="test"/> is not in the range defined by or equal 
+        /// to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If it is in the defined range, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The value between 0 and 255 being tested</param>
+        /// <param name="left">A value between 0 and 255 marking one of end of a range</param>
+        /// <param name="right">A value between 0 and 255 marking the other end of a range</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.NotBetween using a different variety of values
+        /// <code>	
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class NotBetween_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_AllSameValues() {
+        ///            Assert.NotBetween(1, 1, 1);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotBetween_LessThanMin() {
+        ///            Assert.NotBetween(0, 1, 10);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_EqualToMin() {
+        ///            Assert.NotBetween(1, 1, 10);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_Between() {
+        ///            Assert.NotBetween(5, 1, 10);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_EqualToMax() {
+        ///            Assert.NotBetween(10, 1, 10);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotBetween_GreaterThanMax() {
+        ///            Assert.NotBetween(15, 1, 10);
+        ///        }
+        /// 
+        ///        //This test passes
+        ///        [Test]
+        ///        public void NotBetween_MixedValues() {
+        ///            Assert.NotBetween(1f, 5, 10d);
+        ///        }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
         static public void NotBetween(byte test, byte left, byte right) {
             Assert.IncrementAssertCount();
 
@@ -7655,9 +12221,65 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is <strong>not</strong> between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three <see cref="System.Int64">long integer</see>s, <paramref name="test"/> is not in the range defined by or equal 
+        /// to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If it is in the defined range, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The <see cref="System.Int64">long integer</see> being tested</param>
+        /// <param name="left">A <see cref="System.Int64">long integer</see> marking one of end of a range</param>
+        /// <param name="right">A <see cref="System.Int64">long integer</see> marking the other end of a range</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.NotBetween using a different variety of values
+        /// <code>	
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class NotBetween_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_AllSameValues() {
+        ///            Assert.NotBetween(1L, 1L, 1L);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotBetween_LessThanMin() {
+        ///            Assert.NotBetween(0L, 1L, 10L);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_EqualToMin() {
+        ///            Assert.NotBetween(1L, 1L, 10L);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_Between() {
+        ///            Assert.NotBetween(5L, 1L, 10L);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_EqualToMax() {
+        ///            Assert.NotBetween(10L, 1L, 10L);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotBetween_GreaterThanMax() {
+        ///            Assert.NotBetween(15L, 1L, 10L);
+        ///        }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
         static public void NotBetween(long test, long left, long right) {
             Assert.IncrementAssertCount();
 
@@ -7672,10 +12294,67 @@ namespace MbUnit.Framework {
             Assert.Fail("{0} is in {1} - {2}", test, min, max);
 
         }
+
         /// <summary>
-        /// Asserts that <paramref name="test"/> is <strong>not</strong> between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three doubles, <paramref name="test"/> is not in the range defined by or equal 
+        /// to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If it is in the defined range, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The double being tested</param>
+        /// <param name="left">An double marking one of end of a range</param>
+        /// <param name="right">An double marking the other end of a range</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.NotBetween using a different variety of values
+        /// <code>	
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class NotBetween_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_AllSameValues() {
+        ///            Assert.NotBetween(1d, 1d, 1d);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotBetween_LessThanMin() {
+        ///            Assert.NotBetween(0d, 1d, 10d);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_EqualToMin() {
+        ///            Assert.NotBetween(1d, 1d, 10d);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_Between() {
+        ///            Assert.NotBetween(5d, 1d, 10d);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_EqualToMax() {
+        ///            Assert.NotBetween(10d, 1d, 10d);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotBetween_GreaterThanMax() {
+        ///            Assert.NotBetween(15d, 1d, 10d);
+        ///        }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
         static public void NotBetween(double test, double left, double right) {
             Assert.IncrementAssertCount();
 
@@ -7691,9 +12370,65 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is <strong>not</strong> between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three floats, <paramref name="test"/> is not in the range defined by or equal 
+        /// to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If it is in the defined range, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The float being tested</param>
+        /// <param name="left">An float marking one of end of a range</param>
+        /// <param name="right">An float marking the other end of a range</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.NotBetween using a different variety of values
+        /// <code>	
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class NotBetween_3Arguments {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_AllSameValues() {
+        ///            Assert.NotBetween(1f, 1f, 1f);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotBetween_LessThanMin() {
+        ///            Assert.NotBetween(0f, 1f, 10f);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_EqualToMin() {
+        ///            Assert.NotBetween(1f, 1f, 10f);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_Between() {
+        ///            Assert.NotBetween(5f, 1f, 10f);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_EqualToMax() {
+        ///            Assert.NotBetween(10f, 1f, 10f);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotBetween_GreaterThanMax() {
+        ///            Assert.NotBetween(15f, 1f, 10f);
+        ///        }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
         static public void NotBetween(float test, float left, float right) {
             Assert.IncrementAssertCount();
 
@@ -7707,10 +12442,91 @@ namespace MbUnit.Framework {
 
             Assert.Fail("{0} is in {1} - {2}", test, min, max);
         }
+
         /// <summary>
-        /// Asserts that <paramref name="test"/> is <strong>not</strong> between <paramref name="left"/> and
-        /// <paramref name="right"/>.
+        /// Verifies that for three objects derived from <see cref="System.IComparable"/>, <paramref name="test"/> is not in the range defined by or equal 
+        /// to one of <paramref name="left"/> and <paramref name="right"/>.
+        /// If it is in the defined range, a <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The object derived from <see cref="System.IComparable"/> being tested</param>
+        /// <param name="left">The object derived from <see cref="System.IComparable"/> marking one of end of a range</param>
+        /// <param name="right">The object derived from <see cref="System.IComparable"/> marking the other end of a range</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is within the range defined by <paramref name="left"/> or <paramref name="right"/> 
+        /// or if one of the three values is null.</exception>
+        /// <exception cref="System.ArgumentException">
+        ///     Thrown if <paramref name="test"/>, <paramref name="left"/> and <paramref name="right"/> are not of the same type</exception>
+        /// <example>
+        /// The following example demonstrates Assert.NotBetween using a different variety of values
+        /// <code>	
+        ///using MbUnit.Framework;
+        ///using System;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///    [TestFixture]
+        ///    public class NotBetween_IComparable {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotBetween_LessThanMin() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan minute = new TimeSpan(0, 1, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.NotBetween(second, hour, minute);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_EqualToMin() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.NotBetween(second, hour, second);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_Between() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan minute = new TimeSpan(0, 1, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.NotBetween(minute, hour, second);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_AllSameValues() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            Assert.NotBetween(hour, hour, hour);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotBetween_EqualToMax() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.NotBetween(hour, hour, second);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotBetween_GreaterThanMax() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            TimeSpan minute = new TimeSpan(0, 1, 0);
+        ///            TimeSpan second = new TimeSpan(0, 0, 1);
+        ///            Assert.NotBetween(hour, second, minute);
+        ///        }
+        ///
+        ///        //This test fails
+        ///        [Test]
+        ///        public void NotBetween_MixedValues() {
+        ///            TimeSpan hour = new TimeSpan(1, 0, 0);
+        ///            string minute = "minute";
+        ///            Assert.NotBetween(1d, hour, minute);
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
         static public void NotBetween(IComparable test, IComparable left, IComparable right) {
             Assert.IsNotNull(test);
             Assert.IsNotNull(left);
@@ -7730,15 +12546,90 @@ namespace MbUnit.Framework {
 
         #region In, NotIn
         /// <summary>
-        /// Asserts that <paramref name="test"/> is in the dic <paramref name="list"/>.
+        /// Verifies that <paramref name="dic" />, which derives from <see cref="System.Collections.IDictionary" />, contains an item with the key value of <paramref name="test"/>.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The key value that <paramref name="dic" /> should contain</param>
+        /// <param name="dic">The <see cref="System.Collections.IDictionary" /> object that should contain <paramref name="test" /></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not contained in <paramref name="dic" /> or either object is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.In
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System.Collections.Generic;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class In_Dictionary {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void In_DictionaryContainsKey()
+        ///        {
+        ///            Dictionary&lt;int, string&gt; container = 
+        ///                new Dictionary&lt;int, string&gt; {{1, "testing"}};
+        ///            Assert.In(1, container);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void In_DictionaryDoesNotContainKey() {
+        ///            Dictionary&lt;int, string&gt; container =
+        ///                new Dictionary&lt;int, string&gt; { { 1, "testing" } };
+        ///            Assert.In(2, container);
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="In(Object,IDictionary,string)"/>		
         static public void In(Object test, IDictionary dic) {
             In(test, dic, null);
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is in the dic <paramref name="list"/>.
+        /// Verifies that <paramref name="dic" />, which derives from <see cref="System.Collections.IDictionary" />, contains an item with the key value of <paramref name="test"/>.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message" />. 
         /// </summary>
+        /// <param name="test">The key value that <paramref name="dic" /> should contain</param>
+        /// <param name="dic">The <see cref="System.Collections.IDictionary" /> object that should contain <paramref name="test" /></param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not contained in <paramref name="dic" /> or either object is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.In
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System.Collections.Generic;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class In_Dictionary {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void In_DictionaryContainsKey()
+        ///        {
+        ///            Dictionary&lt;int, string&gt; container = 
+        ///                new Dictionary&lt;int, string&gt; {{1, "testing"}};
+        ///            Assert.In(1, container, "The dictionary object does not contain this key");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void In_DictionaryDoesNotContainKey() {
+        ///            Dictionary&lt;int, string&gt; container =
+        ///                new Dictionary&lt;int, string&gt; { { 1, "testing" } };
+        ///            Assert.In(2, container, "The dictionary object does not contain this key");
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="In(Object,IDictionary)"/>		
         static public void In(Object test, IDictionary dic, string message) {
             Assert.IsNotNull(test, "tested object is null");
             Assert.IsNotNull(dic, "Dictionary is a null reference");
@@ -7747,15 +12638,84 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is in the list <paramref name="list"/>.
+        /// Verifies that <paramref name="list" />, which derives from <see cref="System.Collections.IList" />, contains a value of <paramref name="test"/>.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The value that <paramref name="list" /> should contain</param>
+        /// <param name="list">The <see cref="System.Collections.IList" /> object that should contain <paramref name="test" /></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not contained in <paramref name="list" /> or either object is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.In
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class In_List {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void In_ArrayContainsValue()
+        ///        {
+        ///            int[] array = {9, 10};
+        ///            Assert.In(9, array);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void In_ArrayDoesNotContainValue() {
+        ///            int[] array = { 9, 10 };
+        ///            Assert.In(5, array);
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="In(Object,IList,string)"/>
         static public void In(Object test, IList list) {
             In(test, list, null);
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is in the list <paramref name="list"/>.
+        /// Verifies that <paramref name="list" />, which derives from <see cref="System.Collections.IList" />, contains a value of <paramref name="test"/>.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with a given <paramref name="message" />. 
         /// </summary>
+        /// <param name="test">The value that <paramref name="list" /> should contain</param>
+        /// <param name="list">The <see cref="System.Collections.IList" /> object that should contain <paramref name="test" /></param>
+        /// <param name="message">The message to display on failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not contained in <paramref name="list" /> or either object is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.In
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class In_List {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void In_ArrayContainsValue()
+        ///        {
+        ///            int[] array = {9, 10};
+        ///            Assert.In(9, array, "The array does not contain this value");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void In_ArrayDoesNotContainValue() {
+        ///            int[] array = { 9, 10 };
+        ///            Assert.In(5, array, "The array does not contain this value");
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="In(Object,IList)"/>
         static public void In(Object test, IList list, string message) {
             Assert.IsNotNull(list, "List is a null reference");
             Assert.IsTrue(list.Contains(test),
@@ -7763,8 +12723,49 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is in the enumerable collection <paramref name="enumerable"/>.
+        /// Verifies that <paramref name="enumerable" />, which derives from <see cref="System.Collections.IEnumerable" />, 
+        /// contains a value of <paramref name="test"/>.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>. 
         /// </summary>
+        /// <param name="test">The value that <paramref name="enumerable" /> should contain</param>
+        /// <param name="enumerable">The <see cref="System.Collections.IEnumerable" /> object that should contain <paramref name="test" /></param>
+        /// <param name="message">The message given upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not contained in <paramref name="enumerable" /> or either object is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.In
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System.Collections;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class In_Enumerable {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void In_StackContainsValue()
+        ///        {
+        ///            Stack stack = new Stack();
+        ///            stack.Push(9);
+        ///            stack.Push("test");
+        ///            Assert.In("test", stack, "The stack does not contain the value");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void In_ArrayDoesNotContainValue() {
+        ///            Stack stack = new Stack();
+        ///            stack.Push(9);
+        ///            stack.Push("test");
+        ///            Assert.In(212, stack, "The stack does not contain the value");
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="In(Object,IEnumerable)"/>
         static public void In(Object test, IEnumerable enumerable, string message) {
             Assert.IsNotNull(enumerable, "Enumerable collection is a null reference");
             foreach (Object o in enumerable) {
@@ -7775,15 +12776,94 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is in the enumerable collection <paramref name="enumerable"/>.
+        /// Verifies that <paramref name="enumerable" />, which derives from <see cref="System.Collections.IEnumerable" />, 
+        /// contains a value of <paramref name="test"/>.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The value that <paramref name="enumerable" /> should contain</param>
+        /// <param name="enumerable">The <see cref="System.Collections.IEnumerable" /> object that should contain <paramref name="test" /></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is not contained in <paramref name="enumerable" /> or either object is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.In
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System.Collections;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class In_Enumerable {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void In_StackContainsValue()
+        ///        {
+        ///            Stack stack = new Stack();
+        ///            stack.Push(9);
+        ///            stack.Push("test");
+        ///            Assert.In("test", stack);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void In_ArrayDoesNotContainValue() {
+        ///            Stack stack = new Stack();
+        ///            stack.Push(9);
+        ///            stack.Push("test");
+        ///            Assert.In(212, stack);
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="In(Object,IEnumerable,string)"/>
         static public void In(Object test, IEnumerable enumerable) {
             In(test, enumerable, null);
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is <strong>not</strong> in the dic <paramref name="list"/>.
+        /// Verifies that <paramref name="dic" />, which derives from <see cref="System.Collections.IDictionary" />, 
+        /// does not contains an item with the key value of <paramref name="test"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message" />. 
         /// </summary>
+        /// <param name="test">The key value that <paramref name="dic" /> should not contain</param>
+        /// <param name="dic">The <see cref="System.Collections.IDictionary" /> object that should not contain <paramref name="test" /></param>
+        /// <param name="message">The message printed out upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is contained in <paramref name="dic" /> or either object is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.NotIn
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System.Collections.Generic;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class NotIn_Dictionary {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotIn_DictionaryContainsKey()
+        ///        {
+        ///            Dictionary&lt;int, string&gt; container = 
+        ///                new Dictionary&lt;int, string&gt; {{1, "testing"}};
+        ///            Assert.NotIn(1, container, "The dictionary object contains this key");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotIn_DictionaryDoesNotContainKey() {
+        ///            Dictionary&lt;int, string&gt; container =
+        ///                new Dictionary&lt;int, string&gt; { { 1, "testing" } };
+        ///            Assert.NotIn(2, container, "The dictionary object contains this key");
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="NotIn(Object,IDictionary)"/>		
         static public void NotIn(Object test, IDictionary dic, string message) {
             Assert.IsNotNull(test);
             Assert.IsNotNull(dic, "Dictionary is a null reference");
@@ -7792,15 +12872,88 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is <strong>not</strong> in the dic <paramref name="list"/>.
+        /// Verifies that <paramref name="dic" />, which derives from <see cref="System.Collections.IDictionary" />, 
+        /// does not contain an item with the key value of <paramref name="test"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The key value that <paramref name="dic" /> should not contain</param>
+        /// <param name="dic">The <see cref="System.Collections.IDictionary" /> object that should not contain <paramref name="test" /></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is contained in <paramref name="dic" /> or either object is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.NotIn
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System.Collections.Generic;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class NotIn_Dictionary {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotIn_DictionaryContainsKey()
+        ///        {
+        ///            Dictionary&lt;int, string&gt; container = 
+        ///                new Dictionary&lt;int, string&gt; {{1, "testing"}};
+        ///            Assert.NotIn(1, container);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotIn_DictionaryDoesNotContainKey() {
+        ///            Dictionary&lt;int, string&gt; container =
+        ///                new Dictionary&lt;int, string&gt; { { 1, "testing" } };
+        ///            Assert.NotIn(2, container);
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="NotIn(Object,IDictionary,string)"/>		
         static public void NotIn(Object test, IDictionary dic) {
             NotIn(test, dic, null);
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is <strong>not</strong> in the list <paramref name="list"/>.
+        /// Verifies that <paramref name="list" />, which derives from <see cref="System.Collections.IList" />, does not contain a value of <paramref name="test"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with a given <paramref name="message" />. 
         /// </summary>
+        /// <param name="test">The value that <paramref name="list" /> should not contain</param>
+        /// <param name="list">The <see cref="System.Collections.IList" /> object that should not contain <paramref name="test" /></param>
+        /// <param name="message">The message to display on failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is contained in <paramref name="list" /> or either object is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.NotIn
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class NotIn_List {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotIn_ArrayContainsValue()
+        ///        {
+        ///            int[] array = { 9, 10 };
+        ///            Assert.NotIn(9, array, "The array contains this value");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotIn_ArrayDoesNotContainValue() {
+        ///            int[] array = { 9, 10 };
+        ///            Assert.NotIn(5, array, "The array contains this value");
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="NotIn(Object,IList)"/>
         static public void NotIn(Object test, IList list, string message) {
             Assert.IsNotNull(list, "List is a null reference");
             Assert.IsFalse(list.Contains(test),
@@ -7808,15 +12961,90 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is <strong>not</strong> in the list <paramref name="list"/>.
+        /// Verifies that <paramref name="list" />, which derives from <see cref="System.Collections.IList" />, does not contains a value of <paramref name="test"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The value that <paramref name="list" /> should not contain</param>
+        /// <param name="list">The <see cref="System.Collections.IList" /> object that should not contain <paramref name="test" /></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is contained in <paramref name="list" /> or either object is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.NotIn
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class NotIn_List {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotIn_ArrayContainsValue()
+        ///        {
+        ///            int[] array = {9, 10};
+        ///            Assert.NotIn(9, array);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotIn_ArrayDoesNotContainValue() {
+        ///            int[] array = { 9, 10 };
+        ///            Assert.NotIn(5, array);
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="NotIn(Object,IList,string)"/>
         static public void NotIn(Object test, IList list) {
             NotIn(test, list, null);
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is <strong>not</strong> in the enumerable collection <paramref name="enumerable"/>.
+        /// Verifies that <paramref name="enumerable" />, which derives from <see cref="System.Collections.IEnumerable" />, 
+        /// does not contain a value of <paramref name="test"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>. 
         /// </summary>
+        /// <param name="test">The value that <paramref name="enumerable" /> should not contain</param>
+        /// <param name="enumerable">The <see cref="System.Collections.IEnumerable" /> object that should not contain <paramref name="test" /></param>
+        /// <param name="message">The message given upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is contained in <paramref name="enumerable" /> or if either object is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.NotIn
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System.Collections;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class NotIn_Enumerable {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotIn_StackContainsValue()
+        ///        {
+        ///            Stack stack = new Stack();
+        ///            stack.Push(9);
+        ///            stack.Push("test");
+        ///            Assert.NotIn("test", stack, "The stack contains the value");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotIn_ArrayDoesNotContainValue() {
+        ///            Stack stack = new Stack();
+        ///            stack.Push(9);
+        ///            stack.Push("test");
+        ///            Assert.NotIn(212, stack, "The stack contains the value");
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="NotIn(Object,IEnumerable)"/>
         static public void NotIn(Object test, IEnumerable enumerable, string message) {
             Assert.IsNotNull(enumerable, "Enumerable collection is a null reference");
             foreach (Object o in enumerable) {
@@ -7825,8 +13053,48 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Asserts that <paramref name="test"/> is <strong>not</strong> in the enumerable collection <paramref name="enumerable"/>.
+        /// Verifies that <paramref name="enumerable" />, which derives from <see cref="System.Collections.IEnumerable" />, 
+        /// does not contain a value of <paramref name="test"/>.
+        /// If this is not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
+        /// <param name="test">The value that <paramref name="enumerable" /> should not contain</param>
+        /// <param name="enumerable">The <see cref="System.Collections.IEnumerable" /> object that should not contain <paramref name="test" /></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="test"/> is contained in <paramref name="enumerable" /> or if either object is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.NotIn
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///using System.Collections;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class NotIn_Enumerable {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void NotIn_StackContainsValue()
+        ///        {
+        ///            Stack stack = new Stack();
+        ///            stack.Push(9);
+        ///            stack.Push("test");
+        ///            Assert.NotIn("test", stack);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void NotIn_ArrayDoesNotContainValue() {
+        ///            Stack stack = new Stack();
+        ///            stack.Push(9);
+        ///            stack.Push("test");
+        ///            Assert.NotIn(212, stack);
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="NotIn(Object,IEnumerable)"/>
         static public void NotIn(Object test, IEnumerable enumerable) {
             NotIn(test, enumerable, null);
         }
@@ -7834,15 +13102,58 @@ namespace MbUnit.Framework {
 
         #region IsEmpty
         //NUnit Code
-
         //Fails if it is not empty
 
         /// <summary>
-        /// Assert that a string is empty - that is equal to string.Empty
+        /// Verifies that the string <paramref name="aString" /> is equal to string.Empty.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
+        /// with a message defined via <paramref name="message"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
-        /// <param name="aString">The string to be tested</param>
-        /// <param name="message">The message to be displayed on failure</param>
-        /// <param name="args">Arguments to be used in formatting the message</param>
+        /// <param name="aString">The string that should be empty</param>
+        /// <param name="message">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="aString"/> is not empty or is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.IsEmpty
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class IsEmpty_String {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void IsEmpty_EmptyString()
+        ///        {
+        ///            Assert.IsEmpty(string.Empty,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsEmpty_NullString()
+        ///        {
+        ///            Assert.IsEmpty(null as string,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsEmpty_NonEmptyString()
+        ///        {
+        ///            Assert.IsEmpty("Full",
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="IsEmpty(string)"/>
+        /// <seealso cref="IsEmpty(string,string)"/>
         public static void IsEmpty(string aString, string message, params object[] args) {
             if (aString != "" || !aString.Equals(string.Empty)) {
                 if (args != null)
@@ -7853,28 +13164,150 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Assert that a string is empty - that is equal to string.Emtpy
+        /// Verifies that the string <paramref name="aString" /> is equal to string.Empty.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/> 
         /// </summary>
-        /// <param name="aString">The string to be tested</param>
-        /// <param name="message">The message to be displayed on failure</param>
+        /// <param name="aString">The string that should be empty</param>
+        /// <param name="message">The message given upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="aString"/> is not empty or is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.IsEmpty
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class IsEmpty_String {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void IsEmpty_EmptyString()
+        ///        {
+        ///            Assert.IsEmpty(string.Empty, "This string is not empty");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsEmpty_NullString()
+        ///        {
+        ///            Assert.IsEmpty(null as string, "This string is not empty");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsEmpty_NonEmptyString()
+        ///        {
+        ///            Assert.IsEmpty("Full", "This string is not empty");
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="IsEmpty(string)"/>
+        /// <seealso cref="IsEmpty(string,string,object[])"/>
         public static void IsEmpty(string aString, string message) {
             IsEmpty(aString, message, null);
         }
 
         /// <summary>
-        /// Assert that a string is empty - that is equal to string.Emtpy
+        /// Verifies that the string <paramref name="aString" /> is equal to string.Empty.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
-        /// <param name="aString">The string to be tested</param>
+        /// <param name="aString">The string that should be empty</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="aString"/> is not empty or is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.IsEmpty
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class IsEmpty_String {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void IsEmpty_EmptyString()
+        ///        {
+        ///            Assert.IsEmpty(string.Empty);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsEmpty_NullString()
+        ///        {
+        ///            Assert.IsEmpty(null as string);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsEmpty_NonEmptyString()
+        ///        {
+        ///            Assert.IsEmpty("Full");
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="IsEmpty(string,string)"/>
+        /// <seealso cref="IsEmpty(string,string,object[])"/>
         public static void IsEmpty(string aString) {
             IsEmpty(aString, string.Empty, null);
         }
 
         /// <summary>
-        /// Assert that an array, list or other collection is empty
+        /// Verifies that the object <paramref name="collection" /> derived from <see cref="System.Collections.ICollection" /> is empty.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="message"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
-        /// <param name="collection">An array, list or other collection implementing ICollection</param>
-        /// <param name="message">The message to be displayed on failure</param>
-        /// <param name="args">Arguments to be used in formatting the message</param>
+        /// <param name="collection">The collection that should be empty</param>
+        /// <param name="message">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="collection"/> is not empty or is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.IsEmpty
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class IsEmpty_Collection {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void IsEmpty_EmptyCollection() {
+        ///            int[] array = {};
+        ///            Assert.IsEmpty(array,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsEmpty_NullCollection() {
+        ///            int[] array = null;
+        ///            Assert.IsEmpty(array,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsEmpty_NonEmptyCollection() {
+        ///            int[] array = {9, 10};
+        ///            Assert.IsEmpty(array,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="IsEmpty(ICollection)"/>
+        /// <seealso cref="IsEmpty(ICollection, string)"/>
         public static void IsEmpty(ICollection collection, string message, params object[] args) {
             if (collection.Count != 0) {
                 if (args != null)
@@ -7885,18 +13318,96 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Assert that an array, list or other collection is empty
+        /// Verifies that the object <paramref name="collection" /> derived from <see cref="System.Collections.ICollection" /> is empty.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>. 
         /// </summary>
-        /// <param name="collection">An array, list or other collection implementing ICollection</param>
-        /// <param name="message">The message to be displayed on failure</param>
+        /// <param name="collection">The collection that should be empty</param>
+        /// <param name="message">The message given upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="collection"/> is not empty or is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.IsEmpty
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class IsEmpty_Collection {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void IsEmpty_EmptyCollection() {
+        ///            int[] array = {};
+        ///            Assert.IsEmpty(array, "This array is not empty");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsEmpty_NullCollection() {
+        ///            int[] array = null;
+        ///            Assert.IsEmpty(array, "This array is not empty");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsEmpty_NonEmptyCollection() {
+        ///            int[] array = {9, 10};
+        ///            Assert.IsEmpty(array, "This array is not empty");
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="IsEmpty(ICollection)"/>
+        /// <seealso cref="IsEmpty(ICollection, string, object[])"/>
         public static void IsEmpty(ICollection collection, string message) {
             IsEmpty(collection, message, null);
         }
 
         /// <summary>
-        /// Assert that an array,list or other collection is empty
+        /// Verifies that the object <paramref name="collection" /> derived from <see cref="System.Collections.ICollection" /> is empty.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
-        /// <param name="collection">An array, list or other collection implementing ICollection</param>
+        /// <param name="collection">The collection that should be empty</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="collection"/> is not empty or is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.IsEmpty
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class IsEmpty_Collection {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void IsEmpty_EmptyCollection() {
+        ///            int[] array = {};
+        ///            Assert.IsEmpty(array);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsEmpty_NullCollection() {
+        ///            int[] array = null;
+        ///            Assert.IsEmpty(array);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsEmpty_NonEmptyCollection() {
+        ///            int[] array = {9, 10};
+        ///            Assert.IsEmpty(array);
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="IsEmpty(ICollection, string)"/>
+        /// <seealso cref="IsEmpty(ICollection, string, object[])"/>
         public static void IsEmpty(ICollection collection) {
             IsEmpty(collection, string.Empty, null);
         }
@@ -7908,11 +13419,55 @@ namespace MbUnit.Framework {
         //Fail when it is empty
 
         /// <summary>
-        /// Assert that a string is empty - that is equal to string.Emtpy
+        /// Verifies that the string <paramref name="aString" /> is not equal to string.Empty.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
+        /// with a message defined via <paramref name="message"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
-        /// <param name="aString">The string to be tested</param>
-        /// <param name="message">The message to be displayed on failure</param>
-        /// <param name="args">Arguments to be used in formatting the message</param>
+        /// <param name="aString">The string that should not be empty</param>
+        /// <param name="message">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="aString"/> is empty or is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.IsNotEmpty
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class IsNotEmpty_String {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsNotEmpty_EmptyString()
+        ///        {
+        ///            Assert.IsNotEmpty(string.Empty,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsNotEmpty_NullString()
+        ///        {
+        ///            Assert.IsNotEmpty(null as string,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void IsNotEmpty_NonEmptyString()
+        ///        {
+        ///            Assert.IsNotEmpty("Full",
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="IsNotEmpty(string)"/>
+        /// <seealso cref="IsNotEmpty(string,string)"/>
         public static void IsNotEmpty(string aString, string message, params object[] args) {
             if (aString == "" || aString.Equals(string.Empty)) {
                 if (args != null)
@@ -7923,28 +13478,150 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Assert that a string is empty - that is equal to string.Emtpy
+        /// Verifies that the string <paramref name="aString" /> is not equal to string.Empty.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/> 
         /// </summary>
-        /// <param name="aString">The string to be tested</param>
-        /// <param name="message">The message to be displayed on failure</param>
+        /// <param name="aString">The string that should not be empty</param>
+        /// <param name="message">The message given upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="aString"/> is empty or is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.IsNotEmpty
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class IsNotEmpty_String {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsNotEmpty_EmptyString()
+        ///        {
+        ///            Assert.IsNotEmpty(string.Empty, "This string is empty");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsNotEmpty_NullString()
+        ///        {
+        ///            Assert.IsNotEmpty(null as string, "This string is empty");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void IsNotEmpty_NonEmptyString()
+        ///        {
+        ///            Assert.IsNotEmpty("Full", "This string is empty");
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="IsNotEmpty(string)"/>
+        /// <seealso cref="IsNotEmpty(string,string,object[])"/>
         public static void IsNotEmpty(string aString, string message) {
             IsNotEmpty(aString, message, null);
         }
 
         /// <summary>
-        /// Assert that a string is empty - that is equal to string.Emtpy
+        /// Verifies that the string <paramref name="aString" /> is not equal to string.Empty.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
-        /// <param name="aString">The string to be tested</param>
+        /// <param name="aString">The string that should not be empty</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="aString"/> is empty or is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.IsNotEmpty
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class IsNotEmpty_String {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsNotEmpty_EmptyString()
+        ///        {
+        ///            Assert.IsNotEmpty(string.Empty);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsNotEmpty_NullString()
+        ///        {
+        ///            Assert.IsNotEmpty(null as string);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void IsNotEmpty_NonEmptyString()
+        ///        {
+        ///            Assert.IsNotEmpty("Full");
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="IsNotEmpty(string,string)"/>
+        /// <seealso cref="IsNotEmpty(string,string,object[])"/>
         public static void IsNotEmpty(string aString) {
             IsNotEmpty(aString, string.Empty, null);
         }
 
         /// <summary>
-        /// Assert that an array, list or other collection is empty
+        /// Verifies that the object <paramref name="collection" /> derived from <see cref="System.Collections.ICollection" /> is not empty.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown
+        /// with a message defined via <paramref name="message"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
-        /// <param name="collection">An array, list or other collection implementing ICollection</param>
-        /// <param name="message">The message to be displayed on failure</param>
-        /// <param name="args">Arguments to be used in formatting the message</param>
+        /// <param name="collection">The collection that should not be empty</param>
+        /// <param name="message">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="collection"/> is empty or is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.IsNotEmpty
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class IsNotEmpty_Collection {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsNotEmpty_EmptyCollection() {
+        ///            int[] array = {};
+        ///            Assert.IsNotEmpty(array,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsNotEmpty_NullCollection() {
+        ///            int[] array = null;
+        ///            Assert.IsNotEmpty(array,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void IsNotEmpty_NonEmptyCollection() {
+        ///            int[] array = {9, 10};
+        ///            Assert.IsNotEmpty(array,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="IsNotEmpty(ICollection)"/>
+        /// <seealso cref="IsNotEmpty(ICollection, string)"/>
         public static void IsNotEmpty(ICollection collection, string message, params object[] args) {
             if (collection.Count == 0) {
                 if (args != null)
@@ -7955,18 +13632,96 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Assert that an array, list or other collection is empty
+        /// Verifies that the object <paramref name="collection" /> derived from <see cref="System.Collections.ICollection" /> is not empty.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given <paramref name="message"/>. 
         /// </summary>
-        /// <param name="collection">An array, list or other collection implementing ICollection</param>
-        /// <param name="message">The message to be displayed on failure</param>
+        /// <param name="collection">The collection that should not be empty</param>
+        /// <param name="message">The message given upon failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="collection"/> is empty or is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.IsNotEmpty
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class IsNotEmpty_Collection {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsNotEmpty_EmptyCollection() {
+        ///            int[] array = {};
+        ///            Assert.IsNotEmpty(array, "This array is not empty");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsNotEmpty_NullCollection() {
+        ///            int[] array = null;
+        ///            Assert.IsNotEmpty(array, "This array is not empty");
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void IsNotEmpty_NonEmptyCollection() {
+        ///            int[] array = {9, 10};
+        ///            Assert.IsNotEmpty(array, "This array is not empty");
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="IsNotEmpty(ICollection)"/>
+        /// <seealso cref="IsNotEmpty(ICollection, string, object[])"/>
         public static void IsNotEmpty(ICollection collection, string message) {
             IsNotEmpty(collection, message, null);
         }
 
         /// <summary>
-        /// Assert that an array,list or other collection is empty
+        /// Verifies that the object <paramref name="collection" /> derived from <see cref="System.Collections.ICollection" /> is not empty.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
-        /// <param name="collection">An array, list or other collection implementing ICollection</param>
+        /// <param name="collection">The collection that should not be empty</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="collection"/> is empty or is null.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.IsNotEmpty
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class IsNotEmpty_Collection {
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsNotEmpty_EmptyCollection() {
+        ///            int[] array = {};
+        ///            Assert.IsNotEmpty(array);
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void IsNotEmpty_NullCollection() {
+        ///            int[] array = null;
+        ///            Assert.IsNotEmpty(array);
+        ///        }
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void IsNotEmpty_NonEmptyCollection() {
+        ///            int[] array = {9, 10};
+        ///            Assert.IsNotEmpty(array);
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="IsNotEmpty(ICollection, string)"/>
+        /// <seealso cref="IsNotEmpty(ICollection, string, object[])"/>
         public static void IsNotEmpty(ICollection collection) {
             IsNotEmpty(collection, string.Empty, null);
         }
@@ -7975,13 +13730,47 @@ namespace MbUnit.Framework {
         #region IsNaN
         //NUnit Code
         /// <summary>
-        /// Verifies that the double is passed is an <code>NaN</code> value.
-        /// If the object is not <code>NaN</code> then an <see cref="AssertionException"/>
-        /// is thrown.
+        /// Verifies that the double value <paramref name="aDouble" /> is passed is an <c>NaN</c> value.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown 
+        /// with a message defined via <paramref name="message"/> and <paramref name="args"/>
+        /// through <see cref="System.String.Format(String, Object[]) " />.
         /// </summary>
-        /// <param name="aDouble">The value that is to be tested</param>
-        /// <param name="message">The message to be displayed when the object is not null</param>
-        /// <param name="args">Arguments to be used in formatting the message</param>
+        /// <param name="aDouble">The value to be tested</param>
+        /// <param name="message">A <a href="http://msdn2.microsoft.com/en-gb/library/txafckwd.aspx">composite format string</a></param>
+        /// <param name="args">An <see cref="Object"/> array containing zero or more objects to format.</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="aDouble"/> is not <c>NaN</c>.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.IsNaN
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class IsNaN
+        ///    {
+        ///        // This test succeeds
+        ///        [Test]
+        ///        public void IsNaN_NaN()
+        ///        {
+        ///            Assert.IsNaN(double.NaN,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///
+        ///        //This test fails
+        ///        [Test]
+        ///        public void IsNaN_NotNaN()
+        ///        {
+        ///            Assert.IsNaN(1d,
+        ///                "The test failed at {0}", DateTime.Now.ToLongDateString());
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="IsNaN(double)"/>
+        /// <seealso cref="IsNaN(double, string)"/>
         static public void IsNaN(double aDouble, string message, params object[] args) {
             if (!double.IsNaN(aDouble)) {
                 Fail(message);
@@ -7989,12 +13778,42 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that the double is passed is an <code>NaN</code> value.
-        /// If the object is not <code>NaN</code> then an <see cref="AssertionException"/>
-        /// is thrown.
+        /// Verifies that the double value <paramref name="aDouble" /> is passed is an <c>NaN</c> value.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown with the given message.
         /// </summary>
-        /// <param name="aDouble">The object that is to be tested</param>
-        /// <param name="message">The message to be displayed when the object is not null</param>
+        /// <param name="aDouble">The value to be tested</param>
+        /// <param name="message">The message to be given on failure</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="aDouble"/> is not <c>NaN</c>.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.IsNaN
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class IsNaN
+        ///    {
+        ///        // This test succeeds
+        ///        [Test]
+        ///        public void IsNaN_NaN()
+        ///        {
+        ///            Assert.IsNaN(double.NaN, "The double is not NaN");
+        ///        }
+        ///
+        ///        //This test fails
+        ///        [Test]
+        ///        public void IsNaN_NotNaN()
+        ///        {
+        ///            Assert.IsNaN(1d, "The double is not NaN");
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="IsNaN(double)"/>
+        /// <seealso cref="IsNaN(double, string, object[])"/>
         static public void IsNaN(double aDouble, string message) {
             if (!double.IsNaN(aDouble)) {
                 Fail(message);
@@ -8002,11 +13821,41 @@ namespace MbUnit.Framework {
         }
 
         /// <summary>
-        /// Verifies that the double is passed is an <code>NaN</code> value.
-        /// If the object is not <code>NaN</code> then an <see cref="AssertionException"/>
-        /// is thrown.
+        /// Verifies that the double value <paramref name="aDouble" /> is passed is an <c>NaN</c> value.
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
         /// </summary>
-        /// <param name="aDouble">The object that is to be tested</param>
+        /// <param name="aDouble">The value to be tested</param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="aDouble"/> is not <c>NaN</c>.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.IsNaN
+        /// <code>		
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs
+        ///{
+        ///    [TestFixture]
+        ///    public class IsNaN
+        ///    {
+        ///        // This test succeeds
+        ///        [Test]
+        ///        public void IsNaN_NaN()
+        ///        {
+        ///            Assert.IsNaN(double.NaN);
+        ///        }
+        ///
+        ///        //This test fails
+        ///        [Test]
+        ///        public void IsNaN_NotNaN()
+        ///        {
+        ///            Assert.IsNaN(1d);
+        ///        }
+        ///    }
+        ///}
+        /// </code>
+        /// </example>
+        /// <seealso cref="IsNaN(double, string)"/>
+        /// <seealso cref="IsNaN(double, string, object[])"/>
         static public void IsNaN(double aDouble) {
             Assert.IsNaN(aDouble, string.Empty);
         }
@@ -8015,6 +13864,55 @@ namespace MbUnit.Framework {
 
         #region Contains
 
+        /// <summary>
+        /// Verifies that <paramref name="s"/> is a substring of <paramref name="contain"/>. 
+        /// </summary>
+        /// If this not the case, an <see cref="MbUnit.Core.Exceptions.AssertionException"/> is thrown. 
+        /// <param name="s">The string that should be contained within <paramref name="contain"/></param>
+        /// <param name="contain">The string that should contain <paramref name="s"/></param>
+        /// <exception cref="MbUnit.Core.Exceptions.AssertionException">
+        /// Thrown if <paramref name="s"/> is not a substring of <paramref name="contain"/>.</exception>
+        /// <example>
+        /// The following example demonstrates Assert.Contains
+        /// <code>
+        ///using MbUnit.Framework;
+        ///
+        ///namespace MbUnitAssertDocs {
+        ///
+        ///    [TestFixture]
+        ///    public class Contains {
+        ///
+        ///        // This test passes
+        ///        [Test]
+        ///        public void Contains_StringContainsString()
+        ///        {
+        ///            Assert.Contains("Who are you?", "are");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Contains_StringDoesNotContainString() 
+        ///        {
+        ///            Assert.Contains("Who are you?", "where");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Contains_LeftIsNull()
+        ///        {
+        ///            Assert.Contains(null, "are");
+        ///        }
+        ///
+        ///        // This test fails
+        ///        [Test]
+        ///        public void Contains_RightIsNull()
+        ///        {
+        ///            Assert.Contains("Who are you", null);
+        ///        }
+        ///    }
+        ///} 
+        /// </code>
+        /// </example>
         static public void Contains(string s, string contain) {
             Assert.IsTrue(s.IndexOf(contain) >= 0, "String [[{0}]] does not contain [[{1}]]",
                 s, contain);
