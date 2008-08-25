@@ -5,6 +5,11 @@ using System.Reflection;
 namespace MbUnit.Framework
 {
 	using MbUnit.Core;
+
+    /// <summary>
+    /// Used in strategies for testing classes and tests for null arguments.
+    /// For more info, see <a href="http://blog.dotnetwiki.org/TestingTheArgumentNullExceptionWithMbUnit.aspx">this article</a>
+    /// </summary>
     public class MethodTester
     {
         private TestSuite suite;

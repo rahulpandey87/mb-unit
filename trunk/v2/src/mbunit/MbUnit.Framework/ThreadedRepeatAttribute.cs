@@ -33,20 +33,42 @@ namespace MbUnit.Framework
 
 
     /// <summary>
-	/// This tag defines test method that will invoke the method in the specified 
-	/// number of concurrent threads.
-	/// </summary>
-	/// <include file="MbUnit.Framework.Doc.xml" path="doc/remarkss/remarks[@name='ThreadedRepeatAttribute']"/>
+    /// <para>
+    /// This attribute decorates a test method or fixture class and causes it to be invoked repeatedly
+    /// on multiple concurrent threads.
+    /// </para>
+    /// </summary>
+    /// <example>
+    /// <code>
+    /// [Test]
+    /// [ThreadedRepeat(10)]
+    /// public void Test()
+    /// {
+    ///     // This test will be executed 10 times on 10 concurrent threads.
+    /// }
+    /// </code>
+    /// </example>
+    /// <seealso cref="RepeatAttribute"/>
+    /// <seealso cref="RepeatTestAttribute"/>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
     public sealed class ThreadedRepeatAttribute : DecoratorPatternAttribute
     {
 		private int count;
-		
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ThreadedRepeatAttribute"/> class.
+        /// </summary>
+        /// <param name="count">The number of threads to execute the test on</param>
 		public ThreadedRepeatAttribute(int count)
 		{
 			this.count = count;	
 		}
-		
+
+        /// <summary>
+        /// Returns the invoker class to run the test the given number of times.
+        /// </summary>
+        /// <param name="wrapped">The invoker currently set to run the test across many threads.</param>
+        /// <returns>A new <see cref="RepeatRunInvoker"/> object wrapping <paramref name="wrapped"/></returns>
 		public override IRunInvoker GetInvoker(IRunInvoker wrapped) 
 		{
 			return new ThreadedRepeatRunInvoker(wrapped, count);			

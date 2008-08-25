@@ -123,6 +123,11 @@ namespace MbUnit.Framework
 		}
 
 
+        /// <summary>
+        /// Asserts that two <see cref="DateTime"/> values are equal
+        /// </summary>
+        /// <param name="expected">The expected <see cref="DateTime"/>.</param>
+        /// <param name="actual">The actual <see cref="DateTime"/>.</param>
         static public void AreEqual(DateTime expected, DateTime actual)
         {
                 Assert.AreEqual(expected.Year, actual.Year);
@@ -135,8 +140,10 @@ namespace MbUnit.Framework
         }
 
         /// <summary>
-		/// Assert that <see cref="DataSet"/> schemas are equal.
-		/// </summary>
+        /// Assert that two <see cref="DataSet"/> schemas are equal.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="DataSet"/>.</param>
+        /// <param name="actual">The actual <see cref="DataSet"/>.</param>
 		public static void AreSchemasEqual(DataSet expected, DataSet actual)
 		{
 			if (expected==null)
@@ -149,11 +156,13 @@ namespace MbUnit.Framework
 			string sact = getXmlSchema(actual);
 			
 			XmlAssert.XmlEquals(sex,sact);
-		}		
+		}
 
-		/// <summary>
-		/// Assert that <see cref="DataSet"/> schemas and data are equal.
-		/// </summary>
+        /// <summary>
+        /// Assert that two <see cref="DataSet"/> schemas and the data they contain are equal.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="DataSet"/>.</param>
+        /// <param name="actual">The actual <see cref="DataSet"/>.</param>
 		public static void AreEqual(DataSet expected, DataSet actual)
 		{
 			if (expected==null)
@@ -168,9 +177,11 @@ namespace MbUnit.Framework
 			XmlAssert.XmlEquals(sex,sact);			
 		}
 
-		/// <summary>
-		/// Assert that <see cref="DataSet"/> data are equal.
-		/// </summary>		
+        /// <summary>
+        /// Assert that the data in two <see cref="DataSet"/>s are equal.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="DataSet"/>.</param>
+        /// <param name="actual">The actual <see cref="DataSet"/>.</param>
 		public static void AreDataEqual(DataSet expected, DataSet actual)
 		{
 			if (expected==null)

@@ -24,34 +24,44 @@
 //		MbUnit HomePage: http://www.mbunit.com
 //		Author: Jonathan de Halleux
 
-namespace MbUnit.Framework
-{
-	using System;
-	using System.IO;
-	using System.Reflection;
+namespace MbUnit.Framework {
+    using System;
+    using System.IO;
+    using System.Reflection;
 
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple=true)]
-	public class CopyAttribute : Attribute
-	{
-		public CopyAttribute(Type type)
-		{
-			string assemblyFile = new Uri(type.Assembly.CodeBase).LocalPath;
-			string pdbFile = Path.Combine(Path.GetDirectoryName(assemblyFile), Path.GetFileNameWithoutExtension(assemblyFile) + ".pdb");
-			if(File.Exists(pdbFile)) { _files = new string[] {assemblyFile, pdbFile}; }
-			else { _files = new string[] {assemblyFile}; }
-		}
+    /// <summary>
+    /// Tags a class whose assembly file and associated pdb file should be copied elsewhere
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    public class CopyAttribute : Attribute {
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CopyAttribute"/> class.
+        /// </summary>
+        /// <param name="type">The type whose assembly will be copied</param>
+        public CopyAttribute(Type type) {
+            string assemblyFile = new Uri(type.Assembly.CodeBase).LocalPath;
+            string pdbFile = Path.Combine(Path.GetDirectoryName(assemblyFile), Path.GetFileNameWithoutExtension(assemblyFile) + ".pdb");
+            if (File.Exists(pdbFile)) { _files = new string[] { assemblyFile, pdbFile }; } else { _files = new string[] { assemblyFile }; }
+        }
 
-		public string[] Files
-		{
-			get { return _files; }
-		}
-		private string[] _files;
+        /// <summary>
+        /// Gets the files to be copied.
+        /// </summary>
+        /// <value>An array of the files being copied</value>
+        public string[] Files {
+            get { return _files; }
+        }
+        private string[] _files;
 
-		public string Destination
-		{
-			set { _destination = value; }
-			get { return _destination; }
-		}
-		private string _destination;
-	}
+        /// <summary>
+        /// Gets or sets the place for the files to be copied to.
+        /// </summary>
+        /// <value>The new path for the files</value>
+        public string Destination {
+            set { _destination = value; }
+            get { return _destination; }
+        }
+        private string _destination;
+    }
 }

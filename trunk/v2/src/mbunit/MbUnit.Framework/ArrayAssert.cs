@@ -40,7 +40,7 @@ namespace MbUnit.Framework
 		{}
 
 		/// <summary>
-		/// Verifies that both array have the same dimension and elements.
+		/// Verifies that both boolean arrays have the same dimension and elements.
 		/// </summary>
 		/// <param name="expected"></param>
 		/// <param name="actual"></param>
@@ -60,6 +60,11 @@ namespace MbUnit.Framework
 			}
 		}
 
+        /// <summary>
+        /// Verifies that both char arrays have the same dimension and elements.
+        /// </summary>
+        /// <param name="expected"></param>
+        /// <param name="actual"></param>
 		public static void AreEqual(char[] expected, char[] actual)
 		{
 			if(expected==null && actual==null)
@@ -76,6 +81,11 @@ namespace MbUnit.Framework
 			}
 		}
 
+        /// <summary>
+        /// Verifies that both byte arrays have the same dimension and elements.
+        /// </summary>
+        /// <param name="expected"></param>
+        /// <param name="actual"></param>
 		public static void AreEqual(byte[] expected, byte[] actual)
 		{
 			if(expected==null && actual==null)
@@ -91,7 +101,12 @@ namespace MbUnit.Framework
 				Assert.AreEqual(expected[i], actual[i]);
 			}
 		}
-						
+
+        /// <summary>
+        /// Verifies that both integer arrays have the same dimension and elements.
+        /// </summary>
+        /// <param name="expected"></param>
+        /// <param name="actual"></param>
 		public static void AreEqual(int[] expected, int[] actual)
 		{
 			if(expected==null && actual==null)
@@ -108,7 +123,11 @@ namespace MbUnit.Framework
 			}
 		}
 
-		
+        /// <summary>
+        /// Verifies that both arrays of long integers have the same dimension and elements.
+        /// </summary>
+        /// <param name="expected"></param>
+        /// <param name="actual"></param>
 		public static void AreEqual(long[] expected, long[] actual)
 		{
 			if(expected==null && actual==null)
@@ -125,6 +144,12 @@ namespace MbUnit.Framework
 			}
 		}
 
+        /// <summary>
+        /// Verifies that both arrays of single-point floating numbers have the same dimension and elements given a margin of error.
+        /// </summary>
+        /// <param name="expected"></param>
+        /// <param name="actual"></param>
+        /// <param name="delta"></param>
 		public static void AreEqual(float[] expected, float[] actual, float delta)
 		{
 			if(expected==null && actual==null)
@@ -141,7 +166,12 @@ namespace MbUnit.Framework
 			}
 		}
 
-
+        /// <summary>
+        /// Verifies that both arrays of double-point floating numbers have the same dimension and elements given a margin of error.
+        /// </summary>
+        /// <param name="expected"></param>
+        /// <param name="actual"></param>
+        /// <param name="delta"></param>
 		public static void AreEqual(double[] expected, double[] actual, double delta)
 		{
 			if(expected==null && actual==null)
@@ -156,9 +186,13 @@ namespace MbUnit.Framework
 			{
 				Assert.AreEqual(expected[i], actual[i],delta);
 			}
-		}	
-		
+		}
 
+        /// <summary>
+        /// Verifies that both arrays of objects have the same dimension and elements.
+        /// </summary>
+        /// <param name="expected"></param>
+        /// <param name="actual"></param>
 		public static void AreEqual(object[] expected, object[] actual)
 		{
 			if(expected==null && actual==null)

@@ -37,16 +37,17 @@ using MbUnit.Core.Exceptions;
 namespace MbUnit.Framework
 {
     /// <summary>
-	/// Security Assertion class
+    /// Class containing generic assert methods for the verification of Roles and Identity information.
 	/// </summary>
 	public sealed class SecurityAssert
 	{
 		private SecurityAssert(){}
 		
 		#region Authentication and Identity related
-		/// <summary>
-		/// Asserts that <paramref name="identity"/> is authenticated.
-		/// </summary>
+        /// <summary>
+        /// Asserts that <paramref name="identity"/> is authenticated.
+        /// </summary>
+        /// <param name="identity">The <see cref="IIdentity"/> being tested.</param>
 		public static void IsAuthenticated(IIdentity identity)
 		{
 			Assert.IsNotNull(identity);
@@ -55,9 +56,10 @@ namespace MbUnit.Framework
 			              identity.Name);			
 		}
 
-		/// <summary>
-		/// Asserts that <paramref name="identity"/> is not authenticated.
-		/// </summary>		
+        /// <summary>
+        /// Asserts that <paramref name="identity"/> is not authenticated.
+        /// </summary>
+        /// <param name="identity">The <see cref="IIdentity"/> being tested.</param>
 		public static void IsNotAuthenticated(IIdentity identity)
 		{
 			Assert.IsNotNull(identity);
@@ -65,10 +67,10 @@ namespace MbUnit.Framework
 			              "Identity {0} authentitcated",
 			              identity.Name);						
 		}
-		
-		/// <summary>
-		/// Asserts that the current windows identity is authenticated.
-		/// </summary>		
+
+        /// <summary>
+        /// Asserts that the current windows identity is authenticated.
+        /// </summary>
 		public static void WindowIsAuthenticated()
 		{
 			IsAuthenticated(WindowsIdentity.GetCurrent());
@@ -80,11 +82,12 @@ namespace MbUnit.Framework
 		public static void WindowIsNotAuthenticated()
 		{
 			IsNotAuthenticated(WindowsIdentity.GetCurrent());			
-		}	
-		
-		/// <summary>
-		/// Asserts that the current windows identity is in <param name="role"/>.
-		/// </summary>				
+		}
+
+        /// <summary>
+        /// Asserts that the current windows identity is in <param name="role"/>.
+        /// </summary>
+        /// <param name="role">The <see cref="WindowsBuiltInRole">role</see> to which the current windows identity should belong.</param>
 		public static void WindowsIsInRole(WindowsBuiltInRole role)
 		{
 			WindowsPrincipal principal = new WindowsPrincipal(WindowsIdentity.GetCurrent());
@@ -97,8 +100,7 @@ namespace MbUnit.Framework
 		}
 
 		/// <summary>
-		/// Asserts that the current windows identity is in 
-		/// <see cref="WindowsBuiltInRole.Administrator"/> role.
+		/// Asserts that the current windows identity is in the <see cref="WindowsBuiltInRole.Administrator"/> role.
 		/// </summary>						
 		public static void WindowsIsInAdministrator()
 		{
@@ -106,8 +108,7 @@ namespace MbUnit.Framework
 		}
 		
 		/// <summary>
-		/// Asserts that the current windows identity is in 
-		/// <see cref="WindowsBuiltInRole.Guest"/> role.
+		/// Asserts that the current windows identity is in the <see cref="WindowsBuiltInRole.Guest"/> role.
 		/// </summary>								
 		public static void WindowsIsInGuest()
 		{
@@ -115,8 +116,7 @@ namespace MbUnit.Framework
 		}
 		
 		/// <summary>
-		/// Asserts that the current windows identity is in 
-		/// <see cref="WindowsBuiltInRole.PowerUser"/> role.
+		/// Asserts that the current windows identity is in the <see cref="WindowsBuiltInRole.PowerUser"/> role.
 		/// </summary>								
 		public static void WindowsIsInPowerUser()
 		{
@@ -124,8 +124,7 @@ namespace MbUnit.Framework
 		}		
 		
 		/// <summary>
-		/// Asserts that the current windows identity is in 
-		/// <see cref="WindowsBuiltInRole.User"/> role.
+		/// Asserts that the current windows identity is in the <see cref="WindowsBuiltInRole.User"/> role.
 		/// </summary>								
 		public static void WindowsIsInUser()
 		{

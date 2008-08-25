@@ -26,24 +26,54 @@
 
 using System;
 
-namespace MbUnit.Framework
-{
-    [AttributeUsage(AttributeTargets.Assembly,AllowMultiple =true)]
-    public sealed class AssemblyDependsOnAttribute : Attribute
-    {
+namespace MbUnit.Framework {
+    /// <summary>
+    /// Use this attribute to identify an assembly whose tests must execute successfully
+    /// before the tests in this assembly are executed
+    /// </summary>
+    /// <example>
+    /// The following demonstrates the identification of the parent assembly that must execute
+    /// successfully
+    /// <code>
+    /// [assembly: AssemblyDependsOn("Tests.ParentAssembly")]
+    /// ...
+    /// public class ChildAssembly.TestClass
+    /// {
+    ///    ...
+    /// }
+    /// </code>
+    /// </example>
+    [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
+    public sealed class AssemblyDependsOnAttribute : Attribute {
         private string assemblyName;
 
-        public AssemblyDependsOnAttribute(string assemblyName)
-        {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssemblyDependsOnAttribute" /> class. 
+        /// </summary>
+        /// <param name="assemblyName">Identifies the parent assembly that must execute successfully</param>
+        ///     /// <example>
+        /// The following demonstrates the identification of the parent assembly that must execute
+        /// successfully
+        /// <code>
+        /// [assembly: AssemblyDependsOn("Tests.ParentAssembly")]
+        /// ...
+        /// public class ChildAssembly.TestClass
+        /// {
+        ///    ...
+        /// }
+        /// </code>
+        /// </example>
+        public AssemblyDependsOnAttribute(string assemblyName) {
             if (assemblyName == null)
                 throw new ArgumentNullException("assemblyName");
             this.assemblyName = assemblyName;
         }
 
-        public string AssemblyName
-        {
-            get
-            {
+        /// <summary>
+        /// The name of the parent assembly
+        /// </summary>
+        public string AssemblyName {
+            get {
                 return this.assemblyName;
             }
         }

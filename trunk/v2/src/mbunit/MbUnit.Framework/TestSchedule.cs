@@ -28,9 +28,18 @@ using System;
 
 namespace MbUnit.Framework
 {
+    /// <summary>
+    /// Specifies options for the execution of a helper method with respect to the running of a test
+    /// </summary>
     public enum TestSchedule
     {
+        /// <summary>
+        /// Specifies the helper should run before the test executes
+        /// </summary>
         BeforeTest,
+        /// <summary>
+        /// Specifies the helper should run after the test executes
+        /// </summary>
         AfterTest
     }
 }

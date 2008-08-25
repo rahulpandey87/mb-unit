@@ -8,44 +8,105 @@ using MbUnit.Core.Framework;
 
 namespace MbUnit.Framework 
 {
-	
-	/// <summary>
-	/// </summary>
+
+    /// <summary>
+    /// Used to tag a test method to specify the information contained in an XML file that should be used as 
+    /// parameters for that test. To be used in conjunction with the <see cref="DataFixtureAttribute"/> and 
+    /// <see cref="XmlDataProviderAttribute"/>.
+    /// </summary>
+    /// <example>
+    /// <para>In this example a test class uses an XML file as its source of data. The file looks like this</para>
+    /// <code>
+    /// &lt;DataFixture&gt;
+    ///   &lt;Employees&gt;
+    ///     &lt;User Name="Mickey" LastName="Mouse" /&gt;
+    ///   &lt;/Employees&gt;
+    ///   &lt;Customers&gt;
+    ///     &lt;User Name="Jonathan" LastName="de Halleux" /&gt;
+    ///     &lt;User Name="Voldo" LastName="Unkown" /&gt;
+    ///   &lt;/Customers&gt;
+    /// &lt;/DataFixture&gt;
+    /// </code>
+    /// <para>The class which maps the data in the XML file to a .NET class looks like this</para>
+    /// <code>
+    ///    [XmlRoot("User")]
+    ///    public class User {
+    /// 
+    ///        private string name;
+    ///        private string lastName;
+    /// 
+    ///        public User() { }
+    ///        [XmlAttribute("Name")]
+    ///        public String Name {
+    ///            get { return this.name; }
+    ///            set { this.name = value; }
+    ///        }
+    /// 
+    ///        [XmlAttribute("LastName")]
+    ///        public String LastName {
+    ///            get { return this.lastName; }
+    ///            set { this.lastName = value; }
+    ///        }
+    ///    }
+    /// </code>
+    /// <para>The test class contains test methods with the ForEachTest attribute like this</para>
+    /// <code>
+    ///    [DataFixture]
+    ///    [XmlDataProvider("sample.xml", "//User")]
+    ///    [XmlDataProvider("sample.xml", "DataFixture/Customers")]
+    ///    public class DataDrivenTests {
+    /// 
+    ///        [ForEachTest("User")]
+    ///        public void ForEachTest(XmlNode node) {
+    ///            Assert.IsNotNull(node);
+    ///            Assert.AreEqual("User", node.Name);
+    ///            Console.WriteLine(node.OuterXml);
+    ///        }
+    ///
+    ///        [ForEachTest("User", DataType = typeof(User))]
+    ///        public void ForEachTestWithSerialization(User user) {
+    ///            Assert.IsNotNull(user);
+    ///            Console.WriteLine(user.ToString());
+    ///        }
+    ///    }
+    /// </code>
+    /// </example>
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple=false, Inherited=true)]
     public sealed class ForEachTestAttribute : TestPatternAttribute
     {
 		private string xpath;
 		private Type dataType = null;
 		private XmlSerializer serializer = null;
-		
-		/// <summary>
-		/// Default constructor
-		/// </summary>
-		/// <param name="xpath">
-		/// XPath to the desired data
-		/// </param>
-		/// <remarks>
-		/// </remarks>
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ForEachTestAttribute"/> class.
+        /// </summary>
+        /// <param name="xpath">The XPath to the data.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="xpath"/> is null</exception>
 		public ForEachTestAttribute(string xpath)
 		:this(xpath,"")
 		{}
-		
-		/// <summary>
-		/// Constructor with a fixture description
-		/// </summary>
-		/// <param name="xpath">
-		/// XPath to the desired data
-		/// </param>
-		/// <param name="description">fixture description</param>
-		/// <remarks>
-		/// </remarks>
-		public ForEachTestAttribute(string xpath, string description)
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ForEachTestAttribute"/> class.
+        /// </summary>
+        /// <param name="xpath">The XPath to the data.</param>
+        /// <param name="description">A brief description of the test fixture for your reference.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="xpath"/> is null</exception>
+        public ForEachTestAttribute(string xpath, string description)
 		:base(description)
 		{
 			this.XPath = xpath;
 		}
 
-		public String XPath
+        /// <summary>
+        /// Gets or sets the XPath to the data for the test.
+        /// </summary>
+        /// <value>The XPath string.</value>
+        /// <exception cref="ArgumentNullException">Thrown if the value is null</exception>
+        public String XPath
 		{
 			get
 			{
@@ -58,7 +119,11 @@ namespace MbUnit.Framework
 				this.xpath = value;
 			}
 		}
-		
+
+        /// <summary>
+        /// Gets or sets the class <see cref="Type"/> the xml data will be deserialized into for use in your tests
+        /// </summary>
+        /// <value>The class <see cref="Type"/> for your tests.</value>
 		public Type DataType
 		{
 			get
@@ -74,7 +139,13 @@ namespace MbUnit.Framework
 					this.serializer = null;
 			}
 		}
-		
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is deserialized.
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if this instance is deserialized; otherwise, <c>false</c>.
+        /// </value>
 		public bool IsDeserialized
 		{
 			get
@@ -82,7 +153,12 @@ namespace MbUnit.Framework
 				return this.dataType != null;
 			}
 		}
-		
+
+        /// <summary>
+        /// Deserializes the specified XML node for use in a test.
+        /// </summary>
+        /// <param name="node">The node to deserialize.</param>
+        /// <returns>An object of the type specified by <see cref="DataType"/></returns>
 		public Object Deserialize(XmlNode node)
 		{
 			// create reader on the node

@@ -30,22 +30,63 @@ using System.Collections.Specialized;
 
 namespace MbUnit.Framework
 {
+
+    /// <summary>
+    /// Associates a category name with a test method.  
+    /// The category name can be used to classify tests and build test suites of related tests.
+    /// </summary>
+    /// <remarks>Associate multiple categories with a comma-delimited lsit of strings</remarks>
+    /// <example>
+    /// [TestFixture]
+    /// public class CategorizedTests
+    /// {
+    ///     [Test]
+    ///     [Category("ThisCategory")]
+    ///     public void SingleCategoryTest()
+    ///     {
+    ///         ...
+    ///     }
+    /// 
+    ///     [Test]
+    ///     [Category("ThatCategory", "MyCategory")]
+    ///     public void MultipleCategoryTest()
+    ///     {
+    ///         ...
+    ///     }
+    /// 
+    /// }
+    /// </example>
 	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method,AllowMultiple=false,Inherited=true)]
 	public class TestCategoryAttribute : Attribute
 	{
 		private ArrayList categories = new ArrayList();
-	
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestCategoryAttribute"/> class.
+        /// Associates a category name with the test method annotated by this attribute.
+        /// </summary>
+        /// <param name="category">The category name to associate</param>
 		public TestCategoryAttribute(Object category)
 		{
 			this.categories.Add(category);
 		}
-	
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestCategoryAttribute"/> class.
+        /// Associates multiple category names with the test method annotated by this attribute.
+        /// </summary>
+        /// <param name="category">The category name to associate</param>
+        /// <param name="categories">An array of further categories to associate</param>
 		public TestCategoryAttribute(Object category,params object[] categories)
 		{
 			this.categories.Add(category);
 			this.categories.AddRange(categories);
 		}
-		
+
+        /// <summary>
+        /// Gets the categories for the test.
+        /// </summary>
+        /// <value>The categories for the test.</value>
 		public ArrayList Categories
 		{
 			get
@@ -53,7 +94,11 @@ namespace MbUnit.Framework
 				return this.categories;
 			}
 		}
-		
+
+        /// <summary>
+        /// Gets the category titles.
+        /// </summary>
+        /// <returns>A <see cref="StringCollection"/> of category titles</returns>
 		public StringCollection GetCategoryTitles()
 		{
 			SortedList sl =new SortedList();

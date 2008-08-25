@@ -30,15 +30,25 @@ using MbUnit.Core.Framework;
 namespace MbUnit.Framework
 {
 	/// <summary>
-	/// Tag use to mark a method that writes data to a device.
+	/// Tag use to mark a method that reads data from a device.
 	/// </summary>
-	/// <include file="MbUnit.Framework.Doc.xml" path="doc/remarkss/remarks[@name='ReadAttribute']"/>		
+	/// <remarks>
+	/// This tag and its <see cref="WriteAttribute"/> couterpart currently are not functional.
+	/// </remarks>	
 	[AttributeUsage(AttributeTargets.Method,AllowMultiple=false,Inherited=true)]
+    [Obsolete("Will not be continued in MbUnit v3")]
 	public class ReadAttribute : TestPatternAttribute
 	{
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReadAttribute"/> class.
+        /// </summary>
 		public ReadAttribute()
 		{}
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReadAttribute"/> class.
+        /// </summary>
+        /// <param name="description">A brief description of the tagged method.</param>
 		public ReadAttribute(string description)
 			:base(description)
 		{}

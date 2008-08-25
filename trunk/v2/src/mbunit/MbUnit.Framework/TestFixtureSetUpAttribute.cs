@@ -28,9 +28,17 @@ using System;
 
 namespace MbUnit.Framework
 {
+    /// <summary>
+    /// Tags a method to be run before any tests in the fixture class are run
+    /// The method to which this attribute is applied must be declared by the
+    /// fixture class and must not have any parameters.  The method may be static.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Method,AllowMultiple  = false, Inherited =true)]
     public sealed class TestFixtureSetUpAttribute : Attribute
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestFixtureSetUpAttribute"/> class.
+        /// </summary>
         public TestFixtureSetUpAttribute()
         {}
     }

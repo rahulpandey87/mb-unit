@@ -17,15 +17,13 @@ namespace MbUnit.Framework
         /// Initializes a <see cref="TestSuite"/> instance
         /// with <paramref name="name"/>.
         /// </summary>
-        /// <param name="name">
-        /// name of the suite
-        /// </param>
+        /// <param name="name">name of the suite</param>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="name"/> is a null reference
+        /// 	<paramref name="name"/> is a null reference
         /// (Nothing in Visual Basic)
         /// </exception>
         /// <exception cref="ArgumentException">
-        /// <paramref name="name"/> is empty.
+        /// 	<paramref name="name"/> is empty.
         /// </exception>
         public TestSuite(string name)
         {
@@ -67,11 +65,9 @@ namespace MbUnit.Framework
         /// <summary>
         /// Adds the test case to the suite
         /// </summary>
-        /// <param name="testCase">
-        /// <see cref="TestCase"/> instance to add.
-        /// </param>
+        /// <param name="testCase"><see cref="TestCase"/> instance to add.</param>
         /// <exception cref="InvalidOperationException">
-        /// The suite already contains a test case named <paramref name="name"/>.
+        /// The suite already contains a test case with the same name as <paramref name="testCase"/>.
         /// </exception>
         public void Add(ITestCase testCase)
         {
@@ -85,11 +81,9 @@ namespace MbUnit.Framework
         /// <summary>
         /// Removes the test case from the suite
         /// </summary>
-        /// <param name="testCase">
-        /// Test case to remove
-        /// </param>
+        /// <param name="testCase">Test case to remove</param>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="testCase"/> is a null reference
+        /// 	<paramref name="testCase"/> is a null reference
         /// (Nothing in Visual Basic)
         /// </exception>
         public void Remove(TestCase testCase)
@@ -104,21 +98,16 @@ namespace MbUnit.Framework
         /// <summary>
         /// Adds a new <see cref="TestCase"/> to the suite.
         /// </summary>
-        /// <param name="name">
-        /// Name of the new test case
-        /// </param>
-        /// <param name="test">
-        /// <see cref="Delegate"/> invoked by the test case
-        /// </param>
-        /// <param name="parameters">
-        /// parameters sent to <paramref name="test"/> when invoked
-        /// </param>
+        /// <param name="name">Name of the new test case</param>
+        /// <param name="test"><see cref="Delegate"/> invoked by the test case</param>
+        /// <param name="parameters">parameters sent to <paramref name="test"/> when invoked</param>
+        /// <returns></returns>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="name"/> is a null reference
+        /// 	<paramref name="name"/> is a null reference
         /// (Nothing in Visual Basic)
         /// </exception>
         /// <exception cref="ArgumentException">
-        /// <paramref name="name"/> is empty.
+        /// 	<paramref name="name"/> is empty.
         /// </exception>
         /// <exception cref="InvalidOperationException">
         /// The suite already contains a test case named <paramref name="name"/>.

@@ -25,30 +25,39 @@
 //		Author: Jonathan de Halleux
 
 using System;
-namespace MbUnit.Framework
-{
-	using MbUnit.Core.Monitoring;
-	public struct CountDownTimer
-	{
-		private double maxDuration;
-		private TimeMonitor timer;
-		
-		public CountDownTimer(double maxDuration)
-		{
-			this.maxDuration = maxDuration;
-			this.timer = new TimeMonitor();
-			timer.Start();
-		}
-		
-		public void Stop()
-		{
-			timer.Stop();
+namespace MbUnit.Framework {
+    using MbUnit.Core.Monitoring;
 
-      Assert.IsTrue(timer.Duration < this.maxDuration,
-			       "Timer duration {0}s is longer that maximum duration {1}s",
-			       timer.Duration,
-			       this.maxDuration
-			       );
-		}
-	}
+    /// <summary>
+    /// A basic count down timer for use with <see cref="PerfAssert"/> tests. 
+    /// Creates an instance of <see cref="TimeMonitor"/>, starts and stops it
+    /// </summary>
+    public struct CountDownTimer {
+
+        private double maxDuration;
+        private TimeMonitor timer;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CountDownTimer"/> and starts it.
+        /// </summary>
+        /// <param name="maxDuration">The maximum duration for the timer</param>
+        public CountDownTimer(double maxDuration) {
+            this.maxDuration = maxDuration;
+            this.timer = new TimeMonitor();
+            timer.Start();
+        }
+
+        /// <summary>
+        /// Stops the timer and verifies whether or not the duration of its count is less than the maxDuration specified.
+        /// </summary>
+        public void Stop() {
+            timer.Stop();
+
+            Assert.IsTrue(timer.Duration < this.maxDuration,
+                         "Timer duration {0}s is longer that maximum duration {1}s",
+                         timer.Duration,
+                         this.maxDuration
+                         );
+        }
+    }
 }

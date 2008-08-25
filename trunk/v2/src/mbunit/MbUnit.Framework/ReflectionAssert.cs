@@ -37,22 +37,18 @@ using MbUnit.Core.Exceptions;
 namespace MbUnit.Framework
 {
 	/// <summary>
-	/// Reflection Assertion class
+    /// Class containing generic assert methods for the verification of <see cref="Type"/> information by reflection.
 	/// </summary>
 	public sealed class ReflectionAssert
 	{
 		private ReflectionAssert(){}
 
-		/// <summary>
-		/// Asserts whether an instance of the <paramref name="parent"/> 
-		/// can be assigned from an instance of <paramref name="child"/>.
-		/// </summary>
-		/// <param name="parent">
-		/// Parent <see cref="Type"/> instance.
-		/// </param>
-		/// <param name="child">
-		/// Child <see cref="Type"/> instance.
-		/// </param>
+        /// <summary>
+        /// Asserts whether an instance of the <paramref name="parent"/>
+        /// can be assigned from an instance of <paramref name="child"/>.
+        /// </summary>
+        /// <param name="parent">Parent <see cref="Type"/> instance.</param>
+        /// <param name="child">Child <see cref="Type"/> instance.</param>
 		public static void IsAssignableFrom(Type parent, Type child)
 		{
 			Assert.IsNotNull(parent);
@@ -64,16 +60,12 @@ namespace MbUnit.Framework
 			              );
 		}
 
-		/// <summary>
-		/// Asserts whether <paramref name="child"/> is an instance of the 
-		/// <paramref name="type"/>.
-		/// </summary>
-		/// <param name="type">
-        /// <see cref="Type"/> instance.
-		/// </param>
-		/// <param name="child">
-		/// Child instance.
-		/// </param>
+        /// <summary>
+        /// Asserts whether <paramref name="child"/> is an instance of the
+        /// <paramref name="type"/>.
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/> that <paramref name="child"/> should be an instance of.</param>
+        /// <param name="child">The <see cref="Object"/> to test</param>
 		public static void IsInstanceOf(Type type, Object child)
 		{
 			Assert.IsNotNull(type);
@@ -84,26 +76,33 @@ namespace MbUnit.Framework
 			              child
 			              );
 		}
-		
-		/// <summary>
-		/// Asserts that the type has a default public constructor
-		/// </summary>
+
+        /// <summary>
+        /// Asserts that <paramref name="type"/> has a default public constructor
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/> to test.</param>
 		public static void HasDefaultConstructor(Type type)
 		{
 			HasConstructor(type, Type.EmptyTypes);
 		}
 
-		/// <summary>
-		/// Asserts that the type has a public instance constructor with a signature defined by parameters.
-		/// </summary>		
+        /// <summary>
+        /// Asserts that <paramref name="type"/> has a public instance constructor with a signature defined by <paramref name="parameters"/>.
+        /// </summary>
+        /// <param name="type">The type to test</param>
+        /// <param name="parameters">The list of parameters for the constructor</param>
 		public static void HasConstructor(Type type, params Type[] parameters)
 		{
 			HasConstructor(type,BindingFlags.Public | BindingFlags.Instance,parameters);
 		}
 
-		/// <summary>
-		/// Asserts that the type has a constructor, with the specified bindind flags, with a signature defined by parameters.
-		/// </summary>				
+        /// <summary>
+        /// Asserts that the <paramref name="type"/> has a constructor, with the specified binding <paramref name="flags"/>, 
+        /// with a signature defined by <paramref name="parameters"/>.
+        /// </summary>
+        /// <param name="type">The type to test.</param>
+        /// <param name="flags">The <see cref="BindingFlags"/> the type should have.</param>
+        /// <param name="parameters">The list of parameters for the constructor.</param>
 		public static void HasConstructor(Type type, BindingFlags flags, params Type[] parameters)
 		{
 			Assert.IsNotNull(type);
@@ -112,19 +111,28 @@ namespace MbUnit.Framework
 			                 type.FullName
 			                 );
 		}
-		
-		/// <summary>
-		/// Asserts that the type has a public instance method with a signature defined by parameters.
-		/// </summary>		
+
+        /// <summary>
+        /// Asserts that the <paramref name="type"/> has a public instance method with the given <paramref name="name"/> 
+        /// and signature defined by <paramref name="parameters"/>.
+        /// </summary>
+        /// <param name="type">The type to test.</param>
+        /// <param name="name">The name of the method to look for.</param>
+        /// <param name="parameters">The parameters for the method.</param>
 		public static void HasMethod(Type type, string name, params Type[] parameters)
 		{
 			HasMethod(type,BindingFlags.Public | BindingFlags.Instance,name,parameters); 
 		}
 
-		
-		/// <summary>
-		/// Asserts that the type has a method, with the specified bindind flags, with a signature defined by parameters.
-		/// </summary>				
+
+        /// <summary>
+        /// Asserts that the <paramref name="type"/> has a method with the given <paramref name="name"/>,
+        /// <paramref name="flags"/> and signature defined by <paramref name="parameters"/>.
+        /// </summary>
+        /// <param name="type">The type to test.</param>
+        /// <param name="flags">The <see cref="BindingFlags"/> the method should have.</param>
+        /// <param name="name">The name of the method.</param>
+        /// <param name="parameters">The parameters for the method.</param>
 		public static void HasMethod(Type type, BindingFlags flags, string name, params Type[] parameters)
 		{
 			Assert.IsNotNull(type, "Type is null");
@@ -137,17 +145,23 @@ namespace MbUnit.Framework
 			                 );
 		}
 
-		/// <summary>
-		/// Asserts that the type has a public field method with a signature defined by parameters.
-		/// </summary>		
+        /// <summary>
+        /// Asserts that the <paramref name="type"/> has a public field with the given <paramref name="name"/>.
+        /// </summary>
+        /// <param name="type">The type to test.</param>
+        /// <param name="name">The name of the field to find.</param>
 		public static void HasField(Type type, string name)
 		{
 			HasField(type, BindingFlags.Public | BindingFlags.Instance,name );
 		}
-		
-		/// <summary>
-		/// Asserts that the type has a field, with the specified bindind flags, with a signature defined by parameters.
-		/// </summary>								
+
+        /// <summary>
+        /// Asserts that the <paramref name="type"/> has a field with the given 
+        /// <paramref name="flags"/> and <paramref name="name"/>.
+        /// </summary>
+        /// <param name="type">The type to test.</param>
+        /// <param name="name">The name of the field to find.</param>
+        /// <param name="flags">The <see cref="BindingFlags"/> for the field.</param>
 		public static void HasField(Type type, BindingFlags flags,string name)
 		{
 			Assert.IsNotNull(type, "Type is null");
@@ -161,6 +175,11 @@ namespace MbUnit.Framework
 			                 );
 		}
 
+        /// <summary>
+        /// Verifies that <see cref="Type"/> <paramref name="t"/> has a read-only property called <paramref name="propertyName"/>
+        /// </summary>
+        /// <param name="t">The type to test.</param>
+        /// <param name="propertyName">Name of the read-only property to find</param>
 		public static void ReadOnlyProperty(Type t, string propertyName)
 		{
 			Assert.IsNotNull(t);
@@ -173,6 +192,10 @@ namespace MbUnit.Framework
 			ReadOnlyProperty(pi);
 		}
 
+        /// <summary>
+        /// Verifies the property described by <paramref name="pi"/> is read-only
+        /// </summary>
+        /// <param name="pi">A <see cref="PropertyInfo"/> object describing a property</param>
 		public static void ReadOnlyProperty(PropertyInfo pi)
 		{
 			Assert.IsNotNull(pi);
@@ -183,6 +206,11 @@ namespace MbUnit.Framework
 				);
 		}
 
+        /// <summary>
+        /// Verifies that <see cref="Type"/> <paramref name="t"/> has a write-only property called <paramref name="propertyName"/>
+        /// </summary>
+        /// <param name="t">The type to test.</param>
+        /// <param name="propertyName">Name of the write-only property to find</param>
 		public static void WriteOnlyProperty(Type t, string propertyName)
 		{
 			Assert.IsNotNull(t);
@@ -195,6 +223,10 @@ namespace MbUnit.Framework
 			WriteOnlyProperty(pi);
 		}
 
+        /// <summary>
+        /// Verifies the property described by <paramref name="pi"/> is write-only
+        /// </summary>
+        /// <param name="pi">A <see cref="PropertyInfo"/> object describing a property</param>
 		public static void WriteOnlyProperty(PropertyInfo pi)
 		{
 			Assert.IsNotNull(pi);
@@ -205,6 +237,11 @@ namespace MbUnit.Framework
 				);
 		}
 
+
+        /// <summary>
+        /// Verifies whether the specified <see cref="Type"/> <paramref name="t"/> is sealed.
+        /// </summary>
+        /// <param name="t">The type to test</param>
 		public static void IsSealed(Type t)
 		{
 			Assert.IsNotNull(t);
@@ -212,7 +249,13 @@ namespace MbUnit.Framework
 				"Type {0} is not sealed",
 				t.FullName);
 		}
-		
+
+
+        /// <summary>
+        /// Verifies whether the specified <see cref="Type"/> <paramref name="t"/> has only private constructors
+        /// and is thus not creatable
+        /// </summary>
+        /// <param name="t">The type to test</param>
 		public static void NotCreatable(Type t)
 		{
 			Assert.IsNotNull(t);

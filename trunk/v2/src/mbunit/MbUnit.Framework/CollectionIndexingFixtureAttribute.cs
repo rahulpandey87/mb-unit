@@ -18,62 +18,126 @@ using MbUnit.Core.Invokers;
 using MbUnit.Framework.Testers;
 using MbUnit.Core.Runs;
 
-namespace MbUnit.Framework 
-{
-	
-	/// <summary>
-	/// Collection indexing pattern.
-	/// </summary>
-	/// <include file="MbUnit.Framework.doc.xml" path="doc/remarkss/remarks[@name='CollectionIndexingFixtureAttribute']"/>
-	/// <include file="MbUnit.Framework.doc.xml" path="doc/examples/example[@name='Indexing']"/>
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple=false, Inherited=true)]
-	public sealed class CollectionIndexingFixtureAttribute : 
-		TestFixturePatternAttribute 
-	{
-		/// <summary>
-		/// Default constructor
-		/// </summary>
-		public CollectionIndexingFixtureAttribute()
-			:base()
-		{}
-		
-		/// <summary>
-		/// Constructor with fixture description
-		/// </summary>		
-		public CollectionIndexingFixtureAttribute(
-			string description)
-			:base(description)
-		{}
+namespace MbUnit.Framework {
 
-		/// <summary>
-		/// Creates the execution logic
-		/// </summary>
-		/// <remarks>
-		/// See summary.
-		/// </remarks>
-		/// <returns>A <see cref="IRun"/> instance that represent the type
-		/// test logic.
-		/// </returns>
-		/// <include file="MbUnit.Framework.doc.xml" path="doc/examples/example[@name='Indexing']"/>
-		public override IRun GetRun()
-		{
-			SequenceRun runs = new SequenceRun();
-			
-			// set up
-			OptionalMethodRun setup = new OptionalMethodRun(typeof(SetUpAttribute),false);			
-			runs.Runs.Add( setup );
-						
-			// add tester for the indexing
-			IndexerProviderRun indexingTest = new IndexerProviderRun(
-				typeof(CollectionIndexingTester)
-				);
-			runs.Runs.Add( indexingTest );
+    /// <summary>
+    /// Collection indexing pattern.
+    /// </summary>
+    /// <remarks name="CollectionIndexingFixtureAttribute">
+    ///<para>
+    ///The <see cref="CollectionIndexingFixtureAttribute"/> implements the <b>Collection Indexing Pattern</b>.
+    ///</para>
+    ///<para>
+    ///The user provides filled collection, index type and index range through
+    ///the <see cref="IndexerProviderAttribute"/> attribute.
+    ///</para>
+    ///</remarks>
+    /// <example name="Indexing">
+    /// <para>
+    /// This example checks the Collection Indexing Pattern for the <see cref="ArrayList"/>
+    /// and <see cref="Array"/> collections:
+    /// </para>
+    /// <code>
+    /// [CollectionIndexingFixture]
+    /// public class CollectionIndexingFixtureAttributeTest
+    /// {		
+    ///     [IntIndexerProvider(typeof(ArrayList),100)]
+    ///    public ArrayList ProvideArrayList100()
+    ///     {
+    ///         ArrayList list = new ArrayList();
+    ///         for(int i =0;i &lt; 100;++i)
+    ///             list.Add(i);	 	
+    /// 		 	
+    ///         return list;
+    ///     }
+    /// 		 
+    ///     [IntIndexerProvider(typeof(Array),10)]
+    ///     public ArrayList ProvideArrayList()
+    ///     {
+    ///         ArrayList list = new ArrayList();
+    ///         for(int i=0;i &lt; 10;++i)
+    ///            list.Add(i);
+    /// 		 	
+    ///         return list;
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    public sealed class CollectionIndexingFixtureAttribute :
+        TestFixturePatternAttribute {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CollectionIndexingFixtureAttribute" /> class. />
+        /// </summary>
+        public CollectionIndexingFixtureAttribute()
+            : base() { }
 
-			// tear down
-			OptionalMethodRun tearDown = new OptionalMethodRun(typeof(TearDownAttribute),false);
-			runs.Runs.Add(tearDown);
-						
-			return runs;						
-		}
-	}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CollectionIndexingFixtureAttribute" /> class with a description. />
+        /// </summary>		
+        /// <param name="description">A string description for human reference</param>
+        public CollectionIndexingFixtureAttribute(
+            string description)
+            : base(description) { }
+
+        /// <summary>
+        /// Creates the execution logic
+        /// </summary>
+        /// <remarks>
+        /// See summary.
+        /// </remarks>
+        /// <returns>A <see cref="IRun"/> instance that represent the type
+        /// test logic.
+        /// </returns>
+        /// <example name="Indexing">
+        /// <para>
+        /// This example checks the Collection Indexing Pattern for the <see cref="ArrayList"/>
+        /// and <see cref="Array"/> collections:
+        /// </para>
+        /// <code>
+        /// [CollectionIndexingFixture]
+        /// public class CollectionIndexingFixtureAttributeTest
+        /// {		
+        ///     [IntIndexerProvider(typeof(ArrayList),100)]
+        ///    public ArrayList ProvideArrayList100()
+        ///     {
+        ///         ArrayList list = new ArrayList();
+        ///         for(int i =0;i &lt; 100;++i)
+        ///             list.Add(i);	 	
+        /// 		 	
+        ///         return list;
+        ///     }
+        /// 		 
+        ///     [IntIndexerProvider(typeof(Array),10)]
+        ///     public ArrayList ProvideArrayList()
+        ///     {
+        ///         ArrayList list = new ArrayList();
+        ///         for(int i=0;i &lt; 10;++i)
+        ///            list.Add(i);
+        /// 		 	
+        ///         return list;
+        ///     }
+        /// }
+        /// </code>
+        /// </example>
+        public override IRun GetRun() {
+            SequenceRun runs = new SequenceRun();
+
+            // set up
+            OptionalMethodRun setup = new OptionalMethodRun(typeof(SetUpAttribute), false);
+            runs.Runs.Add(setup);
+
+            // add tester for the indexing
+            IndexerProviderRun indexingTest = new IndexerProviderRun(
+                typeof(CollectionIndexingTester)
+                );
+            runs.Runs.Add(indexingTest);
+
+            // tear down
+            OptionalMethodRun tearDown = new OptionalMethodRun(typeof(TearDownAttribute), false);
+            runs.Runs.Add(tearDown);
+
+            return runs;
+        }
+    }
 }

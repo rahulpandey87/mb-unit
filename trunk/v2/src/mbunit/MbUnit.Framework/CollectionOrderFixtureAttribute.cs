@@ -13,93 +13,125 @@ using MbUnit.Core.Framework;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace MbUnit.Framework 
-{
-	using MbUnit.Core;
-	using MbUnit.Core.Invokers;
-	using MbUnit.Framework.Testers;
-	using System.Collections;
-	using MbUnit.Core.Runs;
-	
-	/// <summary>
-	/// Different collection order
-	/// </summary>
-	public enum CollectionOrderTest
-	{
-		/// <summary>Tests ascending order collection</summary>
-		OrderedAscending,
-		/// <summary>Tests ascending order collection</summary>
-		OrderedDescending
-	}
-	
-	/// <summary>
-	/// Collection Order Pattern implementations.
-	/// </summary>
-	/// <include file="MbUnit.Framework.doc.xml" path="doc/remarkss/remarks[@name='CollectionSortFixtureAttribute']"/>
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple=false, Inherited=true)]
-    public sealed class CollectionOrderFixtureAttribute : TestFixturePatternAttribute
-    {
-		private CollectionOrderTest order;
+namespace MbUnit.Framework {
+    using MbUnit.Core;
+    using MbUnit.Core.Invokers;
+    using MbUnit.Framework.Testers;
+    using System.Collections;
+    using MbUnit.Core.Runs;
+
+    /// <summary>
+    /// Defines the two collection sort orders for use with the <see cref="CollectionOrderFixtureAttribute"/>.
+    /// </summary>
+    public enum CollectionOrderTest {
+        /// <summary>Tests ascending order collection</summary>
+        OrderedAscending,
+        /// <summary>Tests ascending order collection</summary>
+        OrderedDescending
+    }
+
+    /// <summary>
+    /// Collection Order Pattern implementations.
+    /// </summary>
+    /// <remarks>
+    ///<para><em>Implements:</em> Collection Order Pattern</para>
+    ///<para><em>Logic:</em>
+    ///<code>
+    ///{Provider}
+    ///[SetUp]
+    ///{Fill}
+    ///(Order)  // internal
+    ///[TearDown]
+    ///</code>
+    ///</para>
+    ///<para>
+    ///This fixture tests sorted collections. The user must provider a
+    ///comparer and the type of desired test based on the <see cref="CollectionOrderTest"/>
+    ///enumeration: ascending, descending.
+    ///</para>
+    ///<para>
+    ///Tested collections are provided by methods tagged with the <see cref="ProviderAttribute"/>
+    ///attribute. The collection are then filled using methods tagged by the 
+    ///<see cref="FillAttribute"/> attribute. The rest of the tests is handled by the framework.
+    ///</para>
+    ///<para>
+    ///SetUp and TearDown methods can be added to set up the fixtue object.
+    ///</para>
+    ///</remarks>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    public sealed class CollectionOrderFixtureAttribute : TestFixturePatternAttribute {
+        private CollectionOrderTest order;
         private IComparer comparer;
 
-        public CollectionOrderFixtureAttribute(CollectionOrderTest order)
-        {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CollectionOrderFixtureAttribute" /> class. 
+        /// </summary>
+        /// <param name="order">The order in which the collections are sorted</param>
+        public CollectionOrderFixtureAttribute(CollectionOrderTest order) {
             this.comparer = Comparer.Default;
         }
-        public CollectionOrderFixtureAttribute(
-			CollectionOrderTest order,
-			Type comparerType
-			)
-		:base()
-		{
-			if (comparerType==null)
-				throw new ArgumentNullException("comparerType");
 
-			this.order = order;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CollectionOrderFixtureAttribute" /> class. 
+        /// </summary>
+        /// <param name="order">The order in which the collections are sorted</param>
+        /// <param name="comparerType">The type derived from <see cref="IComparer" /> that defines how the members of the collection willbe compared.</param>
+        public CollectionOrderFixtureAttribute(
+            CollectionOrderTest order,
+            Type comparerType
+            )
+            : base() {
+            if (comparerType == null)
+                throw new ArgumentNullException("comparerType");
+
+            this.order = order;
             this.comparer = (IComparer)Activator.CreateInstance(comparerType);
         }
-		
-		public override IRun GetRun()
-		{
-			SequenceRun runs = new SequenceRun();
 
-			// set up
-			OptionalMethodRun setup = new OptionalMethodRun(typeof(SetUpAttribute),false);			
-			runs.Runs.Add( setup );
+        /// <summary>
+        /// Creates the run order for the collection
+        /// </summary>
+        /// <returns>An object derived from <see cref="IRun" /> (a <see cref="SequenceRun" /> object that contains the order of execution</returns>
+        public override IRun GetRun() {
+            SequenceRun runs = new SequenceRun();
 
-			// collection providers			
-			MethodRun provider = new MethodRun(
-			                                   typeof(ProviderAttribute),
-			                                   typeof(ArgumentFeederRunInvoker),
-			                                   false,
-			                                   true
-			                                   );
-			runs.Runs.Add(provider);
-			
-			
-			// fill
-			MethodRun fill = new MethodRun(typeof(FillAttribute),
-			                               false,
-			                               true
-			                               );
-			runs.Runs.Add(fill);
+            // set up
+            OptionalMethodRun setup = new OptionalMethodRun(typeof(SetUpAttribute), false);
+            runs.Runs.Add(setup);
 
-			// add tester for the order
-			CustomRun orderTest = new CustomRun(
-				typeof(CollectionOrderTester),
-				typeof(TestAttribute),
-				true, // it test
-				this.order, // constructor arguments
-				comparer
-				);
-			runs.Runs.Add( orderTest );
+            // collection providers			
+            MethodRun provider = new MethodRun(
+                                               typeof(ProviderAttribute),
+                                               typeof(ArgumentFeederRunInvoker),
+                                               false,
+                                               true
+                                               );
+            runs.Runs.Add(provider);
 
-			// tear down
-			OptionalMethodRun tearDown = new OptionalMethodRun(typeof(TearDownAttribute),false);
-			runs.Runs.Add(tearDown);
 
-						
-			return runs;						
-		}
-	}
+            // fill
+            MethodRun fill = new MethodRun(typeof(FillAttribute),
+                                           false,
+                                           true
+                                           );
+            runs.Runs.Add(fill);
+
+            // add tester for the order
+            CustomRun orderTest = new CustomRun(
+                typeof(CollectionOrderTester),
+                typeof(TestAttribute),
+                true, // it test
+                this.order, // constructor arguments
+                comparer
+                );
+            runs.Runs.Add(orderTest);
+
+            // tear down
+            OptionalMethodRun tearDown = new OptionalMethodRun(typeof(TearDownAttribute), false);
+            runs.Runs.Add(tearDown);
+
+
+            return runs;
+        }
+    }
 }

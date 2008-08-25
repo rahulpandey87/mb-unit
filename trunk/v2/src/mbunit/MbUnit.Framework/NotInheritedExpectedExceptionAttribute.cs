@@ -29,24 +29,73 @@ using System;
 namespace MbUnit.Framework
 {
 	/// <summary>
-	/// Tags method that should throw an exception.
+	/// In the case where your test class inherits test methods from a parent class, use this tag to indicate
+	/// that the test in the subclass should expect a different type of exception
 	/// </summary>
-	/// <include file="MbUnit.Framework.Doc.xml" path="doc/remarkss/remarks[@name='ExpectedExceptionAttribute']"/>	
+	/// <remarks>
+    /// This class is for use in MbUnit v2. In MbUnit v3, use Assert.Throws&lt;&gt; to handle the specific 
+    /// case of ExpectedException behavior changing 
+	/// </remarks>
+	/// <example>
+	/// <para>In the following example, TestParent is a class with a virtual test that expects an exception</para>
+	/// <code>
+	/// public class TestParent
+	/// {
+	///     [Test, ExpectedException(typeof(AnException))]
+	///     public virtual void RunThis()
+	///     {
+	///         // Expects an exception to be thrown
+	///     }
+	/// }
+	/// </code>
+	/// <para>The TestChild class inherits RunThis() from ParentClass but when overridden does not expect the same type of 
+	/// exception. Tag with [NotInheritedExpectedException] to make this clear to MbUnit</para>
+	/// <code>
+    /// public class TestClass : TestParent
+    /// {
+    ///     [Test, NotInheritedExpectedException(typeof(ADifferentException)]
+    ///     public virtual void RunThis()
+    ///     {
+    ///         // Expects an exception to be thrown
+    ///     }
+    /// }	/// </code>
+	/// </example>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
     public class NotInheritedExpectedExceptionAttribute : ExpectedExceptionAttribute
-    {		
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NotInheritedExpectedExceptionAttribute"/> class.
+        /// </summary>
+        /// <param name="exceptionType">Type of the exception expected to occur during test execution.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="exceptionType"/> is null</exception>
 		public NotInheritedExpectedExceptionAttribute(Type exceptionType) 
             : this(exceptionType, null, null)
 		{ }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NotInheritedExpectedExceptionAttribute"/> class.
+        /// </summary>
+        /// <param name="exceptionType">Type of the exception expected to occur during test execution.</param>
+        /// <param name="innerExceptionType">Type of the inner exception expected.</param>
         public NotInheritedExpectedExceptionAttribute(Type exceptionType, Type innerExceptionType)
             : this(exceptionType, null, innerExceptionType)
         { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NotInheritedExpectedExceptionAttribute"/> class.
+        /// </summary>
+        /// <param name="exceptionType">Type of the exception expected to occur during test execution.</param>
+        /// <param name="expectedMessage">The expected message in the exception.</param>
         public NotInheritedExpectedExceptionAttribute(Type exceptionType, string expectedMessage)
             : this(exceptionType, expectedMessage, null)
         { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NotInheritedExpectedExceptionAttribute"/> class.
+        /// </summary>
+        /// <param name="exceptionType">Type of the exception expected to occur during test execution.</param>
+        /// <param name="expectedMessage">The expected message in the exception.</param>
+        /// <param name="innerExceptionType">Expected type of the inner exception.</param>
         public NotInheritedExpectedExceptionAttribute(Type exceptionType, string expectedMessage, Type innerExceptionType)
             : base(exceptionType, expectedMessage, innerExceptionType)
         { }

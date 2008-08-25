@@ -29,9 +29,16 @@ using System.Diagnostics;
 
 namespace MbUnit.Framework
 {
+    /// <summary>
+    /// Class containing static helper methods for retrieving performance counters.
+    /// For use in conjunction with <see cref="PerfCounterAttribute"/>
+    /// </summary>
     public class PerfCounterInfo
     {
         #region Constructors
+        /// <summary>
+        /// Private constructor for a new instance of the <see cref="PerfCounterInfo"/> class.
+        /// </summary>
         private PerfCounterInfo() { }
         #endregion
 
@@ -67,6 +74,14 @@ namespace MbUnit.Framework
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
 
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -97,6 +112,14 @@ namespace MbUnit.Framework
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
 
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -127,6 +150,14 @@ namespace MbUnit.Framework
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
 
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -157,6 +188,14 @@ namespace MbUnit.Framework
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
 
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -187,6 +226,14 @@ namespace MbUnit.Framework
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
 
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -232,6 +279,14 @@ namespace MbUnit.Framework
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
 
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -262,6 +317,14 @@ namespace MbUnit.Framework
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
 
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -292,6 +355,14 @@ namespace MbUnit.Framework
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
 
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -322,6 +393,14 @@ namespace MbUnit.Framework
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
 
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -352,6 +431,14 @@ namespace MbUnit.Framework
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
 
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -382,6 +469,14 @@ namespace MbUnit.Framework
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
 
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -412,6 +507,14 @@ namespace MbUnit.Framework
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
 
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -456,7 +559,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -486,7 +596,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -516,7 +633,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -546,7 +670,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -576,7 +707,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -621,7 +759,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -651,7 +796,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -681,7 +833,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -711,7 +870,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -741,7 +907,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -771,7 +944,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -801,7 +981,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -831,7 +1018,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -861,7 +1055,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -891,7 +1092,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -921,7 +1129,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -951,7 +1166,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -981,7 +1203,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -1011,7 +1240,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -1041,7 +1277,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -1071,7 +1314,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -1101,7 +1351,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -1131,7 +1388,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -1161,7 +1425,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -1191,7 +1462,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -1221,7 +1499,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -1251,7 +1536,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -1281,7 +1573,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -1311,7 +1610,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -1356,7 +1662,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -1386,7 +1699,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -1416,7 +1736,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -1446,7 +1773,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -1476,7 +1810,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2031,7 +2372,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2061,7 +2409,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2091,7 +2446,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2121,7 +2483,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2151,7 +2520,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2181,7 +2557,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2211,7 +2594,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2241,7 +2631,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2271,7 +2668,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2301,7 +2705,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2331,7 +2742,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2361,7 +2779,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2391,7 +2816,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2421,7 +2853,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2451,7 +2890,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2481,7 +2927,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2526,7 +2979,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2556,7 +3016,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2586,7 +3053,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2616,7 +3090,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2646,7 +3127,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2676,7 +3164,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2721,7 +3216,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2751,7 +3253,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2781,7 +3290,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2811,7 +3327,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2841,7 +3364,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2871,7 +3401,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2901,7 +3438,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2946,7 +3490,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -2976,7 +3527,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -3006,7 +3564,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -3036,7 +3601,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -3066,7 +3638,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -3096,7 +3675,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -3126,7 +3712,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -3156,7 +3749,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -3186,7 +3786,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -3216,7 +3823,14 @@ namespace MbUnit.Framework
                 {
                     return NextValue(Process.GetCurrentProcess().ProcessName);
                 }
-
+                /// <summary>
+                /// Gets the value of the <see cref="PerformanceCounter"/>.
+                /// </summary>
+                /// <param name="instanceName">Name of the counter instance to query.</param>
+                /// <returns>
+                /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+                /// for the named instance.
+                /// </returns>
                 public static float NextValue(string instanceName)
                 {
                     return PerfCounterInfo.NextValue(
@@ -3584,6 +4198,16 @@ namespace MbUnit.Framework
 
         #endregion
 
+        /// <summary>
+        /// Gets the value of the <see cref="PerformanceCounter"/>.
+        /// </summary>
+        /// <param name="categoryName">Name of the performance counter category.</param>
+        /// <param name="counterName">Name of the performance counter to query.</param>
+        /// <param name="instanceName">Name of the counter instance to query.</param>
+        /// <returns>
+        /// Value returned by <see cref="PerformanceCounter.NextValue"/>
+        /// for the named instance.
+        /// </returns>
         public static float NextValue(
             string categoryName,
             string counterName,

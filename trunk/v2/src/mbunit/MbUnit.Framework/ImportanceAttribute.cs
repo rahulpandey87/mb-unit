@@ -41,9 +41,10 @@ namespace MbUnit.Framework
 		NoOneReallyCaresAbout
 	}
 
-	/// <summary>
-	/// This attribute collects the test importance information.
-	/// </summary>
+    /// <summary>
+    /// Associates a <see cref="TestImportance" /> with a test fixture, test method, test parameter
+    /// or other test component.
+    /// </summary>
 	/// <remarks>
 	/// Fixture importance is labelled from 0, critical to higher values
 	/// representing less critical tests.
@@ -54,11 +55,19 @@ namespace MbUnit.Framework
 	{
 		private TestImportance importance;
 
+        /// <summary>
+        /// Associates a <see cref="TestImportance" />  with the test component annotated by this attribute.
+        /// </summary>
+        /// <param name="importance">The importance to associate</param>
 		public ImportanceAttribute(TestImportance importance)
 		{
 			this.importance = importance;
 		}
 
+        /// <summary>
+        /// Gets the importance.
+        /// </summary>
+        /// <value>The importance.</value>
 		[Category("Data")]
 		public TestImportance Importance			
 		{
@@ -68,6 +77,12 @@ namespace MbUnit.Framework
 			}
 		}
 
+        /// <summary>
+        /// Returns a <see cref="T:System.String"/> that represents the current <see cref="TestImportance"/>.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="T:System.String"/> that represents the current <see cref="TestImportance"/>.
+        /// </returns>
 		public override string ToString()
 		{
 			return String.Format("Importance: {0}",

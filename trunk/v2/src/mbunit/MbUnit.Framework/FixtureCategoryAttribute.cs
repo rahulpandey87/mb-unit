@@ -28,10 +28,26 @@ using System;
 
 namespace MbUnit.Framework
 {
+    /// <summary>
+    /// Used to tag a test fixture class with a category for use in the MbUnit GUi or console runner
+    /// </summary>
+    /// <example>
+    /// <code>
+    /// [TestFixture]
+    /// [FixtureCategory("My Category")]
+    /// public class SomeTests
+    /// { ... }
+    /// </code>
+    /// </example>
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple=true)]
 	public class FixtureCategoryAttribute : Attribute
 	{
 		private string category;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FixtureCategoryAttribute"/> class.
+        /// </summary>
+        /// <param name="category">The name of the category to assing to the test fixture</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="category"/> is null</exception>
 		public FixtureCategoryAttribute(string category)
 		{
 			if(category==null)
@@ -39,6 +55,10 @@ namespace MbUnit.Framework
 			this.category = category;
 		}
 
+        /// <summary>
+        /// Gets or sets the test fixture category.
+        /// </summary>
+        /// <value>The test fixture category.</value>
 		public string Category
 		{
 			get

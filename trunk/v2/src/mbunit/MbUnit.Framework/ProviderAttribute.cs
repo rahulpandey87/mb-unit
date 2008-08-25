@@ -27,63 +27,81 @@ using MbUnit.Core.Framework;
 using System;
 
 
-namespace MbUnit.Framework 
-{
-	
-	
-	/// <summary>
-	/// Tags method that provide new object to be used in the following tests.
-	/// </summary>
-	/// <include file="MbUnit.Framework.Doc.xml" path="doc/remarkss/remarks[@name='ProviderAttribute']"/>
-	[AttributeUsage(AttributeTargets.Method, AllowMultiple=false, Inherited=true)]
-	public class ProviderAttribute : PatternAttribute
-	{
-		private Type providerType =null;
+namespace MbUnit.Framework {
 
-		/// <summary>
-		/// Constructs a provider attribute for the <paramref name="providerType"/>
-		/// type.
-		/// </summary>
-		/// <param name="providerType">provider type</param>
-		public ProviderAttribute(Type providerType) 
-		{
-			if (providerType==null)
-				throw new ArgumentNullException("providerType");
-			this.providerType=providerType;
-		}
-		
-		/// <summary>
-		/// Constructs a provider attribute for the <paramref name="providerType"/>
-		/// type.
-		/// </summary>
-		/// <param name="providerType">provider type</param>
-		/// <param name="description">description of the provider</param>
-		public ProviderAttribute(Type providerType, string description)
-		:base(description)
-		{
-			if (providerType==null)
-				throw new ArgumentNullException("providerType");
-			this.providerType=providerType;
-		}
-		
-		/// <summary>
-		/// Gets or sets the provided type
-		/// </summary>
-		/// <value>
-		/// Provided type.
-		/// </value>
-		public Type ProviderType
-		{
-			get
-			{
-				return this.providerType;
-			}
-			set
-			{
-				if (value==null)
-					throw new ArgumentNullException("value");
-				this.providerType = value;
-			}
-		}
-	}
+
+    /// <summary>
+    /// Tags method that provide new objects to be used by tests within a <see cref="TypeFixtureAttribute"/>
+    /// tagged fixture class. The type-specific fixture assumes that all tests contained in the fixture that have
+    /// an argument of the same type specified in the <see cref="TypeFixtureAttribute"/> will be provided by
+    /// the methods tagged by <see cref="ProviderAttribute"/> or by a class specified by the <see cref="ProviderFactoryAttribute"/>
+    /// tagging the same fixture class as the <see cref="TypeFixtureAttribute"/>.
+    /// </summary>
+    /// <remarks>
+    /// <para>This fixture is particularly useful for writing fixtures of interfaces and apply it to all the types that implement the interface.</para>
+    /// </remarks>
+    /// <example>
+    /// <para>For a complete demonstration of TypeFixtures and Providers, see <see cref="TypeFixtureAttribute"/>.</para>
+    /// <para>The following example shows a method returning an ArrayList marked as a provider for IList methods</para>
+    /// <code>
+    /// [Provider(typeof(ArrayList))]
+    /// public ArrayList ProvideFilledArrayList()
+    /// {
+    ///     ArrayList list = new ArrayList();
+    /// 	list.Add("hello");
+    /// 	list.Add("world");
+    /// 	return list;
+    /// }
+    /// </code>
+    /// </example>
+    /// <seealso cref="ProviderFactoryAttribute"/>
+    /// <seealso cref="FactoryAttribute"/>
+    /// <seealso cref="TypeFixtureAttribute"/>
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    public class ProviderAttribute : PatternAttribute {
+        private Type providerType = null;
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProviderAttribute"/> class.
+        /// </summary>
+        /// <param name="providerType">The <see cref="Type"/> of object returned by the tagged method</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="providerType"/> is null</exception>
+        public ProviderAttribute(Type providerType) {
+            if (providerType == null)
+                throw new ArgumentNullException("providerType");
+            this.providerType = providerType;
+        }
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProviderAttribute"/> class.
+        /// </summary>
+        /// <param name="description">The description of the method.</param>
+        /// <param name="providerType">The <see cref="Type"/> of object returned by the tagged method</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="providerType"/> is null</exception>
+        public ProviderAttribute(Type providerType, string description)
+            : base(description) {
+            if (providerType == null)
+                throw new ArgumentNullException("providerType");
+            this.providerType = providerType;
+        }
+
+
+        /// <summary>
+        /// Gets or sets the type returned by the provider.
+        /// </summary>
+        /// <value>The type returned by the provider.</value>
+        /// <exception cref="ArgumentNullException">Thrown if value is null</exception>
+        public Type ProviderType {
+            get {
+                return this.providerType;
+            }
+            set {
+                if (value == null)
+                    throw new ArgumentNullException("value");
+                this.providerType = value;
+            }
+        }
+    }
 }
