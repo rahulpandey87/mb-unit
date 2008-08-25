@@ -29,15 +29,22 @@ using MbUnit.Core.Framework;
 
 namespace MbUnit.Framework
 {
-	/// <summary>
-	/// Summary description for ProviderFixtureDecoratorPatternAttribute.
-	/// </summary>
+    /// <summary>
+    /// This is the base class for attributes that can decorate fixtures identifying them as using provider classes.
+    /// </summary>
 	public abstract class ProviderFixtureDecoratorPatternAttribute
 		: FixtureDecoratorPatternAttribute
 	{
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProviderFixtureDecoratorPatternAttribute"/> class.
+        /// </summary>
 		protected ProviderFixtureDecoratorPatternAttribute()
 		{}
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProviderFixtureDecoratorPatternAttribute"/> class.
+        /// </summary>
+        /// <param name="description">A brief description of the provider.</param>
 		protected ProviderFixtureDecoratorPatternAttribute(string description)
 			:base(description)
 		{}	

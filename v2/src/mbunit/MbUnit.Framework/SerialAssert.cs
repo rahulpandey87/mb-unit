@@ -32,31 +32,32 @@ using System.Runtime.Serialization;
 
 namespace MbUnit.Framework
 {
+    /// <summary>
+    /// Class containing generic assert methods on the serialization capability of a type or object
+    /// </summary>
 	public sealed class SerialAssert
 	{
 		#region Hiding constructor
 		private SerialAssert()
 		{}
 		#endregion
-		
-		/// <summary>
-		/// Verifies that the type is serializable with the XmlSerializer object.
-		/// </summary>
-		/// <param name="t">
-		/// type to test.
-		/// </param>
+
+        /// <summary>
+        /// Verifies that the type <paramref name="t"/> is serializable with the XmlSerializer object.
+        /// </summary>
+        /// <param name="t">The type to test.</param>
 		public static void IsXmlSerializable(Type t)
 		{
 			Assert.IsNotNull(t);
 			XmlSerializer ser=new XmlSerializer(t);
 		}
-		
-		/// <summary>
-		/// Serializes and deserialies to/from XML and checks that the results are the same.
-		/// </summary>
-		/// <param name="o">
-		/// Object to test
-		/// </param>
+
+        /// <summary>
+        /// Verifies that an <see cref="Object"/>
+        /// 	<paramref name="o"/> can be serialized and deserialized to/from XML
+        /// and that the results are the same once both are done.
+        /// </summary>
+        /// <param name="o">The <see cref="Object"/> to test</param>
 		public static void TwoWaySerialization(Object o)
 		{
 			Assert.IsNotNull(o);
@@ -79,6 +80,13 @@ namespace MbUnit.Framework
 			Assert.AreEqual(o,oReturn);
 		}
 
+
+        /// <summary>
+        /// Verifies that an <see cref="Object"/>
+        /// 	<paramref name="o"/> is not null and then serialized into a valid XML document
+        /// </summary>
+        /// <param name="o">The <see cref="Object"/> to serialize</param>
+        /// <returns>The serialized object as a XML string</returns>
 		public static string OneWaySerialization(Object o)
 		{
 			Assert.IsNotNull(o);

@@ -31,6 +31,7 @@ using System.ComponentModel;
 
 namespace MbUnit.Framework
 {
+    [Obsolete("This demonstration of subclassing the Author attribute will be removed in MbUnit v3")]
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
 	public class PelikhanAttribute : AuthorAttribute
 	{
@@ -39,10 +40,10 @@ namespace MbUnit.Framework
 		{}
 	}
 
-	/// <summary>
-	/// This attribute identifies the author of a test fixture.
-	/// </summary>
-	/// <include file="MbUnit.Framework.Doc.xml" path="doc/remarkss/remarks[@name='AuthorAttribute']"/>
+    /// <summary>
+    /// Associates the author's name and email address with a test fixture, test method,
+    /// test parameter or other test component.
+    /// </summary>
 	[AttributeUsage(AttributeTargets.Class,AllowMultiple=true,Inherited=true)]
 	[TypeConverter(typeof(ExpandableObjectConverter))]
 	public class AuthorAttribute : InformationAttribute
@@ -51,14 +52,32 @@ namespace MbUnit.Framework
 		private string email = "";
 		private string homePage = "";
 
+        /// <summary>
+        /// Associates the author's name with the test component annotated
+        /// by this attribute.
+        /// </summary>
+        /// <param name="name">The author's name</param>
         public AuthorAttribute(string name)
             : this(name, "", "unspecified")
         { }
 
+        /// <summary>
+        /// Associates the author's name and email address with the test component annotated
+        /// by this attribute.
+        /// </summary>
+        /// <param name="name">The author's name</param>
+        /// <param name="email">The author's email address</param>
 		public AuthorAttribute(string name, string email)
             : this(name, email, "unspecified")
 		{ }
 
+        /// <summary>
+        /// Associates the author's name, email address and homepage with the test component annotated
+        /// by this attribute.
+        /// </summary>
+        /// <param name="name">The author's name</param>
+        /// <param name="email">The author's email address</param>
+        /// <param name="homePage">The author's home page</param>
 		public AuthorAttribute(string name, string email, string homePage)
 		{
 			this.name = name;
@@ -66,6 +85,9 @@ namespace MbUnit.Framework
 			this.homePage = homePage;
 		}
 
+        /// <summary>
+        /// Gets or sets the author's name.
+        /// </summary>
 		[Category("Data")]
 		public string Name
 		{
@@ -75,6 +97,9 @@ namespace MbUnit.Framework
 			}
 		}
 
+        /// <summary>
+        /// Gets or sets the author's email address or empty string if none.
+        /// </summary>
 		[Category("Data")]
 		public string EMail
 		{
@@ -84,6 +109,9 @@ namespace MbUnit.Framework
 			}
 		}
 
+        /// <summary>
+        /// Gets or sets the author's homepage or empty string if none.
+        /// </summary>
 		[Category("Data")]
 		public string HomePage			
 		{
@@ -93,6 +121,7 @@ namespace MbUnit.Framework
 			}
 		}
 
+        /// <inheritdoc />
 		public override string ToString()
 		{
 			return String.Format("{0},  {1}, {2}",

@@ -34,21 +34,17 @@ using MbUnit.Core.Exceptions;
 namespace MbUnit.Framework
 {
 	/// <summary>
-	/// String Assertion class
+    /// Class containing generic assert methods for <see cref="String"/>s
 	/// </summary>
 	public sealed class StringAssert
 	{
 		private StringAssert(){}
-	
-		/// <summary>
-		/// Asserts that two strings are equal, ignoring the case
-		/// </summary>
-		/// <param name="s1">
-		/// Expected string
-		/// </param>
-		/// <param name="s2">
-		/// Actual string
-		/// </param>
+
+        /// <summary>
+        /// Asserts that two strings <paramref name="s1"/> and <paramref name="s2"/> are equal, ignoring the case
+        /// </summary>
+        /// <param name="s1">Expected string</param>
+        /// <param name="s2">Actual string</param>
 		public static void AreEqualIgnoreCase(string s1, string s2)
 		{
 			if (s1==null || s2==null)
@@ -57,12 +53,10 @@ namespace MbUnit.Framework
 				Assert.AreEqual(s1.ToLower(), s2.ToLower());
 		}
 
-		/// <summary>
-		/// Asserts that the string is non null and empty
-		/// </summary>
-		/// <param name="s">
-		/// String to test.
-		/// </param>
+        /// <summary>
+        /// Asserts that the string <paramref name="s"/> is non null and empty
+        /// </summary>
+        /// <param name="s">String to test.</param>
 		public static void IsEmpty(String s)
 		{
 			Assert.IsNotNull(s,"String is null");
@@ -70,12 +64,10 @@ namespace MbUnit.Framework
 			                "String count is not 0");
 		}
 
-		/// <summary>
-		/// Asserts that the string is non null and non empty
-		/// </summary>
-		/// <param name="s">
-		/// String to test.
-		/// </param>
+        /// <summary>
+        /// Asserts that the string <paramref name="s"/> is non null and non empty
+        /// </summary>
+        /// <param name="s">String to test.</param>
 		public static void IsNonEmpty(String s)
 		{
 			Assert.IsNotNull(s,"String is null");
@@ -83,31 +75,22 @@ namespace MbUnit.Framework
 			                "String count is 0");
 		}
 
-		/// <summary>
-		/// Asserts the regular expression reg makes a full match on s
-		/// </summary>
-		/// <param name="s">
-		/// String to test.
-		/// </param>
-		/// <param name="reg">
-		/// Regular expression
-		/// </param>
+        /// <summary>
+        /// Asserts the regular expression <paramref name="reg"/> makes a full match on <paramref name="s"/>
+        /// </summary>
+        /// <param name="s">String to test.</param>
+        /// <param name="reg">Regular expression as a string</param>
 		public static void FullMatch(String s, string reg)
 		{
 			Regex regex = new Regex(reg);
 			FullMatch(s,regex);
 		}
 
-		/// <summary>
-		/// Asserts the regular expression regex makes a full match on
-		///<paramref name="s"/>.
-		/// </summary>		
-		/// <param name="s">
-		/// String to test.
-		/// </param>
-		/// <param name="regex">
-		/// Regular expression
-		/// </param>
+        /// <summary>
+        /// Asserts the regular expression <paramref name="regex"/> makes a full match on <paramref name="s"/>
+        /// </summary>
+        /// <param name="s">String to test.</param>
+        /// <param name="regex">Regular expression as a <see cref="Regex"/> object</param>
 		public static void FullMatch(String s, Regex regex)
 		{
 			Assert.IsNotNull(regex);
@@ -117,30 +100,22 @@ namespace MbUnit.Framework
 			Assert.AreEqual(s.Length, m.Length, "Not a full match");
 		}
 
-		/// <summary>
-		/// Asserts the regular expression reg makes a match on s
-		/// </summary>
-		/// <param name="s">
-		/// String to test.
-		/// </param>
-		/// <param name="reg">
-		/// Regular expression
-		/// </param>
+        /// <summary>
+        /// Asserts the regular expression <paramref name="reg"/> makes a match on <paramref name="s"/>
+        /// </summary>
+        /// <param name="s">String to test.</param>
+        /// <param name="reg">Regular expression as a string</param>
 		public static void Like(String s, string reg)
 		{
 			Regex regex = new Regex(reg);
 			Like(s,regex);
 		}
 
-		/// <summary>
-		/// Asserts the regular expression regex makes a match on s
-		/// </summary>	
-		/// <param name="s">
-		/// String to test.
-		/// </param>
-		/// <param name="regex">
-		/// A <see cref="Regex"/> instance. 
-		/// </param>
+        /// <summary>
+        /// Asserts the regular expression <paramref name="regex"/> makes a match on <paramref name="s"/>
+        /// </summary>
+        /// <param name="s">String to test.</param>
+        /// <param name="regex">Regular expression as a <see cref="Regex"/> object</param>
 		public static void Like(String s, Regex regex)
 		{
 			Assert.IsNotNull(regex);
@@ -149,30 +124,22 @@ namespace MbUnit.Framework
 			Assert.IsTrue(m.Success, "Match is not successful");
 		}
 
-		/// <summary>
-		/// Asserts the regular expression reg makes a match on s
-		/// </summary>
-		/// <param name="s">
-		/// String to test.
-		/// </param>
-		/// <param name="reg">
-		/// Regular expression
-		/// </param>
+        /// <summary>
+        /// Asserts the regular expression <paramref name="reg"/> makes no match on <paramref name="s"/>
+        /// </summary>
+        /// <param name="s">String to test.</param>
+        /// <param name="reg">Regular expression as a string</param>
 		public static void NotLike(String s, string reg)
 		{
 			Regex regex = new Regex(reg);
 			NotLike(s,regex);
 		}
 
-		/// <summary>
-		/// Asserts the regular expression regex makes a match on s
-		/// </summary>		
-		/// <param name="s">
-		/// String to test.
-		/// </param>
-		/// <param name="regex">
-		/// A <see cref="Regex"/> instance. 
-		/// </param>
+        /// <summary>
+        /// Asserts the regular expression <paramref name="regex"/> makes no match on <paramref name="s"/>
+        /// </summary>
+        /// <param name="s">String to test.</param>
+        /// <param name="regex">Regular expression as a <see cref="Regex"/> object</param>
 		public static void NotLike(String s, Regex regex)
 		{
 			Assert.IsNotNull(regex);
@@ -181,15 +148,11 @@ namespace MbUnit.Framework
 			Assert.IsFalse(m.Success, "Match was found successful");
 		}
 
-		/// <summary>
-		/// Asserts the string does not contain c
-		/// </summary>	
-		/// <param name="s">
-		/// String to test.
-		/// </param>
-		/// <param name="anyOf">
-		/// Variable list of characeters.
-		/// </param> 			
+        /// <summary>
+        /// Asserts the string <paramref name="s"/> contains none of the <see cref="char"/>s in <paramref name="anyOf"/>
+        /// </summary>
+        /// <param name="s">String to test.</param>
+        /// <param name="anyOf">Array of characters to search for.</param>
 		public static void DoesNotContain(String s, params char[] anyOf)
 		{
 			if (s==null)
@@ -200,18 +163,33 @@ namespace MbUnit.Framework
 			                s,s.IndexOfAny(anyOf));
 		}
 
+        /// <summary>
+        /// Asserts the string <paramref name="s"/> starts with the string <paramref name="pattern"/>
+        /// </summary>
+        /// <param name="s">The string to check</param>
+        /// <param name="pattern">The string that might be found at the start of <paramref name="s"/></param>
         public static void StartsWith(String s, string pattern)
         {
             Assert.IsTrue(s.StartsWith(pattern), "String [[{0}]] does not start with [[{1}]]",
                 s, pattern);
         }
 
+        /// <summary>
+        /// Asserts the string <paramref name="s"/> ends with the string <paramref name="pattern"/>
+        /// </summary>
+        /// <param name="s">The string to check</param>
+        /// <param name="pattern">The string that might be found at the end of <paramref name="s"/></param>
         public static void EndsWith(String s, string pattern)
         {
             Assert.IsTrue(s.EndsWith(pattern), "String [[{0}]] does not end with [[{1}]]",
                 s, pattern);
         }
 
+        /// <summary>
+        /// Asserts the string <paramref name="s"/> contains the string <paramref name="contain"/>
+        /// </summary>
+        /// <param name="s">The string to check</param>
+        /// <param name="contain">The string that might be found within <paramref name="s"/></param>
         public static void Contains(String s, string contain)
         {
             Assert.IsTrue(s.IndexOf(contain) >= 0, "String [[{0}]] does not contain [[{1}]]",

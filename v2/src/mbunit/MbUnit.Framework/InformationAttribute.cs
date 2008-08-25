@@ -28,6 +28,10 @@ using System;
 
 namespace MbUnit.Framework
 {
+    /// <summary>
+    /// Derive from this class to tag any class, method or property and associate information with it to be picked up by 
+    /// console or GUI test runners. For example, author name and test importance
+    /// </summary>
 	[AttributeUsage(AttributeTargets.All,AllowMultiple=true,Inherited=true)]
 	public class InformationAttribute : Attribute
 	{}

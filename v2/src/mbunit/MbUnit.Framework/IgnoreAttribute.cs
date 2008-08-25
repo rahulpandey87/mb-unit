@@ -27,22 +27,42 @@ using MbUnit.Core.Invokers;
 
 namespace MbUnit.Framework 
 {
-	/// <summary>
-	/// Tags test methods that should be ignored.
-	/// </summary>
-	/// <include file="MbUnit.Framework.Doc.xml" path="doc/remarkss/remarks[@name='IgnoreAttribute']"/>
+    /// <summary>
+    /// <para>
+    /// Indicates that a test is to be ignored by the framework and will not be run.
+    /// The test will still appear in test reports along with the reason that it
+    /// was ignored, if provided.
+    /// </para>
+    /// <para>
+    /// This attribute can be used to disable tests that are broken or expensive
+    /// without commenting them out or removing them from the source code.
+    /// </para>
+    /// </summary>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public sealed class IgnoreAttribute : DecoratorPatternAttribute
     {
+        /// <summary>
+        /// Indicates that this test is to be ignored and provides a reason.
+        /// </summary>
+        /// <param name="description">The reason for which the test is to be ignored</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="description"/>
+        /// is null</exception>
 		public IgnoreAttribute(string description)
 			:base(description)
 		{}
 
-
+        /// <summary>
+        /// Indicates that this test is to be ignored without providing a reason.
+        /// </summary>
 		public IgnoreAttribute()
 			:base("")
 		{}
 
+        /// <summary>
+        /// Returns the invoker class to run the test with the given duration parameters.
+        /// </summary>
+        /// <param name="wrapper">The invoker currently set to run the test.</param>
+        /// <returns>A new <see cref="IgnoreRunInvoker"/> object wrapping <paramref name="wrapper"/></returns>
 		public override IRunInvoker GetInvoker(MbUnit.Core.Invokers.IRunInvoker wrapper) 
 		{
 			return new IgnoreRunInvoker(wrapper);			

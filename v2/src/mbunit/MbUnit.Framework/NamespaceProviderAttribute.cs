@@ -30,6 +30,10 @@ namespace MbUnit.Framework
 {
 	using MbUnit.Core.Runs;
 
+    /// <summary>
+    /// Tags a class as a namespace provider. For use with a <see cref="TypeFixtureAttribute"/> tagged class
+    /// instead of a <see cref="ProviderFactoryAttribute"/> tagged type.
+    /// </summary>
 	public class NamespaceProviderAttribute : ProviderFixtureDecoratorPatternAttribute
 	{
 		private Type typeToAssembly;
@@ -37,6 +41,11 @@ namespace MbUnit.Framework
 		private string _namespace = "";
 		private bool recurse = true;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NamespaceProviderAttribute"/> class.
+        /// </summary>
+        /// <param name="typeToAssembly">The <see cref="Type"/> of the assembly.</param>
+        /// <param name="factoredType">Type of the factored.</param>
 		public NamespaceProviderAttribute(
 			Type typeToAssembly, 
 			Type factoredType)
@@ -49,7 +58,13 @@ namespace MbUnit.Framework
 			this.typeToAssembly = typeToAssembly;
 			this.factoredType = factoredType;
 		}
-		
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NamespaceProviderAttribute"/> class.
+        /// </summary>
+        /// <param name="typeToAssembly">The <see cref="Type"/> of the assembly.</param>
+        /// <param name="factoredType">Type of the factored.</param>
+        /// <param name="description">A brief description of the provider for reference.</param>
 		public NamespaceProviderAttribute(Type typeToAssembly, Type factoredType, string description)
 			:base(description)
 		{
@@ -62,6 +77,10 @@ namespace MbUnit.Framework
 			this.factoredType = factoredType;
 		}
 
+        /// <summary>
+        /// Gets or sets the assembly type.
+        /// </summary>
+        /// <value>The assembly type.</value>
 		public Type TypeToAssembly
 		{
 			get
@@ -76,6 +95,10 @@ namespace MbUnit.Framework
 			}
 		}
 
+        /// <summary>
+        /// Gets or sets the factored type.
+        /// </summary>
+        /// <value>The factored type.</value>
 		public Type FactoredType
 		{
 			get
@@ -90,6 +113,10 @@ namespace MbUnit.Framework
 			}
 		}
 
+        /// <summary>
+        /// Gets or sets the namespace.
+        /// </summary>
+        /// <value>The namespace.</value>
 		public String Namespace
 		{
 			get
@@ -103,6 +130,10 @@ namespace MbUnit.Framework
 		}
 
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="NamespaceProviderAttribute"/> is recursive.
+        /// </summary>
+        /// <value><c>true</c> if recursive; otherwise, <c>false</c>.</value>
 		public bool Recurse
 		{
 			get
@@ -115,6 +146,11 @@ namespace MbUnit.Framework
 			}
 		}
 
+        /// <summary>
+        /// Gets the test runner class defining all the test to be run within the tagged fixture class.
+        /// </summary>
+        /// <param name="decoratedType">Type of the decorated.</param>
+        /// <returns>An <see cref="AssemblyProviderRun"/> object</returns>
 		public override IRun GetRun(Type decoratedType)
 		{
 			if (decoratedType==null)

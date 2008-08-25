@@ -28,10 +28,33 @@ using System;
 
 namespace MbUnit.Framework
 {
+    /// <summary>
+    /// Tags a class with the object type being tested by the methods it contains.
+    /// The MbUnit GUI runner uses this information to group tests under the TestsOns tree.
+    /// The default value is "Unknown"
+    /// </summary>
+    /// <example>
+    /// <code>
+    /// [TestFixture]
+    /// [TestsOn("ArrayList")]
+    /// public class SampleFixture
+    /// {
+    ///    [Test]
+    ///    public void MyTest()
+    ///    {
+    ///        ... does something with an ArrayList 
+    ///    }    
+    /// }
+    /// </code>
+    /// </example>
     [AttributeUsage(AttributeTargets.Class,AllowMultiple =true,Inherited =true)]
     public class TestsOnAttribute : Attribute
     {
         private Type testedType;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestsOnAttribute"/> class.
+        /// </summary>
+        /// <param name="testedType">The <see cref="Type"/> of object being tested within the fixture.</param>
         public TestsOnAttribute(Type testedType)
         {
             if (testedType == null)
@@ -39,6 +62,10 @@ namespace MbUnit.Framework
             this.testedType = testedType;
         }
 
+        /// <summary>
+        /// Gets the type of the tested object.
+        /// </summary>
+        /// <value>The type of the tested object.</value>
         public Type TestedType
         {
             get
@@ -47,6 +74,12 @@ namespace MbUnit.Framework
             }
         }
 
+        /// <summary>
+        /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+        /// </returns>
         public override string ToString()
         {
             return String.Format("TestsOn({0})", this.testedType.FullName);

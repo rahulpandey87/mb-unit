@@ -28,11 +28,32 @@ using System;
 
 namespace MbUnit.Framework
 {
+    /// <summary>
+    /// Use this attribute to identify the parent text fixture class or classes whose tests must execute successfully
+    /// before the tests in this class are executed
+    /// </summary>
+    /// <example>
+    /// The following demonstrates the identification of two parent fixture classes that must execute
+    /// successfully before the tests in ChildTestClass will execute
+    /// <code>
+    /// [DependsOn(ParentTestClass1)]
+    /// [DependsOn(ParentTestClass2)]
+    /// public class ChildTestClass
+    /// {
+    ///    ...
+    /// }
+    /// </code>
+    /// </example>
     [AttributeUsage(AttributeTargets.Class,AllowMultiple =true, Inherited =true)]
     public sealed class DependsOnAttribute : Attribute
     {
         private Type parentFixtureType;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DependsOnAttribute"/> class.
+        /// </summary>
+        /// <param name="parentFixtureType">Type of the parent fixture.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="parentFixtureType"/> is null</exception>
         public DependsOnAttribute(Type parentFixtureType)
         {
             if (parentFixtureType == null)
@@ -40,6 +61,10 @@ namespace MbUnit.Framework
             this.parentFixtureType = parentFixtureType;
         }
 
+        /// <summary>
+        /// Gets or sets the type of the parent fixture.
+        /// </summary>
+        /// <value>The type of the parent fixture class.</value>
         public Type ParentFixtureType
         {
             get

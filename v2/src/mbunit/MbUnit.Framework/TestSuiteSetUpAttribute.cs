@@ -32,13 +32,23 @@ namespace MbUnit.Framework
 	/// <summary>
 	/// Tag used to mark a method that needs to be run before TestSuite generation.
 	/// </summary>
-	/// <include file="MbUnit.Framework.Doc.xml" path="doc/remarkss/remarks[@name='TestSuiteSetUpAttribute']" />
+	/// <seealso cref="SetUpAttribute"/>
+	/// <seealso cref="TestFixtureSetUpAttribute"/>
+	/// <seealso cref="TestSuiteFixtureAttribute"/>
+	/// <seealso cref="TestSuiteAttribute"/>
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple=false, Inherited=true)]
 	public class TestSuiteSetUpAttribute : PatternAttribute
 	{
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestSuiteSetUpAttribute"/> class.
+        /// </summary>
         public TestSuiteSetUpAttribute()
         { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestSuiteSetUpAttribute"/> class.
+        /// </summary>
+        /// <param name="description">A brief description of the setup routine.</param>
         public TestSuiteSetUpAttribute(string description)
             : base(description)
         { }

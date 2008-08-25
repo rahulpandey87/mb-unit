@@ -32,13 +32,23 @@ namespace MbUnit.Framework
 	/// <summary>
 	/// Tag use to mark a method that writes data to a device.
 	/// </summary>
-	/// <include file="MbUnit.Framework.Doc.xml" path="doc/remarkss/remarks[@name='WriteAttribute']"/>		
+    /// <remarks>
+    /// This tag and its <see cref="ReadAttribute"/> couterpart currently are not functional.
+    /// </remarks>	
 	[AttributeUsage(AttributeTargets.Method,AllowMultiple=false,Inherited=true)]
+    [Obsolete("Will not be continued in MbUnit v3")]
 	public class WriteAttribute : TestPatternAttribute
 	{
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WriteAttribute"/> class.
+        /// </summary>
 		public WriteAttribute()
 		{}
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WriteAttribute"/> class.
+        /// </summary>
+        /// <param name="description">A brief description of the tagged method.</param>
 		public WriteAttribute(string description)
 			:base(description)
 		{}

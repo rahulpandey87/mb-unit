@@ -27,20 +27,65 @@
 using System;
 using MbUnit.Core.Framework;
 
-namespace MbUnit.Framework
-{
-	/// <summary>
-	/// Tag use to mark a method that initiliazes the fixture instance.
-	/// </summary>
-	/// <include file="MbUnit.Framework.Doc.xml" path="doc/remarkss/remarks[@name='SetUpAttribute']"/>	
-	[AttributeUsage(AttributeTargets.Method,AllowMultiple=false,Inherited=true)]
-	public class SetUpAttribute : PatternAttribute
-	{
-		public SetUpAttribute()
-		{}
+namespace MbUnit.Framework {
+    /// <summary>
+    /// <para>
+    /// The setup attribute is applied to a method that is to be invoked before
+    /// each test in a fixture executes.  The method will run once for each test.
+    /// </para>
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// The attribute may be applied to multiple methods within a fixture, however
+    /// the order in which they are processed is undefined.
+    /// </para>
+    /// <para>
+    /// The method to which this attribute is applied must be declared by the
+    /// fixture class and must not have any parameters.  The method may be static.
+    /// </para>
+    /// </remarks>	
+    /// <example>
+    /// <para>In this example MySetup will be run before each test in the SampleFixture class is run 
+    /// and MyTearDown will be run after each test finished execution</para>
+    /// <code>
+    /// [TestFixture]
+    /// public class SampleFixture
+    /// {
+    ///    private Foo foo;
+    ///    [SetUp]
+    ///    public void MySetUp()
+    ///    {
+    ///        foo = new Foo(); 
+    ///    }    
+    ///     ...
+    /// 
+    ///    [TearDown]
+    ///    public void MyTearDown()
+    ///    {
+    ///        if (foo!=null)
+    ///        {
+    ///           foo.Dispose();
+    ///           foo=null;
+    ///        }
+    ///    }
+    /// }
+    /// </code>
+    /// </example>
+    /// <see cref="TearDownAttribute"/>
+    /// <see cref="TestFixtureAttribute"/>
+    /// <see cref="TestAttribute"/>
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    public class SetUpAttribute : PatternAttribute {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SetUpAttribute"/> class.
+        /// </summary>
+        public SetUpAttribute() { }
 
-		public SetUpAttribute(string description)
-			:base(description)
-		{}
-	}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SetUpAttribute"/> class.
+        /// </summary>
+        /// <param name="description">A brief description of the setup method.</param>
+        public SetUpAttribute(string description)
+            : base(description) { }
+    }
 }

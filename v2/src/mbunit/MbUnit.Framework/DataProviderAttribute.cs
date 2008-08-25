@@ -27,42 +27,79 @@ using MbUnit.Core.Framework;
 using System;
 
 
-namespace MbUnit.Framework 
-{
-	
-	/// <summary>
-	/// Tags method that provide data for the tests.
-	/// </summary>
-	/// <include file="MbUnit.Framework.Doc.xml" path="doc/remarkss/remarks[@name='DataProviderAttribute']"/>
-	[AttributeUsage(AttributeTargets.Method, AllowMultiple=false, Inherited=true)]
-	public class DataProviderAttribute : NonTestPatternAttribute
-	{
-		private Type providerType =null;
-		public DataProviderAttribute(Type providerType) 
-		{
-			if (providerType==null)
-				throw new ArgumentNullException("providerType");
-			this.providerType=providerType;
-		}
-		
-		public DataProviderAttribute(Type providerType, string description)
-		:base(description)
-		{
-			if (providerType==null)
-				throw new ArgumentNullException("providerType");
-			this.providerType=providerType;
-		}
-		
-		public Type ProviderType
-		{
-			get
-			{
-				return this.providerType;
-			}
-			set
-			{
-				this.providerType = value;
-			}
-		}
-	}
+namespace MbUnit.Framework {
+
+    /// <summary>
+    /// The DataProvider method attribute allows you to mark a method as your collection populator for tests.
+    /// </summary>
+    /// <remarks>This tag should be used within classes marked with an <see cref="EnumerationFixtureAttribute"/>.</remarks>
+    /// <example>
+    /// <code>
+    ///    [EnumerationFixture]
+    ///    public class EnumerationFixtureAttributeAttributeTest {
+    ///        private Random rnd = new Random();
+    ///        private int count = 100;
+    /// 
+    ///        [DataProvider(typeof(ArrayList))]
+    ///        public ArrayList Data() {
+    ///            ArrayList list = new ArrayList();
+    ///            for (int i = 0; i &lt; count; ++i)
+    ///                list.Add(rnd.Next());
+    ///            return list;
+    ///        }
+    ///        [CopyToProvider(typeof(ArrayList))]
+    ///        public ArrayList ArrayListProvider(IList source) {
+    ///            ArrayList list = new ArrayList(source);
+    ///            return list;
+    ///        }
+    ///        [CopyToProvider(typeof(int[]))]
+    ///        public int[] IntArrayProvider(IList source) {
+    ///            int[] list = new int[source.Count];
+    ///            source.CopyTo(list, 0);
+    ///            return list;
+    ///        }
+    ///    }
+    /// </code>
+    /// </example>
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    public class DataProviderAttribute : NonTestPatternAttribute {
+        private Type providerType = null;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataProviderAttribute"/> class.
+        /// </summary>
+        /// <param name="providerType">The <see cref="Type"/> of object to return to tests expecting data</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="providerType"/> is null</exception>
+        public DataProviderAttribute(Type providerType) {
+            if (providerType == null)
+                throw new ArgumentNullException("providerType");
+            this.providerType = providerType;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataProviderAttribute"/> class.
+        /// </summary>
+        /// <param name="description">The description of the provider for reference</param>
+        /// <param name="providerType">The <see cref="Type"/> of object to return to tests expecting data</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="providerType"/> is null</exception>
+        public DataProviderAttribute(Type providerType, string description)
+            : base(description) {
+            if (providerType == null)
+                throw new ArgumentNullException("providerType");
+            this.providerType = providerType;
+        }
+
+        /// <summary>
+        /// Gets or sets <see cref="Type"/> of object to return to tests expecting data
+        /// </summary>
+        /// <value>The <see cref="Type"/> of object to return to tests expecting data</value>
+        public Type ProviderType {
+            get {
+                return this.providerType;
+            }
+            set {
+                this.providerType = value;
+            }
+        }
+    }
 }

@@ -12717,6 +12717,7 @@ namespace MbUnit.Framework {
         /// </example>
         /// <seealso cref="In(Object,IList)"/>
         static public void In(Object test, IList list, string message) {
+            Assert.IsNotNull(test, "tested object is null");
             Assert.IsNotNull(list, "List is a null reference");
             Assert.IsTrue(list.Contains(test),
                           "List does not contain {0} {1}", test, message);
@@ -12767,6 +12768,7 @@ namespace MbUnit.Framework {
         /// </example>
         /// <seealso cref="In(Object,IEnumerable)"/>
         static public void In(Object test, IEnumerable enumerable, string message) {
+            Assert.IsNotNull(test, "tested object is null");
             Assert.IsNotNull(enumerable, "Enumerable collection is a null reference");
             foreach (Object o in enumerable) {
                 if (object.Equals(o, test))
@@ -12955,6 +12957,7 @@ namespace MbUnit.Framework {
         /// </example>
         /// <seealso cref="NotIn(Object,IList)"/>
         static public void NotIn(Object test, IList list, string message) {
+            Assert.IsNotNull(test, "tested object is null");
             Assert.IsNotNull(list, "List is a null reference");
             Assert.IsFalse(list.Contains(test),
                           "List does contain {0} {1}", test, message);
@@ -13046,6 +13049,7 @@ namespace MbUnit.Framework {
         /// </example>
         /// <seealso cref="NotIn(Object,IEnumerable)"/>
         static public void NotIn(Object test, IEnumerable enumerable, string message) {
+            Assert.IsNotNull(test, "tested object is null");
             Assert.IsNotNull(enumerable, "Enumerable collection is a null reference");
             foreach (Object o in enumerable) {
                 Assert.IsFalse(o == test, "{0} is part of the enumeration {1}", test, message);

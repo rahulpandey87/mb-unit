@@ -6,31 +6,52 @@ using MbUnit.Core.Invokers;
 namespace MbUnit.Framework
 {
     /// <summary>
-	/// Tags methods to execute database operation in its own database
-	/// transaction.
-	/// </summary>
-	/// <remarks>
-	/// <para>
-	/// This attribute was invented by <b>Roy Osherove</b> (
-	/// http://weblogs.asp.net/rosherove/).
-	/// </para>
-	/// </remarks>
+    /// Tags a test method whose database operation must be executed within a transaction and rolled back when it has 
+    /// finished executing
+    /// </summary>
+    /// <remarks>
+    /// <para>The attribute uses EnterpriseServices to roll back the transactions done in the test case</para>
+    /// </remarks>
+    /// <example>
+    /// <para>The following example shows the <see cref="RollBackAttribute"/> in use </para>
+    /// <code>
+    /// [TestFixture]
+    /// public class RollbackTest {
+    /// 
+    ///    [Test, Rollback]
+    ///    public void TestWithRollback()
+    ///    {...}
+    /// } 
+    /// </code>
+    /// </example>
 	[AttributeUsage(AttributeTargets.Method,AllowMultiple=false,Inherited=true)]	
 	public sealed class RollBackAttribute : DecoratorPatternAttribute
 	{
 
         public int TimeOutValue = 0;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RollBackAttribute"/> class.
+        /// </summary>
         public RollBackAttribute()
         {
 
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RollBackAttribute"/> class.
+        /// </summary>
+        /// <param name="timeOutValue">The transaction timeout value in seconds</param>
         public RollBackAttribute(int timeOutValue)
         {
             TimeOutValue = timeOutValue;
         }
 
+        /// <summary>
+        /// Returns the invoker class to run the test within a transaction and roll it back once complete.
+        /// </summary>
+        /// <param name="invoker">The invoker currently set to run the test.</param>
+        /// <returns>A new <see cref="RollBackRunInvoker"/> object wrapping <paramref name="invoker"/></returns>
 		public override IRunInvoker GetInvoker(IRunInvoker invoker)
 		{
 			return new RollBackRunInvoker(invoker, TimeOutValue);

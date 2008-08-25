@@ -26,25 +26,57 @@
 
 using System;
 
-namespace MbUnit.Framework
-{
-    [AttributeUsage(AttributeTargets.Property |  AttributeTargets.Method,AllowMultiple =false,Inherited =true)]
-    public sealed class FactoryAttribute : Attribute
-    {
+namespace MbUnit.Framework {
+    /// <summary>
+    /// Used with Combinatorial Tests to indicate how to generate values for a test parameter.
+    /// Can be tagged onto a parameter directly or a method which yields values.
+    /// </summary>
+    /// <example>
+    /// This code demonstrates a simple factory method returning weekdays as strings and a test using it.
+    /// <code>
+    /// [Factory(typeof(String))]
+    /// public IEnumerable Weekdays()
+    /// {
+    ///     yield return "Monday";
+    ///     yield return "Tuesday";
+    ///     yield return "Wednesday";
+    ///     yield return "Thursday";
+    ///     yield return "Friday";
+    /// }
+    /// 
+    /// [CombinatorialTest]
+    /// public DayLengthIsSix(
+    ///     [UsingFactories("Weekdays")] string day)
+    /// {
+    ///     Assert.Equals(day.Length, 6);
+    /// }
+    /// </code>
+    /// </example>
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    public sealed class FactoryAttribute : Attribute {
         private Type factoredType = null;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FactoryAttribute"/> class.
+        /// </summary>
         public FactoryAttribute() { }
-        public FactoryAttribute(Type factoredType)
-        {
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FactoryAttribute"/> class.
+        /// </summary>
+        /// <param name="factoredType">The <see cref="Type"/> of the objects returned by the factory method</param>
+        public FactoryAttribute(Type factoredType) {
             if (factoredType == null)
                 throw new ArgumentNullException("factoredType");
             this.factoredType = factoredType;
         }
 
-        public Type FactoredType
-        {
-            get
-            {
+        /// <summary>
+        /// Returns the <see cref="Type"/> of the factory-yielded values.
+        /// </summary>
+        /// <value>The <see cref="Type"/> of the values.</value>
+        public Type FactoredType {
+            get {
                 return this.factoredType;
             }
         }

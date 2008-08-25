@@ -26,12 +26,38 @@
 
 using System;
 
-namespace MbUnit.Framework
-{
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple=false)]
-	public sealed class CurrentFixtureAttribute : Attribute
-    {
-        public CurrentFixtureAttribute()
-        {}
+namespace MbUnit.Framework {
+    /// <summary>
+    /// Used in conjunction, e.g. with an <see cref="MbUnit.Core.AutoRunner"/> to identify only the tests that it should run
+    /// </summary>
+    /// <remarks>
+    /// This attribute has no specific purpose other than to identify specific tests
+    /// </remarks>
+    /// <example>
+    /// <para>In this example, the autorunner will execute only tests tagged with the CurrentFixtureAttribute</para>
+    /// <code>
+    ///    namespace MbUnit.Tests {
+    ///        using MbUnit.Core;
+    ///        using MbUnit.Core.Filters;
+    ///
+    ///        static class CurrentOnly {
+    ///            public static void Main(string[] args) {
+    ///                using (AutoRunner auto = new AutoRunner()) {
+    ///
+    ///                    auto.Domain.Filter = FixtureFilters.Current;  
+    ///                    auto.Run(); 
+    ///                    auto.ReportToHtml();
+    ///                }
+    ///            }
+    ///        }
+    ///    }
+    /// </code>
+    /// </example>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+    public sealed class CurrentFixtureAttribute : Attribute {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CurrentFixtureAttribute"/> class.
+        /// </summary>
+        public CurrentFixtureAttribute() { }
     }
 }

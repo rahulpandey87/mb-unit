@@ -30,15 +30,22 @@ using MbUnit.Core.Framework;
 namespace MbUnit.Framework
 {	
 	/// <summary>
-	/// Tags method that fill collections with data. 
+	/// Used to tag methods within <see cref="CollectionOrderFixtureAttribute">test fixtures implementing the collection order pattern</see>
+	/// that fill collections with data. 
 	/// </summary>
-	/// <include file="MbUnit.Framework.Doc.xml" path="doc/remarkss/remarks[@name='FillAttribute']"/>	
 	[AttributeUsage(AttributeTargets.Method,AllowMultiple=false,Inherited=true)]
 	public class FillAttribute : NonTestPatternAttribute
 	{
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FillAttribute"/> class.
+        /// </summary>
 		public FillAttribute()
 		{}
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FillAttribute"/> class.
+        /// </summary>
+        /// <param name="description">The description of the method and what it does (for your own reference).</param>
 		public FillAttribute(string description)
 			:base(description)
 		{}

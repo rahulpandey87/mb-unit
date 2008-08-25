@@ -12,9 +12,16 @@ namespace MbUnit.Framework
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple=false, Inherited=true)]
 	public abstract class TestFixtureExtensionAttribute : PatternAttribute
 	{
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestFixtureExtensionAttribute"/> class.
+        /// </summary>
 		protected TestFixtureExtensionAttribute()
 		{}
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestFixtureExtensionAttribute"/> class.
+        /// </summary>
+        /// <param name="description">A brief description of the extension.</param>
 		protected TestFixtureExtensionAttribute(string description)
 			: base(description)
 		{}

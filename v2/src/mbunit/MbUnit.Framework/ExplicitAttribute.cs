@@ -29,25 +29,38 @@ using System;
 using MbUnit.Core.Framework;
 using MbUnit.Core.Invokers;
 
-namespace MbUnit.Framework 
-{
-	/// <summary>
-	/// Tags test methods that are only to be run when explicitly selected.
-	/// </summary>
-	/// <include file="MbUnit.Framework.Doc.xml" path="doc/remarkss/remarks[@name='ExplicitAttribute']"/>
+namespace MbUnit.Framework {
+    /// <summary>
+    /// Tags test fixture classes and individual test methods to not be run unless explicitly selected, either using the GUI or command line arguments.
+    /// </summary>
+    /// <example>
+    /// <code>
+    ///	[Test, Explicit]
+    /// public void ExplicitTest()
+    /// {...} 
+    /// </code>
+    /// </example>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
-    public sealed class ExplicitAttribute : DecoratorPatternAttribute
-    {
-        public ExplicitAttribute()
-        { }
+    public sealed class ExplicitAttribute : DecoratorPatternAttribute {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExplicitAttribute"/> class.
+        /// </summary>
+        public ExplicitAttribute() { }
 
-		public ExplicitAttribute(string description)
-			: base(description)
-		{ }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExplicitAttribute"/> class.
+        /// </summary>
+        /// <param name="description">A brief description why the fixture or test has been marked explicit</param>
+        public ExplicitAttribute(string description)
+            : base(description) { }
 
-		public override IRunInvoker GetInvoker(IRunInvoker wrapper)
-		{
-			return new ExplicitRunInvoker(wrapper);
-		}
-	}
+        /// <summary>
+        /// Returns the invoker class to run the test or test fixture onlyif explicitly requested.
+        /// </summary>
+        /// <param name="invoker">The invoker currently set to run the test.</param>
+        /// <returns>A new <see cref="ExplicitRunInvoker"/> object wrapping <paramref name="invoker"/></returns>
+        public override IRunInvoker GetInvoker(IRunInvoker invoker) {
+            return new ExplicitRunInvoker(invoker);
+        }
+    }
 }

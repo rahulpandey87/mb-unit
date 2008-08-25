@@ -152,6 +152,11 @@ namespace MbUnit.Framework
 			this.resourceCleanup = cleanupOptions;
 		}
 
+        /// <summary>
+        /// Returns the invoker class to run the test with the specified embedded resource extracted.
+        /// </summary>
+        /// <param name="invoker">The invoker currently set to run the test.</param>
+        /// <returns>A new <see cref="ExtractResourceRunInvoker"/> object wrapping <paramref name="invoker"/></returns>
 		public override IRunInvoker GetInvoker(IRunInvoker invoker)
 		{
 			return new ExtractResourceRunInvoker(invoker, this);

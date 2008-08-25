@@ -5,6 +5,10 @@ namespace MbUnit.Framework
 {
 	using MbUnit.Framework;
 
+    /// <summary>
+    /// Used in strategies for testing classes and tests for null arguments.
+    /// For more info, see <a href="http://blog.dotnetwiki.org/TestingTheArgumentNullExceptionWithMbUnit.aspx">this article</a>
+    /// </summary>
 	public class ClassTester
 	{
 		private TestSuite suite;

@@ -33,16 +33,22 @@ using MbUnit.Core.Exceptions;
 
 namespace MbUnit.Framework
 {
-	/// <summary>
-	/// Performance Assertion class
-	/// </summary>
+    /// <summary>
+    /// Performance Assertion class
+    /// </summary>
 	public sealed class PerfAssert
 	{
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PerfAssert"/> class.
+        /// </summary>
 		private PerfAssert(){}
 
-		/// <summary>
-		/// Creates a countdown timer that will assert if execution time exceeds maximum duration.
-		/// </summary>
+        /// <summary>
+        /// Creates a countdown timer that will assert if execution time exceeds maximum duration.
+        /// </summary>
+        /// <param name="maxDuration">Maximum duration for the test in seconds</param>
+        /// <returns>A <see cref="CountDownTimer"/> that knows the <paramref name="maxDuration"/> of the test</returns>
+        /// <exception cref="AssertionException">Thrown if <paramref name="maxDuration"/> is not greater than 0</exception>
 		public CountDownTimer Duration(double maxDuration)
 		{
 			Assert.IsTrue(maxDuration>0,"Maximum duration is not strictly positive");

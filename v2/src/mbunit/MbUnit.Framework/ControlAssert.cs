@@ -29,18 +29,9 @@ using System.Windows.Forms;
 
 namespace MbUnit.Framework
 {
-	/// <summary>
-	/// Assertion helper for the <see cref="Control"/> class.
-	/// </summary>
-	/// <remarks>
-	/// <para>
-	/// This class contains static helper methods to verify assertions on the
-	/// <see cref="Control"/> class.
-	/// </para>
-	/// <para>
-	/// This class was automatically generated. Do not edit (or edit the template).
-	/// </para>
-	/// </remarks>
+    /// <summary>
+    /// Class containing generic assert methods for the comparison of Windows Form <see cref="Control"/>s.
+    /// </summary>
 	public sealed class ControlAssert
 	{
 		#region Private constructor

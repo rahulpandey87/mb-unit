@@ -6,7 +6,8 @@ using System.IO;
 namespace MbUnit.Framework.Exceptions
 {
     /// <summary>
-	/// Could not find <see cref="DbRestoreInfoAttribute"/>.
+	/// Thrown if MbUnit cannot find <see cref="DbRestoreInfoAttribute"/> when required to restore 
+	/// a database from its backup.
     /// </summary>
     [Serializable]
     public class MissingDbInfoException : Exception
