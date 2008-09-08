@@ -17,7 +17,8 @@
         integrated into the systems and processes of the enterprise.</p>
         <p>
             At present Gallio can run tests from 
-            <a href="http://www.mbunit.com" class="sF">MbUnit</a> versions 2 and 3,  
+            <a href="http://www.mbunit.com" class="sF">MbUnit</a> versions 2 and 3,
+            <a href="http://msdn.microsoft.com/en-us/library/ms182486.aspx" class="sF">MSTest</a>,  
             <a href="http://nbehave.org/" class="sF">NBehave</a>, 
             <a href="http://www.nunit.org/index.php" class="sF">NUnit</a>, and 
             <a href="http://www.codeplex.com/xunit" class="sF">xUnit.Net</a>. &nbsp;Gallio 
@@ -32,15 +33,16 @@
             <a href="http://www.microsoft.com/windowsserver2003/technologies/management/powershell/default.mspx" class="sF">
             Powershell</a>,
             <a href="http://www.jetbrains.com/resharper/index.html" class="sF">Resharper</a>, 
-            <a href="http://www.testdriven.net/" class="sF">TestDriven.Net</a>, and 
-            <a href="http://www.typemock.com/" class="sF">TypeMock</a>.</p>
+            <a href="http://www.testdriven.net/" class="sF">TestDriven.Net</a>, 
+            <a href="http://www.typemock.com/" class="sF">TypeMock</a>, and 
+            <a href="http://msdn.microsoft.com/en-us/vsts2008/products/default.aspx" class="sF">Visual Studio Team System</a>.</p>
     <p>
         Gallio also includes its own command-line runner, Echo, and a Windows GUI, 
         Icarus. Additional runners are planned or under development. Third parties are 
         also encouraged to leverage the Gallio platform as part of their own 
         applications.</p>
-    <p> <a href="http://mb-unit.googlecode.com/files/GallioBundle-3.0.0.179-Setup.exe">
-        <img src="images/downloadnow.png" alt="Download the latest version of gallio.  - build 179: March 23, 2008" style="float:left; margin-right:14px;"/></a>
+    <p> <a href="http://mb-unit.googlecode.com/files/GallioBundle-3.0.0.285-Setup.exe">
+        <img src="images/downloadA3now.png" alt="Download the latest version of gallio." style="float:left; margin-right:14px;"/></a>
         To download the latest version of Gallio, click on the link below or visit the 
         downloads page for other available downloads.
     </p>
@@ -52,7 +54,7 @@
     </p>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="RightSideBarContent1" runat="server">
-    <div id="rss">
+    <div id="rightSideBarHeader">
         <a href="rss/galliorss.xml">
         <img src="images/rss24.png" width="24px" height="24px" 
         alt="subcribe" style="vertical-align:middle; margin-right:34px;"/>

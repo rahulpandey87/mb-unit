@@ -62,6 +62,10 @@ public partial class Blogs : System.Web.UI.Page
                         webLog.Url = post["weblog"]["url"].InnerText;
                         webLog.Rss = post["weblog"]["rssurl"].InnerText;
                         webLog.LastUpdated = Convert.ToDateTime(post["weblog"]["lastupdate"].InnerText);
+
+                        if (BloggerIsNotASoftwareBlogger(webLog.Name))
+                            continue;
+
                         webLogs.Add(webLog.Url, webLog);
                     }
                     else
@@ -96,6 +100,17 @@ public partial class Blogs : System.Web.UI.Page
         return false;
     }
 
+    private bool BloggerIsNotASoftwareBlogger(string weblog)
+    {
+        // Yeah I know I've hard-coded these...
+        string[] bloggers = { "Michael Halcomb", "Quelveneto" };
+        foreach (string blogger in bloggers)
+        {
+            if (weblog.Contains(blogger))
+                return true;
+        }
+        return false;
+    }
 
     private void DisplayError(string message)
     {

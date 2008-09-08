@@ -24,7 +24,7 @@
     </p>
     <h3>
         MbUnit 2.4</h3>
-        <p>MbUnit is bundled with Gallio. See w.mbunit.com">www.mbunit.com</a> for the 
+        <p>MbUnit is bundled with Gallio. See <a href="http://www.mbunit.com">www.mbunit.com</a> for the 
         MbUnit license details.</p>
 </asp:Content>
 

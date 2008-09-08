@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <h2>How a great Unit Testing framework begat Gallio.</h2>
     <p>In January 2004 <span id="intelliTXT">Marc Clifton</span>, a frequent contributor 
-        at <a href="www.codeproject.com">Codeproject</a>, wrote a series of articles 
+        at <a href="http://www.codeproject.com">Codeproject</a>, wrote a series of articles 
         that sought to expand the unit testing discussion.&nbsp; Among other things, Marc 
         proposed a formalization of various 
         <a href="http://www.codeproject.com/KB/architecture/autp5.aspx">test patterns</a> 

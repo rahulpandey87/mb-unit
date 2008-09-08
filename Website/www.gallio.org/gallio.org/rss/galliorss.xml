@@ -5,6 +5,45 @@
     <link>http://www.gallio.org</link>
     <description>News and information about the Gallio Automation Platform for .NET</description>
     <language>en-us</language>
+    <lastBuildDate>Sat, 17 May 2008 14:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Gallio Alpha 3 Update 1 Released</title>
+      <link>http://www.gallio.org</link>
+      <description>
+        Today we released a small update to the Alpha 3 Release.  This release makes the MbUnit TestFixture attribute optional and 
+        fixed a couple minor bugs.
+      </description>
+      <pubDate>Fri, 16 May 2008 04:32:09 GMT</pubDate>
+    </item>
+    <item>
+      <title>Gallio Alpha 3 Released</title>
+      <link>http://www.gallio.org</link>
+      <description>
+        Today we released Gallio Alpha 3 with enhancements and bug fixes. Of particular interest is support for MSTest, experimental Visual 
+        Studio Team System integration, annotations, report improvements and data binding enhancements. --- More details are available 
+        at: http://blog.bits-in-motion.com/2008/05/announcing-gallio-v30-alpha-3.html.
+      </description>
+      <pubDate>Tue, 13 May 2008 09:54:57 GMT</pubDate>
+    </item>
+    <item>
+      <title>Gallio's Jeff Brown part of discussion on Hanselminutes</title>
+      <link>http://www.hanselminutes.com/default.aspx?showID=130</link>
+      <description>
+        Scott Hanselman recorded a great interview at ALT.Net Seattle with Brad Wilson, Charlie Poole, Roy Osherove and Jeff Brown. Among 
+        other things, we talk about Gallio and the work we are doing to foster innovation and recognize diversity within the .Net testing 
+        community. --- The Past, Present and Future of .NET Unit Testing Frameworks. http://www.hanselminutes.com/default.aspx?showID=130
+      </description>
+      <pubDate>Mon, 12 May 2008 06:38:38 GMT</pubDate>
+    </item>
+    <item>
+      <title>Gallio Book Chapter 3 now on gallio.org</title>
+      <link>http://www.gallio.org/BookTemporary.aspx</link>
+      <description>
+        Gallio Book:  Chapter 3 "Getting Started" added to www.gallio.org today.  The Gallio project is creating an online book about using 
+        Gallio.  This book is a separate undertaking from the Gallio API Documentation that is also in the works.
+      </description>
+      <pubDate>Sat, 29 Mar 2008 16:10:00 GMT</pubDate>
+    </item>
     <item>
       <title>Gallio.org adds RSS Feed</title>
       <link>http://www.gallio.org</link>

@@ -183,6 +183,18 @@ so there is NO "visible" styling in this tag */
 	margin-right: 34px;
 	width: 256px;
 }
+#rightSideBarHeader
+{
+	border-style: solid solid none solid;
+	border-width: 4px;
+	border-color: #FFFFFF;
+	background-color: #E2E0BC;
+	padding: 3px 14px 3px 14px;
+	font-size: 1.0em;
+	color: #333E46;
+	font-weight: bold;
+	vertical-align: middle;
+}
 .newsBar
 {
 	background-color: #F1F0E0;
@@ -194,18 +206,6 @@ so there is NO "visible" styling in this tag */
 {
 	color: #999999;
 	font-size: .7em;
-}
-#rss
-{
-	border-style: solid solid none solid;
-	border-width: 4px;
-	border-color: #FFFFFF;
-	background-color: #F1F0E0;
-	padding: 3px 14px 3px 14px;
-	font-size: 1.0em;
-	color: #333E46;
-	font-weight: bold;
-	vertical-align: middle;
 }
 
 
