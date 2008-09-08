@@ -57,7 +57,7 @@
                             <li><a href="History.aspx" class="childItem">history</a></li>
                             <li><a href="RoadMap.aspx" class="childItem">road map</a></li>
                             <li><a href="FAQ.aspx" class="childItem">faq</a></li>
-                            <li><a href="Committers.aspx" class="childItem">commit members</a></li>
+                            <li><a href="Credits.aspx" class="childItem">credits</a></li>
                             <li><a href="License.aspx" class="childItem">license</a></li>
                         </ul>
                     </li>
