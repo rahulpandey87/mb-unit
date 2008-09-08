@@ -35,7 +35,7 @@ function getMenuState()
     var value = readCookie('gallio.orgMenuState');
     if(value == null)
     {
-        value = 'aboutSubMenu:block,gettingStartedSubMenu:block,communitySubMenu:block';
+        value = 'aboutSubMenu:none,gettingStartedSubMenu:none,communitySubMenu:none';
     }
     if(value)
     {
