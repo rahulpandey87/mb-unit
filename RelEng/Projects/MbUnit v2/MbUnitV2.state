@@ -3,12 +3,12 @@
   <ProjectName>MbUnit v2</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/MbUnit+v2/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>2.4.2.251</Label>
+  <Label>2.4.2.323</Label>
   <WorkingDirectory>C:\RelEng\Projects\MbUnit v2\Work</WorkingDirectory>
   <ArtifactDirectory>C:\RelEng\Projects\MbUnit v2\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2008-07-18T03:00:00.1755568-04:00</StartTime>
-  <EndTime>2008-07-18T03:07:14.7504448-04:00</EndTime>
+  <StartTime>2008-09-22T03:00:00.1685664-04:00</StartTime>
+  <EndTime>2008-09-22T03:24:47.9779312-04:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>2.4.2.250</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>2.4.2.322</LastSuccessfulIntegrationLabel>
 </IntegrationResult>

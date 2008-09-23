@@ -3,12 +3,12 @@
   <ProjectName>Gallio Book</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/Gallio+Book/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>1</Label>
+  <Label>71</Label>
   <WorkingDirectory>C:\RelEng\Projects\Gallio Book\Work</WorkingDirectory>
   <ArtifactDirectory>C:\RelEng\Projects\Gallio Book\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2008-07-18T05:30:26.284464-04:00</StartTime>
-  <EndTime>2008-07-18T05:32:54.046936-04:00</EndTime>
-  <LastIntegrationStatus>Unknown</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>UNKNOWN</LastSuccessfulIntegrationLabel>
+  <StartTime>2008-09-22T03:30:00.1868656-04:00</StartTime>
+  <EndTime>2008-09-22T03:30:31.2214912-04:00</EndTime>
+  <LastIntegrationStatus>Success</LastIntegrationStatus>
+  <LastSuccessfulIntegrationLabel>70</LastSuccessfulIntegrationLabel>
 </IntegrationResult>
