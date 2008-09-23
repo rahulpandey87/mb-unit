@@ -39,9 +39,7 @@
 <!ENTITY StandardPublishers '
   <statistics />
   <xmllogger />
-  <!--
   <artifactcleanup cleanUpMethod="KeepLastXBuilds" cleanUpValue="50" />
-  -->
   &EmailPublisher;
 '>
 
