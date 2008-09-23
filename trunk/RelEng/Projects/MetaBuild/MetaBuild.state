@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectName>MetaBuild</ProjectName>
+  <ProjectUrl>http://ccnet.gallio.org/server/local/project/MetaBuild/ViewLatestBuildReport.aspx</ProjectUrl>
+  <BuildCondition>ForceBuild</BuildCondition>
+  <Label>0.0.1.1</Label>
+  <WorkingDirectory>C:\RelEng\Projects\MetaBuild\Work</WorkingDirectory>
+  <ArtifactDirectory>C:\RelEng\Projects\MetaBuild\Artifacts</ArtifactDirectory>
+  <Status>Success</Status>
+  <StartTime>2008-09-23T02:51:19.4569184-04:00</StartTime>
+  <EndTime>2008-09-23T02:51:25.5456736-04:00</EndTime>
+  <LastIntegrationStatus>Unknown</LastIntegrationStatus>
+  <LastSuccessfulIntegrationLabel>0.0.1.1</LastSuccessfulIntegrationLabel>
+  <FailureUsers />
+</IntegrationResult>
