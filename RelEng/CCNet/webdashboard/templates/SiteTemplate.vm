@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <HTML>
 	<HEAD>
 		<title>CruiseControl.NET</title>
@@ -40,8 +40,11 @@
 				<td height="2" colspan="3"></td>
 			</tr>
 		</table>
-		<table width="100%">
+		<table class="Footer" width="100%">
 			<tr>
+				<td>
+					<p>This page rendered at: $renderedAt</p>
+				</td>
 				<td align="right">
 					<a href="http://www.thoughtworks.com/" border="0"><img src="$applicationPath/images/tw_dev_logo.gif" border="0"/><img src="$applicationPath/images/shim.gif" width="6" border="0" /></a>
 				</td>

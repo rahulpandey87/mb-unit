@@ -47,7 +47,7 @@
 	</xsl:template>
 
 	<xsl:template match="warning">
-		<div style="color:gold">
+		<div style="color:blue">
 			<xsl:if test="@file != ''" >
 				<xsl:value-of select="@file"/> (<xsl:value-of select="@line"/>,<xsl:value-of select="@column"/>): 
 			</xsl:if>

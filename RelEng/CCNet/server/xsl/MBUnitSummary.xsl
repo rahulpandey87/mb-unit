@@ -23,12 +23,6 @@
     <xsl:variable name="totalErrorsAndFailures" select="sum($nunit2.result.list/@failure-count)"/>
 
     <xsl:template match="/">
-    	<xsl:if test="//report-result">
-	    	<xsl:apply-templates select="/" mode="emit" />
-	</xsl:if>
-    </xsl:template>
-
-    <xsl:template match="/" mode="emit">
         <table class="section-table" cellpadding="2" cellspacing="0" border="0" width="98%">
 
             <!-- Unit Tests -->

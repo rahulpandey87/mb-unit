@@ -72,7 +72,7 @@
 		</td>
 		<td align="Center">
 			#if ($projectGridRow.Activity == "Building")
-				<font color="Red">$projectGridRow.Activity</font>
+				<b><font color="Red">$projectGridRow.Activity</font></b>
 			#else
 				<font color="Black">$projectGridRow.Activity</font>
 			#end
@@ -82,23 +82,34 @@
 				$projectGridRow.CurrentMessage
 			</font>
 		</td>
-		<form method="post">
-			<input type="hidden" name="forcebuild" value="true" />
-			<input type="hidden" name="forceBuildProject" value="$projectGridRow.Name" />
-			<input type="hidden" name="forceBuildServer" value="$projectGridRow.ServerName" />
-			<td align="Center">
+    <td align="Center">
+      <form method="post">
+      <input type="hidden" name="projectName" value="$projectGridRow.Name" />
+			<input type="hidden" name="serverName" value="$projectGridRow.ServerName" />
 				<font color="Black">
 				#if ($projectGridRow.allowForceBuild)
-					<input type="submit" name="ForceBuild" value="Force"/>
+					<input type="submit" name="$projectGridRow.ForceAbortBuildButtonName" value="$projectGridRow.ForceAbortBuildButtonValue"/>
 				#end
 				#if ($projectGridRow.AllowStartStopBuild)				
 					<input type="submit" name="$projectGridRow.StartStopButtonName" value="$projectGridRow.StartStopButtonValue"/>
 				#end
 				</font>
-			</td>
-		</form>
-	</tr>
-	#end
+      </form>
+    </td>
+  </tr>
+
+    #if ($projectGridRow.BuildStage.Length > 0)
+    <tr  bgcolor="lavender">
+      <td align="Left" COLSPAN="9">
+        <font color="Black">
+          $projectGridRow.BuildStage
+        </font>
+      </td>
+    </tr>
+    #end
+
+
+  #end
 </table>
 #end
 
