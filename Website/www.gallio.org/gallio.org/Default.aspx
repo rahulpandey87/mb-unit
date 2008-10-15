@@ -42,7 +42,7 @@
         also encouraged to leverage the Gallio platform as part of their own 
         applications.</p>
     <p> <a href="http://mb-unit.googlecode.com/files/GallioBundle-3.0.0.285-Setup.exe">
-        <img src="images/downloadA3now.png" alt="Download the latest version of gallio." style="float:left; margin-right:14px;"/></a>
+        <img src="images/downloadnow.png" alt="Download the latest version of gallio." style="float:left; margin-right:14px;"/></a>
         To download the latest version of Gallio, click on the link below or visit the 
         downloads page for other available downloads.
     </p>
