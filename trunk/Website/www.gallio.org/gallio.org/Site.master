@@ -71,6 +71,7 @@
                             <li><a href="Articles.aspx" class="childItem">articles</a></li>
                         </ul>
                     </li>
+                    <li><a href="Docs.aspx">documentation</a></li>  
                     <li>
                     <a href="#" onclick="toggle('communitySubMenu', 'community');return false;"
                     id="community">community</a>
@@ -81,7 +82,6 @@
                     </li>                          
                     <li><a href="LinkTo.aspx">link to gallio</a></li>
                     <li><a href="Development.aspx">develop gallio</a></li>
-                    <li><a href="DocsWait.aspx">documentation</a></li>  
                 </ul>
         </div>
         <div id="leaf" style="top: 90px;"></div>

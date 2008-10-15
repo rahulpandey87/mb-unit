@@ -9,7 +9,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 
-public partial class DocsWait : System.Web.UI.Page
+public partial class Docs : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
