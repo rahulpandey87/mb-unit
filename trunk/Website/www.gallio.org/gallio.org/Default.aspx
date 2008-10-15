@@ -41,7 +41,7 @@
         Icarus. Additional runners are planned or under development. Third parties are 
         also encouraged to leverage the Gallio platform as part of their own 
         applications.</p>
-    <p> <a href="http://mb-unit.googlecode.com/files/GallioBundle-3.0.0.285-Setup.exe">
+    <p> <a href="Downloads.aspx">
         <img src="images/downloadnow.png" alt="Download the latest version of gallio." style="float:left; margin-right:14px;"/></a>
         To download the latest version of Gallio, click on the link below or visit the 
         downloads page for other available downloads.
