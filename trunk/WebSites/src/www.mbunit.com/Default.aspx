@@ -36,8 +36,8 @@
         </SeparatorTemplate>
     </asp:Repeater>
     <br />
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:mbunitDBConnectionString1 %>"
-        ProviderName="<%$ ConnectionStrings:mbunitDBConnectionString1.ProviderName %>"
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:MbUnitDb %>"
+        ProviderName="<%$ ConnectionStrings:MbUnitDb.ProviderName %>"
         SelectCommand="SELECT TOP 3 [Title], [Text], [Created], [Author] FROM [NewsItems] ORDER BY [Created] DESC">
     </asp:SqlDataSource>
     

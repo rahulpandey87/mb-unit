@@ -7,7 +7,7 @@
         <asp:CommandField ShowSelectButton="True" />
     </Columns>
 </asp:GridView>
-<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:mbunitDBConnectionString1 %>"
+<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:MbUnitDb %>"
     SelectCommand="SELECT dbo.aspnet_Users.UserName, dbo.aspnet_Membership.Email, dbo.aspnet_Membership.LastLoginDate FROM dbo.aspnet_Membership INNER JOIN dbo.aspnet_Users ON dbo.aspnet_Membership.UserId = dbo.aspnet_Users.UserId">
 </asp:SqlDataSource>
 <hr />
