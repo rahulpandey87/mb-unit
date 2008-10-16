@@ -83,8 +83,8 @@
         </SeparatorTemplate>
     </asp:Repeater>
     <br />
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:gallioDBConnectionString1 %>"
-        ProviderName="<%$ ConnectionStrings:gallioDBConnectionString1.ProviderName %>"
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:GallioDb %>"
+        ProviderName="<%$ ConnectionStrings:GallioDb.ProviderName %>"
         SelectCommand="SELECT TOP 3 [Title], [Text], [Created], [Author] FROM [NewsItems] ORDER BY [Created] DESC">
     </asp:SqlDataSource>
     </div>

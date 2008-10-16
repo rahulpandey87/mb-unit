@@ -49,7 +49,7 @@
         </Fields>
     </asp:DetailsView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConflictDetection="CompareAllValues"
-        ConnectionString="<%$ ConnectionStrings:gallioDBConnectionString1 %>" DeleteCommand="DELETE FROM [Articles] WHERE [ID] = @original_ID AND [Title] = @original_Title AND [Text] = @original_Text AND [Link] = @original_Link AND [Created] = @original_Created AND [Author] = @original_Author"
+        ConnectionString="<%$ ConnectionStrings:GallioDb %>" DeleteCommand="DELETE FROM [Articles] WHERE [ID] = @original_ID AND [Title] = @original_Title AND [Text] = @original_Text AND [Link] = @original_Link AND [Created] = @original_Created AND [Author] = @original_Author"
         InsertCommand="INSERT INTO [Articles] ([Title], [Text], [Link], [Created], [Author]) VALUES (@Title, @Text, @Link, @Created, @Author)"
         OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT * FROM [Articles]"
         UpdateCommand="UPDATE [Articles] SET [Title] = @Title, [Text] = @Text, [Link] = @Link, [Created] = @Created, [Author] = @Author WHERE [ID] = @original_ID AND [Title] = @original_Title AND [Text] = @original_Text AND [Link] = @original_Link AND [Created] = @original_Created AND [Author] = @original_Author">

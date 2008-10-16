@@ -39,7 +39,7 @@
         </Fields>
     </asp:DetailsView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConflictDetection="CompareAllValues"
-        ConnectionString="<%$ ConnectionStrings:mbunitDBConnectionString1 %>" DeleteCommand="DELETE FROM [Release] WHERE [ID] = @original_ID AND [Title] = @original_Title AND [Description] = @original_Description AND [DownloadLink] = @original_DownloadLink AND [ReleaseNotesLink] = @original_ReleaseNotesLink AND [ReleaseDate] = @original_ReleaseDate"
+        ConnectionString="<%$ ConnectionStrings:MbUnitDb %>" DeleteCommand="DELETE FROM [Release] WHERE [ID] = @original_ID AND [Title] = @original_Title AND [Description] = @original_Description AND [DownloadLink] = @original_DownloadLink AND [ReleaseNotesLink] = @original_ReleaseNotesLink AND [ReleaseDate] = @original_ReleaseDate"
         InsertCommand="INSERT INTO [Release] ([Title], [Description], [DownloadLink], [ReleaseNotesLink], [ReleaseDate]) VALUES (@Title, @Description, @DownloadLink, @ReleaseNotesLink, @ReleaseDate)"
         OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT * FROM [Release]"
         UpdateCommand="UPDATE [Release] SET [Title] = @Title, [Description] = @Description, [DownloadLink] = @DownloadLink, [ReleaseNotesLink] = @ReleaseNotesLink, [ReleaseDate] = @ReleaseDate WHERE [ID] = @original_ID AND [Title] = @original_Title AND [Description] = @original_Description AND [DownloadLink] = @original_DownloadLink AND [ReleaseNotesLink] = @original_ReleaseNotesLink AND [ReleaseDate] = @original_ReleaseDate">

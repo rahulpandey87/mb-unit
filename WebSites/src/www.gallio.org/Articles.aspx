@@ -18,8 +18,8 @@
     </ItemTemplate>
     </asp:Repeater>
     <br />
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:gallioDBConnectionString1 %>"
-        ProviderName="<%$ ConnectionStrings:gallioDBConnectionString1.ProviderName %>"
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:GallioDb %>"
+        ProviderName="<%$ ConnectionStrings:GallioDb.ProviderName %>"
         SelectCommand="SELECT Title, Text, Link, Created, Author FROM Articles ORDER BY [Created] DESC">
     </asp:SqlDataSource>
     <p>

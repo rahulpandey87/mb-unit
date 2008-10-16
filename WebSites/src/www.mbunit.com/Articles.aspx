@@ -17,8 +17,8 @@
     </ItemTemplate>
     </asp:Repeater>
     <br />
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:mbunitDBConnectionString1 %>"
-        ProviderName="<%$ ConnectionStrings:mbunitDBConnectionString1.ProviderName %>"
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:MbUnitDb %>"
+        ProviderName="<%$ ConnectionStrings:MbUnitDb.ProviderName %>"
         SelectCommand="SELECT Title, Text, Link, Created, Author FROM Articles ORDER BY [Created] DESC">
     </asp:SqlDataSource>
     <p>
