@@ -4,7 +4,7 @@ REM Publishes the specified API documentation folder to the web site.
 REM
 setlocal
 set ROBOCOPY=%~dp0robocopy.exe
-set TARGET=C:\Inetpub\www.gallio.org\gallio.org\book
+set TARGET=C:\Inetpub\www.gallio.org\book
 
 set VERSION=%~1
 if not defined VERSION (

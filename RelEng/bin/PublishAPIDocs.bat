@@ -4,7 +4,7 @@ REM Publishes the specified Book folder to the web site.
 REM
 setlocal
 set ROBOCOPY=%~dp0robocopy.exe
-set TARGET=C:\Inetpub\www.gallio.org\gallio.org\api
+set TARGET=C:\Inetpub\www.gallio.org\api
 
 set VERSION=%~1
 if not defined VERSION (
