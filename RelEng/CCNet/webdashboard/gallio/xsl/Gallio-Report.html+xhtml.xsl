@@ -341,13 +341,9 @@ html
   <xsl:template match="g:testStepRun" mode="details">
     <xsl:if test="not($condensed) or g:result/g:outcome/@status!='passed'">
       <xsl:variable name="id" select="g:testStep/@id" />
-      <xsl:variable name="testId" select="g:testStep/@testId" />
-      <xsl:variable name="test" select="ancestor::g:report/g:testModel/descendant::g:test[@id = $testId]" />
       
-      <xsl:variable name="metadataEntriesFromTest" select="$test/g:metadata/g:entry" />
-      <xsl:variable name="metadataEntriesFromTestStep" select="g:testStep/g:metadata/g:entry" />
-      
-      <xsl:variable name="kind" select="$metadataEntriesFromTest[@key='TestKind']/g:value" />    
+      <xsl:variable name="metadataEntries" select="g:testStep/g:metadata/g:entry" />      
+      <xsl:variable name="kind" select="$metadataEntries[@key='TestKind']/g:value" />    
       <xsl:variable name="nestingLevel" select="count(ancestor::g:testStepRun)" />
       
       <xsl:variable name="statisticsRaw">
@@ -404,18 +400,9 @@ html
             </xsl:otherwise>
           </xsl:choose>
 
-          <xsl:choose>
-            <xsl:when test="g:testStep/@isPrimary='true'">
-              <xsl:call-template name="print-metadata-entries">
-                <xsl:with-param name="entries" select="$metadataEntriesFromTest|$metadataEntriesFromTestStep" />
-              </xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:call-template name="print-metadata-entries">
-                <xsl:with-param name="entries" select="$metadataEntriesFromTestStep" />
-              </xsl:call-template>
-            </xsl:otherwise>
-          </xsl:choose>
+          <xsl:call-template name="print-metadata-entries">
+            <xsl:with-param name="entries" select="$metadataEntries" />
+          </xsl:call-template>
 
           <div id="testStepRun-{g:testStepRun/g:testStep/@id}" class="testStepRun">
             <xsl:apply-templates select="." mode="details-content" />
@@ -544,6 +531,13 @@ html
             </xsl:with-param>
           </xsl:call-template>
         </xsl:when>
+        <xsl:when test="@class = 'Link'">
+          <a href="{g:attributes/g:attribute[@name = 'url']/@value}">
+            <xsl:apply-templates select="g:contents" mode="stream">
+              <xsl:with-param name="attachments" select="$attachments" />
+            </xsl:apply-templates>
+          </a>
+        </xsl:when>
         <xsl:otherwise>
           <xsl:apply-templates select="g:contents" mode="stream">
             <xsl:with-param name="attachments" select="$attachments" />
@@ -585,7 +579,7 @@ html
         <xsl:variable name="attachmentBrokerQuery"><xsl:value-of select="$attachmentBrokerUrl"/>testStepId=<xsl:value-of select="../../../g:testStep/@id"/>&amp;attachmentName=<xsl:value-of select="@name"/></xsl:variable>
         <xsl:choose>
           <xsl:when test="$isImage">
-            <img src="{$attachmentBrokerQuery}" alt="Attachment: {@name}" />
+            <a href="{$attachmentBrokerQuery}"><img class="embeddedImage" src="{$attachmentBrokerQuery}" alt="Attachment: {@name}" /></a>
           </xsl:when>
           <xsl:otherwise>
             <xsl:text>Attachment: </xsl:text>
@@ -597,7 +591,7 @@ html
         <xsl:variable name="attachmentUri"><xsl:call-template name="path-to-uri"><xsl:with-param name="path" select="@contentPath" /></xsl:call-template></xsl:variable>
         <xsl:choose>
           <xsl:when test="$isImage">
-            <img src="{$attachmentUri}" alt="Attachment: {@name}" />
+            <a href="{$attachmentUri}"><img class="embeddedImage" src="{$attachmentUri}" alt="Attachment: {@name}" /></a>
           </xsl:when>
           <xsl:otherwise>
             <xsl:text>Attachment: </xsl:text>
@@ -606,7 +600,7 @@ html
         </xsl:choose>
       </xsl:when>
       <xsl:when test="@contentDisposition = 'inline' and $isImage and @encoding = 'base64'">
-        <img src="data:{@contentType};base64,{text()}" alt="Attachment: {@name}" />
+        <img class="embeddedImage" src="data:{@contentType};base64,{text()}" alt="Attachment: {@name}" />
       </xsl:when>
       <xsl:otherwise>
         <xsl:text>Attachment: </xsl:text>
