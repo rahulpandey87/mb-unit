@@ -1,5 +1,4 @@
 #summary A tentative roadmap for Gallio and MbUnit v3.
-#labels Featured
 
 This page describes a tendative roadmap for Gallio releases.  The information presented here is of course subject to change.
 
