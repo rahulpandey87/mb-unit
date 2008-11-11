@@ -218,7 +218,7 @@
             <tr>
                 <td>
         		<xsl:call-template name="report-summary" />
-		    <xsl:if test="count(//warnings)>0">
+		    <xsl:if test="count(.//warnings)>0">
 				<br/>
 				<xsl:call-template name="warnings" />
 			</xsl:if> 
@@ -298,7 +298,7 @@
 
     <xsl:template name="warnings">
 <table> 
-<xsl:for-each select="//warning">
+<xsl:for-each select=".//warning">
 <tr>
     <xsl:attribute name="class">
 		<xsl:choose>
