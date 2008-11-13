@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:vs="http://schemas.microsoft.com/wix/VSExtension"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+    <?include ..\Installer.Wix\Features.wxi ?>
+
+    <Fragment>
+
+        <!-- TODO: Replace H2Reg.exe with the recommended way of registering help. -->
+
+        <Property Id="GALLIO_HOMEPAGE" Value="http://www.gallio.org/" />
+
+        <DirectoryRef Id="INSTALLDIR">
+            <Component Id="Apache.License" Guid="{66f9f954-992a-44ce-8696-082b3807d845}" Win64="no">
+                <File Id="Apache.License.txt" Source="$(var.GallioTargetDir)\ASL - Apache Software Foundation License.txt" KeyPath="yes" />
+            </Component>
+            <Component Id="Gallio.License" Guid="{80dcc954-656f-45de-9bf2-bec6ff1d7c58}" Win64="no">
+                <File Id="Gallio.License.txt" Source="$(var.GallioTargetDir)\Gallio License.txt" KeyPath="yes" />
+            </Component>
+            <Component Id="Mono.Cecil.License" Guid="{3AF29A1B-1DD9-4994-98DC-2F7B88F99A20}" Win64="no">
+                <File Id="Mono.Cecil.license.html" Source="$(var.GallioTargetDir)\Mono.Cecil.license.html" KeyPath="yes" />
+            </Component>
+            <Component Id="Gallio.Credits" Guid="{7EFEC8C8-CB48-41b3-818C-9CAD85DBECC1}" Win64="no">
+                <File Id="Gallio.Credits.html" Source="$(var.GallioTargetDir)\Credits.html" KeyPath="yes" >
+                    <Shortcut Id="Gallio.Credits.lnk" Name="Gallio Credits" Directory="GallioMenuFolder" Icon="Gallio.icon.exe" IconIndex="0" Advertise="yes" />
+                </File>
+            </Component>
+            <Component Id="Gallio.Website" Guid="{32DF17D3-27D2-4b7a-8094-37A559F2B234}" Win64="no">
+                <File Id="Gallio.Website.url" Source="$(var.GallioTargetDir)\Gallio Website.url" KeyPath="yes">
+                    <Shortcut Id="Gallio.Website.lnk" Name="Gallio Website" Directory="GallioMenuFolder" Icon="Gallio.icon.exe" IconIndex="0" Advertise="yes" />
+                </File>
+            </Component>
+            <Component Id="Gallio.Registry" Guid="{1AE1AC98-1FF2-4913-9ACA-EB8018E40508}" Win64="no">
+                <RegistryKey Id="Gallio.RegistryKey1" Action="createAndRemoveOnUninstall"
+                             Root="HKLM" Key="SOFTWARE\Gallio.org\Gallio">
+                    <RegistryValue Type="string" Name="CurrentVersion" Value="3.0"/>
+                    <RegistryKey Key="3.0" Action="createAndRemoveOnUninstall">
+                        <RegistryValue Type="string" Name="Version" Value="[ProductVersion]"/>
+                        <RegistryValue Type="string" Name="InstallationFolder" Value="[INSTALLDIR]"/>
+                        <RegistryKey Key="AdditionalPluginDirectories" Action="createAndRemoveOnUninstall"/>
+                    </RegistryKey>
+                </RegistryKey>
+
+                <!-- Register the folder so that Visual Studio Add References can find it -->
+                <RegistryKey Id="Gallio.RegistryKey2" Action="createAndRemoveOnUninstall"
+                             Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v2.0.50727\AssemblyFoldersEx\Gallio">
+                    <RegistryValue Type="string" Value="[INSTALLDIR]bin"/>
+                </RegistryKey>
+
+                <!-- Add the Gallio bin folder to the path -->
+                <Environment Id="Gallio.Path" Name="Path" Value="[INSTALLDIR]bin" Action="set" Part="last" Separator=";" />
+            </Component>
+        </DirectoryRef>
+
+        <DirectoryRef Id="binFolder" FileSource="$(var.GallioTargetDir)\bin\">
+            <Component Id="Gallio" Guid="{1f25f1f8-46ea-40f5-a850-16bac64cad0a}" Win64="no">
+                <File Name="Gallio.dll" KeyPath="yes" />
+                <File Name="Gallio.plugin" />
+                <File Name="Gallio.pdb" />
+		<File Name="Gallio.xml" />
+<?ifdef NO_ILMERGE ?>
+                <File Name="Castle.Core.dll" />
+		<File Name="Castle.MicroKernel.dll" />
+                <File Name="Castle.Windsor.dll" />
+		<File Name="Castle.DynamicProxy2.dll" />
+		<File Name="Mono.Cecil.dll" />
+<?endif ?>
+            </Component>
+            <Component Id="Gallio35" Guid="{015c2236-433f-45f4-86d8-88b87f7fad26}" Win64="no">
+                <File Name="Gallio35.dll" KeyPath="yes" />
+                <File Name="Gallio35.plugin" />
+                <File Name="Gallio35.pdb" />
+                <File Name="Gallio35.xml" />
+            </Component>
+            <Component Id="Gallio.XmlSerializers" Guid="{1F8F8C04-E8CF-478c-AD16-9D90921C71A5}" Win64="no">
+                <File Name="Gallio.XmlSerializers.dll" KeyPath="yes" />
+            </Component>
+            <Component Id="Gallio.Host" Guid="{182CEF37-6885-4954-8411-CB57DA11357B}" Win64="no">
+                <File Name="Gallio.Host.exe" KeyPath="yes" />
+                <File Name="Gallio.Host.exe.config" />
+            </Component>
+            <Component Id="Gallio.Host.x86" Guid="{9560EEA1-E472-4cc6-99DA-03CDCD370343}" Win64="no">
+                <File Name="Gallio.Host.x86.exe" KeyPath="yes" />
+                <File Name="Gallio.Host.x86.exe.config" />
+            </Component>
+            <Component Id="Gallio.Reports.dll" Guid="9e17b959-1768-4a2b-b750-99821b01dd53" Win64="no">
+                <File Name="Gallio.Reports.dll" KeyPath="yes" />
+                <File Name="Gallio.Reports.pdb" />
+                <File Name="Gallio.Reports.xml" />
+                <File Name="Gallio.Reports.plugin" />
+            </Component>
+            <Component Id="Gallio.UI.dll" Guid="{7CEEF55C-A9DD-4ce1-AD70-50CCEE425CE4}" Win64="no">
+                <File Name="Gallio.UI.dll" KeyPath="yes" />
+                <File Name="Gallio.UI.pdb" />
+                <File Name="Gallio.UI.xml" />
+                <File Name="Gallio.UI.plugin" />
+            </Component>
+
+            <Component Id="Gallio.Loader" Guid="{1b752f49-373c-4a57-8f72-eb97287d0d35}" Win64="no">
+                <!-- Install in the GAC -->
+                <File Name="Gallio.Loader.dll" KeyPath="yes" Assembly=".net" />
+
+		<!-- TODO: Install the PDB and XML in the GAC also.
+		           This may require using a custom task. -->
+            </Component>
+
+            <Directory Id="ResourcesFolder" Name="Resources" />
+        </DirectoryRef>
+
+        <DirectoryRef Id="ResourcesFolder" FileSource="$(var.GallioTargetDir)\bin\Resources\">
+            <Directory Id="Reports.css" Name="css">
+                <Component Id="Gallio.Report.css" Guid="65dc0971-e579-4226-b78a-1588d9f6977d" Win64="no">
+                    <File Id="Gallio.Report.css" Name="Gallio-Report.css" KeyPath="yes" />
+                </Component>
+            </Directory>
+
+            <Directory Id="Reports.js" Name="js">
+                <Component Id="Gallio.Report.js" Guid="09db9a62-2734-4624-9d6c-8ce1688d21ce" Win64="no">
+                    <File Id="Gallio.Report.js" Name="Gallio-Report.js" KeyPath="yes" />
+                </Component>
+            </Directory>
+
+            <Directory Id="Reports.xsl" Name="xsl">
+                <Component Id="Gallio.Report.common.xsl" Guid="1AE4D4DD-DE35-4887-8953-9079E1BE2447" Win64="no">
+                    <File Id="Gallio.Report.common.xsl" Name="Gallio-Report.common.xsl" KeyPath="yes" />
+                </Component>
+                <Component Id="Gallio.Report.txt.xsl" Guid="8b1860f4-71d9-43f7-8ee9-2657ed2977b2" Win64="no">
+                    <File Id="Gallio.Report.txt.xsl" Name="Gallio-Report.txt.xsl" KeyPath="yes" />
+                </Component>
+                <Component Id="Gallio.Report.html.xsl" Guid="971c081f-fd9f-4682-bf10-59b655de647e" Win64="no">
+                    <File Id="Gallio.Report.html.xsl" Name="Gallio-Report.html.xsl" KeyPath="yes" />
+                </Component>
+                <Component Id="Gallio.Report.html.condensed.xsl" Guid="271c082f-fd9f-4522-bf10-59b355de64e5" Win64="no">
+                    <File Id="Gallio.Report.html.condensed.xsl" Name="Gallio-Report.html-condensed.xsl" KeyPath="yes" />
+                </Component>
+                <Component Id="Gallio.Report.xhtml.xsl" Guid="5EF5556F-7443-4112-A2DD-F0E85A14CFD5" Win64="no">
+                    <File Id="Gallio.Report.xhtml.xsl" Name="Gallio-Report.xhtml.xsl" KeyPath="yes" />
+                </Component>
+                <Component Id="Gallio.Report.xhtml.condensed.xsl" Guid="4C558DAE-9159-4b20-82F9-B14B487319E4" Win64="no">
+                    <File Id="Gallio.Report.xhtml.condensed.xsl" Name="Gallio-Report.xhtml-condensed.xsl" KeyPath="yes" />
+                </Component>
+                <Component Id="Gallio.Report.htmlxhtml.xsl" Guid="983bbd35-c150-47f6-91c0-74a288a28e5e" Win64="no">
+                    <File Id="Gallio.Report.htmlxhtml.xsl" Name="Gallio-Report.html+xhtml.xsl" KeyPath="yes" />
+                </Component>
+                <Component Id="Gallio.Report.ccnet.details.xsl" Guid="51e847dd-2e18-410f-b2af-1659e1e222ad" Win64="no">
+                    <File Id="Gallio.Report.ccnet.details.xsl" Name="Gallio-Report.ccnet-details.xsl" KeyPath="yes" />
+                </Component>
+                <Component Id="Gallio.Report.ccnet.details.condensed.xsl" Guid="46DCDA98-A69E-4037-9577-3285C751D68B" Win64="no">
+                    <File Id="Gallio.Report.ccnet.details.condensed.xsl" Name="Gallio-Report.ccnet-details-condensed.xsl" KeyPath="yes" />
+                </Component>
+            </Directory>
+
+            <Directory Id="Reports.img" Name="img">
+                <Component Id="Reports.Container.png" Guid="76196919-6e89-486f-b095-5bc28787d954" Win64="no">
+                    <File Id="Reports.Container.png" Name="Container.png" KeyPath="yes" />
+                </Component>
+                <Component Id="Reports.Failed.gif" Guid="63cb7f6f-8515-4db4-aecd-4a2b757c0171" Win64="no">
+                    <File Id="Reports.Failed.gif" Name="Failed.gif" KeyPath="yes" />
+                </Component>
+                <Component Id="Reports.Fixture.png" Guid="708907f8-f2b6-4f7b-ae3b-00f2d031e54b" Win64="no">
+                    <File Id="Reports.Fixture.png" Name="Fixture.png" KeyPath="yes" />
+                </Component>
+                <Component Id="Reports.FullStop.gif" Guid="89FD2012-5B71-4412-8AE9-65476C5E60EF" Win64="no">
+                    <File Id="Reports.FullStop.gif" Name="FullStop.gif" KeyPath="yes" />
+                </Component>
+                <Component Id="Reports.GallioTestReportHeader.png" Guid="0dc8470b-2b37-46ed-a57d-c6d924aa4c26" Win64="no">
+                    <File Id="Reports.GallioTestReportHeader.png" Name="GallioTestReportHeader.png" KeyPath="yes" />
+                </Component>
+                <Component Id="Reports.header.background.gif" Guid="3cab49d6-ea40-43af-b5e1-17f7d7914fce" Win64="no">
+                    <File Id="Reports.header.background.gif" Name="header-background.gif" KeyPath="yes" />
+                </Component>
+                <Component Id="Reports.Ignored.gif" Guid="39DDC89E-0C54-4164-B13F-BB86E9ADD864" Win64="no">
+                    <File Id="Reports.Ignored.gif" Name="Ignored.gif" KeyPath="yes" />
+                </Component>
+                <Component Id="Reports.Logo.png" Guid="2987ABDA-F0D0-475f-90D2-97F89C588002" Win64="no">
+                    <File Id="Reports.Logo.png" Name="Logo.png" KeyPath="yes" />
+                </Component>
+                <Component Id="Reports.Minus.gif" Guid="8F75BF51-8884-41b2-AFD8-1AD48D7ECE38" Win64="no">
+                    <File Id="Reports.Minus.gif" Name="Minus.gif" KeyPath="yes" />
+                </Component>
+                <Component Id="Reports.Passed.gif" Guid="70FB3482-9197-469d-AFDA-A5B07E085693" Win64="no">
+                    <File Id="Reports.Passed.gif" Name="Passed.gif" KeyPath="yes" />
+                </Component>
+                <Component Id="Reports.Plus.gif" Guid="16298049-ead7-49c7-bd22-aa3730468ff6" Win64="no">
+                    <File Id="Reports.Plus.gif" Name="Plus.gif" KeyPath="yes" />
+                </Component>
+                <Component Id="Reports.Test.png" Guid="34568772-2867-44c9-81BE-F90F818686B1" Win64="no">
+                    <File Id="Reports.Test.png" Name="Test.png" KeyPath="yes" />
+                </Component>
+            </Directory>
+
+        </DirectoryRef>
+
+        <DirectoryRef Id="docsFolder" FileSource="$(var.GallioTargetDir)\docs\">
+<?ifdef FEATURE_CHM_HELP ?>
+            <Component Id="Gallio.chm" Guid="{37BEC1CB-8141-4793-8CFF-986AC4849EB9}" Win64="no">
+                <File Name="Gallio.chm" KeyPath="yes">
+                    <Shortcut Id="Gallio.Offline.Documentation.lnk" Name="Offline Documentation" Directory="GallioMenuFolder" WorkingDirectory="docsFolder" Icon="Gallio.icon.exe" IconIndex="0" Advertise="yes" Show="normal" />
+                </File>
+            </Component>
+<?endif ?>
+<?ifdef FEATURE_VS_HELP ?>
+            <Directory Id="docsVsFolder" Name="vs">
+                <Component Id="Gallio.Help.vs" Guid="37360bcd-0c85-4132-822e-5810371b59fa" Win64="no">
+                    <File Name="Gallio.HxS" />
+                    <File Name="GallioCollection.HxC" />
+                    <File Name="GallioCollection.HxT" />
+                    <File Name="GallioCollection_A.HxK" />
+                    <File Name="GallioCollection_F.HxK" />
+                    <File Name="GallioCollection_K.HxK" />
+                </Component>
+                <Component Id="Gallio.H2Reg.ini" Guid="7bb0227e-0dc9-4385-b97c-1b9aff6504fd" Win64="no">
+                    <File Id="Gallio.H2Reg.ini" Name="GallioCollection.h2reg.ini" />
+                </Component>
+            </Directory>
+<?endif ?>
+        </DirectoryRef>
+
+        <DirectoryRef Id="extraFolder">
+<?ifdef FEATURE_VS_HELP ?>
+            <Directory Id='H2RegDir' Name='H2Reg'>
+                <Component Id="H2Reg.exe" Guid="779c47b3-56ba-4efc-ab52-3b809c2f2c3b" Win64="no">
+                    <File Id="H2Reg.exe" Source="$(sys.SOURCEFILEDIR)..\..\tools\H2Reg\H2Reg.exe" KeyPath="yes" />
+                    <File Id="H2Reg.ini" Source="$(sys.SOURCEFILEDIR)..\..\tools\H2Reg\H2Reg.ini" />
+                    <RemoveFile Id="H2Reg_Log.txt" Name="H2Reg_Log.txt" On="uninstall" />
+                </Component>
+            </Directory>
+<?endif ?>
+        </DirectoryRef>
+
+        <Feature Id="feat_Gallio" Title="Gallio" Level="1" InstallDefault="local" TypicalDefault="install" Absent="disallow" AllowAdvertise="no"
+                 Description="Installs the Gallio test automation platform." ConfigurableDirectory="INSTALLDIR" Display="2">
+            <ComponentRef Id="Gallio" />
+            <ComponentRef Id="Gallio35" />
+            <ComponentRef Id="Gallio.XmlSerializers" />
+            <ComponentRef Id="Gallio.Host" />
+            <ComponentRef Id="Gallio.Host.x86" />
+            <ComponentRef Id="Gallio.Loader" />
+            <ComponentRef Id="Gallio.License" />
+            <ComponentRef Id="Mono.Cecil.License" />
+            <ComponentRef Id="Gallio.Website" />
+            <ComponentRef Id="Gallio.Registry" />
+            <ComponentRef Id="Apache.License" />
+            <ComponentRef Id="Gallio.Credits" />
+            <ComponentRef Id="Gallio.UI.dll"/>
+            <ComponentRef Id="Gallio.Reports.dll"/>
+
+            <ComponentRef Id="Gallio.Report.css"/>
+            <ComponentRef Id="Gallio.Report.js"/>
+
+            <ComponentRef Id="Gallio.Report.common.xsl"/>
+            <ComponentRef Id="Gallio.Report.txt.xsl"/>
+            <ComponentRef Id="Gallio.Report.html.xsl"/>
+            <ComponentRef Id="Gallio.Report.html.condensed.xsl"/>
+            <ComponentRef Id="Gallio.Report.xhtml.xsl"/>
+            <ComponentRef Id="Gallio.Report.xhtml.condensed.xsl"/>
+            <ComponentRef Id="Gallio.Report.htmlxhtml.xsl"/>
+            <ComponentRef Id="Gallio.Report.ccnet.details.xsl"/>
+            <ComponentRef Id="Gallio.Report.ccnet.details.condensed.xsl"/>
+
+            <ComponentRef Id="Reports.Container.png"/>
+            <ComponentRef Id="Reports.Failed.gif"/>
+            <ComponentRef Id="Reports.Fixture.png"/>
+            <ComponentRef Id="Reports.FullStop.gif"/>
+            <ComponentRef Id="Reports.GallioTestReportHeader.png"/>
+            <ComponentRef Id="Reports.header.background.gif"/>
+            <ComponentRef Id="Reports.Ignored.gif"/>
+            <ComponentRef Id="Reports.Logo.png"/>
+            <ComponentRef Id="Reports.Minus.gif"/>
+            <ComponentRef Id="Reports.Passed.gif"/>
+            <ComponentRef Id="Reports.Plus.gif"/>
+            <ComponentRef Id="Reports.Test.png"/>
+
+            <ComponentRef Id="GallioMenuFolder.RemoveFolder"/>
+        </Feature>
+
+<?ifdef FEATURE_CHM_HELP ?>
+        <Feature Id="feat_Gallio.Help" Title="Standalone Help Docs" Level="1" Description="Installs the standalone help documentation CHM file." AllowAdvertise="no">
+            <ComponentRef Id="Gallio.chm" />
+        </Feature>
+<?endif ?>
+
+<?ifdef FEATURE_VS_HELP ?>
+        <PropertyRef Id='VS2005DEVENV'/>
+        <PropertyRef Id='VS90DEVENV'/>
+
+        <Feature Id="feat_Gallio.VSHelp" Title="Visual Studio Help Docs" Level="0" AllowAdvertise="no"
+                 Description="Installs the integrated documentation for Visual Studio 2005 and/or Visual Studio 2008. Access with F1 Help.">
+            <Condition Level="1">VS2005DEVENV OR VS90DEVENV</Condition>
+            <ComponentRef Id="Gallio.Help.vs" />
+            <ComponentRef Id="Gallio.H2Reg.ini" />
+            <ComponentRef Id="H2Reg.exe" />
+        </Feature>
+
+        <CustomAction Id="H2Reg.Install"   FileKey="H2Reg.exe" ExeCommand='-r -q CmdFile="[#Gallio.H2Reg.ini]"' Execute="deferred" Return="check" Impersonate="no"/>
+        <CustomAction Id="H2Reg.Uninstall" FileKey="H2Reg.exe" ExeCommand='-u -q CmdFile="[#Gallio.H2Reg.ini]"' Execute="deferred" Return="ignore" Impersonate="no"/>
+
+        <InstallExecuteSequence>
+            <Custom Action="H2Reg.Install" After="InstallFiles"><![CDATA[(&feat_Gallio.VSHelp = 3) AND NOT(!feat_Gallio.VSHelp = 3)]]></Custom>
+            <Custom Action="H2Reg.Uninstall" Before="RemoveFiles"><![CDATA[(&feat_Gallio.VSHelp = 2) AND (!feat_Gallio.VSHelp = 3)]]></Custom>
+        </InstallExecuteSequence>
+
+        <UI>
+            <ProgressText Action="H2Reg.Install" Template="[1]">Installing help files into Visual Studio ...</ProgressText>
+            <ProgressText Action="H2Reg.Uninstall" Template="[1]">Uninstalling help files from Visual Studio ...</ProgressText>
+        </UI>
+<?endif ?>
+    </Fragment>
+</Wix>

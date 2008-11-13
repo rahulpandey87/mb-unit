@@ -1,0 +1,103 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <Import Project="$(MetaBuildBinDir)\MetaBuild.Module.targets" />
+
+  <ItemGroup>
+  </ItemGroup>
+
+  <ItemGroup>
+    <CSharpProject Include="Gallio\Gallio$(ProjectVariant).csproj" />
+    <CSharpProject Include="Gallio35\Gallio35$(ProjectVariant).csproj" />
+    <CSharpProject Include="Gallio.Host\Gallio.Host$(ProjectVariant).csproj" />
+    <CSharpProject Include="Gallio.Host\Gallio.Host.x86$(ProjectVariant).csproj" />
+    <CSharpProject Include="Gallio.Tests\Gallio.Tests$(ProjectVariant).csproj" />
+    <CSharpProject Include="Gallio.Loader\Gallio.Loader$(ProjectVariant).csproj" />
+    <CSharpProject Include="Gallio.Reports\Gallio.Reports$(ProjectVariant).csproj" />
+    <CSharpProject Include="Gallio.Reports.Tests\Gallio.Reports.Tests$(ProjectVariant).csproj" />
+    <CSharpProject Include="Gallio.UI\Gallio.UI$(ProjectVariant).csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DocumentedAssembly Include="Gallio\bin\Gallio.dll" />
+    <DocumentedAssembly Include="Gallio35\bin\Gallio35.dll" />
+    <DocumentedAssembly Include="Gallio.Loader\bin\Gallio.Loader.dll" />
+    <DocumentedAssembly Include="Gallio.Reports\bin\Gallio.Reports.dll" />
+    <DocumentedAssembly Include="Gallio.UI\bin\Gallio.UI.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Gallio Website.url" />
+  
+    <Binary Include="Gallio\bin\Gallio.XmlSerializers.dll" />
+    <Binary Include="Gallio\Gallio.plugin" />
+
+    <Binary Include="Gallio.Host\bin\msil\Gallio.Host.exe" />
+    <Binary Include="Gallio.Host\Gallio.Host.exe.config" />
+
+    <Binary Include="Gallio.Host\bin\x86\Gallio.Host.x86.exe" />
+    <Binary Include="Gallio.Host\Gallio.Host.x86.exe.config" />
+
+    <Binary Include="Gallio.Loader\bin\Gallio.Loader.dll" />
+    <Binary Include="Gallio.Loader\bin\Gallio.Loader.pdb" />
+    
+    <Binary Include="Gallio35\bin\Gallio35.dll" />
+    <Binary Include="Gallio35\bin\Gallio35.pdb" />
+    <Binary Include="Gallio35\Gallio35.plugin" />
+    
+    <Binary Include="Gallio.UI\bin\Gallio.UI.dll" />
+    <Binary Include="Gallio.UI\bin\Gallio.UI.pdb" />
+    <Binary Include="Gallio.UI\Gallio.UI.plugin" />
+    
+    <Binary Include="Gallio.Reports\bin\Gallio.Reports.dll" />
+    <Binary Include="Gallio.Reports\bin\Gallio.Reports.pdb" />
+    <Binary Include="Gallio.Reports\Gallio.Reports.plugin" />
+
+    <Binary Include="Gallio.Reports\Resources\css\*">
+        <Folder>Resources\css</Folder>
+    </Binary>
+    <Binary Include="Gallio.Reports\Resources\js\*">
+        <Folder>Resources\js</Folder>
+    </Binary>
+    <Binary Include="Gallio.Reports\Resources\img\*">
+        <Folder>Resources\img</Folder>
+    </Binary>
+    <Binary Include="Gallio.Reports\Resources\xsl\*">
+        <Folder>Resources\xsl</Folder>
+    </Binary>
+    
+    <Content Include="libs\Mono.Cecil.license.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Document Include="Docs\*.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TestAssembly Include="Gallio.Tests\bin\Gallio.Tests.dll" />
+    <TestAssembly Include="Gallio.Reports.Tests\bin\Gallio.Reports.Tests.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <GallioMergeDependency Include="Gallio\bin\Castle.Core.dll" />
+    <GallioMergeDependency Include="Gallio\bin\Castle.MicroKernel.dll" />
+    <GallioMergeDependency Include="Gallio\bin\Castle.Windsor.dll" />
+    <GallioMergeDependency Include="Gallio\bin\Castle.DynamicProxy2.dll" />
+    <GallioMergeDependency Include="Gallio\bin\Mono.Cecil.dll" />
+  </ItemGroup>
+
+  <Target Name="AfterImage"
+          DependsOnTargets="GallioImage_ILMerge;GallioImage_NoILMerge" />
+
+  <Target Name="GallioImage_ILMerge"
+          Condition="'$(NoILMerge)'!='true'">
+    <Message Text="Running ILMerge on Gallio.dll..."
+             Importance="High" />
+
+    <Exec Command="&quot;$(ToolsDir)\ILMerge\ILMerge.exe&quot; &quot;Gallio\bin\Gallio.dll&quot; @(GallioMergeDependency->'&quot;%(Identity)&quot;', ' ') /internalize &quot;/out:$(ImageDir)\bin\Gallio.dll&quot; &quot;/keyfile:$(SourceDir)\Key.snk&quot;" />
+  </Target>
+
+  <Target Name="GallioImage_NoILMerge"
+          Condition="'$(NoILMerge)'=='true'">
+    <Copy SourceFiles="Gallio\bin\Gallio.dll;Gallio\bin\Gallio.pdb;@(GallioMergeDependency)"
+          DestinationFolder="$(ImageDir)\bin" />
+  </Target>
+</Project>
