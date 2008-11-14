@@ -21,8 +21,9 @@ using MbUnit.Framework.ContractVerifiers;
 
 namespace Gallio.Ambience.Tests
 {
-    [VerifyExceptionContract(typeof(AmbienceException))]
     public class AmbienceExceptionTest
     {
+        [ContractVerifier]
+        public readonly IContractVerifier ExceptionTests = new ExceptionContractVerifier<AmbienceException>();
     }
 }

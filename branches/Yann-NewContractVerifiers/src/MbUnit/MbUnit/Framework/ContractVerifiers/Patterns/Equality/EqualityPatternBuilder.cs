@@ -16,7 +16,7 @@
 using System;
 using System.Reflection;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.Equality
+namespace MbUnit.Framework.ContractVerifiers.Patterns.Equality
 {
     /// <summary>
     /// Builder for the test pattern <see cref="EqualityPattern{T}"/>

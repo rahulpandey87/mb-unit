@@ -7,10 +7,10 @@ using Gallio.Framework.Data;
 using Gallio.Framework.Pattern;
 using Gallio.Model;
 using Gallio.Reflection;
-using MbUnit.Framework.NewContractVerifiers.Patterns;
-using MbUnit.Framework.NewContractVerifiers.Patterns.Comparison;
+using MbUnit.Framework.ContractVerifiers.Patterns;
+using MbUnit.Framework.ContractVerifiers.Patterns.Comparison;
 
-namespace MbUnit.Framework.NewContractVerifiers
+namespace MbUnit.Framework.ContractVerifiers
 {
     /// <summary>
     /// Field-based contract verifier for the implementation of

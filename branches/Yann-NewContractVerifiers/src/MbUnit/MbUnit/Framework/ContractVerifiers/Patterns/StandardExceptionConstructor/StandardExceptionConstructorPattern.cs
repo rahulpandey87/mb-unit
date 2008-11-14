@@ -22,7 +22,7 @@ using System.Reflection;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.StandardExceptionConstructor
+namespace MbUnit.Framework.ContractVerifiers.Patterns.StandardExceptionConstructor
 {
     /// <summary>
     /// Test pattern for contract verifiers related to exceptions.

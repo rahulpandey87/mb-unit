@@ -16,7 +16,7 @@
 using System;
 using System.Reflection;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.ObjectHashCode
+namespace MbUnit.Framework.ContractVerifiers.Patterns.ObjectHashCode
 {
     /// <summary>
     /// Builder for the test pattern <see cref="ObjectHashCodePattern{T}"/>

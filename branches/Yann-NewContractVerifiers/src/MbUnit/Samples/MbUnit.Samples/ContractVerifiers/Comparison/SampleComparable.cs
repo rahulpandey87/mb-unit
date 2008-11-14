@@ -15,7 +15,7 @@
 
 using System;
 using MbUnit.Framework;
-using MbUnit.Framework.NewContractVerifiers;
+using MbUnit.Framework.ContractVerifiers;
 
 namespace MbUnit.Samples.NewContractVerifiers
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MbUnit.Framework;
-using MbUnit.Framework.NewContractVerifiers;
+using MbUnit.Framework.ContractVerifiers;
 using Gallio.Tests;
 using Gallio.Model;
 

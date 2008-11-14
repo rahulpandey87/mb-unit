@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 
-namespace MbUnit.Framework.NewContractVerifiers
+namespace MbUnit.Framework.ContractVerifiers
 {
     /// <summary>
     /// <para>

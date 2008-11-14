@@ -15,7 +15,7 @@
 
 using System;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.HasAttribute
+namespace MbUnit.Framework.ContractVerifiers.Patterns.HasAttribute
 {
     /// <summary>
     /// Builder for the test pattern <see cref="HasAttributePattern{TTarget, TAttribute}"/>

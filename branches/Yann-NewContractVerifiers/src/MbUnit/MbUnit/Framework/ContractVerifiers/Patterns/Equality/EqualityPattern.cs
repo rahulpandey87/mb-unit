@@ -22,7 +22,7 @@ using System.Collections;
 using System.Reflection;
 using Gallio;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.Equality
+namespace MbUnit.Framework.ContractVerifiers.Patterns.Equality
 {
     /// <summary>
     /// General purpose test pattern for contract verifiers.

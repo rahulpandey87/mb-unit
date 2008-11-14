@@ -24,10 +24,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Gallio.Tests.Reflection
 {
-    [TestFixture]
     [TestsOn(typeof(CodeLocation))]
-    [VerifyEqualityContract(typeof(CodeLocation))]
-    public class CodeLocationTest : IEquivalenceClassProvider<CodeLocation>
+    public class CodeLocationTest
     {
         [Test]
         public void UnknownIsDefinedWithANullPath()
@@ -126,9 +124,10 @@ namespace Gallio.Tests.Reflection
             }
         }
 
-        public EquivalenceClassCollection<CodeLocation> GetEquivalenceClasses()
+        [ContractVerifier]
+        public readonly IContractVerifier EqualityTests = new EqualityContractVerifier<CodeLocation>()
         {
-            return new EquivalenceClassCollection<CodeLocation>(
+            EquivalenceClasses = new EquivalenceClassCollection<CodeLocation>(
                 new EquivalenceClass<CodeLocation>(
                     CodeLocation.Unknown,
                     new CodeLocation()),
@@ -139,7 +138,7 @@ namespace Gallio.Tests.Reflection
                 new EquivalenceClass<CodeLocation>(
                     new CodeLocation("path", 456, 9)),
                 new EquivalenceClass<CodeLocation>(
-                    new CodeLocation("path", 123, 10)));
-        }
+                    new CodeLocation("path", 123, 10)))
+        };
     }
 }

@@ -21,9 +21,11 @@ using MbUnit.Framework.ContractVerifiers;
 namespace Gallio.Tests.Framework
 {
     [TestsOn(typeof(TestInconclusiveException))]
-    [VerifyExceptionContract(typeof(TestInconclusiveException))]
     public class TestInconclusiveExceptionTest
     {
+        [ContractVerifier]
+        public readonly IContractVerifier ExceptionTests = new ExceptionContractVerifier<TestInconclusiveException>();
+
         [Test]
         public void OutcomeIsInconclusive()
         {

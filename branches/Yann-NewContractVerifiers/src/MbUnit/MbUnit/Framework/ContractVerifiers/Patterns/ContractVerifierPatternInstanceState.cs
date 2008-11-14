@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns
+namespace MbUnit.Framework.ContractVerifiers.Patterns
 {
     /// <summary>
     /// Represents the run-time state of a single instance of a 

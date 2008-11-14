@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.HasAttribute
+namespace MbUnit.Framework.ContractVerifiers.Patterns.HasAttribute
 {
     /// <summary>
     /// Data container which exposes necessary data required to

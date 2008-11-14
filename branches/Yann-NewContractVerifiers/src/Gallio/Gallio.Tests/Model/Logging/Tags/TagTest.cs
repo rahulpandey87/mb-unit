@@ -23,16 +23,24 @@ using MbUnit.Framework.ContractVerifiers;
 
 namespace Gallio.Tests.Model.Logging.Tags
 {
-    [VerifyEqualityContract(typeof(Tag), ImplementsOperatorOverloads = false)]
     public class TagTest : BaseTagTest<Tag>
     {
+        [ContractVerifier]
+        public readonly IContractVerifier EqualityTests = new EqualityContractVerifier<Tag>()
+        {
+            ImplementsOperatorOverloads = false,
+            EquivalenceClasses = equivalenceClasses
+        };
+
         public override EquivalenceClassCollection<Tag> GetEquivalenceClasses()
         {
-            return EquivalenceClassCollection<Tag>.FromDistinctInstances(
+            return equivalenceClasses;
+        }
+
+        private static readonly EquivalenceClassCollection<Tag> equivalenceClasses
+            = EquivalenceClassCollection<Tag>.FromDistinctInstances(
                 new BodyTag(),
                 new BodyTag() { Contents = { new TextTag("text") } },
-                new BodyTag() { Contents = { new TextTag("text"), new TextTag("more") } }
-                );
-        }
+                new BodyTag() { Contents = { new TextTag("text"), new TextTag("more") } });
     }
 }

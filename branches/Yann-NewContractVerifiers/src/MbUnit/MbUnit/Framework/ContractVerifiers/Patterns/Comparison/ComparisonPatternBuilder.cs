@@ -17,7 +17,7 @@ using System;
 using System.Reflection;
 using Gallio;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.Comparison
+namespace MbUnit.Framework.ContractVerifiers.Patterns.Comparison
 {
     /// <summary>
     /// Builder for the test pattern <see cref="ComparisonPattern{TTarget, TResult}"/>

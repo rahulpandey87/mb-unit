@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections.ObjectModel;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.StandardExceptionConstructor
+namespace MbUnit.Framework.ContractVerifiers.Patterns.StandardExceptionConstructor
 {
     /// <summary>
     /// Data container which exposes necessary data required to run the test 

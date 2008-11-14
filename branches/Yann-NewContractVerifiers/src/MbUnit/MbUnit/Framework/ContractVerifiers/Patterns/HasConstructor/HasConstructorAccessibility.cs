@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.HasConstructor
+namespace MbUnit.Framework.ContractVerifiers.Patterns.HasConstructor
 {
     /// <summary>
     /// Required accessibility for the constructor searched

@@ -20,7 +20,7 @@ using Gallio.Framework.Pattern;
 using Gallio.Framework.Assertions;
 using System.Collections;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.ObjectHashCode
+namespace MbUnit.Framework.ContractVerifiers.Patterns.ObjectHashCode
 {
     /// <summary>
     /// General purpose test pattern for contract verifiers.

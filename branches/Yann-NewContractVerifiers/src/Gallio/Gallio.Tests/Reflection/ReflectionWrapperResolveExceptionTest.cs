@@ -22,8 +22,12 @@ namespace Gallio.Tests.Reflection
 {
     // TODO: Implement tests for special constructors.
     [TestsOn(typeof(ReflectionWrapperResolveException))]
-    [VerifyExceptionContract(typeof(ReflectionWrapperResolveException), ImplementsStandardConstructors=false)]
     public class ReflectionWrapperResolveExceptionTest
     {
+        [ContractVerifier]
+        public readonly IContractVerifier exceptionTests = new ExceptionContractVerifier<ReflectionWrapperResolveException>()
+        {
+            ImplementsStandardConstructors = false
+        };
     }
 }

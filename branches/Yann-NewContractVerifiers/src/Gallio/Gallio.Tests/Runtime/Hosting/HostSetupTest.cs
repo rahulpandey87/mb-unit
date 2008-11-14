@@ -23,8 +23,7 @@ using MbUnit.Framework.ContractVerifiers;
 namespace Gallio.Tests.Runtime.Hosting
 {
     [TestsOn(typeof(HostSetup))]
-    [VerifyEqualityContract(typeof(HostSetup), ImplementsOperatorOverloads = false)]
-    public class HostSetupTest : IEquivalenceClassProvider<HostSetup>
+    public class HostSetupTest
     {
         [Test]
         public void WriteTemporaryConfigurationFile_ReturnsNullWhenNone()
@@ -114,9 +113,11 @@ namespace Gallio.Tests.Runtime.Hosting
             Assert.AreEqual(setup.WorkingDirectory, copy.WorkingDirectory);
         }
 
-        public EquivalenceClassCollection<HostSetup> GetEquivalenceClasses()
+        [ContractVerifier]
+        public readonly IContractVerifier EqualityTests = new EqualityContractVerifier<HostSetup>()
         {
-            return EquivalenceClassCollection<HostSetup>.FromDistinctInstances(
+            ImplementsOperatorOverloads = false,
+            EquivalenceClasses = EquivalenceClassCollection<HostSetup>.FromDistinctInstances(
                 new HostSetup { },
                 new HostSetup { ApplicationBaseDirectory = @"C:\AppBase" },
                 new HostSetup { ApplicationBaseDirectory = @"C:\AppBase-2" },
@@ -129,7 +130,7 @@ namespace Gallio.Tests.Runtime.Hosting
                 new HostSetup { ShadowCopy = true },
                 new HostSetup { WorkingDirectory = @"C:\WorkingDir" },
                 new HostSetup { WorkingDirectory = @"C:\WorkingDir-2" }
-            );
-        }
+            )
+        };
     }
 }

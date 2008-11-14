@@ -20,7 +20,7 @@ using Gallio.Framework.Pattern;
 using Gallio.Framework.Assertions;
 using System.Reflection;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.HasConstructor
+namespace MbUnit.Framework.ContractVerifiers.Patterns.HasConstructor
 {
     /// <summary>
     /// General purpose test pattern for contract verifiers.

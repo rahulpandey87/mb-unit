@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.Equality
+namespace MbUnit.Framework.ContractVerifiers.Patterns.Equality
 {
     /// <summary>
     /// Data container which exposes necessary data required to

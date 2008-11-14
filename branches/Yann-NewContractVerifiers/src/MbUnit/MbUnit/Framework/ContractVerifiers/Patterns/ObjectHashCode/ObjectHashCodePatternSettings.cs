@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.ObjectHashCode
+namespace MbUnit.Framework.ContractVerifiers.Patterns.ObjectHashCode
 {
     /// <summary>
     /// Data container which exposes necessary data required to

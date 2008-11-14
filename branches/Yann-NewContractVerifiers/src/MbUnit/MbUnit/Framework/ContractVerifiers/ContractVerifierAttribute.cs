@@ -4,8 +4,9 @@ using System.Text;
 using Gallio.Framework.Pattern;
 using Gallio.Reflection;
 using Gallio.Model;
+using System.Reflection;
 
-namespace MbUnit.Framework.NewContractVerifiers
+namespace MbUnit.Framework.ContractVerifiers
 {
     /// <summary>
     /// <para>
@@ -34,10 +35,10 @@ namespace MbUnit.Framework.NewContractVerifiers
         /// <inheritdoc />
         public override void Consume(PatternEvaluationScope containingScope, ICodeElementInfo codeElement, bool skipChildren)
         {
-            var fixtureType = ((ITypeInfo)containingScope.CodeElement).Resolve(true);
-            var fixtureInstance = Activator.CreateInstance(fixtureType);
-            var fieldInfo = ((IFieldInfo)codeElement).Resolve(true);
-            var fieldInstance = (IContractVerifier)fieldInfo.GetValue(fixtureInstance);
+            var fixtureType = GetFixtureType(containingScope);
+            var fixtureInstance = GetFixtureInstance(fixtureType);
+            var fieldInfo = GetFieldInfo(codeElement);
+            var fieldInstance = GetFieldInstance(fieldInfo, fixtureInstance);
             var contractTest = new PatternTest(codeElement.Name, codeElement, containingScope.TestDataContext.CreateChild());
             contractTest.IsTestCase = false;
             contractTest.Metadata.SetValue(MetadataKeys.TestKind, TestKinds.Group);
@@ -47,6 +48,26 @@ namespace MbUnit.Framework.NewContractVerifiers
             {
                 item.Build(scope, codeElement.Name);
             }
+        }
+
+        private Type GetFixtureType(PatternEvaluationScope containingScope)
+        {
+            return ((ITypeInfo)containingScope.CodeElement).Resolve(true);
+        }
+
+        private object GetFixtureInstance(Type fixtureType)
+        {
+            return Activator.CreateInstance(fixtureType);
+        }
+
+        private FieldInfo GetFieldInfo(ICodeElementInfo codeElement)
+        {
+            return ((IFieldInfo)codeElement).Resolve(true);
+        }
+
+        private IContractVerifier GetFieldInstance(FieldInfo fieldInfo, object fixtureInstance)
+        {
+            return (IContractVerifier)fieldInfo.GetValue(fixtureInstance);
         }
     }
 }

@@ -24,7 +24,7 @@ using System.Collections;
 using Gallio.Framework.Assertions;
 using System.Reflection;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns
+namespace MbUnit.Framework.ContractVerifiers.Patterns
 {
     /// <summary>
     /// Abstract test pattern for contract verifiers.

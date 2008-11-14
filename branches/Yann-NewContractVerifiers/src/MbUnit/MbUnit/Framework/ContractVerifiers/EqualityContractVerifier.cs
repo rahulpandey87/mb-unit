@@ -6,13 +6,13 @@ using Gallio.Model;
 using Gallio.Framework.Data;
 using Gallio.Framework.Assertions;
 using Gallio.Reflection;
-using MbUnit.Framework.NewContractVerifiers.Patterns;
-using MbUnit.Framework.NewContractVerifiers.Patterns.HasAttribute;
-using MbUnit.Framework.NewContractVerifiers.Patterns.ObjectHashCode;
+using MbUnit.Framework.ContractVerifiers.Patterns;
+using MbUnit.Framework.ContractVerifiers.Patterns.HasAttribute;
+using MbUnit.Framework.ContractVerifiers.Patterns.ObjectHashCode;
 using System.Reflection;
-using MbUnit.Framework.NewContractVerifiers.Patterns.Equality;
+using MbUnit.Framework.ContractVerifiers.Patterns.Equality;
 
-namespace MbUnit.Framework.NewContractVerifiers
+namespace MbUnit.Framework.ContractVerifiers
 {
     /// <summary>
     /// Field-based contract verifier for the implementation of

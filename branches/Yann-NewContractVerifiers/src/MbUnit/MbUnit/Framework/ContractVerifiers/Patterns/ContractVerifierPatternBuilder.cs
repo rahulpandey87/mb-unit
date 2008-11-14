@@ -20,7 +20,7 @@ using Gallio.Framework.Pattern;
 using Gallio.Model;
 using Gallio.Framework.Data;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns
+namespace MbUnit.Framework.ContractVerifiers.Patterns
 {
     /// <summary>
     /// Abstract builder of test pattern for contract verifiers.

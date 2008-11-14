@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.StandardExceptionConstructor
+namespace MbUnit.Framework.ContractVerifiers.Patterns.StandardExceptionConstructor
 {
     /// <summary>
     /// Represents specifications for the invocation 

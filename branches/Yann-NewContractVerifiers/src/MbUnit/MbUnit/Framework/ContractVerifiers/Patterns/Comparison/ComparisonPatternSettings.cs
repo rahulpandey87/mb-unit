@@ -19,7 +19,7 @@ using System.Text;
 using System.Reflection;
 using Gallio;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.Comparison
+namespace MbUnit.Framework.ContractVerifiers.Patterns.Comparison
 {
     /// <summary>
     /// Data container which exposes necessary data required to

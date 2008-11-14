@@ -21,8 +21,9 @@ using MbUnit.Framework.ContractVerifiers;
 namespace Gallio.Tests.Model.Filters
 {
     [TestsOn(typeof(FilterParseException))]
-    [VerifyExceptionContract(typeof(FilterParseException))]
     public class FilterParseExceptionTest
     {
+        [ContractVerifier]
+        public readonly IContractVerifier ExceptionTests = new ExceptionContractVerifier<FilterParseException>();
     }
 }

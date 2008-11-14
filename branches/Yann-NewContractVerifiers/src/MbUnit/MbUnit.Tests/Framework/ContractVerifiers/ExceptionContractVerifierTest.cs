@@ -21,7 +21,7 @@ using Gallio.Runner.Reports;
 using Gallio.Tests;
 using Gallio.Tests.Integration;
 using MbUnit.Framework;
-using MbUnit.Framework.NewContractVerifiers;
+using MbUnit.Framework.ContractVerifiers;
 
 namespace MbUnit.Tests.Framework.NewContractVerifiers
 {

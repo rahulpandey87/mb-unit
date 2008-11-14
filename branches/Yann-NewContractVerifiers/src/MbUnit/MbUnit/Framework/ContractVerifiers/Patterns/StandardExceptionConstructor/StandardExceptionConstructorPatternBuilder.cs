@@ -16,7 +16,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.StandardExceptionConstructor
+namespace MbUnit.Framework.ContractVerifiers.Patterns.StandardExceptionConstructor
 {
     /// <summary>
     /// Builder for the test pattern <see cref="StandardExceptionConstructorPattern{TException}"/>

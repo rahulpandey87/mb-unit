@@ -19,7 +19,7 @@ using System.Text;
 using Gallio.Framework.Pattern;
 using Gallio.Framework.Assertions;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.HasAttribute
+namespace MbUnit.Framework.ContractVerifiers.Patterns.HasAttribute
 {
     /// <summary>
     /// General purpose test pattern for contract verifiers.

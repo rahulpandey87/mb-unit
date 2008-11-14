@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Gallio.Framework.Pattern;
-using MbUnit.Framework.NewContractVerifiers.Patterns;
+using MbUnit.Framework.ContractVerifiers.Patterns;
 
-namespace MbUnit.Framework.NewContractVerifiers
+namespace MbUnit.Framework.ContractVerifiers
 {
     /// <summary>
     /// Field-level contract verifier.

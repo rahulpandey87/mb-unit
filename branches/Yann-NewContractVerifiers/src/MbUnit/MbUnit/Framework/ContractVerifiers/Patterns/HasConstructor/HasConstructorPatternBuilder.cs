@@ -16,7 +16,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace MbUnit.Framework.NewContractVerifiers.Patterns.HasConstructor
+namespace MbUnit.Framework.ContractVerifiers.Patterns.HasConstructor
 {
     /// <summary>
     /// Builder for the test pattern <see cref="HasConstructorPattern{TTarget}"/>
