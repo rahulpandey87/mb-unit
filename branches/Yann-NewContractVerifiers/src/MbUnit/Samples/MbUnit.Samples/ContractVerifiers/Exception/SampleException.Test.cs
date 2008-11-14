@@ -15,16 +15,19 @@
 
 using System;
 using MbUnit.Framework;
-using MbUnit.Framework.ContractVerifiers;
+using MbUnit.Framework.NewContractVerifiers;
 using System.Runtime.Serialization;
 
-namespace MbUnit.Samples.ContractVerifiers
+namespace MbUnit.Samples.NewContractVerifiers
 {
     [TestFixture]
-    [VerifyExceptionContract(typeof(SampleException), 
-        ImplementsSerialization = true, 
-        ImplementsStandardConstructors = true)]
     public class SampleExceptionTest
     {
+        [ContractVerifier]
+        public readonly IContractVerifier ExceptionTests = new ExceptionContractVerifier<SampleException>()
+        {
+            ImplementsSerialization = true, 
+            ImplementsStandardConstructors = true
+        };
     }
 }

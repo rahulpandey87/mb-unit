@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 
-namespace MbUnit.Framework.ContractVerifiers
+namespace MbUnit.Framework.NewContractVerifiers
 {
     /// <summary>
     /// <para>
@@ -27,8 +27,7 @@ namespace MbUnit.Framework.ContractVerifiers
     /// </para>
     /// <para>
     /// Equivalent classes are used by some contract verifiers such as 
-    /// <see cref="VerifyEqualityContractAttribute"/> and
-    /// <see cref="VerifyComparisonContractAttribute"/> to check for 
+    /// <see cref="EqualityContractVerifier{T}"/>  to check for 
     /// the correct implementation of object equality or comparison.
     /// </para>
     /// <para>
@@ -86,8 +85,7 @@ namespace MbUnit.Framework.ContractVerifiers
         /// </para>
         /// <para>
         /// Equivalent classes are used by some contract verifiers such as 
-        /// <see cref="VerifyEqualityContractAttribute"/> and
-        /// <see cref="VerifyComparisonContractAttribute"/> to check for 
+        /// <see cref="EqualityContractVerifier{T}"/>  to check for 
         /// the correct implementation of object equality or comparison.
         /// </para>
         /// </summary>
@@ -122,8 +120,7 @@ namespace MbUnit.Framework.ContractVerifiers
         /// </para>
         /// <para>
         /// Equivalent classes are used by some contract verifiers such as 
-        /// <see cref="VerifyEqualityContractAttribute"/> and
-        /// <see cref="VerifyComparisonContractAttribute"/> to check for 
+        /// <see cref="EqualityContractVerifier{T}"/>  to check for 
         /// the correct implementation of object equality or comparison.
         /// </para>
         /// </summary>

@@ -15,23 +15,24 @@
 
 using System;
 using MbUnit.Framework;
-using MbUnit.Framework.ContractVerifiers;
+using MbUnit.Framework.NewContractVerifiers;
 
-namespace MbUnit.Samples.ContractVerifiers
+namespace MbUnit.Samples.NewContractVerifiers
 {
     [TestFixture]
-    [VerifyComparisonContract(typeof(SampleComparable), 
-        ImplementsOperatorOverloads = true)]
-    public class SampleComparableTest : IEquivalenceClassProvider<SampleComparable>
+    public class SampleComparableTest
     {
-        public EquivalenceClassCollection<SampleComparable> GetEquivalenceClasses()
+        [ContractVerifier]
+        public readonly IContractVerifier EqualityTests = new ComparisonContractVerifier<SampleComparable>()
         {
-            return EquivalenceClassCollection<SampleComparable>.FromDistinctInstances(
+            EquivalenceClasses = EquivalenceClassCollection<SampleComparable>.FromDistinctInstances(
                 new SampleComparable(1),
                 new SampleComparable(2),
                 new SampleComparable(3),
                 new SampleComparable(4),
-                new SampleComparable(5));
-        }
+                new SampleComparable(5)),
+
+            ImplementsOperatorOverloads = true,
+        };
     }
 }

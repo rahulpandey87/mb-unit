@@ -18,11 +18,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 
-namespace MbUnit.Framework.ContractVerifiers.Patterns.HasConstructor
+namespace MbUnit.Framework.NewContractVerifiers.Patterns.HasConstructor
 {
     /// <summary>
     /// Required accessibility for the constructor searched
-    /// by the <see cref="HasConstructorPattern"/>.
+    /// by the <see cref="HasConstructorPattern{TTarget}"/>.
     /// </summary>
     internal class HasConstructorAccessibility
     {

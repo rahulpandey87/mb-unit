@@ -57,13 +57,6 @@
     <Compile Include="Framework\BindAttribute.cs" />
     <Compile Include="Framework\ColumnAttribute.cs" />
     <Compile Include="Framework\CombinatorialJoinAttribute.cs" />
-    <Compile Include="Framework\ContractVerifiers\EquivalenceClass.cs" />
-    <Compile Include="Framework\ContractVerifiers\EquivalenceClassCollection.cs" />
-    <Compile Include="Framework\ContractVerifiers\IEquivalenceClassProvider.cs" />
-    <Compile Include="Framework\ContractVerifiers\VerifyComparisonContractAttribute.cs" />
-    <Compile Include="Framework\ContractVerifiers\VerifyContractAttribute.cs" />
-    <Compile Include="Framework\ContractVerifiers\VerifyEqualityContractAttribute.cs" />
-    <Compile Include="Framework\ContractVerifiers\VerifyExceptionContractAttribute.cs" />
     <Compile Include="Framework\CsvDataAttribute.cs" />
     <Compile Include="Framework\DataAttribute.cs" />
     <Compile Include="Framework\DependsOnAssemblyAttribute.cs" />
@@ -142,30 +135,90 @@
     <Compile Include="Framework\Assert.Exceptions.cs" />
     <Compile Include="Framework\Assert.Reflection.cs" />
     <Compile Include="Framework\Assert.Relations.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\Comparison\ComparisonPattern.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\Comparison\ComparisonPatternBuilder.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\Comparison\ComparisonPatternSettings.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\ContractVerifierPattern.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\ContractVerifierPatternBuilder.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\ContractVerifierPatternInstanceState.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\Equality\EqualityPattern.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\Equality\EqualityPatternBuilder.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\Equality\EqualityPatternSettings.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\HasAttribute\HasAttributePatternSettings.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\HasAttribute\HasAttributePattern.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\HasAttribute\HasAttributePatternBuilder.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\HasConstructor\HasConstructorAccessibility.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\HasConstructor\HasConstructorPattern.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\HasConstructor\HasConstructorPatternBuilder.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\HasConstructor\HasConstructorPatternSettings.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\IContractVerifierPatternInstanceState.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\ObjectHashCode\ObjectHashCodePattern.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\ObjectHashCode\ObjectHashCodePatternBuilder.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\ObjectHashCode\ObjectHashCodePatternSettings.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\StandardExceptionConstructor\ExceptionConstructorSpec.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\StandardExceptionConstructor\StandardExceptionConstructorPattern.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\StandardExceptionConstructor\StandardExceptionConstructorPatternBuilder.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\StandardExceptionConstructor\StandardExceptionConstructorPatternSettings.cs" />
+    <Compile Include="Framework\ContractVerifiers\AbstractContractVerifier.cs" />
+    <Compile Include="Framework\ContractVerifiers\ComparisonContractVerifier.cs" />
+    <Compile Include="Framework\ContractVerifiers\ContractVerifierAttribute.cs" />
+    <Compile Include="Framework\ContractVerifiers\EqualityContractVerifier.cs" />
+    <Compile Include="Framework\ContractVerifiers\EquivalenceClass.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\EquivalenceClassCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\ExceptionContractVerifier.cs" />
+    <Compile Include="Framework\ContractVerifiers\IContractVerifier.cs" />
+    <Compile Include="Framework\ContractVerifiers\Patterns\Comparison\ComparisonPattern.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\Comparison\ComparisonPatternBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\Comparison\ComparisonPatternSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\ContractVerifierPattern.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\ContractVerifierPatternBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\ContractVerifierPatternInstanceState.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\Equality\EqualityPattern.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\Equality\EqualityPatternBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\Equality\EqualityPatternSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\HasAttribute\HasAttributePattern.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\HasAttribute\HasAttributePatternBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\HasAttribute\HasAttributePatternSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\HasConstructor\HasConstructorAccessibility.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\HasConstructor\HasConstructorPattern.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\HasConstructor\HasConstructorPatternBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\HasConstructor\HasConstructorPatternSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\IContractVerifierPatternInstanceState.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\ObjectHashCode\ObjectHashCodePattern.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\ObjectHashCode\ObjectHashCodePatternBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\ObjectHashCode\ObjectHashCodePatternSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\StandardExceptionConstructor\ExceptionConstructorSpec.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\StandardExceptionConstructor\StandardExceptionConstructorPattern.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\StandardExceptionConstructor\StandardExceptionConstructorPatternBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\StandardExceptionConstructor\StandardExceptionConstructorPatternSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Framework\StaticTestFactoryAttribute.cs" />
     <Compile Include="Framework\Test.cs" />
     <Compile Include="Framework\TestCase.cs" />

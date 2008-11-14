@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MbUnit.Framework.ContractVerifiers.Patterns
+namespace MbUnit.Framework.NewContractVerifiers.Patterns
 {
     /// <summary>
     /// Represents the run-time state of a single instance of a 
@@ -38,6 +38,14 @@ namespace MbUnit.Framework.ContractVerifiers.Patterns
         /// Gets the test fixture instance or null if none.
         /// </summary>
         object FixtureInstance
+        {
+            get;
+        }
+                
+        /// <summary>
+        /// The name of the field defined as a contract verifier.
+        /// </summary>
+        string FieldVerifierName
         {
             get;
         }

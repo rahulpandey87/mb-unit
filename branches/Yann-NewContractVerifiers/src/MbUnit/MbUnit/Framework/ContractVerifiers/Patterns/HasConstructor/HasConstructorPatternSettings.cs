@@ -18,23 +18,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections.ObjectModel;
 
-namespace MbUnit.Framework.ContractVerifiers.Patterns.HasConstructor
+namespace MbUnit.Framework.NewContractVerifiers.Patterns.HasConstructor
 {
     /// <summary>
     /// Data container which exposes necessary data required to
-    /// run the test pattern <see cref="HasConstructorPattern"/>.
+    /// run the test pattern <see cref="HasConstructorPattern{TTarget}"/>.
     /// </summary>
     internal class HasConstructorPatternSettings
     {
-        /// <summary>
-        /// Gets the target evaluated type.
-        /// </summary>
-        public Type TargetType
-        {
-            get;
-            private set;
-        }
-
         /// <summary>
         /// Gets the required constructor accessibility.
         /// </summary>
@@ -64,20 +55,14 @@ namespace MbUnit.Framework.ContractVerifiers.Patterns.HasConstructor
 
         /// <summary>
         /// Constructs the data container which exposes necessary data required to
-        /// run the test pattern <see cref="HasConstructorPattern"/>.
+        /// run the test pattern <see cref="HasConstructorPattern{TTarget}"/>.
         /// </summary>
-        /// <param name="targetType">The target evaluated type.</param>
         /// <param name="accessibility">The required accessibility.</param>
         /// <param name="name">A friendly name for the pattern test.</param>
         /// <param name="parameterTypes">The parameter types.</param>
-        public HasConstructorPatternSettings(Type targetType, HasConstructorAccessibility accessibility, 
+        public HasConstructorPatternSettings(HasConstructorAccessibility accessibility, 
             string name, IEnumerable<Type> parameterTypes)
         {
-            if (targetType == null)
-            {
-                throw new ArgumentNullException("targetType");
-            }
-
             if (name == null)
             {
                 throw new ArgumentNullException("friendlyName");
@@ -88,7 +73,6 @@ namespace MbUnit.Framework.ContractVerifiers.Patterns.HasConstructor
                 throw new ArgumentNullException("parameterTypes");
             }
 
-            this.TargetType = targetType;
             this.Accessibility = accessibility;
             this.Name = String.Format("Has{0}Constructor", name);
             this.ParameterTypes = new ReadOnlyCollection<Type>(new List<Type>(parameterTypes));

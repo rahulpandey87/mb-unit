@@ -22,15 +22,14 @@ using Gallio.Runner.Reports;
 using Gallio.Tests;
 using Gallio.Tests.Integration;
 using MbUnit.Framework;
-using MbUnit.Framework.ContractVerifiers;
+using MbUnit.Framework.NewContractVerifiers;
 
-namespace MbUnit.Tests.Framework.ContractVerifiers
+namespace MbUnit.Tests.Framework.NewContractVerifiers
 {
     [TestFixture]
-    [TestsOn(typeof(VerifyComparisonContractAttribute))]
     [RunSample(typeof(FullContractOnComparableSample))]
     [RunSample(typeof(PartialContractOnComparableSample))]
-    public class VerifyComparisonContractAttributeTest : VerifyContractAttributeBaseTest
+    public class ComparisonContractVerifierTest : AbstractContractVerifierTest
     {
         [Test]
         [Row(typeof(FullContractOnComparableSample), "ComparableCompareTo", TestStatus.Passed)]
@@ -45,35 +44,37 @@ namespace MbUnit.Tests.Framework.ContractVerifiers
         [Row(typeof(PartialContractOnComparableSample), "OperatorLessThanOrEqual", TestStatus.Inconclusive)]
         public void VerifySampleEqualityContract(Type fixtureType, string testMethodName, TestStatus expectedTestStatus)
         {
-            VerifySampleContract("ComparisonContract", fixtureType, testMethodName, expectedTestStatus);
+            VerifySampleContract("ComparisonTests", fixtureType, testMethodName, expectedTestStatus);
         }
 
-        [VerifyComparisonContract(typeof(SampleComparable),
-            ImplementsOperatorOverloads = true)]
         [Explicit]
-        internal class FullContractOnComparableSample : IEquivalenceClassProvider<SampleComparable>
+        internal class FullContractOnComparableSample
         {
-            public EquivalenceClassCollection<SampleComparable> GetEquivalenceClasses()
+            [ContractVerifier]
+            public readonly IContractVerifier ComparisonTests = new ComparisonContractVerifier<SampleComparable>()
             {
-                return new EquivalenceClassCollection<SampleComparable>(
+                EquivalenceClasses = new EquivalenceClassCollection<SampleComparable>(
                     new EquivalenceClass<SampleComparable>(new SampleComparable(123), new SampleComparable(123)),
                     new EquivalenceClass<SampleComparable>(new SampleComparable(456)),
-                    new EquivalenceClass<SampleComparable>(new SampleComparable(789)));
-            }
+                    new EquivalenceClass<SampleComparable>(new SampleComparable(789))),
+
+                ImplementsOperatorOverloads = true
+            };
         }
 
-        [VerifyComparisonContract(typeof(SampleComparable),
-            ImplementsOperatorOverloads = false)]
         [Explicit]
-        private class PartialContractOnComparableSample : IEquivalenceClassProvider<SampleComparable>
+        private class PartialContractOnComparableSample
         {
-            public EquivalenceClassCollection<SampleComparable> GetEquivalenceClasses()
+            [ContractVerifier]
+            public readonly IContractVerifier ComparisonTests = new ComparisonContractVerifier<SampleComparable>()
             {
-                return new EquivalenceClassCollection<SampleComparable>(
+                EquivalenceClasses = new EquivalenceClassCollection<SampleComparable>(
                     new EquivalenceClass<SampleComparable>(new SampleComparable(123), new SampleComparable(123)),
                     new EquivalenceClass<SampleComparable>(new SampleComparable(456)),
-                    new EquivalenceClass<SampleComparable>(new SampleComparable(789)));
-            }
+                    new EquivalenceClass<SampleComparable>(new SampleComparable(789))),
+
+                ImplementsOperatorOverloads = false
+            };
         }
 
         /// <summary>

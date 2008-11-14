@@ -61,12 +61,6 @@
     <Compile Include="Compatibility\Framework\OldAssertWithReflectionTest.cs" />
     <Compile Include="Compatibility\Framework\OldAssertWithTypeTest.cs" />
     <Compile Include="Compatibility\Framework\OldCollectionAssertTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\EquivalenceClassCollectionTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\EquivalenceClassTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\VerifyComparisonContractAttributeTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\VerifyContractAttributeBaseTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\VerifyEqualityContractAttributeTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\VerifyExceptionContractAttributeTest.cs" />
     <Compile Include="Framework\AssertTest_Strings.cs" />
     <Compile Include="Integration\ConfigurationFileTest.cs" />
     <Compile Include="Framework\AutomaticTestFixtureTest.cs" />
@@ -134,24 +128,16 @@
     <Compile Include="Framework\AssertTest_Reflection.cs" />
     <Compile Include="Framework\AssertTest_Relations.cs" />
     <Compile Include="Framework\BaseAssertTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\ContractVerifierPatternInstanceStateTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\Comparison\ComparisonPatternSettingsTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\Comparison\ComparisonPatternBuilderTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\Equality\EqualityPatternBuilderTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\Equality\EqualityPatternSettingsTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\Equality\EqualityPatternTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\HasAttribute\HasAttributePatternBuilderTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\HasAttribute\HasAttributePatternSettingsTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\HasAttribute\HasAttributePatternTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\HasConstructor\HasConstructorPatternTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\HasConstructor\HasConstructorPatternBuilderTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\HasConstructor\HasConstructorPatternSettingsTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\ObjectHashCode\ObjectHashCodePatternBuilderTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\ObjectHashCode\ObjectHashCodePatternSettingsTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\ObjectHashCode\ObjectHashCodePatternTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\StandardExceptionConstructor\StandardExceptionConstructorPatternTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\StandardExceptionConstructor\StandardExceptionConstructorPatternBuilderTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\Patterns\StandardExceptionConstructor\StandardExceptionConstructorPatternSettingsTest.cs" />
+    <Compile Include="Framework\ContractVerifiers\AbstractContractVerifierTest.cs" />
+    <Compile Include="Framework\ContractVerifiers\ComparisonContractVerifierTest.cs" />
+    <Compile Include="Framework\ContractVerifiers\EqualityContractVerifierTest.cs" />
+    <Compile Include="Framework\ContractVerifiers\EquivalenceClassCollectionTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\EquivalenceClassTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\ContractVerifiers\ExceptionContractVerifierTest.cs" />
     <Compile Include="Framework\TestFixtureReferenceTest.cs" />
     <Compile Include="Framework\TestSuiteTest.cs" />
     <Compile Include="Framework\IsolationTest.cs" />

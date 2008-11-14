@@ -15,10 +15,10 @@
 
 using System;
 using MbUnit.Framework;
-using MbUnit.Framework.ContractVerifiers;
+using MbUnit.Framework.NewContractVerifiers;
 using System.Runtime.Serialization;
 
-namespace MbUnit.Samples.ContractVerifiers
+namespace MbUnit.Samples.NewContractVerifiers
 {
     [Serializable]
     public class SampleException : Exception, ISerializable
