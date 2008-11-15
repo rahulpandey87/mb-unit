@@ -57,17 +57,44 @@ namespace MbUnit.Framework.ContractVerifiers
 
         private object GetFixtureInstance(Type fixtureType)
         {
-            return Activator.CreateInstance(fixtureType);
+            try
+            {
+                return Activator.CreateInstance(fixtureType);
+            }
+            catch (MissingMethodException)
+            {
+                ThrowUsageErrorException("Contract verifier fields require that the parent test fixture have a default parameter-less constructor.");
+                return null;
+            }
         }
 
         private FieldInfo GetFieldInfo(ICodeElementInfo codeElement)
         {
-            return ((IFieldInfo)codeElement).Resolve(true);
+            var fieldInfo = ((IFieldInfo)codeElement).Resolve(true);
+
+            if (!fieldInfo.IsInitOnly)
+            {
+                ThrowUsageErrorException("The contract verifier field must be marked with the keyword readonly (C#) / ReadOnly (VB.NET).");
+            }
+
+            return fieldInfo;
         }
 
         private IContractVerifier GetFieldInstance(FieldInfo fieldInfo, object fixtureInstance)
         {
-            return (IContractVerifier)fieldInfo.GetValue(fixtureInstance);
+            object instance = fieldInfo.GetValue(fixtureInstance);
+
+            if (Object.ReferenceEquals(instance, null))
+            {
+                ThrowUsageErrorException("The contract verifier field cannot be null.");
+            }
+
+            if (!typeof(IContractVerifier).IsAssignableFrom(instance.GetType()))
+            {
+                ThrowUsageErrorException("The contract verifier field must be of a type which implements IContractVerifier.");
+            }
+
+            return (IContractVerifier)instance;
         }
     }
 }

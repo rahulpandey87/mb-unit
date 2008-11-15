@@ -18,7 +18,7 @@ using MbUnit.Framework;
 using MbUnit.Framework.ContractVerifiers;
 using System.Runtime.Serialization;
 
-namespace MbUnit.Samples.NewContractVerifiers
+namespace MbUnit.Samples.ContractVerifiers
 {
     [Serializable]
     public class SampleException : Exception, ISerializable

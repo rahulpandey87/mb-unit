@@ -22,7 +22,7 @@ using Gallio.Model;
 using Gallio.Runner.Reports;
 using MbUnit.Framework;
 
-namespace MbUnit.Tests.Framework.NewContractVerifiers
+namespace MbUnit.Tests.Framework.ContractVerifiers
 {
     /// <summary>
     /// Abstract base class for integration tests 

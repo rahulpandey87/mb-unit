@@ -17,7 +17,7 @@ using System;
 using MbUnit.Framework;
 using MbUnit.Framework.ContractVerifiers;
 
-namespace MbUnit.Samples.NewContractVerifiers
+namespace MbUnit.Samples.ContractVerifiers
 {
     public class SampleEquatable : IEquatable<SampleEquatable>
     {

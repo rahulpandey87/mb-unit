@@ -11,6 +11,7 @@ using Gallio.Reflection;
 using MbUnit.Framework.ContractVerifiers.Patterns;
 using MbUnit.Framework.ContractVerifiers.Patterns.HasAttribute;
 using MbUnit.Framework.ContractVerifiers.Patterns.HasConstructor;
+using MbUnit.Framework.ContractVerifiers.Patterns.StandardExceptionConstructor;
 
 namespace MbUnit.Framework.ContractVerifiers
 {
@@ -91,39 +92,36 @@ namespace MbUnit.Framework.ContractVerifiers
             if (ImplementsStandardConstructors)
             {
                 // Is public default constructor well defined?
-                //yield return new StandardExceptionConstructorPatternBuilder()
-                //    .SetTargetExceptionType(TargetType)
-                //    .SetFriendlyName("Default")
-                //    .SetCheckForSerializationSupport(ImplementsSerialization)
-                //    .SetConstructorSpecifications(new ExceptionConstructorSpec())
-                //    .ToPattern();
+                yield return new StandardExceptionConstructorPatternBuilder<TException>()
+                    .SetFriendlyName("Default")
+                    .SetCheckForSerializationSupport(ImplementsSerialization)
+                    .SetConstructorSpecifications(new ExceptionConstructorSpec())
+                    .ToPattern();
 
                 // Is public single parameter constructor (message) well defined?
-                //yield return new StandardExceptionConstructorPatternBuilder()
-                //    .SetTargetExceptionType(TargetType)
-                //    .SetFriendlyName("Message")
-                //    .SetCheckForSerializationSupport(ImplementsSerialization)
-                //    .SetParameterTypes(typeof(string))
-                //    .SetConstructorSpecifications(
-                //        new ExceptionConstructorSpec(null),
-                //        new ExceptionConstructorSpec(String.Empty),
-                //        new ExceptionConstructorSpec("A message"))
-                //    .ToPattern();
+                yield return new StandardExceptionConstructorPatternBuilder<TException>()
+                    .SetFriendlyName("Message")
+                    .SetCheckForSerializationSupport(ImplementsSerialization)
+                    .SetParameterTypes(typeof(string))
+                    .SetConstructorSpecifications(
+                        new ExceptionConstructorSpec(null),
+                        new ExceptionConstructorSpec(String.Empty),
+                        new ExceptionConstructorSpec("A message"))
+                    .ToPattern();
 
                 // Is public two parameters constructor (message and inner exception) well defined?
-                //yield return new StandardExceptionConstructorPatternBuilder()
-                //    .SetTargetExceptionType(TargetType)
-                //    .SetFriendlyName("MessageAndInnerException")
-                //    .SetCheckForSerializationSupport(ImplementsSerialization)
-                //    .SetParameterTypes(typeof(string), typeof(Exception))
-                //    .SetConstructorSpecifications(
-                //        new ExceptionConstructorSpec(null, null),
-                //        new ExceptionConstructorSpec(String.Empty, null),
-                //        new ExceptionConstructorSpec("A message", null),
-                //        new ExceptionConstructorSpec(null, new Exception()),
-                //        new ExceptionConstructorSpec(String.Empty, new Exception()),
-                //        new ExceptionConstructorSpec("A message", new Exception()))
-                //    .ToPattern();
+                yield return new StandardExceptionConstructorPatternBuilder<TException>()
+                    .SetFriendlyName("MessageAndInnerException")
+                    .SetCheckForSerializationSupport(ImplementsSerialization)
+                    .SetParameterTypes(typeof(string), typeof(Exception))
+                    .SetConstructorSpecifications(
+                        new ExceptionConstructorSpec(null, null),
+                        new ExceptionConstructorSpec(String.Empty, null),
+                        new ExceptionConstructorSpec("A message", null),
+                        new ExceptionConstructorSpec(null, new Exception()),
+                        new ExceptionConstructorSpec(String.Empty, new Exception()),
+                        new ExceptionConstructorSpec("A message", new Exception()))
+                    .ToPattern();
             }
         }
     }

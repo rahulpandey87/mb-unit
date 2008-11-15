@@ -24,7 +24,7 @@ using Gallio.Tests.Integration;
 using MbUnit.Framework;
 using MbUnit.Framework.ContractVerifiers;
 
-namespace MbUnit.Tests.Framework.NewContractVerifiers
+namespace MbUnit.Tests.Framework.ContractVerifiers
 {
     [TestFixture]
     [RunSample(typeof(FullContractOnComparableSample))]

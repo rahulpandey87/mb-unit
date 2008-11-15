@@ -7,7 +7,7 @@ using MbUnit.Framework.ContractVerifiers;
 using Gallio.Tests;
 using Gallio.Model;
 
-namespace MbUnit.Tests.Framework.NewContractVerifiers
+namespace MbUnit.Tests.Framework.ContractVerifiers
 {
     [TestFixture]
     [RunSample(typeof(FullContractOnEquatableSample))]
