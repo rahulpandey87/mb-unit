@@ -20,14 +20,13 @@ using System.Runtime.Serialization;
 
 namespace MbUnit.Samples.ContractVerifiers
 {
-    [TestFixture]
     public class SampleExceptionTest
     {
         [ContractVerifier]
         public readonly IContractVerifier ExceptionTests = new ExceptionContractVerifier<SampleException>()
         {
-            ImplementsSerialization = true,
-            ImplementsStandardConstructors = true
+            ImplementsSerialization = true, // Optional (default is true)
+            ImplementsStandardConstructors = true // Optional (default is true)
         };
     }
 }

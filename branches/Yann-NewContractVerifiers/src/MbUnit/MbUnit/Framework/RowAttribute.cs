@@ -35,6 +35,7 @@ namespace MbUnit.Framework
     /// </para>
     /// </remarks>
     /// <example>
+    /// <code><![CDATA[
     /// [Test]
     /// [Row(1, "a", 0.1)]
     /// [Row(2, "b", 0.2)]
@@ -43,6 +44,7 @@ namespace MbUnit.Framework
     ///     // This test will run twice.  Once with x = 1, y = "a", and z = 0.1
     ///     // then again with x = 2, y = "b", and z = 0.2.
     /// }
+    /// ]]></code>
     /// </example>
     /// <seealso cref="ColumnAttribute"/>
     /// <seealso cref="HeaderAttribute"/>

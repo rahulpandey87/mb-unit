@@ -16,7 +16,101 @@ using MbUnit.Framework.ContractVerifiers.Patterns.StandardExceptionConstructor;
 namespace MbUnit.Framework.ContractVerifiers
 {
     /// <summary>
+    /// <para>
     /// Field-based contract verifier for the implementation of custom exception.
+    /// </para>
+    /// <para>
+    /// Built-in verifications:
+    /// <list type="bullet">
+    /// <item>
+    /// <name>ImplementsSerializable</name>
+    /// <description>The exception type implements the <see cref="ISerializable" /> interface.
+    /// Disable that test by settings the <see cref="ExceptionContractVerifier{T}.ImplementsSerialization"/>
+    /// property to <c>false</c>.</description>
+    /// </item>
+    /// <item>
+    /// <name>HasSerializableAttribute</name>
+    /// <description>The exception type has the <see cref="SerializableAttribute" /> attribute.
+    /// Disable that test by settings the <see cref="ExceptionContractVerifier{T}.ImplementsSerialization"/>
+    /// property to <c>false</c>.</description>
+    /// </item>
+    /// <name>HasSerializationConstructor</name>
+    /// <description>The exception type has a protected serialization constructor similar to
+    /// <see cref="Exception(SerializationInfo, StreamingContext)" />. Disable that test 
+    /// by settings the <see cref="ExceptionContractVerifier{T}.ImplementsSerialization"/>
+    /// property to <c>false</c>.</description>
+    /// </item>
+    /// <item>
+    /// <name>IsDefaultConstructorWellDefined</name>
+    /// <description>The exception type has a default parameter-less constructor. When
+    /// the <see cref="ExceptionContractVerifier{T}.ImplementsSerialization"/> property
+    /// is set to <c>true</c> as well, the method verifies that the properties of 
+    /// the exception are preserved during a roundtrip serialization. Disable the test 
+    /// by settings the <see cref="ExceptionContractVerifier{T}.ImplementsStandardConstructors"/>
+    /// property to <c>false</c>. </description>
+    /// </item>
+    /// <item>
+    /// <name>IsMessageConstructorWellDefined</name>
+    /// <description>The exception type has single argument constructor for the message. When
+    /// the <see cref="ExceptionContractVerifier{T}.ImplementsSerialization"/> property
+    /// is set to <c>true</c> as well, the method verifies that the properties of 
+    /// the exception are preserved during a roundtrip serialization. Disable the test 
+    /// by settings the <see cref="ExceptionContractVerifier{T}.ImplementsStandardConstructors"/>
+    /// property to <c>false</c>. </description>
+    /// </item>
+    /// <item>
+    /// <name>IsMessageAndInnerExceptionConstructorWellDefined</name>
+    /// <description>The exception type has two parameters constructor for the message and an inner exception. 
+    /// When the <see cref="ExceptionContractVerifier{T}.ImplementsSerialization"/> property
+    /// is set to <c>true</c> as well, the method verifies that the properties of 
+    /// the exception are preserved during a roundtrip serialization. Disable the test 
+    /// by settings the <see cref="ExceptionContractVerifier{T}.ImplementsStandardConstructors"/>
+    /// property to <c>false</c>. </description>
+    /// </item>
+    /// </list>
+    /// <example>
+    /// The following example shows a simple custom exception class with some 
+    /// basic serialization support, and a test fixture which uses the
+    /// exception contract verifier to test it.
+    /// <code><![CDATA[
+    /// [Serializable]
+    /// public class SampleException : Exception, ISerializable
+    /// {
+    ///     public SampleException()
+    ///     {
+    ///     }
+    /// 
+    ///     public SampleException(string message)
+    ///         : base(message)
+    ///     {
+    ///     }
+    /// 
+    ///     public SampleException(string message, Exception innerException)
+    ///         : base(message, innerException)
+    ///     {
+    ///     }
+    /// 
+    ///     protected SampleException(SerializationInfo info, StreamingContext context)
+    ///         : base(info, context)
+    ///     {
+    ///     }
+    /// 
+    ///     public override void GetObjectData(SerializationInfo info, StreamingContext context)
+    ///     {
+    ///         base.GetObjectData(info, context);
+    ///     }
+    /// }
+    /// 
+    /// public class SampleExceptionTest
+    /// {
+    ///     [ContractVerifier]
+    ///     public readonly IContractVerifier ExceptionTests = new ExceptionContractVerifier<SampleException>()
+    ///     {
+    ///         ImplementsSerialization = true, // Optional (default is true)
+    ///         ImplementsStandardConstructors = true // Optional (default is true)
+    ///     };
+    /// }
+    /// ]]></code>
     /// </summary>
     /// <typeparam name="TException">The target custom exception type.</typeparam>
     public class ExceptionContractVerifier<TException> : AbstractContractVerifier
@@ -60,9 +154,9 @@ namespace MbUnit.Framework.ContractVerifiers
         /// <para>
         /// Built-in verifications:
         /// <list type="bullet">
-        /// <item>The exception has a default argument-less constructor.</item>
-        /// <item>The exception has a single argument constructor for the message.</item>
-        /// <item>The exception two arguments constructor for the message and an inner exception.</item>
+        /// <item>The exception has a default parameter-less constructor.</item>
+        /// <item>The exception has a single parameter constructor for the message.</item>
+        /// <item>The exception two parameters constructor for the message and an inner exception.</item>
         /// </list>
         /// </para>
         /// </summary>

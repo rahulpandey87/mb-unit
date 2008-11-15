@@ -13,8 +13,114 @@ using MbUnit.Framework.ContractVerifiers.Patterns.Comparison;
 namespace MbUnit.Framework.ContractVerifiers
 {
     /// <summary>
+    /// <para>
     /// Field-based contract verifier for the implementation of
     /// the generic <see cref="IComparable{T}"/> interface. 
+    /// </para>
+    /// <para>
+    /// Built-in verifications:
+    /// <list type="bullet">
+    /// <item>
+    /// <term>ComparableCompareTo</term>
+    /// <description>The type implements the method <see cref="IComparable{T}.CompareTo"/>.
+    /// The method behaves as expected agains the provided equivalence classes.</description>
+    /// </item>
+    /// <item>
+    /// <term>OperatorGreaterThan</term>
+    /// <description>The type has a static "Greater Than" operator overload which behaves
+    /// correctly against the provided equivalence classes. Disable that test by setting 
+    /// the <see cref="ComparisonContractVerifier{T}.ImplementsOperatorOverloads"/> 
+    /// property to <c>false</c>.</description>
+    /// </item>
+    /// <item>
+    /// <term>OperatorGreaterThanOrEqual</term>
+    /// <description>The type has a static "Greater Than Or Equal" operator overload which behaves
+    /// correctly against the provided equivalence classes. Disable that test by setting 
+    /// the <see cref="ComparisonContractVerifier{T}.ImplementsOperatorOverloads"/> 
+    /// property to <c>false</c>.</description>
+    /// </item>
+    /// <item>
+    /// <term>OperatorLessThan</term>
+    /// <description>The type has a static "Less Than" operator overload which behaves
+    /// correctly against the provided equivalence classes. Disable that test by setting 
+    /// the <see cref="ComparisonContractVerifier{T}.ImplementsOperatorOverloads"/> 
+    /// property to <c>false</c>.</description>
+    /// </item>
+    /// <item>
+    /// <term>OperatorLessThanOrEqual</term>
+    /// <description>The type has a static "Less Than Or Equal" operator overload which behaves
+    /// correctly against the provided equivalence classes. Disable that test by setting 
+    /// the <see cref="ComparisonContractVerifier{T}.ImplementsOperatorOverloads"/> 
+    /// property to <c>false</c>.</description>
+    /// </description>
+    /// </item>
+    /// </list>
+    /// </para>
+    /// <example>
+    /// The following example shows a simple class implementing the 
+    /// <see cref="IComparable{T}"/> interface, and a test fixture which uses the
+    /// comparison contract verifier to test it.
+    /// <code><![CDATA[
+    /// public class SampleComparable : IComparable<SampleComparable>
+    /// {
+    ///     private int value;
+    /// 
+    ///     public SampleComparable(int value)
+    ///     {
+    ///         this.value = value;
+    ///     }
+    /// 
+    ///     public int CompareTo(SampleComparable other)
+    ///     {
+    ///         return Object.ReferenceEquals(other, null) 
+    ///             ? Int32.MaxValue 
+    ///             : value.CompareTo(other.value);
+    ///     }
+    /// 
+    ///     public static bool operator >=(SampleComparable left, SampleComparable right)
+    ///     {
+    ///         return (Object.ReferenceEquals(left, null) 
+    ///             && Object.ReferenceEquals(right, null)) 
+    ///             || (!Object.ReferenceEquals(left, null) 
+    ///             && (left.CompareTo(right) >= 0));
+    ///     }
+    /// 
+    ///     public static bool operator <=(SampleComparable left, SampleComparable right)
+    ///     {
+    ///         return Object.ReferenceEquals(left, null) 
+    ///             || (left.CompareTo(right) <= 0);
+    ///     }
+    /// 
+    ///     public static bool operator >(SampleComparable left, SampleComparable right)
+    ///     {
+    ///         return !Object.ReferenceEquals(left, null) 
+    ///             && (left.CompareTo(right) > 0);
+    ///     }
+    /// 
+    ///     public static bool operator <(SampleComparable left, SampleComparable right)
+    ///     {
+    ///         return (!Object.ReferenceEquals(left, null) 
+    ///             || !Object.ReferenceEquals(right, null)) 
+    ///             && (Object.ReferenceEquals(left, null) 
+    ///             || (left.CompareTo(right) < 0));
+    ///     }
+    /// 
+    /// public class SampleComparableTest
+    /// {
+    ///     [ContractVerifier]
+    ///     public readonly IContractVerifier EqualityTests = new ComparisonContractVerifier<SampleComparable>()
+    ///     {
+    ///         ImplementsOperatorOverloads = true, // Optional (default is true)
+    ///         EquivalenceClasses = EquivalenceClassCollection<SampleComparable>.FromDistinctInstances(
+    ///             new SampleComparable(1),
+    ///             new SampleComparable(2),
+    ///             new SampleComparable(3),
+    ///             new SampleComparable(4),
+    ///             new SampleComparable(5)),
+    ///     };
+    /// }
+    /// ]]></code>
+    /// </example>
     /// </summary>
     /// <typeparam name="TTarget"></typeparam>
     public class ComparisonContractVerifier<TTarget> : AbstractContractVerifier
@@ -31,16 +137,10 @@ namespace MbUnit.Framework.ContractVerifiers
         /// <summary>
         /// <para>
         /// Determines whether the verifier will evaluate the presence and the 
-        /// behavior of the equality and the inequality operator overloads.
+        /// behavior of the four operator overloads "Greater Than", "Greater Than
+        /// Or Equal", "Less Than", and "Less Than Or Equal".
         /// The default value is 'true'.
         /// </para>
-        /// Built-in verifications:
-        /// <list type="bullet">
-        /// <item>The type has a static equality operator (==) overload which 
-        /// behaves correctly against the provided equivalence classes.</item>
-        /// <item>The type has a static inequality operator (!=) overload which 
-        /// behaves correctly against the provided equivalence classes.</item>
-        /// </list>
         /// </summary>
         public bool ImplementsOperatorOverloads
         {
@@ -49,7 +149,7 @@ namespace MbUnit.Framework.ContractVerifiers
         }
 
         /// <summary>
-        /// Gets or sets the collection of equivalence instance classes
+        /// Gets or sets the collection of equivalence classes of instances
         /// to feed the contract verifier.
         /// </summary>
         public EquivalenceClassCollection<TTarget> EquivalenceClasses

@@ -66,7 +66,7 @@ namespace MbUnit.Framework
     /// <para>
     /// The following example shows the <see cref="RollbackAttribute"/> in use:
     /// </para>
-    /// <code>
+    /// <code><![CDATA[
     /// [TestFixture]
     /// public class RollbackTest {
     /// 
@@ -83,8 +83,8 @@ namespace MbUnit.Framework
     ///         // Any transaction performed within this test or within its setup and 
     ///         // teardown will be rolled back automatically when the test completes.
     ///     }
-    /// } 
-    /// </code>
+    /// }
+    /// ]]></code>
     /// </example>
     [AttributeUsage(PatternAttributeTargets.Test, AllowMultiple = true, Inherited = true)]
     public class RollbackAttribute : TestDecoratorPatternAttribute
