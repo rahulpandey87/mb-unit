@@ -24,6 +24,6 @@ namespace Gallio.Tests.Model
     public class ModelExceptionTest
     {
         [ContractVerifier]
-        public readonly IContractVerifier ExceptionTests = new ExceptionContractVerifier<ModelException>();
+        public readonly IContractVerifier ExceptionTests = new VerifyExceptionContract<ModelException>();
     }
 }

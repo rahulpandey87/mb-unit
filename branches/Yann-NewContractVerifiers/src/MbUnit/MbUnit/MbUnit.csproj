@@ -136,16 +136,13 @@
     <Compile Include="Framework\Assert.Reflection.cs" />
     <Compile Include="Framework\Assert.Relations.cs" />
     <Compile Include="Framework\ContractVerifiers\AbstractContractVerifier.cs" />
-    <Compile Include="Framework\ContractVerifiers\ComparisonContractVerifier.cs" />
     <Compile Include="Framework\ContractVerifiers\ContractVerifierAttribute.cs" />
-    <Compile Include="Framework\ContractVerifiers\EqualityContractVerifier.cs" />
     <Compile Include="Framework\ContractVerifiers\EquivalenceClass.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Framework\ContractVerifiers\EquivalenceClassCollection.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Framework\ContractVerifiers\ExceptionContractVerifier.cs" />
     <Compile Include="Framework\ContractVerifiers\IContractVerifier.cs" />
     <Compile Include="Framework\ContractVerifiers\Patterns\Comparison\ComparisonPattern.cs">
       <SubType>Code</SubType>
@@ -198,6 +195,9 @@
     <Compile Include="Framework\ContractVerifiers\Patterns\IContractVerifierPatternInstanceState.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Framework\ContractVerifiers\Patterns\MemberRecursion\MemberRecursionPattern.cs" />
+    <Compile Include="Framework\ContractVerifiers\Patterns\MemberRecursion\MemberRecursionPatternBuilder.cs" />
+    <Compile Include="Framework\ContractVerifiers\Patterns\MemberRecursion\MemberRecursionPatternSettings.cs" />
     <Compile Include="Framework\ContractVerifiers\Patterns\ObjectHashCode\ObjectHashCodePattern.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -219,6 +219,10 @@
     <Compile Include="Framework\ContractVerifiers\Patterns\StandardExceptionConstructor\StandardExceptionConstructorPatternSettings.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Framework\ContractVerifiers\VerifyComparisonContract.cs" />
+    <Compile Include="Framework\ContractVerifiers\VerifyEqualityContract.cs" />
+    <Compile Include="Framework\ContractVerifiers\VerifyExceptionContract.cs" />
+    <Compile Include="Framework\ContractVerifiers\VerifyImmutabilityContract.cs" />
     <Compile Include="Framework\StaticTestFactoryAttribute.cs" />
     <Compile Include="Framework\Test.cs" />
     <Compile Include="Framework\TestCase.cs" />

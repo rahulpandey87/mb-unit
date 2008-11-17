@@ -23,6 +23,6 @@ namespace Gallio.Tests.Framework
     public class TestFailedExceptionTest
     {
         [ContractVerifier]
-        public readonly IContractVerifier ExceptionTests = new ExceptionContractVerifier<TestFailedException>();
+        public readonly IContractVerifier ExceptionTests = new VerifyExceptionContract<TestFailedException>();
     }
 }

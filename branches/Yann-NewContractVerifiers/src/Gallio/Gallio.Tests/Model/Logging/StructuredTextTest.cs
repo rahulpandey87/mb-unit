@@ -38,7 +38,7 @@ namespace Gallio.Tests.Model.Logging
         }, new Attachment[] { new TextAttachment("attachment", MimeTypes.PlainText, "text") });
 
         [ContractVerifier]
-        public readonly IContractVerifier EqualityTests = new EqualityContractVerifier<StructuredText>()
+        public readonly IContractVerifier EqualityTests = new VerifyEqualityContract<StructuredText>()
         {
             EquivalenceClasses = EquivalenceClassCollection<StructuredText>.FromDistinctInstances(
                 new StructuredText("lalalala"),

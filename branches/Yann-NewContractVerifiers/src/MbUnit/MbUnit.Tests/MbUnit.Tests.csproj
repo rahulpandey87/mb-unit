@@ -129,15 +129,16 @@
     <Compile Include="Framework\AssertTest_Relations.cs" />
     <Compile Include="Framework\BaseAssertTest.cs" />
     <Compile Include="Framework\ContractVerifiers\AbstractContractVerifierTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\ComparisonContractVerifierTest.cs" />
-    <Compile Include="Framework\ContractVerifiers\EqualityContractVerifierTest.cs" />
     <Compile Include="Framework\ContractVerifiers\EquivalenceClassCollectionTest.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Framework\ContractVerifiers\EquivalenceClassTest.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Framework\ContractVerifiers\ExceptionContractVerifierTest.cs" />
+    <Compile Include="Framework\ContractVerifiers\VerifyComparisonContractTest.cs" />
+    <Compile Include="Framework\ContractVerifiers\VerifyEqualityContractTest.cs" />
+    <Compile Include="Framework\ContractVerifiers\VerifyExceptionContractTest.cs" />
+    <Compile Include="Framework\ContractVerifiers\VerifyImmutabilityContractTest.cs" />
     <Compile Include="Framework\TestFixtureReferenceTest.cs" />
     <Compile Include="Framework\TestSuiteTest.cs" />
     <Compile Include="Framework\IsolationTest.cs" />

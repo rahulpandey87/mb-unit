@@ -24,6 +24,6 @@ namespace MbUnit.Tests.Framework
     public class AssertionExceptionTest
     {
         [ContractVerifier]
-        public readonly IContractVerifier ExceptionTests = new ExceptionContractVerifier<AssertionException>();
+        public readonly IContractVerifier ExceptionTests = new VerifyExceptionContract<AssertionException>();
     }
 }

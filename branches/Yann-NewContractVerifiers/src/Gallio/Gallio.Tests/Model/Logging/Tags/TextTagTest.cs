@@ -23,7 +23,7 @@ namespace Gallio.Tests.Model.Logging.Tags
     public class TextTagTest : BaseTagTest<TextTag>
     {
         [ContractVerifier]
-        public readonly IContractVerifier EqualityTests = new EqualityContractVerifier<TextTag>()
+        public readonly IContractVerifier EqualityTests = new VerifyEqualityContract<TextTag>()
         {
             ImplementsOperatorOverloads = false,
             EquivalenceClasses = equivalenceClasses

@@ -22,7 +22,7 @@ namespace Gallio.Tests.Model.Logging.Tags
     public class BinaryAttachmentTest
     {
         [ContractVerifier]
-        public readonly IContractVerifier EqualityTests = new EqualityContractVerifier<BinaryAttachment>()
+        public readonly IContractVerifier EqualityTests = new VerifyEqualityContract<BinaryAttachment>()
         {
             ImplementsOperatorOverloads = false,
             EquivalenceClasses = EquivalenceClassCollection<BinaryAttachment>.FromDistinctInstances(

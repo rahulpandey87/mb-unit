@@ -24,7 +24,7 @@ namespace Gallio.Tests.Model.Logging
     public class MarkerTest
     {
         [ContractVerifier]
-        public readonly IContractVerifier EqualityTests = new EqualityContractVerifier<Marker>()
+        public readonly IContractVerifier EqualityTests = new VerifyEqualityContract<Marker>()
         {
             EquivalenceClasses = EquivalenceClassCollection<Marker>.FromDistinctInstances(
                 Marker.AssertionFailure,

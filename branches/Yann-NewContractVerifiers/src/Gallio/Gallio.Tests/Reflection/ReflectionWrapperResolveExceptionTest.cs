@@ -25,7 +25,7 @@ namespace Gallio.Tests.Reflection
     public class ReflectionWrapperResolveExceptionTest
     {
         [ContractVerifier]
-        public readonly IContractVerifier exceptionTests = new ExceptionContractVerifier<ReflectionWrapperResolveException>()
+        public readonly IContractVerifier exceptionTests = new VerifyExceptionContract<ReflectionWrapperResolveException>()
         {
             ImplementsStandardConstructors = false
         };

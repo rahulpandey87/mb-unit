@@ -24,7 +24,7 @@ namespace Gallio.Tests.Framework.Text
     public class DiffTest
     {
         [ContractVerifier]
-        public readonly IContractVerifier EqualityTests = new EqualityContractVerifier<Diff>()
+        public readonly IContractVerifier EqualityTests = new VerifyEqualityContract<Diff>()
         {
             EquivalenceClasses = EquivalenceClassCollection<Diff>.FromDistinctInstances(
                 new Diff(DiffKind.Change, new Range(0, 10), new Range(0, 10)),

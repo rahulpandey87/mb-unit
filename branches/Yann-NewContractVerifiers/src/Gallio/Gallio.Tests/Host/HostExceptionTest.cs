@@ -24,6 +24,6 @@ namespace Gallio.Tests.Host
     public class HostExceptionTest
     {
         [ContractVerifier]
-        public readonly IContractVerifier ExceptionTests = new ExceptionContractVerifier<HostException>();
+        public readonly IContractVerifier ExceptionTests = new VerifyExceptionContract<HostException>();
     }
 }

@@ -25,11 +25,10 @@ using MbUnit.Framework.ContractVerifiers;
 
 namespace MbUnit.Tests.Framework.ContractVerifiers
 {
-    [TestFixture]
     [RunSample(typeof(FullContractOnSerializedExceptionSample))]
     [RunSample(typeof(FullContractOnUnserializedExceptionSample))]
     [RunSample(typeof(PartialContractOnUnserializedExceptionSample))]
-    public class ExceptionContractVerifier : AbstractContractVerifierTest
+    public class VerifyExceptionContractTest : AbstractContractVerifierTest
     {
         [Test]
         [Row(typeof(FullContractOnSerializedExceptionSample), "HasSerializableAttribute", TestStatus.Passed)]
@@ -55,7 +54,7 @@ namespace MbUnit.Tests.Framework.ContractVerifiers
         [Explicit]
         internal class FullContractOnSerializedExceptionSample
         {
-            public readonly IContractVerifier ExceptionTests = new ExceptionContractVerifier<SampleSerializedException>()
+            public readonly IContractVerifier ExceptionTests = new VerifyExceptionContract<SampleSerializedException>()
             {
                 ImplementsSerialization = true,
                 ImplementsStandardConstructors = true
@@ -65,7 +64,7 @@ namespace MbUnit.Tests.Framework.ContractVerifiers
         [Explicit]
         internal class FullContractOnUnserializedExceptionSample
         {
-            public readonly IContractVerifier ExceptionTests = new ExceptionContractVerifier<SampleUnserializedException>()
+            public readonly IContractVerifier ExceptionTests = new VerifyExceptionContract<SampleUnserializedException>()
             {
                 ImplementsSerialization = true,
                 ImplementsStandardConstructors = true
@@ -75,7 +74,7 @@ namespace MbUnit.Tests.Framework.ContractVerifiers
         [Explicit]
         internal class PartialContractOnUnserializedExceptionSample
         {
-            public readonly IContractVerifier ExceptionTests = new ExceptionContractVerifier<SampleUnserializedException>()
+            public readonly IContractVerifier ExceptionTests = new VerifyExceptionContract<SampleUnserializedException>()
             {
                 ImplementsSerialization = false,
                 ImplementsStandardConstructors = true

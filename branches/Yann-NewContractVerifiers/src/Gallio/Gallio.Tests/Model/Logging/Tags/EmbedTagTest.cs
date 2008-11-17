@@ -24,7 +24,7 @@ namespace Gallio.Tests.Model.Logging.Tags
     public class EmbedTagTest : BaseTagTest<EmbedTag>
     {
         [ContractVerifier]
-        public readonly IContractVerifier EqualityTests = new EqualityContractVerifier<EmbedTag>()
+        public readonly IContractVerifier EqualityTests = new VerifyEqualityContract<EmbedTag>()
         {
             ImplementsOperatorOverloads = false,
             EquivalenceClasses = equivalenceClasses

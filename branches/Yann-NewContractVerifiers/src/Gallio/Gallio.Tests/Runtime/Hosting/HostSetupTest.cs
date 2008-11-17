@@ -114,7 +114,7 @@ namespace Gallio.Tests.Runtime.Hosting
         }
 
         [ContractVerifier]
-        public readonly IContractVerifier EqualityTests = new EqualityContractVerifier<HostSetup>()
+        public readonly IContractVerifier EqualityTests = new VerifyEqualityContract<HostSetup>()
         {
             ImplementsOperatorOverloads = false,
             EquivalenceClasses = EquivalenceClassCollection<HostSetup>.FromDistinctInstances(

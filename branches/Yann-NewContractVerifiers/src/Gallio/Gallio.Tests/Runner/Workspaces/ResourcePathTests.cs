@@ -26,7 +26,7 @@ namespace Gallio.Tests.Runner.Workspaces
     public class ResourcePathTests
     {
         [ContractVerifier]
-        public readonly IContractVerifier EqualityTests = new EqualityContractVerifier<ResourcePath>()
+        public readonly IContractVerifier EqualityTests = new VerifyEqualityContract<ResourcePath>()
         {
             EquivalenceClasses = EquivalenceClassCollection<ResourcePath>.FromDistinctInstances(
                 ResourcePath.Empty,

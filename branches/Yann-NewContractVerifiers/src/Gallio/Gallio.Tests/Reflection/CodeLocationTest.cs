@@ -125,7 +125,7 @@ namespace Gallio.Tests.Reflection
         }
 
         [ContractVerifier]
-        public readonly IContractVerifier EqualityTests = new EqualityContractVerifier<CodeLocation>()
+        public readonly IContractVerifier EqualityTests = new VerifyEqualityContract<CodeLocation>()
         {
             EquivalenceClasses = new EquivalenceClassCollection<CodeLocation>(
                 new EquivalenceClass<CodeLocation>(

@@ -22,7 +22,7 @@ namespace Gallio.Tests.Model.Logging.Tags
     public class MarkerTagTest : BaseTagTest<MarkerTag>
     {
         [ContractVerifier]
-        public readonly IContractVerifier EqualityTests = new EqualityContractVerifier<MarkerTag>()
+        public readonly IContractVerifier EqualityTests = new VerifyEqualityContract<MarkerTag>()
         {
             ImplementsOperatorOverloads = false,
             EquivalenceClasses = equivalenceClasses

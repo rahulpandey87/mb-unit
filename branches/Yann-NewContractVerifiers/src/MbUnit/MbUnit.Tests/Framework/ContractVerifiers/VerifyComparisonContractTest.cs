@@ -26,10 +26,9 @@ using MbUnit.Framework.ContractVerifiers;
 
 namespace MbUnit.Tests.Framework.ContractVerifiers
 {
-    [TestFixture]
     [RunSample(typeof(FullContractOnComparableSample))]
     [RunSample(typeof(PartialContractOnComparableSample))]
-    public class ComparisonContractVerifierTest : AbstractContractVerifierTest
+    public class VerifyComparisonContractTest : AbstractContractVerifierTest
     {
         [Test]
         [Row(typeof(FullContractOnComparableSample), "ComparableCompareTo", TestStatus.Passed)]
@@ -51,7 +50,7 @@ namespace MbUnit.Tests.Framework.ContractVerifiers
         internal class FullContractOnComparableSample
         {
             [ContractVerifier]
-            public readonly IContractVerifier ComparisonTests = new ComparisonContractVerifier<SampleComparable>()
+            public readonly IContractVerifier ComparisonTests = new VerifyComparisonContract<SampleComparable>()
             {
                 EquivalenceClasses = new EquivalenceClassCollection<SampleComparable>(
                     new EquivalenceClass<SampleComparable>(new SampleComparable(123), new SampleComparable(123)),
@@ -66,7 +65,7 @@ namespace MbUnit.Tests.Framework.ContractVerifiers
         private class PartialContractOnComparableSample
         {
             [ContractVerifier]
-            public readonly IContractVerifier ComparisonTests = new ComparisonContractVerifier<SampleComparable>()
+            public readonly IContractVerifier ComparisonTests = new VerifyComparisonContract<SampleComparable>()
             {
                 EquivalenceClasses = new EquivalenceClassCollection<SampleComparable>(
                     new EquivalenceClass<SampleComparable>(new SampleComparable(123), new SampleComparable(123)),

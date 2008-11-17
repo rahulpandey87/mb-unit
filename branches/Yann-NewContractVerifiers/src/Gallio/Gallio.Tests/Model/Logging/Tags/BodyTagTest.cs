@@ -26,7 +26,7 @@ namespace Gallio.Tests.Model.Logging.Tags
     public class BodyTagTest : BaseTagTest<BodyTag>
     {
         [ContractVerifier]
-        public readonly IContractVerifier EqualityTests = new EqualityContractVerifier<BodyTag>()
+        public readonly IContractVerifier EqualityTests = new VerifyEqualityContract<BodyTag>()
         {
             ImplementsOperatorOverloads = false,
             EquivalenceClasses = equivalenceClasses

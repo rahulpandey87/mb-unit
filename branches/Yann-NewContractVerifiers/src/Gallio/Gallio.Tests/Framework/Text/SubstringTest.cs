@@ -27,7 +27,7 @@ namespace Gallio.Tests.Framework.Text
     public class SubstringTest
     {
         [ContractVerifier]
-        public readonly IContractVerifier EqualityTests = new EqualityContractVerifier<Substring>()
+        public readonly IContractVerifier EqualityTests = new VerifyEqualityContract<Substring>()
         {
             EquivalenceClasses = new EquivalenceClassCollection<Substring>(
                 new EquivalenceClass<Substring>(new Substring("bcd"), new Substring("abcde", new Range(1, 3))),

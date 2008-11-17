@@ -1,4 +1,19 @@
-﻿using System;
+﻿// Copyright 2005-2008 Gallio Project - http://www.gallio.org/
+// Portions Copyright 2000-2004 Jonathan de Halleux
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
@@ -29,30 +44,29 @@ namespace MbUnit.Framework.ContractVerifiers
     /// <term>OperatorGreaterThan</term>
     /// <description>The type has a static "Greater Than" operator overload which behaves
     /// correctly against the provided equivalence classes. Disable that test by setting 
-    /// the <see cref="ComparisonContractVerifier{T}.ImplementsOperatorOverloads"/> 
+    /// the <see cref="VerifyComparisonContract{T}.ImplementsOperatorOverloads"/> 
     /// property to <c>false</c>.</description>
     /// </item>
     /// <item>
     /// <term>OperatorGreaterThanOrEqual</term>
     /// <description>The type has a static "Greater Than Or Equal" operator overload which behaves
     /// correctly against the provided equivalence classes. Disable that test by setting 
-    /// the <see cref="ComparisonContractVerifier{T}.ImplementsOperatorOverloads"/> 
+    /// the <see cref="VerifyComparisonContract{T}.ImplementsOperatorOverloads"/> 
     /// property to <c>false</c>.</description>
     /// </item>
     /// <item>
     /// <term>OperatorLessThan</term>
     /// <description>The type has a static "Less Than" operator overload which behaves
     /// correctly against the provided equivalence classes. Disable that test by setting 
-    /// the <see cref="ComparisonContractVerifier{T}.ImplementsOperatorOverloads"/> 
+    /// the <see cref="VerifyComparisonContract{T}.ImplementsOperatorOverloads"/> 
     /// property to <c>false</c>.</description>
     /// </item>
     /// <item>
     /// <term>OperatorLessThanOrEqual</term>
     /// <description>The type has a static "Less Than Or Equal" operator overload which behaves
     /// correctly against the provided equivalence classes. Disable that test by setting 
-    /// the <see cref="ComparisonContractVerifier{T}.ImplementsOperatorOverloads"/> 
+    /// the <see cref="VerifyComparisonContract{T}.ImplementsOperatorOverloads"/> 
     /// property to <c>false</c>.</description>
-    /// </description>
     /// </item>
     /// </list>
     /// </para>
@@ -123,13 +137,13 @@ namespace MbUnit.Framework.ContractVerifiers
     /// </example>
     /// </summary>
     /// <typeparam name="TTarget"></typeparam>
-    public class ComparisonContractVerifier<TTarget> : AbstractContractVerifier
+    public class VerifyComparisonContract<TTarget> : AbstractContractVerifier
         where TTarget : IComparable<TTarget>
     {
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public ComparisonContractVerifier()
+        public VerifyComparisonContract()
         {
             this.ImplementsOperatorOverloads = true;
         }

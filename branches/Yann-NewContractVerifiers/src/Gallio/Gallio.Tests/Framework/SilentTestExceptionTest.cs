@@ -24,7 +24,7 @@ namespace Gallio.Tests.Framework
     public class SilentTestExceptionTest
     {
         [ContractVerifier]
-        public readonly IContractVerifier ExceptionTests = new ExceptionContractVerifier<SilentTestException>()
+        public readonly IContractVerifier ExceptionTests = new VerifyExceptionContract<SilentTestException>()
         {
             ImplementsStandardConstructors = false
         };

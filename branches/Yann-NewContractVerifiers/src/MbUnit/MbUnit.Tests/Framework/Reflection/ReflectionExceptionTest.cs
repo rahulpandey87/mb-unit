@@ -25,6 +25,6 @@ namespace MbUnit.Tests.Framework.Reflection
     public class ReflectionExceptionTest
     {
         [ContractVerifier]
-        public readonly IContractVerifier ExceptionTests = new ExceptionContractVerifier<ReflectionException>();
+        public readonly IContractVerifier ExceptionTests = new VerifyExceptionContract<ReflectionException>();
     }
 }

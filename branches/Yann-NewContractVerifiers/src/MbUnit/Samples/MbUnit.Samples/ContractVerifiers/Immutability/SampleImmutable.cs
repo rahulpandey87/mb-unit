@@ -14,16 +14,33 @@
 // limitations under the License.
 
 using System;
-using Gallio.Model.Filters;
 using MbUnit.Framework;
 using MbUnit.Framework.ContractVerifiers;
+using System.Runtime.Serialization;
 
-namespace Gallio.Tests.Model.Filters
+namespace MbUnit.Samples.ContractVerifiers
 {
-    [TestsOn(typeof(FilterParseException))]
-    public class FilterParseExceptionTest
+    public class SampleImmutable
     {
-        [ContractVerifier]
-        public readonly IContractVerifier ExceptionTests = new VerifyExceptionContract<FilterParseException>();
+        private readonly int number;
+        private readonly string text;
+        private readonly ImmutableFoo foo;
+
+        public SampleImmutable(int number, string text, ImmutableFoo foo)
+        {
+            this.number = number;
+            this.text = text;
+            this.foo = foo;
+        }
+    }
+
+    public class ImmutableFoo
+    {
+        private readonly double number;
+
+        public ImmutableFoo(double number)
+        {
+            this.number = number;
+        }
     }
 }

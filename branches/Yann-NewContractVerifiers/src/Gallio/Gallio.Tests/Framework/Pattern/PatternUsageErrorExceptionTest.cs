@@ -23,7 +23,7 @@ namespace Gallio.Tests.Framework.Pattern
     public class PatternUsageErrorExceptionTest
     {
         [ContractVerifier]
-        public readonly IContractVerifier ExceptionTests = new ExceptionContractVerifier<PatternUsageErrorException>()
+        public readonly IContractVerifier ExceptionTests = new VerifyExceptionContract<PatternUsageErrorException>()
         {
             ImplementsStandardConstructors = false
         };
