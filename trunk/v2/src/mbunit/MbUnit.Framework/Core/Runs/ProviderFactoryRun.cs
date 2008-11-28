@@ -75,10 +75,7 @@ namespace MbUnit.Core.Runs
 
 		public bool IsTest
 		{
-			get
-			{
-				return false;
-			}
+			get { return true; }
 		}
 
 		public void Reflect(RunInvokerTree tree, RunInvokerVertex parent, Type t)

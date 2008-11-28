@@ -135,12 +135,12 @@ namespace MbUnit.Core
                 if (v.Invoker is ExplicitRunInvoker && !IsExplicit)
                     testException = new IgnoreRunException("Explicit selection required.");
 
-                // if exception has already been throwed, execute non test only
+                // if exception has already been thrown, execute non test only
                 if (testException != null)
                 {
                     if (!v.Invoker.Generator.IsTest)
                     {
-                        // we execute tear down code and drop exceptions
+                        // execute tear down code and drop exceptions
                         try
                         {
                             v.Invoker.Execute(fixture, args);
@@ -155,7 +155,16 @@ namespace MbUnit.Core
                     {
                         if (this.IsAbortPending)
                             continue;
-                        v.Invoker.Execute(fixture, args);
+
+                        if (v.Invoker.Generator.IsTest)
+                        {
+                            v.Invoker.Execute(fixture, args);
+                        }
+                        else
+                        {
+                            // can't re-use args for TearDown, or we get a parameter mismatch!
+                            v.Invoker.Execute(fixture, new ArrayList());
+                        }
                     }
                     catch (Exception ex)
                     {
