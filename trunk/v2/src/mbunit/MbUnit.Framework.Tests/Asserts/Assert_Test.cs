@@ -4681,13 +4681,14 @@ namespace MbUnit.Framework.Tests.Asserts
 
         #region IList
 
-        [Test]
+        [Test, ExpectedException(typeof(AssertionException))]
         public void InListTestNull()
         {
             ArrayList list = new ArrayList();
             list.Add(null);
             Assert.In(null, list);
         }
+
         [Test]
         public void InList()
         {
@@ -4701,7 +4702,7 @@ namespace MbUnit.Framework.Tests.Asserts
 
         #region IEnumerable
      
-        [Test]
+        [Test, ExpectedException(typeof(AssertionException))]
         public void InEnumerableTestNull()
         {
             ArrayList list = new ArrayList();
@@ -4727,7 +4728,7 @@ namespace MbUnit.Framework.Tests.Asserts
             Assert.In(item1, enumerableStringArray);
         }
 
-        [Test]
+        [Test, ExpectedException(typeof(AssertionException))]
         public void In_NullItem()
         {
             string[] stringArray = { "item1", null, "item2" };
@@ -4797,11 +4798,12 @@ namespace MbUnit.Framework.Tests.Asserts
 
         #region IList
 
-        [Test]
+        [Test, ExpectedException(typeof(AssertionException))]
         public void NotInListTestNull()
         {
             Assert.NotIn(null, new ArrayList());
         }
+
         [Test]
         public void NotInList()
         {
@@ -4815,7 +4817,7 @@ namespace MbUnit.Framework.Tests.Asserts
 
         #region IEnumerable
 
-        [Test]
+        [Test, ExpectedException(typeof(AssertionException))]
         public void NotInEnumerableTestNull()
         {
             Assert.NotIn(null, (IEnumerable)new ArrayList());
