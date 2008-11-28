@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if DEBUG
+
+using System;
 using System.Diagnostics;
 using System.IO;
 using MbUnit.Core.Framework;
@@ -50,19 +52,21 @@ namespace MbUnit.Framework.Tests.Core.Monitoring
         [Test]
         public void DebugWriteCategory()
         {
-            Debug.Write("testing","mycategory");
+            Debug.Write("testing", "mycategory");
         }
         [Test]
         public void DebugWriteLineCategory()
         {
             Debug.WriteLine("testing", "mycategory");
         }
+
         [Test]
         [ExpectedException(typeof(DebugFailException))]
         public void KickAssertAndCatchIt()
         {
-            System.Diagnostics.Debug.Assert(false,
-                "This message should be catched by MbUnit and dumped to the console");
+            string message = "This message should be caught and dumped to the console";
+            Debug.Assert(false, message);
         }
     }
 }
+#endif
