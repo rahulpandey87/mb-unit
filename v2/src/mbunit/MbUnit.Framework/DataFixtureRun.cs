@@ -1,18 +1,14 @@
 using System;
+using System.Collections;
 using System.Reflection;
 using System.Xml;
-using System.Collections;
-
 using MbUnit.Core;
-using MbUnit.Core.Runs;
-using MbUnit.Core.Invokers;
 using MbUnit.Core.Framework;
+using MbUnit.Core.Invokers;
+using MbUnit.Core.Runs;
 
 namespace MbUnit.Framework
 {
-
-    using QuickGraph.Concepts.Serialization;
-
 	internal sealed class DataFixtureRun : IRun
 	{
 		public string Name
@@ -25,10 +21,7 @@ namespace MbUnit.Framework
 
 		public bool IsTest
 		{
-			get
-			{
-				return false;
-			}
+			get { return true; }
 		}
 
 		public void Reflect(RunInvokerTree tree, RunInvokerVertex parent, Type t)
