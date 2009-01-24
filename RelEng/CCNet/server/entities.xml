@@ -43,4 +43,4 @@
   &EmailPublisher;
 '>
 
-<!ENTITY MSBuildLogger '<logger>ThoughtWorks.CruiseControl.MsBuild.XmlLogger,&CCNetRoot;\server\ThoughtWorks.CruiseControl.MsBuild.dll</logger>'>
+<!ENTITY MSBuildLogger '<logger>Kobush.Build.Logging.XmlLogger,&CCNetRoot;\server\Kobush.Build.dll</logger>'>
