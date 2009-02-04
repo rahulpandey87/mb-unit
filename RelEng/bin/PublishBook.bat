@@ -5,14 +5,18 @@ REM
 setlocal
 set ROBOCOPY=%~dp0robocopy.exe
 set TARGET=C:\Inetpub\www.gallio.org\book
+set BASE=C:\RelEng\Distributables
 
 set VERSION=%~1
 if not defined VERSION (
     echo Usage: [version]
+    echo.
+    echo Available versions:
+    dir /b "%BASE%\GallioBook-*"
     exit /b 1
 )
 
-set SOURCE=C:\RelEng\Distributables\GallioBook-%VERSION%
+set SOURCE=%BASE%\GallioBook-%VERSION%
 
 echo.
 echo Version: %VERSION%
