@@ -1,0 +1,55 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <Import Project="$(MetaBuildBinDir)\MetaBuild.Module.targets" />
+  
+  <PropertyGroup>
+    <MonoCompatible>false</MonoCompatible>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <CSharpProject Include="Gallio.NCoverIntegration\Gallio.NCoverIntegration$(ProjectVariant).csproj" />
+
+    <CSharpProject Include="Gallio.NCoverIntegration.Tests\Gallio.NCoverIntegration.Tests$(ProjectVariant).csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Binary Include="libs\v1.5.8\Coverage.xsl">
+        <Folder>NCover\v1.5.8</Folder>
+    </Binary>
+    <Binary Include="libs\v1.5.8\CoverLib.dll">
+        <Folder>NCover\v1.5.8</Folder>
+    </Binary>
+    <Binary Include="libs\v1.5.8\Microsoft.VC80.CRT.manifest">
+        <Folder>NCover\v1.5.8</Folder>
+    </Binary>
+    <Binary Include="libs\v1.5.8\MSVCP80.dll">
+        <Folder>NCover\v1.5.8</Folder>
+    </Binary>
+    <Binary Include="libs\v1.5.8\MSVCR80.dll">
+        <Folder>NCover\v1.5.8</Folder>
+    </Binary>
+    <Binary Include="libs\v1.5.8\NCover.Console.exe">
+        <Folder>NCover\v1.5.8</Folder>
+    </Binary>
+    <Binary Include="libs\v1.5.8\NCover.Console.exe.config">
+        <Folder>NCover\v1.5.8</Folder>
+    </Binary>
+    <Binary Include="libs\v1.5.8\NCover.Framework.dll">
+        <Folder>NCover\v1.5.8</Folder>
+    </Binary>
+    <Binary Include="libs\v1.5.8\NCoverFAQ.html">
+        <Folder>NCover\v1.5.8</Folder>
+    </Binary>
+    <Binary Include="Gallio.NCoverIntegration\bin\Gallio.NCoverIntegration.dll">
+        <Folder>NCover</Folder>
+    </Binary>
+    <Binary Include="Gallio.NCoverIntegration\Gallio.NCoverIntegration.plugin">
+        <Folder>NCover</Folder>
+    </Binary>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Feature Include="FEATURE_NCOVER_INTEGRATION" />
+
+    <TestAssembly Include="Gallio.NCoverIntegration.Tests\bin\Gallio.NCoverIntegration.Tests.dll" />
+  </ItemGroup>
+</Project>
