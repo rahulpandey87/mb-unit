@@ -12,11 +12,11 @@ if not defined VERSION (
     echo Usage: [version]
     echo.
     echo Available versions:
-    dir /b "%BASE%\GallioBook-*"
+    dir /b "%BASE%\GallioBook"
     exit /b 1
 )
 
-set SOURCE=%BASE%\GallioBook-%VERSION%
+set SOURCE=%BASE%\GallioBook\%VERSION%
 
 echo.
 echo Version: %VERSION%
