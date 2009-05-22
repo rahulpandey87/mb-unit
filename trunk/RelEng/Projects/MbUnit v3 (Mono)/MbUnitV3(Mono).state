@@ -3,7 +3,7 @@
   <ProjectName>MbUnit v3 (Mono)</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/MbUnit+v3+(Mono)/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>3.0.4.1</Label>
+  <Label>0.0.7.1</Label>
   <WorkingDirectory>C:\RelEng\Projects\MbUnit v3 (Mono)\Work</WorkingDirectory>
   <ArtifactDirectory>C:\RelEng\Projects\MbUnit v3 (Mono)\Artifacts</ArtifactDirectory>
   <Status>Exception</Status>
