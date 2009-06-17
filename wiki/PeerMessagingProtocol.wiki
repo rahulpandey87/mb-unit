@@ -1,0 +1,93 @@
+#summary Describes the peer-to-peer messaging protocol used by Gallio.
+#labels Phase-Design
+
+= Introduction =
+
+The Peer Messaging Protocol (PMP) is a federated peer-to-peer messaging protocol suitable for the asynchronous exchange of messages and presence notifications over one or more channels including a duplex return path.
+
+The protocol design borrows from HTTP and related content transmission standards such as MIME encoding.  The protocol recommends the implementation of several predefined control messages but it does not specify the format or semantics of application messages.
+
+This document describes an embedding of PMP within a single TCP channel but PMP could equally well be deployed over SCTP.
+
+
+= Principles =
+
+  * Text-based control messages.
+
+  * Control headers precede messages so that messages can be routed and streamed to clients without buffering them in entirety.
+
+  * Peer-to-peer.  There is no distinction between clients and servers; both can exchange messages symmetrically over a duplex channel.
+
+  * Federation.  All peers can join a common logical message bus and can publish and subscribe to the same pool of topics.
+
+  * Presence.  The protocol maintains awareness of active message ports on the network and can be requested to publish state change notifications such as disconnection and unreachability.
+
+  * Blind Multicast.  The protocol enables a message to be delivered to multiple recipients in parallel without revealing to any particular recipient the identity of all other recipients involved.
+
+  * Multihoming.  The protocol enables a message port to listen for messages on multiple destination addresses simultaneously.
+
+  * Authenticity.  The protocol enables a message port to sign all messages it sends with its own address.  Unsigned messages may be discarded by the recipient.
+
+
+= Concepts =
+
+  * Peer: A peer is a transport-level participant of a message bus.  Typically a peer will maintain one or more links to other peers on the message bus.  Peers typically have transport-level addresses on the network but their network identity is not used for message routing and is not disclosed to other participants unless they are directly connected.
+
+  * Link: A link is a transport-level communication channel that joins a peer to the message bus.  Typically a link will be represented by a stateful connection such as a TCP or SCTP stream.
+
+  * Message Bus: A message bus is a mesh of participants that communicate over a peer-to-peer network.  Each peer may have a different view of a message bus depending on its role in the network (eg. access privileges) and how it is connected to other peers.
+
+  * Channel: A channel enables a peer of the message bus to send or receive messages on the bus over a multiplexed link.  To send messages, a channel does not need to advertise any addresses however it should include at least one sender participant address with each message and prove it is authorized to send messages on behalf of those participants.  (See: Sender Authentication).  To receive messages, a channel must advertise one or more receiver participant addresses and prove that it is authorized to receive messages on behalf of those participants.  (See: Receiver Authentication)
+
+  * Participant: A participant is a logical producer or consumer of messages associated with an address.  A participant may be connected to the network through multiple channels.  When a message is sent to a multiply-connected participant, it will be routed to all, at least one, at most one or exactly one of those channels depending on the requested delivery guarantee.
+
+  * Participant Address: A participant address consists of an identifier of the form 'name@domain' similar to an email address.
+
+  * Participant Certificate: A participant certificate is a certificate associated with a participant address.  An authorized channel should digitally sign communications on behalf of a participant to provide evidence of its authority over that participant address.  A receiving channel should verify the digital signature to ensure authorization and message integrity.
+
+  * Participant Presence Advertisement: A participant presence advertisement is a control message that a channel sends to the message bus to establish the presence of a participant and provide routing information.
+
+  * Participant Presence Subscription: A participant presence subscription is a mechanism for requesting presence notifications for participants.
+
+  * Message: A message consists of headers and data.  The headers specify addressing information, topics, and the content type.  The data specifies the content itself.  (See: Message Format)
+
+
+  * Sender Certificate: A messa
+
+  * Sender Message Signature: 
+
+  * Reachability: A peer may perceive the reachability of another peer in one of two ways: Reachable or Unreachable.  A peer that is Reachable is known to be actively joined to the message bus by one or more links.  A peer that is Unreachable is not known to be joined.
+
+
+
+  * Topic: A case-sensitive dot-delimited sequence of zero or more words consisting of the characters '0'-'9', 'a'-'z' or 'A'-'Z'.  A publisher associates a topic with each message to be routed to subscribers via topic matching.
+
+  * Topic Pattern: A case-sensitive dot-delimited sequence of zero or more words consisting of the characters '0'-'9', 'a'-'z' or 'A'-'Z' as well as the optional word wildcards '*' or '#'.  The '*' wildcard matches any single word.  The '#' wildcard matches any sequence of zero or more words.  A subscriber specifies a topic pattern to request that messages with a matching topic be routed to it.
+
+  * Subscription
+
+
+A message port has a unique identifier distinct from all other message ports on the network.
+
+
+= Participant Authentication =
+
+  * Sender Participant Authentication: A channel must prove that it has the right to send from a particular sender participant address by signing each sent message with the sender's digital signature.
+
+  * Receiver Participant Authentication: A channel must prove that it has the right to receive messages destined to a particular receiver participant address by signing each participant advertisement with the receiver's digital signature.
+
+= Message Format =
+
+= Headers =
+
+  * Sender: The sender header specifies zero or more sender addresses.
+
+  * Sender Message 
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
