@@ -3,13 +3,13 @@
   <ProjectName>Gallio Book</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/Gallio+Book/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>309</Label>
+  <Label>352</Label>
   <WorkingDirectory>C:\RelEng\Projects\Gallio Book\Work</WorkingDirectory>
   <ArtifactDirectory>C:\RelEng\Projects\Gallio Book\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2009-05-22T03:30:00.1241216-04:00</StartTime>
-  <EndTime>2009-05-22T03:30:49.6253008-04:00</EndTime>
+  <StartTime>2009-06-29T03:30:00.1259504-04:00</StartTime>
+  <EndTime>2009-06-29T03:32:42.1288992-04:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>309</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>352</LastSuccessfulIntegrationLabel>
   <FailureUsers />
 </IntegrationResult>
