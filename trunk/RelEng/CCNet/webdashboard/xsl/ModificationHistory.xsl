@@ -93,9 +93,15 @@
 		                    <xsl:text>&#0160;&#0160;&#0160;&#0160;Changed Files: </xsl:text>
 		                    <xsl:value-of select="count(modifications/modification)"  />
 
-				    <xsl:text>&#0160;&#0160;&#0160;&#0160; </xsl:text>
-		                    <xsl:value-of select="(modifications/modification/comment)"  />
+ 				<xsl:if test="string-length(modifications/modification/issueUrl)!=0">
+ 				    <xsl:text>&#0160;&#0160;&#0160;&#0160;</xsl:text>
+				    <A><xsl:attribute name="HREF"><xsl:value-of select="modifications/modification/issueUrl"/></xsl:attribute><xsl:value-of select="modifications/modification/comment"/></A>
+ 				</xsl:if>
 
+				<xsl:if test="string-length(modifications/modification/issueUrl)=0">
+				    <xsl:text>&#0160;&#0160;&#0160;&#0160; </xsl:text>
+		            <xsl:value-of select="(modifications/modification/comment)"  />
+                </xsl:if>
 
                   </span>
 		          </th>
@@ -123,7 +129,7 @@
 		                         <td class="section-data"><xsl:attribute name="NOWRAP"/><xsl:value-of select="@type"/></td>                                                                           
 		                         <td class="section-data"><xsl:attribute name="NOWRAP"/><xsl:value-of select="user"/></td>                                                                                   
 		                         <td class="section-data"><xsl:value-of select="comment"/></td>
-		                         <td class="section-data"><xsl:value-of select="project"/></td>
+		                         <td class="section-data"><xsl:value-of select="project"/>/<xsl:value-of select="filename"/></td>
 		                    </tr>
 		                  </xsl:for-each>
 		              </table>

@@ -16,7 +16,7 @@
                                                     </span>
 				    </div>
 				    <div class="pagesubheading">
-					    This page last changed on Jul 26, 2008 by <font color="#0050B2">rosspatterson</font>.
+					    This page last changed on May 20, 2009 by <font color="#0050B2">williams</font>.
 				    </div>
 
 				    <p>This is the CruiseControl.NET <em>Frequently Asked Questions</em> (FAQ)</p>
@@ -34,6 +34,20 @@
 <h4><a name="FAQ-WhenIruntheinstallers%2CMcAfeeVirusScan8.0ispoppingupadialogreportingproblemswith%27nsScm.dll%27."></a><em>When I run the installers, McAfee VirusScan 8.0 is popping up a dialog reporting problems with 'nsScm.dll'.</em></h4>
 
 <p>The 'nsScm.dll' is a library supplied by the <a href="http://nsis.sourceforge.net/Service_Control_Manager_plugin_(install_services_and_drivers_on_NT/2K/XP)">NullSoft installer for installing services</a>. There is no virus in this dll. The easiest way to proceed with the installation is to uncheck the "Install CCService" checkbox and install <a href="The Server Service Application.html" title="The Server Service Application">CCService manually</a> once the installer has completed.</p>
+
+<h2><a name="FAQ-ConnectionIssues"></a>Connection Issues</h2>
+
+
+<h4><a name="FAQ-CCtraycannotconnecttothebuildserverusingremoting"></a>CCtray can not connect to the buildserver using remoting</h4>
+
+<ul>
+	<li>First check that the used port is correct, standard it is 21234. If you never changed this, or it's the first time you see this number, this setting will probably be correct.<br/>
+You can find the value in the exe.config files (CCNet.exe.config, CCService.exe.config) in the system.runtime.remoting/application/channels part.</li>
+	<li>Next, check the firewall on the server. You can do this by running the following command in a prompt : <b>netsh firewall show portopening</b><br/>
+If you get an empty list, no firewall is on, if you see a list, check that there is a line containing the correct port : standard it is 21234<br/>
+To open the port, run the following command : <b>netsh firewall add portopening TCP 21234 CCNET</b></li>
+</ul>
+
 
 <h2><a name="FAQ-Resultfiles"></a>Result files</h2>
 
@@ -98,6 +112,11 @@ Echo %ErrorLevel%</pre>
 </ol>
 
 
+<h4><a name="FAQ-Newconfigurationinccnet.configisnotused"></a>New configuration in ccnet.config is not used</h4>
+
+<p>If you have introduced errors to your config file CruiseControl.NET will fail to load, and keep using the already loaded old configuration. So check the log, or stop the service and run the commandline tool to fix the configuration problem.<br/>
+From version 1.4.3 onwards there is a visual validator program, that parses the config file like CCNet does, so this makes it easy to spot configuration issues.</p>
+
 <h2><a name="FAQ-OperationflowofCCNet"></a>Operation flow of CCNet</h2>
 
 <p>The exact sequence of operations is:</p>
@@ -129,7 +148,8 @@ Echo %ErrorLevel%</pre>
 
 <h4><a name="FAQ-Arethereprojectpropertiesavailabletoreduceduplicationintheconfiguration%3F"></a>Are there project properties available to reduce duplication in the configuration ?</h4>
 
-<p>Properties as in Nant or MSBuild (<em>e.g.</em>, "$(workingDirectory)") are supported from CCNet version 1.4RC1 and upwards. See the <a href="Configuration Preprocessor.html" title="Configuration Preprocessor">Configuration Preprocessor</a> documentation for more details.  Previous versions can reduce some duplication in the configuration with the use of XML DTD entities (<em>e.g.</em>, "&amp;workingDirectory;").</p>
+<p>Properties as in Nant or MSBuild (<em>e.g.</em>, "$(workingDirectory)") are supported from CCNet version 1.4RC1 and upwards. See the <a href="Configuration Preprocessor.html" title="Configuration Preprocessor">Configuration Preprocessor</a> documentation for more details.<br/>
+Previous versions can reduce some duplication in the configuration with the use of XML DTD entities (<em>e.g.</em>, "&amp;workingDirectory;").</p>
 
 <h2><a name="FAQ-UsingtheCCNetService"></a>Using the CCNet Service</h2>
 
@@ -137,6 +157,12 @@ Echo %ErrorLevel%</pre>
 <h4><a name="FAQ-Mybuildcan%27tfindenvironmentvariableswhenrunfromtheservice%2Cbutitworksfinemanuallyorfromtheccnetcommandlineserver"></a><em>My build can't find environment variables when run from the service, but it works fine manually or from the ccnet command line server</em></h4>
 
 <p>You may be running the CCNet Service under the <tt>SYSTEM</tt> account, or some different account other than your own. Many environment variables under MS Windows are set on a per-user basis, which means that the <tt>SYSTEM</tt> account won't have the same variables as you. Depending on the circumstances, you might want to move those environment variable definitions to be system-wide. Another alternative is to run the service under your account, or create a separate <tt>build</tt> account for use by CC.Net. Finally, some tasks such as NAnt can explictly create environment variables for themselves (but these won't be passed on to other CruiseControl.Net tasks).</p>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p>It turns out the path (and all environment variables) are read only once, at system start-up. So if the path is changed while the system is running the services will not detect any changes to it (at least in Win2003 see <a href="http://support.microsoft.com/kb/887693">http://support.microsoft.com/kb/887693</a>).</p></td></tr></table></div>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p>Sometimes you may get errors even if you do not use the system account. For example : if you use 'DevEnv.exe' via the exec task, you <b><em>CAN</em></b> get '<em>the application data folder for visual studio could not be created</em>'.<br/>
+It is always advisable to not use IDE's on a build server. The above problem is easily solved by using msbuild. just point to to the sln file.<br/>
+so iso of&nbsp;&nbsp;&nbsp;&nbsp; <b><em>devenv c:\source\myFunkyStuff.sln</em></b>&nbsp;&nbsp;&nbsp; use&nbsp;&nbsp;&nbsp; <b><em>msbuild c:\source\myFunkyStuff.sln</em></b></p></td></tr></table></div>
 
 <h4><a name="FAQ-MybuildisfailingandI%27mnotsurewhy"></a><em>My build is failing and I'm not sure why</em></h4>
 
@@ -149,7 +175,6 @@ Echo %ErrorLevel%</pre>
 <h4><a name="FAQ-Theccnet.execommandlineworksbutccservice.exedoesn%27t"></a><em>The ccnet.exe command line works but ccservice.exe doesn't</em></h4>
 
 <p>Problems with <b>ccservice.exe</b> that don't happen with <b>ccnet.exe</b> almost always come back to one of two things:</p>
-
 <ol>
 	<li>First is the fact that they each use a different app.config file, <b>ccservice.exe.config</b> and <b>ccnet.exe.config</b> respectively, and you should usually make changes to them in tandem.  This isn't often the problem, but it's always worth investigating.</li>
 </ol>
@@ -158,7 +183,6 @@ Echo %ErrorLevel%</pre>
 <ol>
 	<li>Second, and most common, is that <b>ccnet.exe</b> runs under the account of the logged in Windows user, and <b>ccservice.exe</b> runs under the local system account.  This often shows up as the cause of problems with source control systems misbehaving, especially if it maintains user credentials someplace (<em>e.g.</em>, under <b>%USERPROFILE%</b>).</li>
 </ol>
-
 
 
 <h2><a name="FAQ-SourceControlIntegration"></a>Source Control Integration</h2>
@@ -212,11 +236,19 @@ Echo %ErrorLevel%</pre>
 
 <h4><a name="FAQ-HowdoIchangethelookandfeeloftheWebDashboard%3F"></a><em>How do I change the look and feel of the Web Dashboard?</em></h4>
 
-<p>The look and feel of the Dashboard is defined by the velocity templates and xsl files in the <tt>templates</tt> and <tt>xsl</tt> sub-folders of your Web Dashboard folder (which by default is at <tt>C:\Windows\Program Files\CruiseControl.NET\webdashboard</tt> .)</p>
+<p>The look and feel of the Dashboard is defined by the velocity templates and xsl files in the <tt>templates</tt> and <tt>xsl</tt> sub-folders of your Web Dashboard folder (which by default is at <tt>C:\Windows\Program Files\CruiseControl.NET\webdashboard</tt> .)<br/>
+From version 1.4.3 and onwards CCNet supports theming take a look at <a href="Plugins Configuration Block.html" title="Plugins Configuration Block">Dashboard Plugins</a>for more information.</p>
 
 <h4><a name="FAQ-HowdoIusemyownXSLstylesheetsforreports%3F"></a><em>How do I use my own XSL stylesheets for reports?</em></h4>
 
-<p>Both the <a href="Build Report Build Plugin.html" title="Build Report Build Plugin">Build Report Build Plugin</a> and <a href="XSL Report Build Plugin.html" title="XSL Report Build Plugin">XSL Report Build Plugin</a> can be configured to use custom stylesheets. Change the configuration of the <a href="Build Report Build Plugin.html" title="Build Report Build Plugin">Build Report Build Plugin</a> if you want to add a stylesheet to the main Build Report, or add a new <a href="XSL Report Build Plugin.html" title="XSL Report Build Plugin">XSL Report Build Plugin</a> instance if you want a totally new page for the report.</p>
+<p>Both the <a href="Build Report Build Plugin.html" title="Build Report Build Plugin">Build Report Build Plugin</a> and <a href="XSL Report Build Plugin.html" title="XSL Report Build Plugin">XSL Report Build Plugin</a> can be configured to use custom stylesheets. Change the configuration of the <a href="Build Report Build Plugin.html" title="Build Report Build Plugin">Build Report Build Plugin</a> if you want to add a stylesheet to the main Build Report, or add a new <a href="XSL Report Build Plugin.html" title="XSL Report Build Plugin">XSL Report Build Plugin</a> instance if you want a totally new page for the report.
+<br clear="all" /></p>
+
+<h4><a name="FAQ-HowcanIgettheoutputofToolX%2Fmycustomprograminthedashboard%3F"></a>How can I get the output of Tool X / my custom program in the dashboard ?</h4>
+
+<p>If the tool creates an result file, use the <a href="File Merge Task.html" title="File Merge Task">merge file</a>task to get it into the build result. (mostly done in the publisher section). If the result file is XML, the handling goes a lot easier.<br/>
+Next you must create a xsl file that will parse the resultfile that is now part of the buildlog to visualise the outcome. See the section above.
+<br clear="all" /></p>
 
 <h4><a name="FAQ-HowdoIpreventalltheseunwantedmessagesfromshowingupinthewarning%2FerrorsectionsoftheWebDashboard%3F"></a><em>How do I prevent all these unwanted messages from showing up in the warning/error sections of the WebDashboard?</em></h4>
 
@@ -239,8 +271,41 @@ Echo %ErrorLevel%</pre>
 </ol>
 
 
+<h4><a name="FAQ-%26nbsp%3B"></a>&nbsp;</h4>
+
+
+<h4><a name="FAQ-DisplayingbuildprogressintheDashboard"></a>Displaying build progress in the Dashboard</h4>
+
+<p>Standard CCNet will show basic information in which stage of the build it is :</p>
+
+<p>getting Source<br/>
+Executing task X</p>
+
+<p>This can be extendended, for Nant and MSBuild look at <a href="http://confluence.public.thoughtworks.org//display/CCNETCOMM/Viewing+build+progress+with+Nant+and+MSBuild" title="Viewing build progress with Nant and MSBuild">Viewing build progress with Nant and MSBuild</a>in the Contribution section.</p>
+
 <h1><a name="FAQ-CCTray"></a>CCTray</h1>
 
+
+<h4><a name="FAQ-DisplayingbuildprogressinCCTray"></a>Displaying build progress in CCTray</h4>
+
+<p>Standard CCNet will show basic information in which stage of the build it is :</p>
+
+<p>getting Source<br/>
+Executing task X</p>
+
+<p>This can be extendended, for Nant and MSBuild look at <a href="http://confluence.public.thoughtworks.org//display/CCNETCOMM/Viewing+build+progress+with+Nant+and+MSBuild" title="Viewing build progress with Nant and MSBuild">Viewing build progress with Nant and MSBuild</a>in the Contribution section.</p>
+
+<h4><a name="FAQ-ErrorThoughtWorks.CruiseControl.CCTrayLib.Speech.SpeakingProjectMonitor..ctor"></a>Error ThoughtWorks.CruiseControl.CCTrayLib.Speech.SpeakingProjectMonitor..ctor</h4>
+
+<p>You need to install the Speech software SDK from Microsoft<br/>
+<a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=5e86ec97-40a7-453f-b0ee-6583171b4530&amp;displaylang=en">http://www.microsoft.com/downloads/details.aspx?FamilyID=5e86ec97-40a7-453f-b0ee-6583171b4530&amp;displaylang=en</a></p>
+
+<p>WinXP SP1 has it by default, earlier windows versions must install it separately</p>
+
+<h4><a name="FAQ-"></a></h4>
+
+<p><br clear="all" />
+<br clear="all" /></p>
 
 <h1><a name="FAQ-Developingyourownplugins"></a>Developing your own plugins</h1>
 
@@ -253,7 +318,7 @@ Echo %ErrorLevel%</pre>
 				<td height="12" background="http://confluence.public.thoughtworks.org//images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
 			</tr>
 		    <tr>
-			    <td align="center"><font color="grey">Document generated by Confluence on Jul 28, 2008 22:42</font></td>
+			    <td align="center"><font color="grey">Document generated by Confluence on May 31, 2009 21:17</font></td>
 		    </tr>
 	    </table>
     </body>

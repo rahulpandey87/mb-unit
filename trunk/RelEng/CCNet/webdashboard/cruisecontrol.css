@@ -95,7 +95,8 @@ td>a.selected:hover { color:#006; }
 
 .log
 {
-	overflow: auto;
+	overflow: visible;
+	height:auto;
 }
 
 .wholepage
@@ -112,4 +113,13 @@ td>a.selected:hover { color:#006; }
 .Footer
 {
 	color: darkgrey;
+}
+.commands
+{
+	float:right;
+}
+.commands input
+{
+	width: 100px;
+	display:block;
 }
