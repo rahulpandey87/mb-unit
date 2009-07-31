@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectName>MbUnit v3.2</ProjectName>
+  <ProjectUrl>http://ccnet.gallio.org/server/local/project/MbUnit+v3.2/ViewLatestBuildReport.aspx</ProjectUrl>
+  <BuildCondition>IfModificationExists</BuildCondition>
+  <Label>3.2.21.0</Label>
+  <WorkingDirectory>C:\RelEng\Projects\MbUnit v3.2\Work</WorkingDirectory>
+  <ArtifactDirectory>C:\RelEng\Projects\MbUnit v3.2\Artifacts</ArtifactDirectory>
+  <Status>Exception</Status>
+  <StartTime>2009-07-31T16:14:47.7043008-04:00</StartTime>
+  <EndTime>2009-07-31T17:46:50.5422528-04:00</EndTime>
+  <LastIntegrationStatus>Failure</LastIntegrationStatus>
+  <LastSuccessfulIntegrationLabel>3.2.20.0</LastSuccessfulIntegrationLabel>
+  <FailureUsers>
+    <anyType xsi:type="xsd:string">jeff.brown</anyType>
+  </FailureUsers>
+</IntegrationResult>

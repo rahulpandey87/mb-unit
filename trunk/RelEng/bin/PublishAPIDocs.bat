@@ -26,7 +26,7 @@ echo.
 
 call :CHECKFILE Gallio.chm
 if errorlevel 1 goto :ERROR
-call :CHECKFILE html\index.html
+call :CHECKFILE index.html
 if errorlevel 1 goto :ERROR
 
 robocopy "%SOURCE%" "%TARGET%" /MIR
