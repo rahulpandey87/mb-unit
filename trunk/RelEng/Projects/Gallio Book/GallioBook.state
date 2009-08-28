@@ -2,14 +2,14 @@
 <IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ProjectName>Gallio Book</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/Gallio+Book/ViewLatestBuildReport.aspx</ProjectUrl>
-  <BuildCondition>IfModificationExists</BuildCondition>
-  <Label>386</Label>
+  <BuildCondition>ForceBuild</BuildCondition>
+  <Label>413</Label>
   <WorkingDirectory>C:\RelEng\Projects\Gallio Book\Work</WorkingDirectory>
   <ArtifactDirectory>C:\RelEng\Projects\Gallio Book\Artifacts</ArtifactDirectory>
-  <Status>Exception</Status>
-  <StartTime>2009-07-31T05:16:18.5183936-04:00</StartTime>
-  <EndTime>2009-07-31T05:16:19.730136-04:00</EndTime>
+  <Status>Success</Status>
+  <StartTime>2009-08-28T03:30:00.1446959-04:00</StartTime>
+  <EndTime>2009-08-28T03:32:13.6967343-04:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>386</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>413</LastSuccessfulIntegrationLabel>
   <FailureUsers />
 </IntegrationResult>
