@@ -32,6 +32,12 @@
                             <RegistryValue Type="string" Name="Template" Value="MbUnit3.MvcWebApplicationTestProjectTemplate.CSharp.zip" />
                             <RegistryValue Type="string" Name="TestFrameworkName" Value="MbUnit v3" />
                             <RegistryValue Type="string" Name="AdditionalInfo" Value="http://www.mbunit.com/" />
+                        </Registip" KeyPath="yes" />
+                        <RegistryKey Action="createAndRemoveOnUninstall" Root="HKLM" Ke2crosoft\VisualStudio\9.0\MVC\TestProjectTemplates\MbUnit3\C#">
+                            <RegistryValue Type="string" Name="Path" Value="CSharp" />
+                            <RegistryValue Type="string" Name="Template" Value="MbUnit3.MvcWebApplicationTestProjectTemplate.CSharp.zip" />
+                            <RegistryValue Type="string" Name="TestFrameworkName" Value="MbUnit v3" />
+                            <RegistryValue Type="string" Name="AdditionalInfo" Value="http://www.mbunit.com/" />
                         </RegistryKey>
                     </Component>
                 </Directory>
@@ -42,6 +48,12 @@
                     <Component Id="VS2008.MbUnit3.MvcWebApplicationTestProjectTemplate.VisualBasic.zip" Guid="{8B357A10-BBD9-41e0-8C53-FE05B2E693F5}" Win64="no">
                         <File Id="VS2008.MbUnit3.MvcWebApplicationTestProjectTemplate.VisualBasic.zip" Source="$(var.GallioTargetDir)\extras\Templates\VS2008\ProjectTemplates\VisualBasic\MbUnit3.MvcWebApplicationTestProjectTemplate.VisualBasic.zip" KeyPath="yes" />
                         <RegistryKey Action="createAndRemoveOnUninstall" Root="HKLM" Key="SOFTWARE\Microsoft\VisualStudio\9.0\MVC\TestProjectTemplates\MbUnit3\VB">
+                            <RegistryValue Type="string" Name="Path" Value="VisualBasic" />
+                            <RegistryValue Type="string" Name="Template" Value="MbUnit3.MvcWebApplicationTestProjectTemplate.VisualBasic.zip" />
+                            <RegistryValue Type="string" Name="TestFrameworkName" Value="MbUnit v3" />
+                            <RegistryValue Type="string" Name="AdditionalInfo" Value="http://www.mbunit.com/" />
+                  ip" KeyPath="yes" />
+                        <RegistryKey Action="createAndRemoveOnUninstall" Root="HKLM" Ke2y="SOFTWARE\Microsoft\VisualStudio\9.0\MVC\TestProjectTemplates\MbUnit3\VB">
                             <RegistryValue Type="string" Name="Path" Value="VisualBasic" />
                             <RegistryValue Type="string" Name="Template" Value="MbUnit3.MvcWebApplicationTestProjectTemplate.VisualBasic.zip" />
                             <RegistryValue Type="string" Name="TestFrameworkName" Value="MbUnit v3" />
@@ -64,6 +76,4 @@
             <ComponentRef Id="VS2008.MbUnit3.TestProjectTemplate.VisualBasic.zip" />
             <ComponentRef Id="VS2008.MbUnit3.MvcWebApplicationTestProjectTemplate.CSharp.zip" />
             <ComponentRef Id="VS2008.MbUnit3.MvcWebApplicationTestProjectTemplate.VisualBasic.zip" />
-        </Feature>
-    </Fragment>
-</Wix>
+   
