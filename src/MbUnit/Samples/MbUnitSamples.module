@@ -1,0 +1,40 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <Import Project="$(MetaBuildBinDir)\MetaBuild.Module.targets" />
+
+  <ItemGroup>
+    <ModuleReference Include="..\MbUnit.module" />
+
+    <CSharpProject Include="MbUnit.Samples\MbUnit.Samples$(ProjectVariant).csproj" />
+    <CSharpProject Include="MbUnit.Samples.VSTSIntegration\MbUnit.Samples.VSTSIntegration$(ProjectVariant).csproj" />
+
+    <ExcludedFile Include="*.module" />
+    <ExcludedFile Include="*.wxs" />
+  </ItemGroup>
+
+  <Target Name="AfterImage">
+    <Message Text="Generating MbUnit samples archive..."
+             Importance="High" />
+
+    <Delete Files="$(ImageDir)\samples\MbUnitSamples.zip"
+            Condition="Exists('$(ImageDir)\samples\MbUnitSamples.zip')" />
+
+    <RemoveDir Directories="$(TempDir)\samples\MbUnitSamples" />
+    <MakeDir Directories="$(TempDir)\samples;$(ImageDir)\samples" />
+    
+    <SvnExport RepositoryPath="$(ModuleDir)"
+               LocalPath="$(TempDir)\samples\MbUnitSamples" />
+
+    <Delete Files="@(ExcludedFile->'$(TempDir)\samples\MbUnitSamples\%(Identity)')"
+            Condition="'@(ExcludedFile)'!=''" />
+
+    <ItemGroup>
+      <MbUnitSampleFile Include="$(TempDir)\samples\MbUnitSamples\**\*" />
+    </ItemGroup>
+
+    <Zip Files="@(MbUnitSampleFile)"
+         WorkingDirectory="$(TempDir)\samples\MbUnitSamples"
+         ZipFileName="$(ImageDir)\samples\MbUnitSamples.zip"
+	 ZipLevel="9"
+         Comment="This archive contains MbUnit Samples.  Extract them to a directory of your choice to run them." />         
+  </Target>
+</Project>

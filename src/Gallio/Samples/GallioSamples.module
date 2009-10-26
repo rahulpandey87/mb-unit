@@ -1,0 +1,21 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <Import Project="$(MetaBuildBinDir)\MetaBuild.Module.targets" />
+
+  <ItemGroup>
+    <ModuleReference Include="..\..\MbUnit\MbUnit.module" />
+
+    <ExcludedFile Include="*.module" />
+    <ExcludedFile Include="*.wxs" />
+  </ItemGroup>
+
+  <Target Name="AfterImage">
+    <RemoveDir Directories="$(ImageDir)\docs\Samples\Gallio" />
+    <MakeDir Directories="$(ImageDir)\docs\Samples" />
+    
+    <SvnExport RepositoryPath="$(ModuleDir)"
+               LocalPath="$(ImageDir)\docs\Samples\Gallio" />
+
+    <Delete Files="@(ExcludedFile->'$(ImageDir)\docs\Samples\Gallio\%(Identity)')"
+            Condition="'@(ExcludedFile)'!=''" />
+  </Target>
+</Project>
