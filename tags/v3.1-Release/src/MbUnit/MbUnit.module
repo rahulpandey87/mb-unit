@@ -1,0 +1,62 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <Import Project="$(MetaBuildBinDir)\MetaBuild.Module.targets" />
+
+  <ItemGroup>
+    <ModuleReference Include="..\Gallio\Gallio.module" />
+    
+    <Module Include="Templates\MbUnitTemplates.module" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <CSharpProject Include="MbUnit\MbUnit$(ProjectVariant).csproj" />
+    <CSharpProject Include="MbUnit35\MbUnit35$(ProjectVariant).csproj" />
+    <CSharpProject Include="MbUnit.Compatibility\MbUnit.Compatibility$(ProjectVariant).csproj" />
+    
+    <CSharpProject Include="MbUnit.TestResources\MbUnit.TestResources$(ProjectVariant).csproj" />
+    <CSharpProject Include="MbUnit.TestResources.x86\MbUnit.TestResources.x86$(ProjectVariant).csproj" />
+    <CSharpProject Include="MbUnit.TestResources.x64\MbUnit.TestResources.x64$(ProjectVariant).csproj" />
+    <CSharpProject Include="MbUnit.Tests\MbUnit.Tests$(ProjectVariant).csproj" />
+    
+    <DocumentedAssembly Include="MbUnit\bin\MbUnit.dll" />
+    <DocumentedAssembly Include="MbUnit35\bin\MbUnit35.dll" />
+    <DocumentedAssembly Include="MbUnit.Compatibility\bin\MbUnit.Compatibility.dll" />
+    
+    <Content Include="MbUnit Website.url" />
+    
+    <Binary Include="MbUnit\bin\MbUnit.dll" />
+    <Binary Include="MbUnit\bin\MbUnit.pdb" />
+    <PluginFile Include="MbUnit\MbUnit.plugin" />
+    <Binary Include="MbUnit\MbUnit.dll.tdnet" />
+    <Binary Include="MbUnit\Resources\MbUnit.ico">
+        <Folder>Resources</Folder>
+    </Binary>
+    
+    <Binary Include="MbUnit35\bin\MbUnit35.dll" />
+    <Binary Include="MbUnit35\bin\MbUnit35.pdb" />
+    <PluginFile Include="MbUnit35\MbUnit35.plugin" />
+    
+    <Binary Include="MbUnit.Compatibility\bin\MbUnit.Compatibility.dll" />
+    <Binary Include="MbUnit.Compatibility\bin\MbUnit.Compatibility.pdb" />
+    <PluginFile Include="MbUnit.Compatibility\MbUnit.Compatibility.plugin" />
+    
+    <TestAssembly Include="MbUnit.Tests\bin\MbUnit.Tests.dll" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(DotNet40)'=='true'">
+    <CSharpProject Include="MbUnit40\MbUnit40$(ProjectVariant).csproj" />
+    <CSharpProject Include="MbUnit40.Tests\MbUnit40.Tests$(ProjectVariant).csproj" />
+
+    <!-- Reenable when we have some content.
+    <DocumentedAssembly Include="MbUnit40\bin\MbUnit40.dll" />
+    -->
+    <Binary Include="MbUnit40\bin\MbUnit40.xml" />
+    
+    <Binary Include="MbUnit40\bin\MbUnit40.dll" />
+    <Binary Include="MbUnit40\bin\MbUnit40.pdb" />
+    <PluginFile Include="MbUnit40\MbUnit40.plugin" />
+
+    <Feature Include="FEATURE_MBUNIT40" />
+    
+    <TestAssembly Include="MbUnit40.Tests\bin\MbUnit40.Tests.dll" />
+  </ItemGroup>
+</Project>
