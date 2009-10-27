@@ -1,8 +1,0 @@
-<Settings>
-  <IgnoreErrors>
-    <Test Id="WhitespacePrecedingCDATAWrong" />
-    <Test Id="WhitespacePrecedingNodeWrong" />
-    <Test Id="WhitespaceFollowingCDATAWrong" />
-    <Test Id="WhitespacePrecedingEndElementWrong" />
-  </IgnoreErrors>
-</Settings>
