@@ -5,20 +5,20 @@
     <attribution>Scott Hanselman, Microsoft</attribution>
     <para>MbUnit is unit testing on crack.</para>
   </blockquote>
-  <para> In the world of software development, the concept of <glossterm>test-driven
+  <para> In the world of software development, the concept of <glossterm linkend="glossary_tdd">test-driven
       development</glossterm> (<acronym>TDD</acronym>) is not a new one. Conceived in 1999 as part
-    of the <glossterm>Extreme Programming</glossterm> process, its popularity within the .NET world
-    began to rise in October 2002 when <glossterm>nUnit</glossterm> v2.0 was released. A completely
-    reworked version of <glossterm>jUnit</glossterm> written entirely in C#, it started many .NET
+    of the <glossterm linkend="glossary_ExtremeProgramming">Extreme Programming</glossterm> process, its popularity within the .NET world
+    began to rise in October 2002 when <glossterm linkend="glossary_nUnit">nUnit</glossterm> v2.0 was released. A completely
+    reworked version of <glossterm linkend="glossary_jUnit">jUnit</glossterm> written entirely in C#, it started many .NET
     developers down the agile programming path. It was simple to learn, easy to use, and quite
-    versatile. However, just as <glossterm>nUnit</glossterm> had many advantages, it also had
-    several disadvantages and other viable test frameworks such as <glossterm>MbUnit</glossterm> and
-      <glossterm>xUnit</glossterm> have emerged. </para>
+    versatile. However, just as nUnit had many advantages, it also had several disadvantages and
+    other viable test frameworks such as <glossterm linkend="glossary_MbUnit">MbUnit</glossterm> and
+      <glossterm linkend="glossary_xUnit">xUnit</glossterm> have emerged. </para>
   <para> MbUnit began life in 2004 when Marc Clifton wrote a series of articles proposing the
     formalization of various test patterns beyond basic test-driven development. A young developer
     by the name of <emphasis role="italic">Jonathan “Peli” de Halleux</emphasis> read them while
     recovering from surgery and proceeded to write the first prototype of MbUnit (or
-      <glossterm>gUnit</glossterm> as it was first called) before he had left hospital. MbUnit
+      <glossterm linkend="glossary_gUnit">gUnit</glossterm> as it was first called) before he had left hospital. MbUnit
     wasn’t designed as a replacement for nUnit, but thanks to very smart developers such as
       <emphasis role="italic">Jamie Cansdale</emphasis> and <emphasis role="italic">Andy
       Stopford</emphasis>, it became a definite, more powerful alternative to its kindred framework. </para>
@@ -27,10 +27,11 @@
       <emphasis role="bold">MbUnit v3</emphasis> would remain the test framework that developers
     knew and used, but the automation platform underneath the framework was to be isolated and made
     framework-neutral. This new platform, codenamed <emphasis role="bold"
-        ><glossterm>Gallio</glossterm></emphasis> (because of a typo), would aim to run any
-    framework’s tests – for example <glossterm>nUnit</glossterm>, <glossterm>nBehave</glossterm> or
-      <glossterm>csUnit</glossterm> – and allow them to be run from any host – for example
-      <glossterm>Resharper</glossterm>, <glossterm>TeamCity</glossterm> or <glossterm>Visual
+        ><glossterm linkend="glossary_Gallio">Gallio</glossterm></emphasis> (because of a typo), would aim to run any
+    framework’s tests – for example nUnit, <glossterm linkend="glossary_nBehave">nBehave</glossterm> or
+      <glossterm linkend="glossary_csUnit">csUnit</glossterm> – and allow them to be run from any host – for example
+      <glossterm linkend="glossary_Resharper">Resharper</glossterm>, <glossterm
+        linkend="glossary_TeamCity">TeamCity</glossterm> or <glossterm>Visual
       Studio</glossterm>. It was agreed that in doing this, other open-source and commercial
     projects would be able to leverage the platform’s services to create rich, interoperable and
     extensible testing solutions, thereby adding great value to the community. Going forward, the
@@ -72,10 +73,10 @@
       two applications it ships with to run tests: </para>
     <itemizedlist>
       <listitem>
-        <para><firstterm>Echo</firstterm> is a command-line based application</para>
+        <para><firstterm linkend="glossary_Echo">Echo</firstterm> is a command-line based application</para>
       </listitem>
       <listitem>
-        <para><firstterm>Icarus</firstterm> is a GUI-based application</para>
+        <para><firstterm linkend="glossary_Icarus">Icarus</firstterm> is a GUI-based application</para>
       </listitem>
     </itemizedlist>
     <para>Note also that the source code examples used throughout the book are only examples. While
@@ -93,7 +94,7 @@
     <title>How To Read This Book</title>
     <para> Because this book is aimed at several different groups of readers, the structure of this
       book is aimed at what we perceive to be the largest of these groups – the newcomer to
-        <glossterm>test-driven development</glossterm> who wants to writes tests and learn by doing.
+        test-driven development who wants to writes tests and learn by doing.
       That doesn’t preclude anyone else from reading this however and we’d suggest the following
       routes through the book for various types of readers: </para>
     <variablelist>
@@ -145,14 +146,14 @@
         <para>Section 1 is all about using Gallio and MbUnit to build your own applications.</para>
         <variablelist>
           <varlistentry>
-            <term>Installation</term>
+            <term><link linkend="chapter_Installation">Installation</link></term>
             <listitem>
               <para>Walks you through the various options you have to install Gallio and MbUnit and
                 the applications it can hook into.</para>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term>My First Tests</term>
+            <term><link linkend="chapter_MyFirstTests">My First Tests</link></term>
             <listitem>
               <para>Explains the basics of test-driven development and uses MbUnit to write tests
                 for a basic application. You’ll see how to run those tests first in Gallio’s native
@@ -162,7 +163,7 @@
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term>MbUnit Fundamentals</term>
+            <term><link linkend="chapter_MbUnitFundamentals">MbUnit Fundamentals</link></term>
             <listitem>
               <para>Building on Chapter 2, you’ll look at the basic class and method attributes
                 provided in MbUnit v3 for test construction. You’ll see how to structure your
@@ -171,7 +172,7 @@
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term>Testing Recipes 1</term>
+            <term><link linkend="chapter_TestingRecipesOne">Testing Recipes 1</link></term>
             <listitem>
               <para>Discusses some of the core features in MbUnit which have made it one of the more
                 popular test frameworks today. You’ll look at row tests, how to supply metadata to
@@ -182,7 +183,7 @@
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term>Testing Recipes 2</term>
+            <term><link linkend="chapter_TestingRecipesTwo">Testing Recipes 2</link></term>
             <listitem>
               <para>Looks at the various options you have to influence the tests you’ve written from
                 outside the test classes themselves. You’ll see how to use test assembly config
@@ -191,7 +192,7 @@
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term>Domain Testing</term>
+            <term><link linkend="chapter_DomainTesting">Domain Testing</link></term>
             <listitem>
               <para>Covers scenarios where MbUnit is being used to test specific domains. We’ll look
                 at testing database scripts and data access layers, web testing, and unit testing a
@@ -200,21 +201,22 @@
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term>Test Reports</term>
+            <term><link linkend="chapter_TestReports">Test Reports</link></term>
             <listitem>
               <para>Looks at the various types of report that Gallio generates after a test run, how
                 to navigate them and how to customize their contents to your requirements.</para>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term>Extending MbUnit</term>
+            <term><link linkend="chapter_ExtendingMbUnit">Extending MbUnit</link></term>
             <listitem>
               <para>Takes the bonnet off the MbUnit engine and looks at how you can extend its core
                 functionality with your own.</para>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term>Automated Testing With Gallio</term>
+            <term><link linkend="chapter_AutomatedTestingWithGallio">Automated Testing With
+                Gallio</link></term>
             <listitem>
               <para>For those who use automated test servers or who would like to get started
                 building one, this chapter looks at how to control Gallio with various build engines
@@ -229,13 +231,15 @@
           developed further once section 1 is complete.</para>
         <itemizedlist>
           <listitem>
-            <para>Development Basics</para>
+            <para><link linkend="chapter_GallioDevelopmentBasics">Development Basics</link></para>
           </listitem>
           <listitem>
-            <para>Creating Gallio Plug-ins</para>
+            <para><link linkend="chapter_CreatingGallioPlugins">Creating Gallio
+              Plug-ins</link></para>
           </listitem>
           <listitem>
-            <para>Creating Test Frameworks</para>
+            <para><link linkend="chapter_CreatingTestFrameworks">Creating Test
+              Frameworks</link></para>
           </listitem>
         </itemizedlist>
       </listitem>
@@ -244,14 +248,15 @@
           reference. </para>
         <itemizedlist>
           <listitem>
-            <para>Migration Guide From MbUnit v2 to MbUnit v3</para>
+            <para><link linkend="appendix_MigrationGuide">Migration Guide From MbUnit v2 to MbUnit
+                v3</link></para>
           </listitem>
           <listitem>
-            <para>Glossary of Terms</para>
+            <para><link linkend="glossary">Glossary of Terms</link></para>
           </listitem>
           <listitem>
-            <para>A copy of the Creative Commons Attribution License, under which this book is
-              licensed.</para>
+            <para><link linkend="appendix_Copyright">A copy of the Creative Commons Attribution
+                License, under which this book is licensed.</link></para>
           </listitem>
         </itemizedlist>
       </listitem>
@@ -270,11 +275,14 @@
       postponed. </para>
     <para> This book is an evolution of the documentation written in various forms (wikis, blog
       posts, etc) by MbUnit and Gallio developers into a single work. As such, it has always been
-      under a free license (see Appendix: Copyright) and two things will remain true: </para>
+      under a free license (see <xref linkend="appendix_Copyright"/>) and two things will remain
+      true: </para>
     <itemizedlist>
       <listitem>
-        <para>You will always find the latest version of this book in the book's own Subversion
-          repository.</para>
+        <para>You will always find the latest version of this book in the book's own <link
+            xmlns:ns1="http://www.w3.org/1999/xlink"
+            ns1:href="http://code.google.com/p/mb-unit/source/browse/">Subversion
+          repository</link>.</para>
       </listitem>
       <listitem>
         <para>You can make changes to this book and redistribute it however you wish—it's under a
@@ -284,11 +292,14 @@
       </listitem>
     </itemizedlist>
     <para> The online home of this book's development and most of the volunteer-driven translation
-      efforts regarding it is http://www.gallio.org/Docs.aspx. There you can find links to the
-      latest releases and tagged versions of the book in various formats, as well as instructions
-      for accessing the book's Subversion repository (where its DocBook XML source code lives).
-      Feedback is welcomed—encouraged, even. Please submit all comments, complaints, and patches
-      against the book sources to gallio-book@googlegroups.com. </para>
+      efforts regarding it is <link xmlns:ns1="http://www.w3.org/1999/xlink"
+        ns1:href="http://www.gallio.org/Docs.aspx">http://www.gallio.org/Docs.aspx</link>. There you
+      can find links to the latest releases and tagged versions of the book in various formats, as
+      well as instructions for accessing the book's Subversion repository (where its DocBook XML
+      source code lives). Feedback is welcomed—encouraged, even. Please submit all comments,
+      complaints, and patches against the book sources to <link
+        xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="mailto:gallio-book@googlegroups.com"
+        >gallio-book@googlegroups.com</link>. </para>
   </section>
   <section xml:id="preface_WhatIsMbUnit">
     <title>What Is MbUnit?</title>
@@ -319,8 +330,8 @@
       recommend adopting MbUnit v3. </para>
     <para> MbUnit v3 is mostly backwards compatible with MbUnit v2 except for some APIs that have
       been renamed or redesigned. Transitioning to MbUnit v2 is relatively straightforward. </para>
-    <para> For more information about the differences between MbUnit v2 and v3, please refer to the
-      Migration Guide Appendix. </para>
+    <para> For more information about the differences between MbUnit v2 and v3, please refer to
+        <xref linkend="appendix_MigrationGuide"/>. </para>
   </section>
   <section xml:id="preface_WhatIsGallio">
     <title>What Is Gallio?</title>
@@ -344,17 +355,18 @@
       MbUnit support.</para>
     <para> In 2005 Peli made MbUnit opensource and continued working on the framework while
       finishing his PhD. Shortly after completing his PhD he accepted a job with Microsoft as a
-      SDE\T on the CLR team. Unable to carry on MbUnit, he handed it over to Jamie Cansdale as short
-      time caretaker. Peli blogged about needing someone to take on MbUnit and shortly after Andy
-      Stopford as a long time MbUnit user read this and stepped up.</para>
+        <glossterm linkend="glossary_SDET">SDET</glossterm> on the CLR team. Unable to carry on MbUnit, he handed it over
+      to Jamie Cansdale as short time caretaker. Peli blogged about needing someone to take on
+      MbUnit and shortly after Andy Stopford as a long time MbUnit user read this and stepped
+      up.</para>
     <para> Since then MbUnit has grown as a framework and project, with two major releases and
       triple the downloads per release it has firmly rooted itself in main stream Microsoft .net
       culture as a viable unit test framework next to NUnit.</para>
     <para> In the autumn of 2007, MbUnit v3 - a ground up rewrite of MbUnit, started. In one of
-      those funny turn of events, v3 was to be code named "Gallileo" but due to a typo became
-      "Gallio". The name stuck and development continued on MbUnit v3, code name: Gallio.</para>
-    <para> With MbUnit V3 development well under way, long time MbUnit core member Jeff Brown
-      attended the Alt.Net conference in Austin, Texas. Following discussions with other programmers
+      those funny turn of events, v3 was to be code named <emphasis>Galileo</emphasis> but due to a typo became
+      <emphasis>Gallio</emphasis>. The name stuck and development continued on MbUnit v3, code name: Gallio.</para>
+    <para> With MbUnit v3 development well under way, long time MbUnit core member Jeff Brown
+      attended the <glossterm linkend="glossary_AltNet">Alt.Net</glossterm> conference in Austin, Texas. Following discussions with other programmers
       at the conference, Jeff made the case to the MbUnit team that there was value to the community
       at large in isolating the test runner capabilities of the system to create a neutral platform
       upon which MbUnit could then be hosted as one of many supported frameworks. Other open-source
@@ -371,6 +383,7 @@
     <title> What’s New In Gallio &amp; MbUnit? </title>
     <para> The first version of this book is aimed for release during the v3.1 life-cycle. A quick
       run-down of new features in subsequent version will be found here. Full release notes can be
-      found at http://www.gallio.org/Docs.aspx. </para>
+      found at <link xmlns:ns1="http://www.w3.org/1999/xlink"
+        ns1:href="http://www.gallio.org/Docs.aspx">http://www.gallio.org/Docs.aspx</link>. </para>
   </section>
 </preface>
