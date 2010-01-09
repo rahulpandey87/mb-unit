@@ -3,7 +3,7 @@ REM
 REM Publishes the specified API documentation folder to the web site.
 REM
 setlocal
-set ROBOCOPY=%~dp0robocopy.exe
+set REMOTERSYNC=%~dp0RemoteRSync.bat
 set TARGET=C:\Inetpub\www.gallio.org\book
 set BASE=C:\RelEng\Distributables
 
@@ -31,7 +31,9 @@ if errorlevel 1 goto :ERROR
 call :CHECKFILE XHtml\index.html
 if errorlevel 1 goto :ERROR
 
-robocopy "%SOURCE%" "%TARGET%" /MIR
+call "%REMOTERSYNC%" gallio.org "%SOURCE%" "%TARGET%"
+if errorlevel 1 goto :ERROR
+exit /b 0
 
 :ERROR
 exit /b %ERRORLEVEL%
