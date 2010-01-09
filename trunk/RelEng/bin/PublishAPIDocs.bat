@@ -3,7 +3,7 @@ REM
 REM Publishes the specified Book folder to the web site.
 REM
 setlocal
-set ROBOCOPY=%~dp0robocopy.exe
+set REMOTERSYNC=%~dp0RemoteRSync.bat
 set TARGET=C:\Inetpub\www.gallio.org\api
 set BASE=C:\RelEng\Distributables\APIDocs
 
@@ -29,7 +29,9 @@ if errorlevel 1 goto :ERROR
 call :CHECKFILE index.html
 if errorlevel 1 goto :ERROR
 
-robocopy "%SOURCE%" "%TARGET%" /MIR
+call "%REMOTERSYNC%" gallio.org "%SOURCE%" "%TARGET%"
+if errorlevel 1 goto :ERROR
+exit /b 0
 
 :ERROR
 exit /b %ERRORLEVEL%
@@ -42,4 +44,3 @@ if not exist "%SOURCE%\%~1" (
 )
 
 exit /b 0
-
