@@ -2,14 +2,14 @@
 <IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ProjectName>MbUnit v3.1</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/MbUnit+v3.1/ViewLatestBuildReport.aspx</ProjectUrl>
-  <BuildCondition>IfModificationExists</BuildCondition>
-  <Label>3.1.297.0</Label>
+  <BuildCondition>ForceBuild</BuildCondition>
+  <Label>3.1.445.0</Label>
   <WorkingDirectory>C:\RelEng\Projects\MbUnit v3.1\Work</WorkingDirectory>
   <ArtifactDirectory>C:\RelEng\Projects\MbUnit v3.1\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2009-08-28T09:52:48.2906736-04:00</StartTime>
-  <EndTime>2009-08-28T10:51:39.1758112-04:00</EndTime>
+  <StartTime>2010-01-08T03:00:18.99625-08:00</StartTime>
+  <EndTime>2010-01-08T03:34:21.293125-08:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>3.1.297.0</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>3.1.445.0</LastSuccessfulIntegrationLabel>
   <FailureUsers />
 </IntegrationResult>
