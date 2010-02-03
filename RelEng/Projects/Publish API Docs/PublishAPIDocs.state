@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectName>Publish API Docs</ProjectName>
+  <ProjectUrl>http://ccnet.gallio.org/server/local/project/Publish+API+Docs/ViewLatestBuildReport.aspx</ProjectUrl>
+  <BuildCondition>ForceBuild</BuildCondition>
+  <Label>3.2.293.0</Label>
+  <WorkingDirectory>C:\RelEng\Projects\Publish API Docs\Work</WorkingDirectory>
+  <ArtifactDirectory>C:\RelEng\Projects\Publish API Docs\Artifacts</ArtifactDirectory>
+  <Status>Success</Status>
+  <StartTime>2010-02-02T14:13:20.957625-08:00</StartTime>
+  <EndTime>2010-02-02T14:16:42.582625-08:00</EndTime>
+  <LastIntegrationStatus>Success</LastIntegrationStatus>
+  <LastSuccessfulIntegrationLabel>3.2.293.0</LastSuccessfulIntegrationLabel>
+  <FailureUsers />
+</IntegrationResult>
