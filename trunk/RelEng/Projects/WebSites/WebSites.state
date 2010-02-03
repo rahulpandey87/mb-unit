@@ -3,13 +3,13 @@
   <ProjectName>WebSites</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/WebSites/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>128</Label>
+  <Label>158</Label>
   <WorkingDirectory>C:\RelEng\Projects\WebSites\Work</WorkingDirectory>
   <ArtifactDirectory>C:\RelEng\Projects\WebSites\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2010-01-08T04:00:01.68375-08:00</StartTime>
-  <EndTime>2010-01-08T04:00:20.605625-08:00</EndTime>
+  <StartTime>2010-02-02T19:20:59.054484-08:00</StartTime>
+  <EndTime>2010-02-02T19:21:14.945109-08:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>128</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>158</LastSuccessfulIntegrationLabel>
   <FailureUsers />
 </IntegrationResult>

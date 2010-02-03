@@ -18,6 +18,8 @@ REM Hangs due to bad interaction of rsync and ssh pipes on cygwin.
 REM c:\cygwin\bin\rsync -rt --delete --perms --chmod=ugo+rwx,Dugo+x -e "c:\cygwin\bin\ssh" "%SRC_CYGPATH%/" "sync@%HOST%:%DEST_CYGPATH%"
 
 REM Uses local rsync tunnel configured seperately using autossh.
-c:\cygwin\bin\rsync -rt --delete --perms --chmod=ugo+rwx,Dugo+x "%SRC_CYGPATH%/" "rsync://localhost:65532%DEST_CYGPATH%"
+REM c:\cygwin\bin\rsync -rvt --delete "%SRC_CYGPATH%/" "rsync://localhost:65532%DEST_CYGPATH%"
+
+c:\cygwin\bin\rsync -rvt --delete "%SRC_CYGPATH%/" "rsync://192.168.128.12%DEST_CYGPATH%"
 
 exit /b %ERRORLEVEL%
