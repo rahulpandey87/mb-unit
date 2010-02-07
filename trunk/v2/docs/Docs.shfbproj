@@ -1,0 +1,216 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <!-- The configuration and platform will be used to determine which
+         assemblies to include from solution and project documentation
+         sources -->
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{e457798a-cabb-4ec4-a17e-9788fba99745}</ProjectGuid>
+    <SHFBSchemaVersion>1.8.0.3</SHFBSchemaVersion>
+    <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual
+         Studio adds them anyway -->
+    <AssemblyName>Documentation</AssemblyName>
+    <RootNamespace>Documentation</RootNamespace>
+    <Name>Documentation</Name>
+    <!-- Custom properties -->
+    <BuildDir>..\build</BuildDir>
+    <TempDir>$(BuildDir)\temp</TempDir>
+    <ReportDir>$(BuildDir)\reports</ReportDir>
+    <Version Condition="'$(Version)'==''">0.0.0.0</Version>
+    <!-- SHFB properties -->
+    <OutputPath>$(TempDir)\docs\output\</OutputPath>
+    <WorkingPath>$(TempDir)\docs\work\</WorkingPath>
+    <HtmlHelpName>MbUnit</HtmlHelpName>
+    <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
+    <DocumentationSources>
+      <DocumentationSource sourceFile="..\src\mbunit\MbUnit.Framework\bin\MbUnit.Framework.dll" />
+<DocumentationSource sourceFile="..\src\mbunit\MbUnit.Framework\bin\MbUnit.Framework.XML" />
+<DocumentationSource sourceFile="..\src\mbunit\MbUnit.Framework.2.0\bin\MbUnit.Framework.2.0.dll" />
+<DocumentationSource sourceFile="..\src\mbunit\MbUnit.Framework.2.0\bin\MbUnit.Framework.2.0.XML" /></DocumentationSources>
+    <ComponentConfigurations>
+      <ComponentConfig id="Cached Framework Comments Index Data" enabled="True">
+        <component id="Cached Framework Comments Index Data" type="SandcastleBuilder.Components.CachedCopyFromIndexComponent" assembly="{@SHFBFolder}SandcastleBuilder.Components.dll">
+          <index name="comments" value="/doc/members/member" key="@name" cache="100">
+{@CachedFrameworkCommentList}
+{@CommentFileList}
+            </index>
+          <copy name="comments" source="*" target="/document/comments" />
+        </component>
+      </ComponentConfig>
+      <ComponentConfig id="Cached MSDN URL References" enabled="True">
+        <component id="Cached MSDN URL References" type="SandcastleBuilder.Components.CachedResolveReferenceLinksComponent" assembly="{@SHFBFolder}SandcastleBuilder.Components.dll" locale="{@Locale}" linkTarget="{@SdkLinkTarget}">
+          <cache filename="{@LocalDataFolder}Cache\MsdnUrl.cache" />
+          <targets base="{@SandcastlePath}Data\Reflection" recurse="true" files="*.xml" type="{@SDKLinks}" />
+          <targets files="reflection.xml" type="{@ProjectLinks}" />
+        </component>
+      </ComponentConfig>
+      <ComponentConfig id="Cached Reflection Index Data" enabled="True">
+        <component id="Cached Reflection Index Data" type="SandcastleBuilder.Components.CachedCopyFromIndexComponent" assembly="{@SHFBFolder}SandcastleBuilder.Components.dll">
+          <index name="reflection" value="/reflection/apis/api" key="@id" cache="10">
+            <cache base="{@SandcastlePath}Data\Reflection" recurse="true" files="*.xml" cacheFile="{@LocalDataFolder}Cache\Reflection.cache" />
+            <data files="reflection.xml" />
+          </index>
+          <copy name="reflection" source="*" target="/document/reference" />
+        </component>
+      </ComponentConfig>
+      <ComponentConfig id="Code Block Component" enabled="True">
+        <component id="Code Block Component" type="SandcastleBuilder.Components.CodeBlockComponent" assembly="{@SHFBFolder}SandcastleBuilder.Components.dll">
+          <basePath value="{@ProjectFolder}" />
+          <languageFilter value="true" />
+          <allowMissingSource value="false" />
+          <removeRegionMarkers value="false" />
+          <colorizer syntaxFile="{@SHFBFolder}Colorizer\highlight.xml" styleFile="{@SHFBFolder}Colorizer\highlight.xsl" copyImageUrl="../icons/CopyCode.gif" language="cs" tabSize="0" numberLines="false" outlining="false" keepSeeTags="false" defaultTitle="true" />
+        </component>
+      </ComponentConfig>
+      <ComponentConfig id="IntelliSense Component" enabled="True">
+        <component id="IntelliSense Component" type="SandcastleBuilder.Components.IntelliSenseComponent" assembly="{@SHFBFolder}SandcastleBuilder.Components.dll">
+          <!-- Output options (optional)
+                 Attributes:
+                    Include Namespaces (false by default)
+                    Namespaces filename ("Namespaces" if not specified or empty)
+                    Directory (current folder if not specified or empty) -->
+          <output includeNamespaces="true" namespacesFile="Namespaces" folder="..\intellisense" />
+        </component>
+      </ComponentConfig>
+      <ComponentConfig id="Post-transform Component" enabled="True">
+        <component id="Post-transform Component" type="SandcastleBuilder.Components.PostTransformComponent" assembly="{@SHFBFolder}SandcastleBuilder.Components.dll">
+          <!-- Code colorizer files (required).
+                 Attributes:
+                    Stylesheet file (required)
+                    Script file (required)
+                    "Copy" image file (required) -->
+          <colorizer stylesheet="{@SHFBFolder}Colorizer\highlight.css" scriptFile="{@SHFBFolder}Colorizer\highlight.js" copyImage="{@SHFBFolder}Colorizer\CopyCode.gif" />
+          <!-- Base output path for the files (required).  This should match
+                 the parent folder of the output path of the HTML files (see
+                 SaveComponent). -->
+          <outputPath value="Output\" />
+          <!-- Logo image file (optional).  Filename is required. The height,
+                 width, altText, placement, and alignment attributes are
+                 optional. -->
+          <logoFile filename="{@ProjectFolder}\MbUnit Logo.png" height="0" width="0" altText="MbUnit" placement="left" alignment="left" />
+        </component>
+      </ComponentConfig>
+    </ComponentConfigurations>
+    <BuildLogFile>$(ReportDir)\Docs.log</BuildLogFile>
+    <CopyrightText>Copyright 2005-2010 MbUnit Project - http://www.mbunit.com/</CopyrightText>
+    <CopyrightHref>http://www.mbunit.com/</CopyrightHref>
+    <HelpTitle>MbUnit API Documentation</HelpTitle>
+    <NamingMethod>MemberName</NamingMethod>
+    <SyntaxFilters>CSharp, VisualBasic</SyntaxFilters>
+    <HelpFileVersion>$(Version)</HelpFileVersion>
+    <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Protected, ProtectedInternalAsProtected, SealedProtected</VisibleItems>
+    <MissingTags>AutoDocumentCtors</MissingTags>
+    <RootNamespaceContainer>True</RootNamespaceContainer>
+    <RootNamespaceTitle>Reference</RootNamespaceTitle>
+    <ProjectSummary>This section documents the MbUnit v2 API.</ProjectSummary>
+    <FrameworkVersion>2.0.50727</FrameworkVersion>
+  </PropertyGroup>
+  <!-- There are no properties for these two groups but they need to appear in
+       order for Visual Studio to perform the build. -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  </PropertyGroup>
+  <ItemGroup>
+    <Image Include="Media\FirstTests[2].Png">
+      <ImageId>FirstTests[2]</ImageId>
+      <AlternateText>Your solution setup ready for writing tests</AlternateText>
+    </Image>
+    <Image Include="Media\GUIRunner[1].png">
+      <ImageId>GUIRunner[1]</ImageId>
+      <AlternateText>MbUnit GUI runner when first loaded.</AlternateText>
+    </Image>
+    <Image Include="Media\GUIRunner[2].png">
+      <ImageId>GUIRunner[2]</ImageId>
+      <AlternateText>MbUnit GUI runner with test assembly loaded.</AlternateText>
+    </Image>
+    <Image Include="Media\GUIRunner[3].png">
+      <ImageId>GUIRunner[3]</ImageId>
+      <AlternateText>MbUnit GUI runner with test results shown.</AlternateText>
+    </Image>
+    <Image Include="Media\GUIRunner[4].png">
+      <ImageId>GUIRunner[4]</ImageId>
+      <AlternateText>MbUnit GUI runner with test exception details shown.</AlternateText>
+    </Image>
+    <Image Include="Media\Ignores[1].png">
+      <ImageId>Ignores[1]</ImageId>
+      <AlternateText>MbUnit GUI runner showing ignored tests.</AlternateText>
+    </Image>
+    <Image Include="Media\Ignores[2].png">
+      <ImageId>Ignores[2]</ImageId>
+      <AlternateText>MbUnit report showing test warnings.</AlternateText>
+    </Image>
+    <Image Include="Media\FirstTests[1].Png">
+      <ImageId>FirstTests[1]</ImageId>
+      <AlternateText>Adding MbUnit as a reference in VS</AlternateText>
+    </Image>
+    <Image Include="Media\SelfTestAssemblies[1].png">
+      <ImageId>SelfTestAssemblies[1]</ImageId>
+      <AlternateText>Visual Studio Project Properties dialog set to create an executable self-test runner.</AlternateText>
+    </Image>
+    <Image Include="Media\TestDriven[1].png">
+      <ImageId>TestDriven[1]</ImageId>
+      <AlternateText>TestDriven.NET at work.</AlternateText>
+    </Image>
+    <Image Include="Media\CodeSnippetsManager[1].png">
+      <ImageId>CodeSnippetsManager[1]</ImageId>
+      <AlternateText>VS Code Snippet Manager screenshot.</AlternateText>
+    </Image>
+    <Image Include="Media\CodeSnippetsManager[2].png">
+      <ImageId>CodeSnippetsManager[2]</ImageId>
+      <AlternateText>MbUnit snippets listed in Code Snippet Manager screenshot.</AlternateText>
+    </Image>
+    <Image Include="Media\SourceControl[1].png">
+      <ImageId>SourceControl[1]</ImageId>
+      <AlternateText>The MbUnit Gallio source tree.</AlternateText>
+    </Image>
+    <Content Include="MbUnitInAnAgileEnvironment\SampleReports\mbunit-result-dox-10_08_200700_23.dox.txt" />
+    <Content Include="MbUnitInAnAgileEnvironment\SampleReports\mbunit-result-10_08_200700_23.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ContentLayout Include="Content Layout.content" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MbUnitInAnAgileEnvironment\SampleReports\" />
+    <Folder Include="Media\" />
+    <Folder Include="MigratingProjects\" />
+    <Folder Include="MbUnitInAnAgileEnvironment\" />
+    <Folder Include="MbUnitAndVisualStudio\" />
+    <Folder Include="GettingStarted\" />
+    <Folder Include="ContributingToMbUnit\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MbUnitInAnAgileEnvironment\SampleReports\mbunit-result-10_08_200700_23.xml" />
+    <Content Include="MbUnitInAnAgileEnvironment\SampleReports\MbUnit Test Report.mht" />
+    <None Include="WhatDoYouWantToTest.aml" />
+    <None Include="ReleaseNotes.aml" />
+    <None Include="Introduction.aml" />
+    <None Include="GettingHelpWithMbUnit.aml" />
+    <None Include="Media\MediaFiles.xml" />
+    <None Include="MigratingProjects\MigratingProjects.aml" />
+    <None Include="MbUnitInAnAgileEnvironment\MbUnitReports.aml" />
+    <None Include="MbUnitInAnAgileEnvironment\MbUnitInSourceControl.aml" />
+    <None Include="MbUnitInAnAgileEnvironment\MbUnitInAnAgileEnvironment.aml" />
+    <None Include="MbUnitInAnAgileEnvironment\MbUnitAndNant.aml" />
+    <None Include="MbUnitInAnAgileEnvironment\MbUnitAndMSBuild.aml" />
+    <None Include="MbUnitInAnAgileEnvironment\MbUnitAndCruiseControl.aml" />
+    <None Include="MbUnitAndVisualStudio\MbUnitSnippets.aml" />
+    <None Include="MbUnitAndVisualStudio\MbUnitAndVisualStudio.aml" />
+    <None Include="MbUnitAndVisualStudio\MbUnitAndTestDrivenDotNet.aml" />
+    <None Include="MbUnitAndVisualStudio\MbUnitAndResharper.aml" />
+    <None Include="MbUnitAndVisualStudio\CreatingSelfTestingAssemblies.aml" />
+    <None Include="GettingStarted\WritingYourFirstTests.aml" />
+    <None Include="GettingStarted\TestAuthorsAndCategories.aml" />
+    <None Include="GettingStarted\PassesIgnoresFailsAndWarnings.aml" />
+    <None Include="GettingStarted\MbUnitGUI.aml" />
+    <None Include="GettingStarted\MbUnitConsoleRunner.aml" />
+    <None Include="GettingStarted\GettingStarted.aml" />
+    <None Include="ContributingToMbUnit\ThanksToOurBenefactors.aml" />
+    <None Include="ContributingToMbUnit\License.aml" />
+    <None Include="ContributingToMbUnit\Contributors.aml" />
+    <None Include="ContributingToMbUnit\ContributingToMbUnit.aml" />
+  </ItemGroup>
+  <!-- Import the SHFB build targets -->
+  <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
+</Project>

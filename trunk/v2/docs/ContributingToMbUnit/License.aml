@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="b701fb63-91c1-4c8d-a5a0-4976b9548339" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+   <section><!--h1-->
+  <title>MbUnit 2.4.* License</title>
+  <content>
+   <para>
+     Copyright &#169; 2005-2007 Andrew Stopford</para>
+     <para>Portions Copyright &#169; 2000-2004 Jonathan De Halleux, Jamie Cansdale</para>
+   
+
+	<para>This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held liable for any damages 	arising from the use of this software.</para>
+
+	<para>Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute 	it freely, subject to the following restrictions:</para>
+
+	<para>1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this 	software in a product, an acknowledgment (see the following) in the product documentation is required.</para>
+
+	<para>2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.</para>
+
+	<para>3. This notice may not be removed or altered from any source distribution.</para>
+
+	<para>License Note</para>
+
+	<para>This license is based on the open source zlib/libpng license. The idea was to keep the license as simple as possible to encourage use of 	MbUnit in free and commercial applications and libraries, but to keep the source code together and to give credit to the MbUnit contributors 	for their efforts. While this license allows shipping MbUnit in source and binary form, if shipping a MbUnit variant is the sole purpose of 	your product, please let us know.</para><para/>
+     </content>
+</section>
+
+<section><!--h1-->
+  <title>
+      MbUnit Gallio License</title>
+  <content>
+   <para>
+      Copyright &#169; 2007 MbUnit Project - <externalLink>
+  <linkText>http://www.mbunit.com/</linkText>
+  <linkUri>http://www.mbunit.com/</linkUri>
+</externalLink><para/>
+      Copyright &#169; 2005 - 2007 Andrew Stopford<para/>
+      Portions Copyright &#169; 2000-2004 Jonathan De Halleux, Jamie Cansdale
+   </para>
+   <para>
+      Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+      this file except in compliance with the License. You may obtain a copy of the License
+      at <externalLink>
+  <linkText>http://www.apache.org/licenses/LICENSE-2.0</linkText>
+  <linkUri>http://www.apache.org/licenses/LICENSE-2.0</linkUri>
+</externalLink>.
+      Unless required by applicable law or agreed to in writing, software distributed
+      under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
+      OF ANY KIND, either express or implied. See the License for the specific language
+      governing permissions and limitations under the License.</para>
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

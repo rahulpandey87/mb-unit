@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="a03a6679-21a5-4819-b8a6-131349536b1a" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+   <section><!--h1-->
+  <title>
+      Getting Started</title>
+  <content>
+   <para>
+      Welcome newcomers to MbUnit. <link xlink:href="11e7a8f1-2251-4e39-99d9-d2666f39d2ae">We</link>
+      hope you&#8217;ll enjoy it.</para>
+   <para>
+      The current version of MbUnit is v2.4 which you can download from <externalLink>
+  <linkText>          the main MbUnit site</linkText>
+  <linkUri>http://www.mbunit.com/Downloads.aspx</linkUri>
+</externalLink> or <externalLink>
+  <linkText>MbUnit on             Google Code</linkText>
+  <linkUri>http://code.google.com/p/mb-unit/downloads/list</linkUri>
+</externalLink>. The main code base is written as a .NET 1.1 library which
+      means that you can use MbUnit with all .NET projects except those written in .NET
+      1.0. For .NET 1.0 projects, you'll need to use MbUnit 2.3 which you can also download
+      from either of the above sites.</para>
+   <para>
+      Note that from the Gallio release of MbUnit and beyond, MbUnit will support .NET
+      2.0 and higher projects only.</para>
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>
+      MbUnit 101</title>
+  <content>
+   <para>
+      Test-driven development in a five-step nutshell is as follows:</para>
+   <list class="ordered">
+      <listItem>Decide what you want to code</listItem>
+      <listItem>Write some tests which your code must pass</listItem>
+      <listItem>Check the test fails initially by running it without writing the code</listItem>
+      <listItem>Write the smallest amount of code possible for the test to pass. Refactor your
+         code as required.</listItem>
+      <listItem>Repeat steps 2 to 4 until the code you have written does everything you want it
+         to do</listItem>
+   </list>
+   <para>
+      Now obviously there&#8217;s quite a lot more to it than that and indeed whole books have
+      been written on the subject but this is what it boils down to and for that you need
+      two things: something to write your code and tests with, for example Visual Studio,
+      and a framework to run those tests in: for example MbUnit. <legacyItalic>(For those curious,
+         MbUnit generates the tests you've written at runtime using Reflection and custom
+         attributes)</legacyItalic></para>
+     </content>
+</section>
+
+<section><!--h3-->
+  <title>
+      Using MbUnit</title>
+  <content>
+   <para>
+      To start using MbUnit on your machine, simply run the executable installer. Once
+      you've installed MbUnit, you may be surprised to find nothing has been added to
+      your start menu. Don&#8217;t panic. You&#8217;re using a version of MbUnit prior to v2.4.1.
+      You can either <externalLink>
+  <linkText>download the latest version of MbUnit</linkText>
+  <linkUri>http://www.mbunit.com/Downloads.aspx</linkUri>
+</externalLink>, install that and access it through the Start Menu or access it all in its install directory.</para>
+      <para>There are several ways to use MbUnit to run your tests
+      and the most popular is <link xlink:href="b3c6da24-501e-4f4e-9746-5837c159872d">          from within Visual Studio using TestDriven.NET</link>, an add-in for VS, written
+      by one of MbUnit&#8217;s original contributors, <externalLink>
+  <linkText>          Jamie Cansdale</linkText>
+  <linkUri>http://weblogs.asp.net/nunitaddin/</linkUri>
+</externalLink>.</para>
+   <para>
+      We do however provide our own applications to run MbUnit tests, both of which can
+      be found in your MbUnit installation directory - c:\program files\mbunit by default.</para>
+   <list class="bullet">
+      <listItem>MbUnit.Cons.exe is our <link xlink:href="d035dab0-cc0c-474f-8fa3-b44076f55f71">command-line-based test          runner</link></listItem>
+      <listItem>MbUnit.GUI.exe is our <link xlink:href="209d2ec2-7d57-4243-9c81-430798be24b7">windows application test runner</link></listItem>
+   </list>
+   <para>
+      If you&#8217;ve never written a test before, have a look at <link xlink:href="57e8dc21-de9c-4073-ba21-8abacce9fac8">          our beginners guide to writing one with MbUnit here</link>. And if you&#8217;re still stuck, you can <link xlink:href="6d02214a-92b1-4239-8bd0-0f689ac8d984">contact us directly</link> for help. 
+   </para>
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

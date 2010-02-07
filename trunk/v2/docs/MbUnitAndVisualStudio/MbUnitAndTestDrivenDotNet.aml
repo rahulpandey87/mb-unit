@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="b3c6da24-501e-4f4e-9746-5837c159872d" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+   <section><!--h1-->
+  <title>
+      MbUnit and TestDriven.NET</title>
+  <content>
+      <para>Written by <externalLink>
+  <linkText>Jamie Cansdale</linkText>
+  <linkAlternateText>Jamie Casndale</linkAlternateText>
+  <linkUri>http://weblogs.asp.net/nunitaddin</linkUri>
+</externalLink>, one of the original MbUnit contributors, <externalLink>
+  <linkText>TestDriven.NET</linkText>
+  <linkUri>http://www.testdriven.net</linkUri>
+</externalLink> is a Visual Studio add-in that allows you to run the tests you&#8217;ve written from within Visual Studio rather than using the MbUnit <link xlink:href="209d2ec2-7d57-4243-9c81-430798be24b7">GUI</link> or <link xlink:href="d035dab0-cc0c-474f-8fa3-b44076f55f71">console runner</link>. It doesn&#8217;t offer the filtering options of our runners, but you can choose to run</para>
+      <list class="bullet">
+         <listItem>Single tests</listItem>
+         <listItem>All the tests within a test fixture class</listItem>
+         <listItem>All the tests within a file</listItem>
+         <listItem>All the tests within a project</listItem>
+      </list>
+      <para><externalLink>
+  <linkText>Full instructions on how to install and use TestDriven.net can be found here</linkText>
+  <linkAlternateText>Full instructions on how to install and use TestDriven.net can be found here</linkAlternateText>
+  <linkUri>http://www.testdriven.net/quickstart.aspx</linkUri>
+</externalLink>.</para>
+      <para>
+         <mediaLink><image xlink:href="TestDriven[1]" /></mediaLink>
+   </para>
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

@@ -18,6 +18,8 @@
 
     <TargetFX1_1 Condition="'$(TargetFX1_1)'==''">true</TargetFX1_1>
 
+    <SandcastlePath>$(ProgramFiles)\Sandcastle</SandcastlePath>
+    <SandcastleHelpFileBuilderPath>$(SHFBROOT)</SandcastleHelpFileBuilderPath>
     <HTMLHelpCompilerPath>$(ProgramFiles)\HTML Help Workshop\hhc.exe</HTMLHelpCompilerPath>
     <NSISPath>$(ProgramFiles)\NSIS\makensis.exe</NSISPath>
     <SourceServerIndexerPath>$(ProgramFiles)\Debugging Tools for Windows\sdk\srcsrv\ssindex.cmd</SourceServerIndexerPath>
@@ -126,33 +128,76 @@
           Condition="Exists('$(NSISPath)')" />
   </Target>
 
-  <Target Name="BuildDocs"
-          DependsOnTargets="BuildXMLDocs;BuildCHMDocs" />
-
   <PropertyGroup>
-    <CopyrightText>Copyright 2005-2008 MbUnit Project - http://www.mbunit.com/</CopyrightText>
-    <CopyrightHref>http://www.mbunit.com/</CopyrightHref>
+    <WebDocsParentDir>$(BuildReleaseDir)\APIDocs</WebDocsParentDir>
+    <WebDocsDir>$(WebDocsParentDir)\$(Version)</WebDocsDir>
+    <CHMDocsDir>$(TargetDir)\docs</CHMDocsDir>
+    <SandcastleTempDir>$(BuildTempDir)\docs</SandcastleTempDir>
 
-    <NDocCommonOptions>@(DocumentedAssembly->'"%(FullPath)"', ' ')</NDocCommonOptions>
+    <SandcastleProjectPath>docs\Docs.shfbproj</SandcastleProjectPath>
+    <SandcastlePatchedProjectPath>docs\Docs.patched.shfbproj</SandcastlePatchedProjectPath>
 
-    <NDocXMLOptions>$(NDocCommonOptions) -documenter=Intellisense "-OutputDirectory=$(TargetBinDir)" -UseAssemblyShadowCache=False</NDocXMLOptions>
-
-    <NDocCHMOptions>$(NDocCommonOptions) -documenter=MSDN-CHM "-OutputDirectory=$(TargetDocsDir)" -HtmlHelpName=MbUnit "-Title=MbUnit API Documentation" -UseAssemblyShadowCache=False -AssemblyVersionInfo=AssemblyVersion "-CopyrightText=$(CopyrightText)" "-CopyrightHref=$(CopyrightHref)" -IncludeDefaultThreadSafety=False -CleanIntermediates=True</NDocCHMOptions>
+    <SandcastleOutputPath>$(SandcastleTempDir)\output</SandcastleOutputPath>
+    <SandcastleIntellisensePath>$(SandcastleTempDir)\intellisense</SandcastleIntellisensePath>
   </PropertyGroup>
 
-  <!-- Produce clean Intellisense docs with "inheritdoc" accounted for. -->
-  <Target Name="BuildXMLDocs">
-    <Exec Command="&quot;$(LibsDir)\NDoc2\NDocConsole.exe&quot; $(NDocXMLOptions)" />
-    <Delete Files="$(TargetBinDir)\ndoc_qa.log;$(TargetBinDir)\ndoc_build.log" />
+  <Target Name="BuildDocs"
+          DependsOnTargets="BuildDocs_Sandcastle;BuildDocs_NoSandcastle" />
+
+  <Target Name="BuildDocs_Sandcastle"
+          Condition="'$(NoSandcastle)'!='true'">
+    <Message Text="Building Docs..."
+             Importance="High" />
+
+    <Error Text="Sandcastle and Sandcastle Help File Builder must be installed to generate documentation.  To only generate Xml Intellisense docs without Sandcastle, build with 'BuildNoSandcastle.bat'.  Be sure to also install the Sandcastle Styles patches.  Look in tools\Setup Files for the Sandcastle installers and patches."
+           Condition="! Exists('$(SandcastlePath)') or ! Exists('$(SandcastleHelpFileBuilderPath)')" />
+
+    <Error Text="Microsoft HTML Help Workshop must be installed so that Compiled HTML help (CHM) documentation can be generated.  Look in tools\Setup Files for the Microsoft HTML Help Workshop installer."
+           Condition="! Exists('$(HTMLHelpCompilerPath)')" />
+
+    <CreateProperty Value="@(DocumentedAssembly->'&lt;DocumentationSource sourceFile=&quot;%(FullPath)&quot; /&gt;&lt;DocumentationSource sourceFile=&quot;%(RootDir)%(Directory)%(Filename).xml&quot; /&gt;', '')">
+		<Output TaskParameter="Value" PropertyName="SandcastleDocumentationSources" />
+    </CreateProperty>
+
+    <Delete Files="$(CHMDocsDir)\MbUnit.chm"
+            Condition="Exists('$(CHMDocsDir)\MbUnit.chm')" />
+    <RemoveDir Directories="$(WebDocsDir);$(SandcastleTempDir)" />
+    
+    <MakeDir Directories="$(WebDocsParentDir);$(CHMDocsDir);$(SandcastleTempDir)" />
+
+    <!-- Should be able to just override DocumentationSources but
+         we get an error.
+
+         SHFB : warning BHT0001: Unable to get executing project: Unable to obtain internal reference.  The specified project will be loaded but command line property overrides will be ignored. [C:\Source\MbUnit\v3\docs\Docs.shfbproj]
+
+         So instead we generate a patched project file with the changes inline. -->
+
+    <Copy SourceFiles="$(SandcastleProjectPath)"
+          DestinationFiles="$(SandcastlePatchedProjectPath)" />
+
+    <FileUpdate Files="$(SandcastlePatchedProjectPath)"
+                SingleLine="true"
+		Regex="&lt;DocumentationSources&gt;.*&lt;/DocumentationSources&gt;"
+		ReplacementText="&lt;DocumentationSources&gt;$(SandcastleDocumentationSources)&lt;/DocumentationSources&gt;" />
+
+    <MSBuild Projects="$(SandcastlePatchedProjectPath)"
+             Properties="Version=$(Version);BuildDir=$(BuildDir);TempDir=$(BuildTempDir);ReportDir=$(BuildReportsDir);CustomBeforeSHFBTargets=$(SandcastleProjectOverridesPath)" />
+
+    <Copy SourceFiles="$(SandcastleOutputPath)\MbUnit.chm"
+          DestinationFolder="$(CHMDocsDir)" />
+
+    <!-- Note: We leave the CHM file in the docs folder for downloads from web. -->
+    <Exec Command="move /y &quot;$(SandcastleOutputPath)&quot; &quot;$(WebDocsDir)&quot;" />
+
+    <Delete Files="@(DocumentedAssembly->'$(TargetDir)\bin\%(Folder)\%(Filename).xml')" />
+    <Move SourceFiles="@(DocumentedAssembly->'$(SandcastleIntellisensePath)\%(Filename).xml')"
+          DestinationFiles="@(DocumentedAssembly->'$(TargetDir)\bin\%(Folder)\%(Filename).xml')" />
   </Target>
 
-  <Target Name="BuildCHMDocs">
-    <Warning Text="Microsoft HTML Help Workshop must be installed so that Compiled HTML help (CHM) documentation can be generated.  Look in libs\Setup Files for the Microsoft HTML Help Workshop installer."
-             Condition="! Exists('$(HTMLHelpCompilerPath)')" />
-
-    <Exec Command="&quot;$(LibsDir)\NDoc2\NDocConsole.exe&quot; $(NDocCHMOptions)"
-          Condition="Exists('$(HTMLHelpCompilerPath)')" />
-    <RemoveDir Directories="$(TargetDocsDir)\ndoc_msdn_temp" />
+  <Target Name="BuildDocs_NoSandcastle"
+          Condition="'$(NoSandcastle)'=='true'">
+    <Copy SourceFiles="@(DocumentedAssembly->'%(RootDir)%(Directory)%(Filename).xml')"
+          DestinationFolder="$(TargetDir)\bin\%(DocumentedAssembly.Folder)" />
   </Target>
 
   <Target Name="BuildZip"

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="e647ec32-932e-47fb-8890-bb596b8c9786" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+   <section><!--h1-->
+  <title>Creating Self-testing Assemblies</title>
+  <content>
+   <para>Test assemblies can be turned into executables which run all their tests on their own and generate an HTML report with very little effort. This comes in handy if you don&#8217;t have a test runner to hand and it won&#8217;t hinder testing if you do. You simply pass the .exe file to the GUI or console runner instead of the .dll you were passing previously.</para>
+   <list class="ordered">
+      <listItem>Add an empty code file to your test project.</listItem>
+      <listItem>Use the <link xlink:href="5b335fb4-f201-470e-996a-efa526e7a1c7">autorunner code snippet</link> to add the following code to the file. Change the code namespace as required.<para/>
+<code language="none" title=" ">
+using MbUnit.Core;
+
+namespace MbUnit.Tests
+{
+   static class Program
+   {
+      public static void Main(string[] args)
+      {
+         using (AutoRunner auto = new AutoRunner())
+         {
+            auto.Run();
+            auto.ReportToHtml();
+         }
+      }
+   }
+}</code>
+      </listItem>
+      <listItem>Open the test project&#8217;s properties dialog. In the Application tab, change the <legacyItalic>Output Type</legacyItalic> to &#8220;Console Application&#8221; and <legacyItalic>Startup object</legacyItalic> to the class you just created in step 2.<para/>
+      <mediaLink><image xlink:href="SelfTestAssemblies[1]" /></mediaLink><para/><para/></listItem>
+      <listItem>Build your solution and press F5 to test.</listItem>
+   </list>
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

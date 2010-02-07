@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="9a792f0b-2333-4a22-84ba-78cbc022f6e7" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+   <section><!--h1-->
+  <title>
+      MbUnit In An Agile Environment</title>
+  <content>
+   <para>
+      &#8220;An agile environment&#8221; may mean different things to different people
+      reading this, so first a definition. Being able to write tests as you write your
+      code ensures that whatever new code you create, it still does what you think it
+      should. Towards this goal then, an agile environment here means that
+   </para>
+   <list class="bullet">
+      <listItem>your code resides on a source control server so that changes are easily accessible
+         to all and prior versions are available if tests fail after code is committed to
+         the server</listItem>
+      <listItem>scripts exist on your server which automate the building, testing and deployment
+         (to a staging server) of your production code, typically using <externalLink>
+  <linkText>NAnt</linkText>
+  <linkUri>http://nant.sourceforge.net/</linkUri>
+</externalLink> or <externalLink>
+  <linkText>MSBuild</linkText>
+  <linkUri>http://msdn2.microsoft.com/en-us/library/0k6kkbsd.aspx</linkUri>
+</externalLink></listItem>
+      <listItem>these scripts may or may not be triggered automatically according to a given set
+         of rules. For example, by each new code committal to the source control server,
+         or at the close of business each day. This is known as <externalLink>
+  <linkText>automated continuous integration</linkText>
+  <linkUri>http://en.wikipedia.org/wiki/Continuous_integration</linkUri>
+</externalLink>.</listItem>
+   </list>
+   <para>
+      There&#8217;s much more to the practice of <externalLink>
+  <linkText>agile software development</linkText>
+  <linkUri>http://en.wikipedia.org/wiki/Agile_software_development</linkUri>
+</externalLink> than this,
+      but from its role as a unit testing framework, MbUnit has a say on these three things
+      (besides how you actually write tests) and to that extent includes</para>
+   <list class="bullet">
+      <listItem><link xlink:href="729ba3ea-a74e-48e7-9e97-1b6f6cef89d6">Custom automation tasks for NAnt</link></listItem>
+      <listItem><link xlink:href="536e260c-d396-4d12-8caf-e70027ad0b5a">Custom automation tasks for MSBuild</link></listItem>
+      <listItem><link xlink:href="5757f058-4607-4c36-9108-3d26fe3eb575">Plugins for CruiseControl.Net</link>, one of
+         the most common pieces of continuous integration server software for the .NET platform</listItem>
+      <listItem><link xlink:href="4f979c56-fcd1-4e37-b415-e84518b0ce23">Test run reports generated in any of four different          formats for your scripts to consume as required</link>.</listItem>
+   </list>
+   <para>
+      We also offer our thoughts on <link xlink:href="26f4a343-753c-4136-ae05-9d074e1c1435">how you add          MbUnit to your source control server</link>.
+   </para>
+   <para><legacyItalic>For a great overview of setting up a simple automated build environment (which could then be integrated into Cruise Control.NET) have a look at <externalLink>
+  <linkText>Mike Roberts&#8217;</linkText>
+  <linkUri>http://www.mikebroberts.com/blogtastic/</linkUri>
+</externalLink> excellent series of articles on how to build a .NET development tree. You can find them all at <externalLink>
+  <linkText>the TreeSurgeon CodePlex site</linkText>
+  <linkUri>http://www.codeplex.com/treesurgeon</linkUri>
+</externalLink> located towards the bottom of the home page. TreeSurgeon is Mike&#8217;s stab at automating the creation of the tree he describes, now maintained by <externalLink>
+  <linkText>Bill Simser</linkText>
+  <linkUri>http://weblogs.asp.net/bsimser</linkUri>
+</externalLink></legacyItalic></para>
+
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

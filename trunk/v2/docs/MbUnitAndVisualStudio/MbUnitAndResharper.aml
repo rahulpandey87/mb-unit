@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="56474a51-4d1a-4d3c-b174-3472a16c2d94" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+   <section><!--h1-->
+  <title>MbUnit And Resharper</title>
+  <content>
+   <para><externalLink>
+  <linkText>Resharper</linkText>
+  <linkAlternateText>Resharper home page</linkAlternateText>
+  <linkUri>http://www.jetbrains.com/resharper/index.html</linkUri>
+</externalLink> (R#) is a popular add-in for Visual Studio from <externalLink>
+  <linkText>jetbrains.com</linkText>
+  <linkAlternateText>Jetbrains home page</linkAlternateText>
+  <linkUri>http://www.jetbrains.com</linkUri>
+</externalLink> that offers built-in code analysis, unit test running and many, many code refactorings at the touch of a right click or keyboard shortcut. By default, the unit test runner that it provides supports only tests written against the nUnit framework. However, in January 2007, <externalLink>
+  <linkText>Albert Weinert</linkText>
+  <linkUri>http://der-albert.com</linkUri>
+</externalLink> created <externalLink>
+  <linkText>a plug-in for Resharper v2.5</linkText>
+  <linkAlternateText>Details of MbUnit plugin for R# 2.5</linkAlternateText>
+  <linkUri>http://der-albert.com/archives/95-Update-zum-MbUnit-PlugIn-fuer-ReSharper.html</linkUri>
+</externalLink> which adds MbUnit support into the R# test runner. JetBrains have since released R# v3.0. It still doesn&#8217;t support MbUnit out of the box, but Albert has confirmed <externalLink>
+  <linkText>he is working on an update to his plug-in</linkText>
+  <linkUri>http://www.der-albert.com/archives/106-MbUnit-PlugIn-Alpha-for-ReSharper-3.0.1.html</linkUri>
+</externalLink> for this new version. This page will be updated when a final version is completed.</para>
+   <para>More information on the Resharper test runner can be found</para>
+   <list class="bullet">
+      <listItem>Online at <externalLink>
+  <linkText>http://www.jetbrains.com/resharper/features/unit_testing.html</linkText>
+  <linkAlternateText>Overview of r# test runner</linkAlternateText>
+  <linkUri>http://www.jetbrains.com/resharper/features/unit_testing.html</linkUri>
+</externalLink></listItem>
+      <listItem>In ReSharper&#8217;s help file. <legacyItalic>Start > All Programs > Microsoft Visual Studio 2005 > Microsoft Visual Studio 2005 Documentation</legacyItalic>, select &#8216;ReSharper Help&#8217; in the &#8216;Filtered by&#8217; list.</listItem>
+   </list>
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

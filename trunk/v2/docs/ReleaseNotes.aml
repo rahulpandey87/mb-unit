@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="9121314c-4588-4bb2-be36-8f59eadf14bf" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<section><!--h1-->
+  <title>Documentation Release Notes</title>
+  <content>
+<para>This page contains notes on new additions to and changes within the documentation on docs.mbunit.com. Release notes for MbUnit itself can be found via <externalLink>
+  <linkText>the downloads page on the main site</linkText>
+  <linkUri>http://www.mbunit.com/Downloads.aspx</linkUri>
+</externalLink>.</para>
+<table>
+   <tableHeader>
+      <row>
+         <entry>Date</entry>
+         <entry>Notes</entry>
+      </row>
+   </tableHeader>
+   
+      <row>
+         <entry>August 12 2007</entry>
+         <entry>First release of docs.mbunit.com</entry>
+      </row>
+   
+</table>
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

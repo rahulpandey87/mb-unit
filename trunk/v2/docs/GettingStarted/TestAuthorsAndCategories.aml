@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="1d9c5d6e-01d2-46ca-ad98-5ed5d4c4d4d6" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+   <section><!--h1-->
+  <title>
+      Specifying Test Authors, Categories, Importance and Targets</title>
+  <content>
+   <para>
+      Both the <link xlink:href="d035dab0-cc0c-474f-8fa3-b44076f55f71">MbUnit console runner</link> and <link xlink:href="209d2ec2-7d57-4243-9c81-430798be24b7">          GUI runner</link> allow you to run the tests in your project according to a number
+      of criteria as follows
+   </para>
+   <list class="bullet">
+      <listItem>Namespace</listItem>
+      <listItem>Class</listItem>
+      <listItem><link xlink:href="#authors">Author</link></listItem>
+      <listItem><link xlink:href="#categories">Category</link></listItem>
+   </list>
+   <para>
+      The <link xlink:href="209d2ec2-7d57-4243-9c81-430798be24b7">GUI runner</link> also divides up tests according to
+   </para>
+   <list class="bullet">
+      <listItem><link xlink:href="#importance">The perceived importance of the tests</link></listItem>
+      <listItem><link xlink:href="#targets">The class type the tests are running against (the test target type)</link></listItem>
+   </list>
+   <para>
+      Your tests will always be divisible into the namespace and class in which you have
+      written them, but making them divisible by any of the other four criteria are purely
+      optional. Should you wish to do this, each criteria can be applied to test fixture
+      class (<legacyItalic>not an individual test</legacyItalic>) by adorning it with a specific attribute
+      as follows.
+   </para>
+   <h2 id="authors">
+      Test Authors</h2>
+   <para>
+      Use the [Author] attribute to specify the name (email and website) of the test fixture&#8217;s
+      author. For example</para>
+   <code language="none" title=" ">   [TestFixture]
+   [Author("Dan", "dan@hisemail.com", "http://docs.mbunit.com")]
+   public class MyFizzBuzzTests
+   {      
+      [Row(1)]
+      [Row(2)]
+      [RowTest]
+      public void ToFizzBuzz_SendNumberNotDivisibleBy3Or5_ReturnsNumberAsString(int NumberToTest)
+      {
+         Assert.AreEqual(NumberToTest.ToString(), 
+            FizzBuzz.FizzBuzz.ToFizzBuzz(NumberToTest));
+      }
+      
+      ... more tests ...
+   }</code>
+   <para>
+      In this example, all the tests in the MyFizzBuzzTests class will be assigned the
+      author &#8220;Dan&#8221;. If you don&#8217;t specify an author, MbUnit will give
+      the fixture the default author value <legacyItalic>&#8220;Anonymous&#8221;</legacyItalic></para>
+   <h2 id="categories">
+      Test Categories</h2>
+   <para>
+      Use the [FixtureCategory] attribute to specify the category for the tests in the
+      class. For example</para>
+   <code language="none" title=" ">   [TestFixture]
+   [FixtureCategory("Core Tests")]
+   public class MyFizzBuzzTests
+   {      
+      [Row(1)]
+      [Row(2)]
+      [RowTest]
+      public void ToFizzBuzz_SendNumberNotDivisibleBy3Or5_ReturnsNumberAsString(int NumberToTest)
+      {
+         Assert.AreEqual(NumberToTest.ToString(), 
+            FizzBuzz.FizzBuzz.ToFizzBuzz(NumberToTest));
+      }
+      
+      ... more tests ...
+   }</code>
+   <para>
+      In this example, all the tests in the MyFizzBuzzTests class will be assigned the
+      category &#8220;Core Tests&#8221;. If you don&#8217;t specify an category, MbUnit
+      will give the fixture the default category value <legacyItalic>&#8220;Misc&#8221;</legacyItalic></para>
+   <h2 id="importance">
+      Test Importance</h2>
+   <para>
+      Use the [Importance] attribute to specify the importance of the tests in the class.
+      For example</para>
+   <code language="none" title=" ">   [TestFixture]
+   [Importance(TestImportance.Critical)]
+   public class MyFizzBuzzTests
+   {      
+      [Row(1)]
+      [Row(2)]
+      [RowTest]
+      public void ToFizzBuzz_SendNumberNotDivisibleBy3Or5_ReturnsNumberAsString(int NumberToTest)
+      {
+         Assert.AreEqual(NumberToTest.ToString(), 
+            FizzBuzz.FizzBuzz.ToFizzBuzz(NumberToTest));
+      }
+      
+      ... more tests ...
+   }</code>
+   <para>
+      In this example, all the tests in the MyFizzBuzzTests class will be classed as &#8220;Critical&#8221;. If you don&#8217;t specify an category, MbUnit will give the tests the default importance level <legacyItalic>&#8220;Default&#8221;</legacyItalic>. MbUnit defines five levels of test importance.</para>
+   <list class="bullet">
+      <listItem>Critical</listItem>
+      <listItem>Default</listItem>
+      <listItem>NoOneReallyCaresAbout</listItem>
+      <listItem>Severe</listItem>
+      <listItem>Serious</listItem>
+   </list>
+        <h2 id="targets"> Test Targets</h2>
+   <para>
+      Use the [TestsOn] attribute to specify the target class type for the tests in the
+      class. For example</para>
+   <code language="none" title=" ">   [TestFixture]
+   [TestsOn(typeof(FizzBuzz.FizzBuzz))]
+   public class MyFizzBuzzTests
+   {      
+      [Row(1)]
+      [Row(2)]
+      [RowTest]
+      public void ToFizzBuzz_SendNumberNotDivisibleBy3Or5_ReturnsNumberAsString(int NumberToTest)
+      {
+         Assert.AreEqual(NumberToTest.ToString(), 
+            FizzBuzz.FizzBuzz.ToFizzBuzz(NumberToTest));
+      }
+      
+      ... more tests ...
+   }</code>
+   <para>
+      In this example, all the tests in the MyFizzBuzzTests class are marked as testing the FizzBuzz.FizzBuzz class. If you don&#8217;t specify a test target, MbUnit
+      will marks its target as <legacyItalic>&#8220;Unknown&#8221;</legacyItalic></para>
+   
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

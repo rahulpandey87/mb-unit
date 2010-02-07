@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="5b335fb4-f201-470e-996a-efa526e7a1c7" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+   <section><!--h1-->
+  <title>
+      MbUnit Snippets</title>
+  <content>
+   <para>
+      MbUnit ships with 15 C#\VB and 2 XML code snippets for use with Visual Studio as
+      follows. To install them,</para>
+   <list class="ordered">
+      <listItem>Open the Code Snippets Manager (<legacyItalic>Tools | Code Snippet Manager or Ctrl+K,B</legacyItalic>)<para/>
+         <mediaLink><image xlink:href="CodeSnippetsManager[1]" /></mediaLink><para/>
+         <para/>
+      </listItem>
+      <listItem>Choose the language you want to add snippets for from the <legacyItalic>&#8220;Language&#8221;</legacyItalic>
+         dropdown menu at the top of the manager dialog.</listItem>
+      <listItem>Click Add and navigate to the MbUnit installation directory. Open the VSSnippets
+         directory inside that.</listItem>
+      <listItem>Select the folder containing the snippets for your language and click <legacyItalic>&#8220;Select
+         Folder&#8221;</legacyItalic>.</listItem>
+      <listItem>Verify the snippets have been added by expanding the MbUnit*Snippets folder in
+         the manager dialog and selecting a few. Press OK when done.<para/>
+         <mediaLink><image xlink:href="CodeSnippetsManager[2]" /></mediaLink><para/>
+         <para/>
+      </listItem>
+   </list>
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>
+      Xml Snippets</title>
+  <content>
+   <para>
+      There are 2 XML snippets included with MbUnit. To use them, use either <legacyItalic>Edit | Intellisense
+         | Insert Snippet or Ctrl+K, X</legacyItalic>.</para>
+   <list class="bullet">
+      <listItem><legacyBold>msbuild</legacyBold> : Creates an empty MSBuild task to run MbUnit.</listItem>
+      <listItem><legacyBold>nant</legacyBold> : Creates an empty NAnt task to run MbUnit.</listItem>
+   </list>
+   <para>
+      Note that in both cases, the XML calls custom tasks for MSBuild and nAnt which we&#8217;ve
+      developed for ease of use. Have a look at the <link xlink:href="536e260c-d396-4d12-8caf-e70027ad0b5a">          integrating MSBuild</link> and <link xlink:href="729ba3ea-a74e-48e7-9e97-1b6f6cef89d6">             integrating nAnt</link> pages for more on how to get these custom tasks working.</para>
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>
+      C# and Visual Basic Snippets</title>
+  <content>
+   <para>
+      There are 15 code snippets for test writing, both in C# and VB. To use them, simply
+      type the name given below while in a VB or C# source file and press TAB twice.</para>
+   <list class="bullet">
+      <listItem><legacyBold>autorunner</legacyBold> : Adds all the basic code for a simple <link xlink:href="e647ec32-932e-47fb-8890-bb596b8c9786">          executable self-testing assembly</link>.</listItem>
+      <listItem><legacyBold>combinatorial</legacyBold> : Adds code for a combinatorial test with 2 parameters
+         and 2 factories </listItem>
+      <listItem><legacyBold>datafixture</legacyBold> : Adds code for a data fixture test class</listItem>
+      <listItem><legacyBold>model</legacyBold> : no longer valid</listItem>
+      <listItem><legacyBold>processfixture</legacyBold> : Adds code for a process fixture test class where
+         test are performed in a given order</listItem>
+      <listItem><legacyBold>rowtest</legacyBold> : Adds code for a simple row test</listItem>
+      <listItem><legacyBold>state</legacyBold> : Adds code for an IState wrapper</listItem>
+      <listItem><legacyBold>submodel</legacyBold> : no longer valid</listItem>
+      <listItem><legacyBold>test</legacyBold> : Adds code for a simple test</listItem>
+      <listItem><legacyBold>testexpectedexception</legacyBold> : Adds code for a simple test that expects
+         an exception to be raised</listItem>
+      <listItem><legacyBold>testfixture</legacyBold> : Adds code for a basic fixture test class including
+         setup, teardown and test methods.</listItem>
+      <listItem><legacyBold>testsuitefixture</legacyBold> : Adds code for a test suite (dynamic) fixture
+         class and method to add tests to the suite at runtime</listItem>
+      <listItem><legacyBold>typefixture</legacyBold> : Adds code for a type fixture test class including
+         setup, teardown and test methods.</listItem>
+      <listItem><legacyBold>typefixturefac</legacyBold> : Adds code for a type fixture test class including
+         setup, teardown and test methods using a provider factory</listItem>
+      <listItem><legacyBold>usingmbunit</legacyBold> : Adds the standard using or imports statement for
+         MbUnit.Framework.</listItem>
+   </list>
+   <para>
+      If you&#8217;d like to donate your own snippets to the team or suggest how to improve
+      the current ones, get in touch on the <externalLink>
+  <linkText>          MbUnit-Dev google group</linkText>
+  <linkUri>http://groups.google.com/group/MbUnitDev</linkUri>
+</externalLink>.</para>
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

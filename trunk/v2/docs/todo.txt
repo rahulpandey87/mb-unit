@@ -1,0 +1,6 @@
+- main stie articles page needs some links to step by step guides for writing \ refactoring code using tests. Perhaps the sieve of erastothenes example, the schema \ CodeGen one for more advanced things. A couple of problem solvers for project euler?
+- go back and link in keywords in MbUnit Snippets help page to API reference.
+- need to add screesnhot of r# test runner in action to MbUnitAndResharper.htm
+- need to add details of how to automate other test suites (such as WATiR, WATiN or NUnitASP) from within MbUnit and extend its test set with your own custom test suite. Perhaps as part of the migrating story or the visual studio story?
+- add link to MbUnit.Reports class in MbUnitReports page.
+- more on dealing with reports programatically

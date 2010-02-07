@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="729ba3ea-a74e-48e7-9e97-1b6f6cef89d6" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+   <section><!--h1-->
+  <title>
+      Automating MbUnit With NAnt</title>
+  <content>
+   <para>
+      NAnt is one of the two most commonly used automated build tools for .NET projects,
+      the other being <link xlink:href="536e260c-d396-4d12-8caf-e70027ad0b5a">MSBuild</link>. Using it rather than Visual Studio directly means that
+      you can</para>
+   <list class="bullet">
+      <listItem>Run scheduled or triggered builds for your project</listItem>
+      <listItem>Run any number of pre- and post-build events on your code, such as unit testing,
+         code analysis and code metrics packages.</listItem>
+   </list>
+   <para>
+      and all without a sniff of Visual Studio. NAnt is a free, open source project downloadable
+      from <externalLink>
+  <linkText>http://nant.sourceforge.net</linkText>
+  <linkUri>http://nant.sourceforge.net</linkUri>
+</externalLink>. Its
+      build scripts are written as XML documents and can be automated or run manually
+      as appropriate. You can find <externalLink>
+  <linkText>          the reference manual here</linkText>
+  <linkUri>http://nant.sourceforge.net/release/latest/help/</linkUri>
+</externalLink>.</para>
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>
+      The MbUnit Custom NAnt Task</title>
+  <content>
+   <para>
+      MbUnit includes code for a custom &lt;mbunit&gt; NAnt task which makes the running
+      of unit tests through MbUnit and subsequent report generation much more straightforward.
+      To get this working, you&#8217;ll need to</para>
+   <list class="ordered">
+      <listItem>Copy the following DLLs from the MbUnit installation directory to the NAnt bin
+         directory.
+         <list class="bullet">
+            <listItem>MbUnit.Tasks.dll</listItem>
+            <listItem>MbUnit.Framework.dll</listItem>
+            <listItem>QuickGraph.dll</listItem>
+            <listItem>QuickGraph.Algorithms.dll</listItem>
+         </list>
+         If you&#8217;ve used other MbUnit DLLs in your test code, you&#8217;ll need to include
+         those as well, but these four are the minimum. </listItem>
+      <listItem>Include the &lt;mbunit&gt; task in one of your nAnt scripts. For example, the following
+         script runs the tests in FizzBuzzTests.dll, creates a HTML report of the test run
+         and saves it in the current directory.
+         <code language="none" title=" ">&lt;project default="tests"&gt;
+   &lt;target name="tests"&gt;
+      &lt;mbunit
+         report-types="Html"
+         report-filename-format="myreport{0}{1}"
+         report-output-directory="."&gt;
+         &lt;assemblies&gt;
+            &lt;include name=&quot;FizzBuzzTests.dll" /&gt; 
+         &lt;/assemblies&gt;
+      &lt;/mbunit&gt;
+   &lt;/target&gt;
+&lt;/project&gt;</code>
+      </listItem>
+      <listItem>Run the build script.</listItem>
+   </list>
+     </content>
+</section>
+
+<section><!--h3-->
+  <title>
+      Full Syntax</title>
+  <content>
+   <code language="none" title=" "><legacyBold>&lt;mbunit</legacyBold>
+   [report-types="<legacyItalic>testType</legacyItalic>"]
+   [report-filename-format="<legacyItalic>reportName</legacyItalic>"]
+   report-output-directory="<legacyItalic>reportDirectory</legacyItalic>"<legacyBold>&gt;</legacyBold>
+   <legacyBold>&lt;assemblies&gt;</legacyBold>
+      <legacyBold>&lt;include</legacyBold> name="<legacyItalic>testAssembly</legacyItalic>" <legacyBold>/&gt;</legacyBold>
+      [<legacyItalic>&lt;include name="testAssembly" /&gt; ...</legacyItalic>]
+   <legacyBold>&lt;/assemblies&gt; &lt;/mbunit&gt;</legacyBold></code>
+     </content>
+</section>
+
+<section><!--h3-->
+  <title>
+      &lt;mbunit&gt; Attributes</title>
+  <content>
+   <para>
+      &lt;mbunit&gt; has the following attributes:</para>
+   <list class="bullet">
+      <listItem><legacyBold>report-types</legacyBold> : Specifies what type of report will be generated
+         after the test run. <legacyItalic>testType</legacyItalic> is one of the following types - html, text,
+         xml, dox. The default is html.</listItem>
+      <listItem><legacyBold>report-filename-format</legacyBold> : Specifies the name of the test report
+         file being generated. By default, <legacyItalic>reportName</legacyItalic> is set to &#8220;mbunit-result-{0}{1}&#8221;
+         where {0} is replaced by a long datetime string and {1} is replaced by the time
+         (on a 24hr clock).</listItem>
+      <listItem><legacyBold>report-output-directory</legacyBold> : Specifies the directory where the test
+         report file will be saved. <legacyItalic>reportDirectory</legacyItalic> can be either an absolute path
+         or relative to the current directory when NAnt is run. Note that this attribute
+         is mandatory and must be given a value.</listItem>
+      <!--<listItem><legacyBold>halt-on-failure</legacyBold> : Specifies whether or not the rest of the NAnt
+         script should halt if test failures occur. It can have values of true or false.
+         The default is false.</listItem>-->
+   </list>
+   <para>It also inherits the following attributes from the core NAnt Task element:</para>
+   <list class="bullet">
+		<listItem><legacyBold>failonerror</legacyBold> : Determines if task failure (ie. any unit tests failing) stops the build, or is just reported. The default is true</listItem>
+		<listItem><legacyBold>verbose</legacyBold> : Determines whether the task should report detailed build log messages. The default is false. </listItem>
+		<listItem><legacyBold>if</legacyBold> : If true then the task will be executed; otherwise, skipped. The default is true. </listItem>
+		<listItem><legacyBold>unless</legacyBold> : Opposite of if. If false then the task will be executed; otherwise, skipped. The default is false. </listItem>
+   </list>
+   
+   
+     </content>
+</section>
+
+<section><!--h3-->
+  <title>
+      &lt;mbunit&gt; Child Elements</title>
+  <content>
+   <para>
+      &lt;mbunit&gt; has one child element, &lt;assemblies&gt;. This must be included
+      in the task. The name and location of each test file to be run by MbUnit must be
+      included here. The example here uses individual child &lt;include&gt; elements here,
+      but is subject to <externalLink>
+  <linkText>          the same syntax rules as the NAnt fileset type</linkText>
+  <linkUri>http://nant.sourceforge.net/release/latest/help/types/fileset.html</linkUri>
+</externalLink>.</para>
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>
