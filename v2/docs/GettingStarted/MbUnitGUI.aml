@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="209d2ec2-7d57-4243-9c81-430798be24b7" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+   <section><!--h1-->
+  <title>
+      Using The MbUnit GUI Runner</title>
+  <content>
+   <para>
+      MbUnit proffers two applications for running tests against your code. The console
+      runner discussed <link xlink:href="d035dab0-cc0c-474f-8fa3-b44076f55f71">on this page</link> and the windows-based
+      application discussed here. You&#8217;ll find them both in the MbUnit installation directory;
+      c:\program files\mbunit by default. From v2.4.1, the GUI runner can also be accessed by choosing <legacyItalic>MbUnit | MbUnit.GUI</legacyItalic> from the Start Menu. If you use a version prior to v2.4.1 and intend to use the GUI runner a lot, it
+      might not be a bad idea to create a shortcut to it on your desktop or pin it to
+      your start menu as it is not added to your start menu during installation.</para>
+   <para>
+      Open the GUI by double-clicking on the executable or <link xlink:href="#cmdprompt">by running          it from the command prompt</link>. You&#8217;ll see the following.</para>
+   <para>
+      <mediaLink><image xlink:href="GUIRunner[1]" /></mediaLink></para>
+   <para>
+      The GUI runner opens by default with no test assemblies loaded. Typically, you&#8217;ll
+      want to use it in the following manner.</para>
+   <list class="ordered">
+      <listItem>Load test assemblies into the runner either directly with the <legacyItalic>Assemblies |
+         Add Assemblies...</legacyItalic> menu option or as part of an already created MbUnit project
+         using <legacyItalic>File | Open Project</legacyItalic>. If you add the wrong test assembly, remove it with <legacyItalic>Assemblies | Remove Assemblies...</legacyItalic><para/>
+         <mediaLink><image xlink:href="GUIRunner[2]" /></mediaLink><para/>
+         <para/>
+      </listItem>
+      <listItem>Run all the tests using <legacyItalic>Tests | Run</legacyItalic> or by clicking the Run button at the
+         top of the right-hand window. The GUI will highlight those tests that failed in
+         red, those that passed in green, and those that were ignored in yellow. If you need to stop the test run, press the stop button on <legacyItalic>Tests | Stop</legacyItalic>.<para/>
+         <mediaLink><image xlink:href="GUIRunner[3]" /></mediaLink><para/>
+         <para/>
+         If you want to run individual tests, first select the test from the tree on the
+         left hand side, then right click the test and select <legacyItalic>Tests | Start Tests</legacyItalic>.
+         Do the same for any subset of tests that you want to run. The test tree on the left shows the tests in an assembly divided five ways: by <link xlink:href="1d9c5d6e-01d2-46ca-ad98-5ed5d4c4d4d6">author, category, importance, namsepace, and the code class (type) that the tests are working on</link>.</listItem>
+      <listItem>For each test that has failed, at least one exception will have occurred. To see
+         the details of that exception, click on the test in question and the text of exception
+         will be displayed along with its stack trace in the right hand window under the
+         Exception tab (shown below). If your tests write to the command prompt or the error
+         console, you can click on the test and the corresponding output will be shown in
+         the Console.Out and Console.Error tabs on the right hand side of the GUI respectively.<para/>
+         <mediaLink><image xlink:href="GUIRunner[4]" /></mediaLink><para/>
+         <para/>
+      </listItem>
+      <listItem>Do a bit more coding...
+         <list class="bullet">
+            <listItem>If you write more tests to be run, compile the test assembly and reload it into
+               the GUI with <legacyItalic>Assemblies | Reload</legacyItalic>.</listItem>
+            <listItem>If you want to step through the test code as it is being executed, attach your
+               debugger to the MbUnit.GUI process, set a breakpoint in the test code and run the
+               test. If you want to step the code being tested, you won't need to attach your debugger
+               to MbUnit.GUI. Just set the breakpoint on your code and run the test.</listItem></list>
+      </listItem>
+      <listItem>Generate a report from the results of your last test run by choosing an option
+         from the Reports menu.</listItem>
+      <listItem>Save your MbUnit project for later use with <legacyItalic>File | Save Project As</legacyItalic>.</listItem>
+      <listItem>Close the GUI or start testing a different project with either <legacyItalic>File | New Project</legacyItalic>
+         or <legacyItalic>File | Open Project</legacyItalic>.</listItem>
+   </list>
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>Context Menu Options</title>
+  <content>
+   <para>Selecting any node in the test tree and then right clicking it will produce a context menu with a standard set of options as follows</para>
+   <list class="bullet">
+      <listItem><legacyItalic>Tests | Start Tests</legacyItalic> : Runs the selected test(s)</listItem>
+      <listItem><legacyItalic>Tests | Stop Tests</legacyItalic> : Stops the currently running test(s)</listItem>
+      <listItem><legacyItalic>Assemblies | Add Assemblies</legacyItalic> : Lets you add a new test assembly to the current test project</listItem>
+      <listItem><legacyItalic>Assemblies | Remove Assemblies</legacyItalic> : Lets you remove a new test assembly to the current test project</listItem>
+      <listItem><legacyItalic>Assemblies | Reload Assembly</legacyItalic> : Tells the GUI to reload an assembly into the project</listItem>
+      <listItem><legacyItalic>Clear Results</legacyItalic> : Clears all test results from the GUI</listItem>
+      <listItem><legacyItalic>Config | Load Config</legacyItalic> : Loads a pre-existing MbUnit project (*.mbunit) into the GUI</listItem>
+      <listItem><legacyItalic>Config | Save Config As</legacyItalic> : Save the current MbUnit project</listItem>
+      <listItem><legacyItalic>Report | *</legacyItalic> : Produces and displays a report generated against the result from the last test run. The report can be in xml, text, html or dox format.</listItem>
+      <listItem><legacyItalic>Ncover | Run</legacyItalic> : Runs the test(s) through <externalLink>
+  <linkText>nCover</linkText>
+  <linkAlternateText>nCover home page</linkAlternateText>
+  <linkUri>http://ncover.org/site/</linkUri>
+</externalLink>, a test code coverage analyser.</listItem>
+      <listItem><legacyItalic>Create nAnt Task (Clipboard)</legacyItalic> : Generates the correct <externalLink>
+  <linkText>nAnt</linkText>
+  <linkAlternateText>nAnt homepage</linkAlternateText>
+  <linkUri>http://nant.sourceforge.net/</linkUri>
+</externalLink> command to run the whole MbUnit project and generate an HTML report. This is saved to the desktop to be added to your nAnt scripts.</listItem>
+      <listItem><legacyItalic>Create MSBuild Task (Clipboard)</legacyItalic> : Generates the correct <externalLink>
+  <linkText>MSBuild</linkText>
+  <linkAlternateText>MSBuild homepage</linkAlternateText>
+  <linkUri>http://msdn2.microsoft.com/en-us/library/wea2sca5(VS.80).aspx</linkUri>
+</externalLink> command to run the whole MbUnit project and generate an HTML report. This is saved to the desktop to be added to your MSBuild scripts.</listItem>
+   </list>
+   <para>Note that these last two options only produce scripts for the whole project rather than the test(s) selected.</para>
+   <h2 id="cmdprompt">
+      Starting the GUI Runner from the Command Prompt</h2>
+   <para>
+      At any point you can bring up a summary of this page by typing any of the following
+      at the command prompt</para>
+   
+      <code language="none" title=" ">   MbUnit.GUI.exe /h</code>
+      <code language="none" title=" ">   MbUnit.GUI.exe /help</code>
+   
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>
+      Full Syntax
+   </title>
+  <content>
+   <para>
+      When starting the GUI runner from the command prompt, you can use the following
+      syntax</para>
+   
+      <code language="none" title=" ">   <legacyBold>MbUnit.GUI.exe</legacyBold> <legacyItalic>{AssemblyToTest[...]|ProjectFile}</legacyItalic> 
+      [[<legacyBold>/ap:</legacyBold><legacyItalic>assemblypath</legacyItalic>] 
+       [<legacyBold>/rt:</legacyBold><legacyItalic>reportType</legacyItalic> [<legacyBold>/rf:</legacyBold><legacyItalic>reportpath</legacyItalic>] [<legacyBold>/rnf:</legacyBold><legacyItalic>reportname</legacyItalic>] [<legacyBold>/tr:</legacyBold><legacyItalic>transformpath</legacyItalic>] [<legacyBold>/sr</legacyBold>]] 
+       [<legacyBold>/fc:</legacyBold><legacyItalic>categoryName[,...]]</legacyItalic>] [<legacyBold>/ec:</legacyBold><legacyItalic>categoryName[,...]</legacyItalic>] [<legacyBold>/fa:</legacyBold><legacyItalic>authorName</legacyItalic>] [/ft:className] [<legacyBold>/fn:</legacyBold><legacyItalic>namespace</legacyItalic>] 
+       [<legacyBold>/v:</legacyBold><legacyItalic>{+|-}</legacyItalic>] [<legacyBold>/sc:</legacyBold><legacyItalic>{+|-}</legacyItalic>]]
+       [<legacyBold>/r</legacyBold>] [<legacyBold>/c</legacyBold>]</code>
+   
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>
+      Parameters</title>
+  <content>
+   <para>
+      The shared codebase of GUI and console runner means that you can start the GUI runner
+      in combination with <link xlink:href="d035dab0-cc0c-474f-8fa3-b44076f55f71">any of the flags used by the          console runner</link> plus two others covered below.
+   </para>
+   <list class="bullet">
+      <listItem><legacyBold>/r or /run</legacyBold> : Specifies that the GUI runner should run the tests
+         in the <legacyItalic>AssemblyToTest</legacyItalic> or <legacyItalic>ProjectFile</legacyItalic> as soon as it has loaded
+         without prompt from the user.</listItem>
+      <listItem><legacyBold>/c or /close</legacyBold> : Specified that the GUI runner should close once
+         tests have been run (with /r). Specifying /c without /r will just close the GUI
+         before anything can be done.</listItem>
+   </list>
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>
+      Notes</title>
+  <content>
+   <para>
+      It should be pointed out that <legacyBold>/fc, /ec, /fa, /ft, /fn and /v</legacyBold> have
+      no effect on how the GUI runs.</para>
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>
+      Examples</title>
+  <content>
+   <para>
+      To open the GUI runner and load a test assembly into it</para>
+   
+      <code language="none" title=" ">   <legacyBold>MbUnit.GUI.exe TestAssembly.dll</legacyBold></code>
+   
+   <para>
+      To open the GUI runner, load a test assembly, run it and generate a HTML report
+      for the tests</para>
+   
+      <code language="none" title=" ">   <legacyBold>MbUnit.GUI.exe TestAssembly.dll /rt:html /r</legacyBold></code>
+   
+   <para>
+      To open the GUI runner, load a test assembly, run it, generate a HTML report, and
+      close the gui afterwards</para>
+   
+      <code language="none" title=" ">   <legacyBold>MbUnit.GUI.exe TestAssembly.dll /rt:html /r /c</legacyBold></code>
+   
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

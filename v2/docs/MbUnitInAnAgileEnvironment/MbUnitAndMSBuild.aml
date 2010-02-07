@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="536e260c-d396-4d12-8caf-e70027ad0b5a" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+   <section><!--h1-->
+  <title>
+      Automating MbUnit With MSBuild</title>
+  <content>
+   <para>
+      MSBuild is one of the two most commonly used automated build tools for .NET projects,
+      the other being <link xlink:href="729ba3ea-a74e-48e7-9e97-1b6f6cef89d6">nAnt</link>. Using it rather than Visual Studio directly means that you
+      can</para>
+   <list class="bullet">
+      <listItem>Run scheduled or triggered builds for your project</listItem>
+      <listItem>Run any number of pre- and post-build events on your code, such as unit testing,
+         code analysis and code metrics packages.</listItem>
+   </list>
+   <para>
+      and all without a sniff of Visual Studio. MSBuild is freely available as part of
+      the .NET 2.0 Framework. Its build scripts are written as XML documents and can be
+      automated or run manually as appropriate. Indeed, Visual Studio .sln files are actually
+      MSBuild files and you can build your solutions directly with msbuild without ever
+      opening Visual Studio if you wanted to. <externalLink>
+  <linkText>          You can find the full syntax reference for MSBuild here</linkText>
+  <linkUri>http://msdn2.microsoft.com/en-us/library/0k6kkbsd.aspx</linkUri>
+</externalLink>.</para>
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>
+      The MbUnit Custom MSBuild Task</title>
+  <content>
+   <para>
+      MbUnit includes code for a custom &lt;MbUnit&gt; MSBuild task which makes the running
+      of unit tests through MbUnit and subsequent report generation much more straightforward.
+      To get this working, you&#8217;ll need to</para>
+      <list class="ordered">
+         <listItem>Know where copies of the MbUnit DLLs are. You don&#8217;t need to copy them anywhere,
+            but you do need to make sure that the following four MbUnit DLLs are in the same
+            directory.
+            <list class="bullet">
+               <listItem>MbUnit.MSBuild.Tasks.dll</listItem>
+               <listItem>MbUnit.Framework.dll</listItem>
+               <listItem>QuickGraph.dll</listItem>
+               <listItem>QuickGraph.Algorithms.dll</listItem>
+            </list>
+            If you&#8217;ve used other MbUnit DLLs in your test code, you&#8217;ll need to include
+            those as well, but these four are the minimum. With that done, add a &lt;UsingTask&gt;
+            node to your MSBuild project that specifies the full name of the MSBuild task (<legacyItalic>MbUnit.MSBuild.Tasks.MbUnit</legacyItalic>)
+            and the location of the MbUnit.MSBuild.Tasks.dll file. Note that MSBuild will assume
+            that all your other MbUnit DLLs are in the same directory as this, hence the need
+            to have them all in one place. The DLL directory can be given as an absolute or
+            relative path. </listItem>
+            <listItem>Include the &lt;MbUnit&gt; task in one of your nAnt scripts. For example, the following script runs the tests in FizzBuzzTests.dll, creates a HTML report of the test run and saves it in the current directory.
+            
+            <code language="none" title=" ">
+&lt;Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"&gt;
+   &lt;UsingTask 
+      TaskName="MbUnit.MSBuild.Tasks.MbUnit" 
+      AssemblyFile="..\libs\MbUnit.MSBuild.Tasks.dll" /&gt;
+   &lt;!-- defining test assemblies --&gt;
+   &lt;ItemGroup&gt;
+      &lt;TestAssemblies Include="FizzBuzzTests.dll" /&gt;
+   &lt;/ItemGroup&gt;
+   &lt;!-- test target --&gt;   
+   &lt;Target Name="Tests"&gt;
+      &lt;MbUnit
+         Assemblies="@(TestAssemblies)"
+         ReportTypes="html"
+         ReportFileNameFormat="myreportname{0}{1}"
+         ReportOutputDirectory="." /&gt;
+   &lt;/Target&gt;
+&lt;/Project&gt;</code>
+            </listItem>
+            <listItem>Run the build script</listItem>
+      </list>
+     </content>
+</section>
+
+<section><!--h3-->
+  <title>Full Syntax</title>
+  <content>
+   <code language="none" title=" ">
+<legacyBold>&lt;MbUnit
+   Assemblies="@(TestAssemblies)"</legacyBold>
+   [ReportTypes="<legacyItalic>reportType</legacyItalic>"]
+   [ReportFileNameFormat="<legacyItalic>reportName</legacyItalic>"]
+   [ReportOutputDirectory="<legacyItalic>reportDirectory</legacyItalic>"]
+   [HaltOnFailure = <legacyItalic>{true|false}</legacyItalic>]
+   [HaltOnError = <legacyItalic>{true|false}</legacyItalic>]
+<legacyBold>/&gt;</legacyBold></code>
+  </content>
+</section>
+
+<section><!--h3-->
+  <title>
+      &lt;MbUnit&gt; Attributes</title>
+  <content>
+   <para>
+      &lt;MbUnit&gt; has the following attributes:</para>
+   <list class="bullet">
+      <listItem><legacyBold>Assemblies</legacyBold> : Specifies the set (ItemGroup) of test file to be run by MbUnit. This element is mandatory. </listItem>
+      <listItem><legacyBold>ReportTypes</legacyBold> : Specifies what type of report will be generated
+         after the test run. <legacyItalic>testType</legacyItalic> is a semi-colon separated list of one or more of the following types - html, text,
+         xml, dox. The default is html.</listItem>
+      <listItem><legacyBold>ReportFileNameFormat</legacyBold> : Specifies the name of the test report
+         file being generated. By default, <legacyItalic>reportName</legacyItalic> is set to &#8220;mbunit.{0}.{1}&#8221;
+         where {0} is replaced by a long datetime string and {1} is replaced by the time
+         (on a 24hr clock).</listItem>
+      <listItem><legacyBold>ReportOutputDirectory</legacyBold> : Specifies the directory where the test
+         report file will be saved. <legacyItalic>reportDirectory</legacyItalic> can be either an absolute path
+         or relative to the current directory when MSBuild is run. Note that this attribute
+         is mandatory and must be given a value.</listItem>
+      <listItem><legacyBold>HaltOnFailure</legacyBold> : Specifies whether or not the rest of the MSBuild
+         script should halt if test failures occur. It can have values of true or false.
+         The default is false.</listItem>
+            <listItem><legacyBold>HaltOnError</legacyBold> : Specifies whether or not the rest of the MSBuild
+         script should halt if an error occurs. It can have values of true or false.
+         The default is false.</listItem>   
+   </list>
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

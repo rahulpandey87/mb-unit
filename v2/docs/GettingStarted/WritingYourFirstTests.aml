@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="57e8dc21-de9c-4073-ba21-8abacce9fac8" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+   <section><!--h1-->
+  <title>
+      Writing your first tests</title>
+  <content>
+   <para>
+      Writing tests for your code isn&#8217;t difficult. It&#8217;s simply a matter of
+      <legacyItalic>fixtures, tests and asserts</legacyItalic>.</para>
+   <list class="bullet">
+      <listItem>An <legacyItalic>assert</legacyItalic> is a simple check. For example, that an integer is less than
+         another, that a variable is of a given type, or that a value in a database is the
+         expected one. The idea of asserts in .NET is not a new one, but in unit testing,
+         an assert is the most basic ingredient of the development process. MbUnit pre-defines
+         a lot of different asserts so you don't have to. It also leaves you free to build
+         your own as you need to.</listItem>
+      <listItem>A test is a collection of asserts intended to prove that an action or series of
+         actions in your production code actually does what you think it does. For example,
+         that your SaveToDB() method has actually saved information to your database correctly,
+         that your Add() method really does add those values together or that the default
+         constructor for your class doesn't create a null object.</listItem>
+      <listItem>A fixture is a collection of tests usually related to a single class in your production
+         code. It doesn&#8217;t have to be, but that&#8217;s usually how it turns out.</listItem>
+   </list>
+   <para>
+      With that knowledge in your head, let&#8217;s write a few tests for an application
+      to help you win at the classic fizzbuzz game. The rules are easy.</para>
+   <list class="bullet">
+      <listItem>If a number is wholly divisible by 3, return the word fizz.</listItem>
+      <listItem>If a number is wholly divisible by 5, return the word buzz.</listItem>
+      <listItem>If a number is wholly divisible by 3 and 5, return the word fizzbuzz.</listItem>
+      <listItem>If a number isn't wholly divisible by either or 5, return the number.</listItem>
+   </list>
+   <para>
+      To keep things simple, we&#8217;ll just write the first few tests for a simple static
+      method called ToFizzBuzz() that takes an integer as an argument and returns the
+      correct fizzbuzz string.</para>
+   <h2 id="settingupthesolution">
+      Setting Up The Solution</h2>
+   <para>
+      There are two options when it comes to organising your test code in your solution
+   </para>
+   <list class="bullet">
+      <listItem>You can write your tests in the same project as the code you are testing, <externalLink>
+  <linkText>as demonstrated over on our main          site</linkText>
+  <linkUri>http://www.mbunit.com/GettingStarted.aspx</linkUri>
+</externalLink>.</listItem>
+      <listItem>You can keep your tests in a separate assembly from the code you are testing, which
+         we'll demonstrate here. It takes a bit longer to set up but does mean your test
+         code won't be included in any live code you release.</listItem>
+   </list>
+   <para>
+      First you&#8217;ll need to create two projects, one for the production code containing
+      ToFizzBuzz() and one for the test code.</para>
+   <list class="ordered">
+      <listItem>Open up Visual Studio and create a new c# class library solution. We've called
+         it FizzBuzz and renamed class1.cs to fizzbuzz.cs .</listItem>
+      <listItem>Once it has been created, add another c# class library project to the solution
+         called FizzbuzzTests and renamed class1.cs to fizzbuzztests.cs.</listItem>
+      <listItem>Add a reference to MbUnit.Framework.dll to the FizzBuzzTests project. You'll find
+         it in the .NET tab.<para/>
+         <mediaLink><image xlink:href="FirstTests[1]" /></mediaLink>
+         <para/>
+      </listItem>
+      <listItem>You'll also need to add a reference to the FizzBuzz project to FizzBuzzTests.</listItem>
+      <listItem>Solution explorer should now look something like this<para/>
+         <mediaLink><image xlink:href="FirstTests[2]" /></mediaLink>
+      </listItem>
+   </list>
+   <para>
+      That's you all set up. Now all you need to do are write tests and some code.</para>
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>
+      Writing the Tests</title>
+  <content>
+   <para>
+      With the project setup, writing the tests is straightforward.</para>
+   <list class="bullet">
+      <listItem>First, add a couple of using statements to the top of the test class; one for MbUnit.Framework
+         so our tests will compile and one for the FizzBuzz class we're testing</listItem>
+      <listItem>Next, you need to define a test fixture. Recall from above that a fixture is a
+         collection of tests defined in a class. To do that, we decorate the FizzBuzzTests
+         class with the [TestFixture] attribute. Easy. Your code should now look like this.<para/>
+         <para/>
+         
+            <code language="none" title=" ">1: using System;</code>
+            <code language="none" title=" ">2: using FizzBuzz;</code>
+            <code language="none" title=" ">3: using MbUnit.Framework;</code>
+            <code language="none" title=" ">4: &#160;</code>
+            <code language="none" title=" ">5: namespace FizzBuzzTests</code>
+            <code language="none" title=" ">6: {</code>
+            <code language="none" title=" ">7:    [TestFixture]</code>
+            <code language="none" title=" ">8:    public class FizzBuzzTests</code>
+            <code language="none" title=" ">9:    {</code>
+            <code language="none" title=" ">10:   }</code>
+            <code language="none" title=" ">11: }</code>
+            <para/>
+         
+      </listItem>
+      <listItem>Tests should always be written before writing code. So we start by making sure
+         that ToFizzBuzz() will return &#8220;1&#8221; when given the number 1 with the following
+         test. This exerc<para/>
+         <para/>
+         
+            <code language="none" title=" ">10: [Test]</code>
+            <code language="none" title=" ">11: public void ToFizzBuzz_Send1_Returns1()</code>
+            <code language="none" title=" ">12: {</code>
+            <code language="none" title=" ">13:    Assert.AreEqual("1", FizzBuzz.FizzBuzz.ToFizzBuzz(1));</code>
+            <code language="none" title=" ">14: }</code>
+            <para/>
+         
+         As you can see, we have one assert in this test: that ToFizzBuzz() returns "1" when
+         we send it the integer 1. </listItem>
+      <listItem>Now we run the test to make sure that it fails. We can do this with either the
+         <link xlink:href="d035dab0-cc0c-474f-8fa3-b44076f55f71">console test runner</link>, <link xlink:href="209d2ec2-7d57-4243-9c81-430798be24b7">             the GUI runner</link>, or another third party test runner such as <link xlink:href="b3c6da24-501e-4f4e-9746-5837c159872d">                TestDriven.NET</link> or <link xlink:href="56474a51-4d1a-4d3c-b174-3472a16c2d94">Resharper</link>.
+         The choice is yours. Follow the links to see how to run the tests. </listItem>
+      <listItem>Now to write the simplest code that satisfies the test. Thus we have.<para/>
+         <para/>
+         
+            <code language="none" title=" ">1: using System;</code>
+            <code language="none" title=" ">2: &#160;</code>
+            <code language="none" title=" ">3: namespace FizzBuzz</code>
+            <code language="none" title=" ">4: {</code>
+            <code language="none" title=" ">5:    public class FizzBuzz</code>
+            <code language="none" title=" ">6:    {</code>
+            <code language="none" title=" ">7:       public static string ToFizzBuzz(int number)</code>
+            <code language="none" title=" ">8:       {</code>
+            <code language="none" title=" ">9:          return "1";</code>
+            <code language="none" title=" ">10:       }</code>
+            <code language="none" title=" ">11:    }</code>
+            <code language="none" title=" ">12: }</code>
+            <para/>
+         
+      </listItem>
+      <listItem>And so the cycle continues. Our next test should be for the number 2. We could
+         write another test called ToFizzBuzz_Send2_Returns2() which basically copies everything
+         in the previous test except for replacing 1s with 2s. However, the key to refactor
+         everywhere if possible applies to our test code, and we can make use of MbUnit's
+         excellent RowTest facility and generalise the test we have for all numbers which
+         aren't divisible by 3 or 5.<para/>
+         <para/>
+         
+            <code language="none" title=" ">10:       [Row(1)]</code>
+            <code language="none" title=" ">11:       [Row(2)]</code>
+            <code language="none" title=" ">12:       [RowTest]</code>
+            <code language="none" title=" ">13:       public void ToFizzBuzz_SendNumberNotDivisibleBy3Or5_ReturnsNumberAsString(int NumberToTest)</code>
+            <code language="none" title=" ">14:       {</code>
+            <code language="none" title=" ">15:          Assert.AreEqual(NumberToTest.ToString(), </code>
+            <code language="none" title=" ">16:             FizzBuzz.FizzBuzz.ToFizzBuzz(NumberToTest));</code>
+            <code language="none" title=" ">17:       }</code>
+            <para/>
+         
+         It&#8217;s not the catchiest name, but it explains exactly what the test is testing
+         (ToFizzBuzz), how it is being tested (sending it a number which isn't divisible
+         by three or five), and the result it expects (returning the number as a string).
+         The [RowTest] attribute which has replaced [Test] tells MbUnit that this test must
+         be performed using the different values in each row given above [RowTest]. Those
+         values are plugged into the test as parameters - int NumberToTest, in this case
+         - so MbUnit now runs our test twice, once to test ToFizzBuzz() with the number 1
+         and again with the number 2. If you run the test again, you'll see it succeed once
+         (with the number 1) and fail once (against the number 2). </listItem>
+      <listItem>To make both tests succeed, we need to make just a slight alteration to ToFizzBuzz()<para/>
+         <para/>
+         
+            <code language="none" title=" ">7:       public static string ToFizzBuzz(int number)</code>
+            <code language="none" title=" ">8:       {</code>
+            <code language="none" title=" ">9:          return number.ToString();</code>
+            <code language="none" title=" ">10:       }</code>
+            <para/>
+         
+      </listItem>
+      <listItem>And so we continue the cycle of writing tests and then writing the code that satisfies
+         them. There are three more tests to write for ToFizzBuzz.
+         <list class="bullet">
+            <listItem>Sending it a multiple of 3 but not of 15 and it returning "fizz"</listItem>
+            <listItem>Sending it a multiple of 5 but not of 15 and it returning "buzz"</listItem>
+            <listItem>Sending it a multiple of 15 and it returning "fizzbuzz"</listItem>
+         </list>
+         The first might look something like the following.
+         <para/>
+         <para/>
+         
+            <code language="none" title=" ">19:       [Row(3)]</code>
+            <code language="none" title=" ">20:       [Row(6)]</code>
+            <code language="none" title=" ">21:       [RowTest]</code>
+            <code language="none" title=" ">22:       public void ToFizzBuzz_SendNumberDivisibleBy3ButNot5_ReturnsFizz(int NumberToTest)</code>
+            <code language="none" title=" ">23:       { </code>
+            <code language="none" title=" ">24:          Assert.AreEqual("fizz", FizzBuzz.FizzBuzz.ToFizzBuzz(NumberToTest));</code>
+            <code language="none" title=" ">25:       }</code>
+            <para/>
+         
+      </listItem>
+   </list>
+   <para>
+      And so on. The point here is not how to write the best implementation of ToFizzBuzz()
+      - there are several equally good ones - but that writing tests is not any different
+      from writing another piece of code. The key is that your tests must be correct before
+      your code can be. If we added [Row(15)] to this latest test, it would expect ToFizzBuzz()
+      to return "fizz" rather than "fizzbuzz" as it should.</para>
+   <para>
+      What MbUnit provides you with are methods such as the row test to let you perform
+      these tests with the minimum of coding required. To that extent, the MbUnit.Framework
+      library offers a great number of asserts for checking values, arrays, collections,
+      data, files and more for you to use and a number of different test types in addition
+      to the vanilla [Test] and strawberry flavoured [RowTest] you've seen here. It also
+      lets you <link xlink:href="1d9c5d6e-01d2-46ca-ad98-5ed5d4c4d4d6">specify a test&#8217;s author or category</link> for review later on. Perhaps
+      you'll want to stop a few tests running for a while or flag issues with a test during
+      a run? You can do that too with <link xlink:href="9fd5c493-7406-4fce-99a4-a36935d91697">ignore flags and warnings</link>.</para>
+   <para>
+      Everything mentioned here and a lot more is covered in our <link xlink:href="710a15f0-0804-404a-b8b3-14dae7981265">API          reference</link> in detail. If you're not sure what to start, perhaps you should
+      check out <link xlink:href="ce7171fe-17c9-409f-8355-ce3454addb40">this rough guide</link>.</para>
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>
+      More Step by Step guides</title>
+  <content>
+   <para>
+      Check out our <externalLink>
+  <linkText>articles page</linkText>
+  <linkUri>http://www.mbunit.com/articles.aspx</linkUri>
+</externalLink> for
+      more step by step guides to writing code using tests.</para>
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

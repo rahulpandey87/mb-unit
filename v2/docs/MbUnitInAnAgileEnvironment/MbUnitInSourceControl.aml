@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="26f4a343-753c-4136-ae05-9d074e1c1435" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+   <section><!--h1-->
+  <title>
+      Putting MbUnit In Source Control</title>
+  <content>
+   <para>
+      If you code for a living, you should be familiar with <externalLink>
+  <linkText>          using a source control server</linkText>
+  <linkUri>http://www.ericsink.com/scm/source_control.html</linkUri>
+</externalLink> to store and keep prior versions of all your
+      code. Having to check in your code with a named account means everyone knows whose
+      code broke the build :) Even if you code solo or just for a hobby, there are still
+      <externalLink>
+  <linkText>good reasons</linkText>
+  <linkUri>http://www.ericsink.com/item_10134.html</linkUri>
+</externalLink> why single user
+      source control is a good idea.</para>
+   <para>
+      But why add the MbUnit dlls into the source control for your project? So that you
+      have a clear and apparent record of which version of MbUnit you&#8217;ve been using
+      and so that your NAnt or MSBuild scripts have a readily available copy of that version
+      of MbUnit available to run your tests with.
+   </para>
+   <para>
+      Let&#8217;s look at how we&#8217;ve structured the source tree for MbUnit Gallio.
+      (We can only suggest what we do ourselves after all).
+   </para>
+   <para>
+      <mediaLink><image xlink:href="SourceControl[1]" /></mediaLink>
+   </para>
+   <para>
+      This screenshot shows the top directory for MbUnit Gallio. It is organised with the following intent
+   </para>
+   <list class="bullet">
+      <listItem>The root is the upper most point of our project&#8217;s development tree.</listItem>
+      <listItem>All files belonging to this project exist under the root.</listItem>
+      <listItem>No files belonging to any other project exist under the root.</listItem>
+      <listItem>All source code resides in a sub-folder under the root (called src).</listItem>
+      <listItem>All third party code used in project resides in a different sub-folder under the root from your source code (called libs)</listItem>
+      <listItem>Build and license files sit in the root folder.</listItem>
+   </list>   
+   <para>
+      Calling the directories libs and src is entirely our choice - the subtext
+      team call the libs directory &#8220;BuildTools&#8221; <externalLink>
+  <linkText>          for instance</linkText>
+  <linkUri>http://subtext.svn.sourceforge.net/viewvc/subtext/trunk/</linkUri>
+</externalLink> but it works for us. </para>
+
+   
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

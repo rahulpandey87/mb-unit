@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="ccebcbad-b984-490c-b36d-75c9f07ecb3b" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+   <section><!--h1-->
+  <title>
+      Introduction</title>
+  <content>
+   <para>
+      MbUnit is an advanced, extensible unit testing framework originally developed by
+      Jonathon &#8216;Peli&#8217; de Halleux and Jamie Cansdale. Peli joined Microsoft
+      in early 2005 and made it an open source project under the leadership of Andrew
+      Stopford.
+   </para>
+   <para>
+      From <externalLink>
+  <linkText>the very start</linkText>
+  <linkUri>http://www.codeproject.com/gen/design/gunit.asp</linkUri>
+</externalLink>,
+      MbUnit&#8217;s aim has been to offer all the features that <externalLink>
+  <linkText>          nUnit</linkText>
+  <linkUri>http://www.nunit.org</linkUri>
+</externalLink> and <externalLink>
+  <linkText>csUnit</linkText>
+  <linkUri>http://www.csunit.org</linkUri>
+</externalLink> offer along with the
+      extensibility that they do not. MbUnit has been referred to as &#8220;<externalLink>
+  <linkText>unit          testing on crack</linkText>
+  <linkUri>http://www.hanselman.com/blog/MbUnitUnitTestingOnCrack.aspx</linkUri>
+</externalLink>&#8221;. It is indeed a Class A unit testing framework. Addiction
+      is quite possible :)
+   </para>
+   <list class="bullet">
+      <listItem>If you&#8217;re new to MbUnit, or to unit testing in general, have a look at <link xlink:href="a03a6679-21a5-4819-b8a6-131349536b1a" />.</listItem>
+      <listItem>If you&#8217;re getting comfortable with MbUnit, have a look here for ways to <link xlink:href="05fd0be4-61a7-4a5b-85f9-e69489e31218">make your developing with          MbUnit in Visual Studio that much more comfortable</link>.</listItem>
+      <!--   <listItem>If you&#8217;re already working with a different unit testing framework, have a
+         look at <link xlink:href="86051e94-67cb-4d69-8d44-6fb9b3082a77">our guides for migrating             your projects from that one to MbUnit</link>.</listItem> -->
+      <listItem>If you&#8217;re looking to incorporate MbUnit into an agile, continuous integration
+         set up, have a look here for <link xlink:href="9a792f0b-2333-4a22-84ba-78cbc022f6e7">             instructions and suggestions on how to do that</link>.</listItem>
+   </list>
+   <para>
+      And, of course, we have our <link xlink:href="710a15f0-0804-404a-b8b3-14dae7981265">API reference</link>, detailing the tests,
+      asserts, fixtures, report and extension classes that are the reasons you use MbUnit
+      in the first place. If you&#8217;re new to MbUnit, you can have a look at our <link xlink:href="ce7171fe-17c9-409f-8355-ce3454addb40" /> page which
+      should help you find the type of test that best suits what you need to do.</para>
+   <para>
+      Those curious can also browse the source code directly <externalLink>
+  <linkText>          on Google Code</linkText>
+  <linkUri>http://mb-unit.googlecode.com/svn/</linkUri>
+</externalLink> or via <externalLink>
+  <linkText>             koders.com</linkText>
+  <linkUri>http://www.koders.com/info.aspx?c=ProjectInfo&amp;pid=HKELQ33AUYPNS1EUTL79DDLUWH</linkUri>
+</externalLink>.</para>
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>
+      Join Our Team!</title>
+  <content>
+   <para>
+      MbUnit v2 is great, but we continue to make MbUnit (and its documentation) even
+      better. If you'd like to join our merry band of developers and writers for MbUnit
+      <legacyItalic>Gallio</legacyItalic>, we'd love to hear from you. <link xlink:href="c2829205-68c3-4987-8cd6-eb6004eb55ed">          Have a look here</link> for more details.</para>
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>Note on the downloadable CHM file</title>
+  <content>
+   <para>
+      At the top right of every page is the option to download an offline version of this website. When you do download it however, you may see that Windows blocks the content of every page. To unblock it, right click the file and choose Properties. At the bottom of the General tab, you'll see a button which allows you to unblock the content. Click Unblock, then OK and double-click to open the file and view everything normally. For more on why content in .chm files is blocked in the first place, <externalLink>
+  <linkText>check out this blog entry</linkText>
+  <linkUri>http://blogs.msdn.com/robcaron/archive/2005/06/23/431976.aspx</linkUri>
+</externalLink> which has links to all the relevant Microsoft support pages.
+   </para>
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>
+      Corrections and Suggestions</title>
+  <content>
+   <para>
+      If you've got any corrections, queries and suggestions for us, please let us know
+      on the <externalLink>
+  <linkText>MbUnit-User google group</linkText>
+  <linkUri>http://groups.google.com/group/MbUnitUser</linkUri>
+</externalLink>.<para/>
+      <para/>
+      Best Regards,<para/>
+      <link xlink:href="11e7a8f1-2251-4e39-99d9-d2666f39d2ae">The MbUnit Team</link></para>
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

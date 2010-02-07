@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="6d02214a-92b1-4239-8bd0-0f689ac8d984" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<section><!--h1-->
+  <title>Getting Help With MbUnit</title>
+  <content>
+   <para>
+      If you&#8217;re having problems with MbUnit, either in its use or in coding against it, the online technical community has produced many <externalLink>
+  <linkText>blogposts</linkText>
+  <linkUri>http://www.mbunit.com/blogs.aspx</linkUri>
+</externalLink> and <externalLink>
+  <linkText>articles</linkText>
+  <linkUri>http://www.mbunit.com/Articles.aspx</linkUri>
+</externalLink> about it which you might want to search through to see if anyone has a problem similar to yours. For example, you might like to try the following searches</para>
+      <list class="bullet">
+         <listItem><externalLink>
+  <linkText>Google BlogSearch</linkText>
+  <linkUri>http://www.google.co.uk/blogsearch?hl=en&amp;q=MbUnit</linkUri>
+</externalLink></listItem>
+         <listItem><externalLink>
+  <linkText>Technorati</linkText>
+  <linkUri>http://www.technorati.com/posts/tag/MbUnit</linkUri>
+</externalLink></listItem>
+         <listItem><externalLink>
+  <linkText>IceRocket</linkText>
+  <linkUri>http://blogs.icerocket.com/search?q=mbunit</linkUri>
+</externalLink></listItem>
+         <listItem><externalLink>
+  <linkText>Digg</linkText>
+  <linkUri>http://www.digg.com/search?section=news&amp;s=mbunit</linkUri>
+</externalLink></listItem>
+         <listItem><externalLink>
+  <linkText>Delicious</linkText>
+  <linkUri>http://del.icio.us/tag/mbunit</linkUri>
+</externalLink></listItem>
+         <listItem><externalLink>
+  <linkText>Magnolia</linkText>
+  <linkUri>http://ma.gnolia.com/tags/mbunit</linkUri>
+</externalLink></listItem>
+      </list>
+      <para>
+      If you can't find any help there, please post your queries to one of our Google Groups
+      </para>
+      <list class="bullet">
+         <listItem><externalLink>
+  <linkText>MbUnit-User</linkText>
+  <linkUri>http://groups.google.com/group/MbUnitUser</linkUri>
+</externalLink> is our general discussion list</listItem>
+         <listItem><externalLink>
+  <linkText>MbUnit-Dev</linkText>
+  <linkUri>http://groups.google.com/group/MbUnitDev</linkUri>
+</externalLink> is our developer&#8217;s query list</listItem>
+      </list>
+      <para><legacyItalic>Note that both of these groups require you to join the group before you can post a message to the board.</legacyItalic></para>
+        </content>
+</section>
+
+<section><!--h2-->
+  <title>Reporting A Bug</title>
+  <content>
+      <para>If you believe you've found a bug or an issue in MbUnit, please <externalLink>
+  <linkText>submit your bug report to us on Google Code</linkText>
+  <linkUri>http://code.google.com/p/mb-unit/issues/list</linkUri>
+</externalLink>. When you do report your bug, please remember to include the following:</para>
+      <list class="bullet">
+         <listItem>A good title for the bug so we know roughly what the problem is when we read it</listItem>
+         <listItem>A list of steps to reproduce the error \ problem and a screenshot of it as well if it might help</listItem>
+         <listItem>A description of what you believe should be happening instead.</listItem>
+      </list>
+      <para>Microsoft blogged <externalLink>
+  <linkText>a nice, easy set of bug reporting best practices</linkText>
+  <linkUri>http://blogs.msdn.com/productfeedback/archive/2004/09/27/235003.aspx</linkUri>
+</externalLink> a while ago which you might like to read to get a better gist of it.</para>
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

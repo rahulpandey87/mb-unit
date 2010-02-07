@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="df4ab0ab-b7d8-4423-be7e-10b57749d001" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <section><!--h1-->
+  <title>Thanks To Our Benefactors</title>
+  <content>
+    <para>A number of commercial and non-commercial projects have donated software, licenses, time and hard work to the ongoing development of MbUnit. Without them, MbUnit would not be half the project it is today. Profuse thanks then go to</para>
+    <!-- TODO: Review markup -->
+<markup>
+<fieldset>
+        <legend title="Commercial Applications">Commercial Applications</legend>
+            <ul>
+                <li>NDepend  (<a href="http://www.ndepend.com" title="NDepend Home">http://www.ndepend.com</a>)</li>
+                <li>Resharper (<a href="http://www.jetbrains.com/resharper" title="Resharper Home">http://www.jetbrains.com/resharper</a>)</li>
+                <li>TestDriven.net (<a href="http://www.testdriven.net" title="TestDriven.net Home">http://www.testdriven.net</a>)</li>
+            </ul>    
+    </fieldset>
+</markup>
+    
+        <!-- TODO: Review markup -->
+<markup>
+<fieldset>
+        <legend title="Open Source Applications">Open Source Applications</legend>
+            <ul>
+                <li>Castle Windsor (<a href="http://www.castleproject.org/container/index.html" title="Castle Windsor Home">http://www.castleproject.org/container/index.html</a>)</li>
+                <li>Rhino Mocks (<a href="http://www.ayende.com/projects/rhino-mocks.aspx" title="Rhino Mocks Home">http://www.ayende.com/projects/rhino-mocks.aspx</a>)</li>
+                <li>GhostDoc (<a href="http://www.roland-weigelt.de/ghostdoc/" title="GhostDoc Home">http://www.roland-weigelt.de/ghostdoc/</a>)</li>
+            </ul>    
+    </fieldset>
+</markup>
+    <para>Signed, the team.</para>
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

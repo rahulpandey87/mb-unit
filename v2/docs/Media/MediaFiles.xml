@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<stockSharedContentDefinitions fileAssetGuid="0c09b795-6e39-49ab-8594-c0bbdccf835b" assetTypeId="MediaContent">
+  <item id="GUIRunner[1]">
+    <image file="GUIRunner[1].png">
+      <altText>MbUnit GUI runner when first loaded.</altText>
+    </image>
+  </item>
+  <item id="GUIRunner[1]Thumbnail">
+    <image file="GUIRunner[1]Thumbnail.png">
+      <altText>MbUnit GUI runner when first loaded. Click this thumbnail image to show full size image</altText>
+    </image>
+  </item>
+  <item id="GUIRunner[2]Thumbnail">
+    <image file="GUIRunner[2]Thumbnail.png">
+      <altText>MbUnit GUI runner with test assembly loaded. Click this thumbnail image to show full size image</altText>
+    </image>
+  </item>
+  <item id="GUIRunner[2]">
+    <image file="GUIRunner[2].png">
+      <altText>MbUnit GUI runner with test assembly loaded.</altText>
+    </image>
+  </item>
+  <item id="GUIRunner[3]Thumbnail">
+    <image file="GUIRunner[3]Thumbnail.png">
+      <altText>MbUnit GUI runner with test results shown. Click this thumbnail image to show full size image</altText>
+    </image>
+  </item>
+  <item id="GUIRunner[3]">
+    <image file="GUIRunner[3].png">
+      <altText>MbUnit GUI runner with test results shown.</altText>
+    </image>
+  </item>
+  <item id="GUIRunner[4]Thumbnail">
+    <image file="GUIRunner[4]Thumbnail.png">
+      <altText>MbUnit GUI runner with test exception details shown. Click this thumbnail image to show full size image</altText>
+    </image>
+  </item>
+  <item id="GUIRunner[4]">
+    <image file="GUIRunner[4].png">
+      <altText>MbUnit GUI runner with test exception details shown.</altText>
+    </image>
+  </item>
+  <item id="Ignores[1]Thumbnail">
+    <image file="Ignores[1]Thumbnail.png">
+      <altText>MbUnit GUI runner showing ignored tests. Click this thumbnail image to show full size image</altText>
+    </image>
+  </item>
+  <item id="Ignores[1]">
+    <image file="Ignores[1].png">
+      <altText>MbUnit GUI runner showing ignored tests.</altText>
+    </image>
+  </item>
+  <item id="Ignores[2]Thumbnail">
+    <image file="Ignores[2]Thumbnail.png">
+      <altText>MbUnit report showing test warnings. Click this thumbnail image to show full size image</altText>
+    </image>
+  </item>
+  <item id="Ignores[2]">
+    <image file="Ignores[2].png">
+      <altText>MbUnit report showing test warnings.</altText>
+    </image>
+  </item>
+  <item id="FirstTests[1]thumbnail">
+    <image file="FirstTests[1]thumbnail.Png">
+      <altText>Adding MbUnit as a reference in VS</altText>
+    </image>
+  </item>
+  <item id="FirstTests[1]">
+    <image file="FirstTests[1].Png">
+      <altText>Adding MbUnit as a reference in VS</altText>
+    </image>
+  </item>
+  <item id="FirstTests[2]">
+    <image file="FirstTests[2].Png">
+      <altText>Your solution setup ready for writing tests</altText>
+    </image>
+  </item>
+  <item id="SelfTestAssemblies[1]Thumbnail">
+    <image file="SelfTestAssemblies[1]Thumbnail.png">
+      <altText>Visual Studio Project Properties dialog set to create an executable self-test runner. Click this thumbnail image to show full size image</altText>
+    </image>
+  </item>
+  <item id="SelfTestAssemblies[1]">
+    <image file="SelfTestAssemblies[1].png">
+      <altText>Visual Studio Project Properties dialog set to create an executable self-test runner.</altText>
+    </image>
+  </item>
+  <item id="TestDriven[1]Thumbnail">
+    <image file="TestDriven[1]Thumbnail.png">
+      <altText>TestDriven.NET at work. Click this thumbnail image to show full size image</altText>
+    </image>
+  </item>
+  <item id="TestDriven[1]">
+    <image file="TestDriven[1].png">
+      <altText>TestDriven.NET at work.</altText>
+    </image>
+  </item>
+  <item id="CodeSnippetsManager[1]Thumbnail">
+    <image file="CodeSnippetsManager[1]Thumbnail.png">
+      <altText>VS Code Snippet Manager screenshot. Click this thumbnail image to show full size image</altText>
+    </image>
+  </item>
+  <item id="CodeSnippetsManager[1]">
+    <image file="CodeSnippetsManager[1].png">
+      <altText>VS Code Snippet Manager screenshot.</altText>
+    </image>
+  </item>
+  <item id="CodeSnippetsManager[2]Thumbnail">
+    <image file="CodeSnippetsManager[2]Thumbnail.png">
+      <altText>MbUnit snippets listed in Code Snippet Manager screenshot. Click this thumbnail image to show full size image</altText>
+    </image>
+  </item>
+  <item id="CodeSnippetsManager[2]">
+    <image file="CodeSnippetsManager[2].png">
+      <altText>MbUnit snippets listed in Code Snippet Manager screenshot.</altText>
+    </image>
+  </item>
+  <item id="SourceControl[1]Thumbnail">
+    <image file="SourceControl[1]Thumbnail.png">
+      <altText>The MbUnit Gallio source tree. Click this thumbnail image to show full size image</altText>
+    </image>
+  </item>
+  <item id="SourceControl[1]">
+    <image file="SourceControl[1].png">
+      <altText>The MbUnit Gallio source tree.</altText>
+    </image>
+  </item>
+</stockSharedContentDefinitions>

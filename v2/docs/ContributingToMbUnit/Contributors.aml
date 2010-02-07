@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="11e7a8f1-2251-4e39-99d9-d2666f39d2ae" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+   <section><!--h1-->
+  <title>
+      MbUnit Contributors</title>
+  <content>
+   <para>
+      The framework was first created by <externalLink>
+  <linkText>Jonathan 'Peli' de Halleux</linkText>
+  <linkUri>http://blog.dotnetwiki.org/</linkUri>
+</externalLink> as a hobby project while studying for his PhD. Later Peli and <externalLink>
+  <linkText>Jamie Cansdale</linkText>
+  <linkUri>http://weblogs.asp.net/nunitaddin/</linkUri>
+</externalLink> added support for MbUnit
+      to Jamie's NUnitAddin (later it would become the <externalLink>
+  <linkText>TestDriven.NET</linkText>
+  <linkUri>http://www.testdriven.net</linkUri>
+</externalLink> addin). After Peli's departure to Microsoft in 2005 (working first as a SDE\T on the CLR and more recently in the Foundations for Software Engineering group in <externalLink>
+  <linkText>Microsoft Research</linkText>
+  <linkUri>http://research.microsoft.com/pex/</linkUri>
+</externalLink>) the project was open sourced under its current lead, <externalLink>
+  <linkText>Andy Stopford</linkText>
+  <linkUri>http://weblogs.asp.net/astopford/</linkUri>
+</externalLink>.
+   </para>
+   <para>
+      The current team with commit privileges are</para>
+   <list class="bullet">
+      <listItem>Johan Applegren</listItem>
+      <listItem><externalLink>
+  <linkText>Jeff Brown</linkText>
+  <linkUri>http://blog.bits-in-motion.com/</linkUri>
+</externalLink></listItem>
+      <listItem><externalLink>
+  <linkText>Joey Calisay</linkText>
+  <linkUri>http://community.devpinoy.org/blogs/joeycalisay/</linkUri>
+</externalLink></listItem>
+      <listItem>Dave Griffiths</listItem>
+      <listItem><externalLink>
+  <linkText>Ben Hall</linkText>
+  <linkUri>http://Blog.BenHall.me.uk</linkUri>
+</externalLink></listItem>
+      <listItem>Graham Hay</listItem>
+      <listItem><externalLink>
+  <linkText>Julian Hidalgo</linkText>
+  <linkUri>http://www.hpoffice.cl/julian/Default.aspx/</linkUri>
+</externalLink></listItem>
+      <listItem><externalLink>
+  <linkText>Vadim Kreynin</linkText>
+  <linkUri>http://vadim-net.blogspot.com/</linkUri>
+</externalLink></listItem>
+      <listItem><externalLink>
+  <linkText>Marc Stober</linkText>
+  <linkUri>http://www.marcstober.com/blog/category/Software%20Blog</linkUri>
+</externalLink></listItem>
+      <listItem><externalLink>
+  <linkText>Andy Stopford</linkText>
+  <linkUri>http://weblogs.asp.net/astopford/</linkUri>
+</externalLink></listItem>
+      <listItem><externalLink>
+  <linkText>Albert Weinert</linkText>
+  <linkUri>http://der-albert.com</linkUri>
+</externalLink></listItem>
+   </list>
+   <para>
+      In addition to the commit members, the following people contributed patches or code
+      to the 2.4 release.</para>
+   <list class="bullet">
+      <listItem>Tom&#225;&#0154; Chaloupka </listItem>
+      <listItem>Cathal Connolly </listItem>
+      <listItem>Phil Haack </listItem>
+      <listItem>Todd Menier</listItem>
+      <listItem>Albert Weinert</listItem>
+   </list>
+   <para>
+      The documentation lead is <externalLink>
+  <linkText>Dan Maharry</linkText>
+  <linkUri>http://blogs.ipona.com/dan/</linkUri>
+</externalLink></para>
+   <para>
+      Thanks should also go to <link xlink:href="df4ab0ab-b7d8-4423-be7e-10b57749d001">who have contributed software and code</link> to this project.
+   </para>
+   <para>Logos designed by Mark A. Haley</para>
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

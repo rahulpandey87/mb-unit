@@ -1,0 +1,19 @@
+Tests run: 8, Failures: 2, Skipped: 0, Ignored: 2
+Failures:
+1) FizzBuzzTests.HisFizzBuzzTests.ToFizzBuzz_SendNumberDivisibleBy3And5_ReturnsNumberAsString(15) :
+ Equal assertion failed: [[fizzbuzz]]!=[[fizz]]
+   at MbUnit.Framework.Assert.FailNotEquals(Object expected, Object actual, String format, Object[] args)
+   at MbUnit.Framework.Assert.AreEqual(Object expected, Object actual, String message)
+   at MbUnit.Framework.Assert.AreEqual(Object expected, Object actual)
+   at FizzBuzzTests.HisFizzBuzzTests.ToFizzBuzz_SendNumberDivisibleBy3And5_ReturnsNumberAsString(Int32 NumberToTest) in D:\Documents\Visual Studio 2008\Projects\MbUnit\FizzBuzz\FizzBuzzTests\FizzBuzzTests.cs:line 58
+2) FizzBuzzTests.HisFizzBuzzTests.ToFizzBuzz_SendNumberDivisibleBy3And5_ReturnsNumberAsString(30) :
+ Equal assertion failed: [[fizzbuzz]]!=[[fizz]]
+   at MbUnit.Framework.Assert.FailNotEquals(Object expected, Object actual, String format, Object[] args)
+   at MbUnit.Framework.Assert.AreEqual(Object expected, Object actual, String message)
+   at MbUnit.Framework.Assert.AreEqual(Object expected, Object actual)
+   at FizzBuzzTests.HisFizzBuzzTests.ToFizzBuzz_SendNumberDivisibleBy3And5_ReturnsNumberAsString(Int32 NumberToTest) in D:\Documents\Visual Studio 2008\Projects\MbUnit\FizzBuzz\FizzBuzzTests\FizzBuzzTests.cs:line 58
+Ignored:
+1) FizzBuzzTests.MyFizzBuzzTests.ToFizzBuzz_SendNumberDivisibleBy5ButNot3_ReturnsBuzz(5) :
+
+2) FizzBuzzTests.MyFizzBuzzTests.ToFizzBuzz_SendNumberDivisibleBy5ButNot3_ReturnsBuzz(10) :
+

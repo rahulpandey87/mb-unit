@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="4f979c56-fcd1-4e37-b415-e84518b0ce23" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<section><!--h1-->
+  <title>Working With MbUnit Reports</title>
+  <content>
+   <para>
+      If you use the MbUnit <link xlink:href="d035dab0-cc0c-474f-8fa3-b44076f55f71">console runner</link> or <link xlink:href="209d2ec2-7d57-4243-9c81-430798be24b7">GUI</link> to run your tests rather than a third party tool such as <link xlink:href="b3c6da24-501e-4f4e-9746-5837c159872d">TestDriven.NET</link> or <link xlink:href="56474a51-4d1a-4d3c-b174-3472a16c2d94">Resharper</link>, you'll know that MbUnit can generate a report on how all 
+      the tests fared&#160;sorted by assembly, namespace, and fixture. For each of these, 
+      the following quantities are summarized with a counter:</para>
+   <list class="bullet">
+      <listItem>number of successful tests</listItem>
+      <listItem>number of failed tests</listItem>
+      <listItem>number of ignored tests</listItem>
+      <listItem>number of skipped tests</listItem>
+      <listItem>duration in seconds</listItem>
+   </list>
+   <para>
+      MbUnit will generate test reports for you in any of four formats. Click on a format to see a report for some of the FizzBuzz example code we wrote <link xlink:href="57e8dc21-de9c-4073-ba21-8abacce9fac8">here</link>.
+   </para>
+   <list class="bullet">
+      <listItem><link xlink:href="mbunit-result-10_08_200700_23.xml">XML</link></listItem>
+      <listItem><link xlink:href="MbUnit Test Report.mht">HTML</link></listItem>
+      <listItem><link xlink:href="mbunit-result-10_08_200700_23.txt">Text</link></listItem>
+      <listItem><link xlink:href="mbunit-result-dox-10_08_200700_23.dox.txt">doxyfied</link></listItem>
+   </list>
+   <para>
+      GUI and console runner can also apply your own XSL transforms to an XML report as you see fit, but exactly which report type you choose to use and how is your choice. For reference, you can find <externalLink>
+  <linkText>the schema for the XML report here</linkText>
+  <linkUri>http://mb-unit.googlecode.com/svn/trunk/v2/trunk/src/mbunit/MbUnit.Framework/Core/Reports/</linkUri>
+</externalLink>. Included in the same folder are the XSL stylesheets we use to transform that into our HTML and text reports and an XML report compatible with <link xlink:href="5757f058-4607-4c36-9108-3d26fe3eb575">CruiseControl.NET</link></para>
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>
+      Dealing With Reports Programmatically</title>
+  <content>
+   <para>
+      If you want to work with MbUnit&#8217;s report generators on a code level (because for example, you&#8217;re <link xlink:href="e647ec32-932e-47fb-8890-bb596b8c9786">writing a self-testing assembly</link>), the MbUnit.Core.Report class contains static helper classes that can be used to quickly output reports. For example.</para>
+<code language="none" title=" ">// computed by AutoRunner or other object
+ ReportResult result = ...; 
+
+ // render to html and store filename
+ string fileName = Report.RenderToHtml(result);
+
+ // display in browser
+ Process.Start(fileName);
+</code>
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="c2829205-68c3-4987-8cd6-eb6004eb55ed" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+   <section><!--h1-->
+  <title>
+      Contributing To MbUnit</title>
+  <content>
+   <para>
+      The MbUnit code is currently available <link xlink:href="b701fb63-91c1-4c8d-a5a0-4976b9548339">under the Apache software          license</link> and was written by <link xlink:href="11e7a8f1-2251-4e39-99d9-d2666f39d2ae">the team</link>. Their
+      efforts were made significantly easier by software donations from <link xlink:href="df4ab0ab-b7d8-4423-be7e-10b57749d001">          several companies and projects</link>.
+   </para>
+   <para>
+      If you&#8217;d like to help us out making MbUnit even better than it already is,
+      we&#8217;re always happy to hear from you on the <externalLink>
+  <linkText>          MbUnit-Dev google group</linkText>
+  <linkUri>http://groups.google.com/group/MbUnitDev</linkUri>
+</externalLink>. We are always looking for people to help with
+   </para>
+   <list class="bullet">
+      <listItem>The core test framework</listItem>
+      <listItem>Our GUI and console based test runners</listItem>
+      <listItem>MSBuild and NAnt extensions</listItem>
+      <listItem>Documentation</listItem>
+   </list>
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>
+      Check out our Source Code</title>
+  <content>
+   <para>
+      If you&#8217;d like to have a look at the MbUnit source code and docs before you
+      join the team, you have several options. You can</para>
+   <list class="bullet">
+      <listItem>Browse the source code directly <externalLink>
+  <linkText>on          Google Code</linkText>
+  <linkUri>http://mb-unit.googlecode.com/svn/</linkUri>
+</externalLink>.</listItem>
+      <listItem>Browse the source code directly via <externalLink>
+  <linkText>          koders.com</linkText>
+  <linkUri>http://www.koders.com/info.aspx?c=ProjectInfo&amp;pid=HKELQ33AUYPNS1EUTL79DDLUWH</linkUri>
+</externalLink>.</listItem>
+      <listItem>Check out a read-only working copy anonymously over HTTP with subversion. Use the
+         following command
+         <para/>
+         <code language="none" title=" ">   svn checkout http://mb-unit.googlecode.com/svn/trunk/ mb-unit</code>
+      </listItem>
+   </list>
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>
+      Coding Guidelines</title>
+  <content>
+   <para>
+      At present, we don&#8217;t have a defined set of coding standards or guidelines
+      for the project. However</para>
+   <list class="bullet">
+      <listItem>We do use FxCop (on default settings) for checking code however, so you may want
+         to <externalLink>
+  <linkText>download</linkText>
+  <linkUri>http://www.gotdotnet.com/Team/FxCop/</linkUri>
+</externalLink> that for reference</listItem>
+      <listItem>We ask that any code you submit, you also <externalLink>
+  <linkText>          document it in the source code</linkText>
+  <linkUri>http://msdn.microsoft.com/msdnmag/issues/02/06/XMLC/</linkUri>
+</externalLink> as well to keep this documentation set up to
+         date.</listItem>
+   </list>
+   <para>
+      We&#8217;ll upload a more formal set of guidelines as they are solidified.
+   </para>
+     </content>
+</section>
+
+<section><!--h2-->
+  <title>
+      Submitting Patches</title>
+  <content>
+   <para>
+      Once you&#8217;ve had a look round the source and fixed a bug or added a new feature
+      to your local copy, please submit it as a patch to the <externalLink>
+  <linkText>          MbUnit-Dev list</linkText>
+  <linkUri>http://groups.google.com/group/MbUnitDev</linkUri>
+</externalLink>. To create a patch for SVN, use the SVN diff command like
+      so</para>
+   <code language="none" title=" ">   svn diff changedfilename > x:\path\to\patchfile.patch</code>
+   <para>
+      If you use <externalLink>
+  <linkText>TortoiseSVN</linkText>
+  <linkUri>http://tortoisesvn.tigris.org</linkUri>
+</externalLink>, right click
+      the files you&#8217;ve altered and choose <legacyItalic>TortoiseSVN | Create Patch...</legacyItalic>
+      from the context menu.</para>
+
+  </content>
+</section>
+
+    <relatedTopics>
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>
