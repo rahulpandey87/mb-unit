@@ -1,4 +1,4 @@
-<Project DefaultTargets="Clean;Build;Test" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Clean;Build;Test" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <!-- Configure the modules. -->
   <PropertyGroup>
     <RootDir>$(MSBuildProjectDirectory)</RootDir>
