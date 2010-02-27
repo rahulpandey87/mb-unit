@@ -1,0 +1,46 @@
+<!ENTITY HostName 'http://ccnet.gallio.org/'>
+
+<!ENTITY CCNetRoot 'C:\RelEng\CCNet'>
+
+<!ENTITY ProjectRoot 'C:\RelEng\Projects'>
+
+<!ENTITY DistributablesRoot 'C:\RelEng\Distributables'>
+
+<!ENTITY SVNRoot 'http://mb-unit.googlecode.com/svn'>
+
+<!ENTITY ExternalLinks '
+  <externalLinks>
+    <externalLink name="Distributables" url="/Distributables" />
+    <externalLink name="Gallio Home Page" url="http://www.gallio.org/" />
+    <externalLink name="MbUnit Home Page" url="http://www.mbunit.com/" />
+    <externalLink name="MbUnit Google Code Project" url="http://code.google.com/p/mb-unit/" />
+  </externalLinks>'>
+
+<!ENTITY EmailPublisher '
+  <email from="builds@gallio.org" mailhost="mail.gallio.org" includeDetails="TRUE">
+    <users>
+      <user name="BuildMaster" group="buildmasters" address="gallio-commits@googlegroups.com" />
+      <!--
+      <user name="jeff.brown" group="buildmasters" address="jeff.brown@gallio.org" />
+      -->
+    </users>
+    <groups>
+      <group name="buildmasters" notification="always" /> 
+      <group name="developers" notification="change" /> 
+    </groups>
+    <!--
+    <converters>
+      <regexConverter find="$" replace="@gmail.com" />
+    </converters>
+    -->
+  </email>
+'>
+
+<!ENTITY StandardPublishers '
+  <statistics />
+  <xmllogger />
+  <artifactcleanup cleanUpMethod="KeepLastXBuilds" cleanUpValue="50" />
+  &EmailPublisher;
+'>
+
+<!ENTITY MSBuildLogger '<logger>Kobush.Build.Logging.XmlLogger,&CCNetRoot;\server\Kobush.Build.dll</logger>'>
