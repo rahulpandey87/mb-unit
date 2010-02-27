@@ -45,6 +45,9 @@ namespace VMTool.Client
         [Option(null, "resume", HelpText = "Resumes a VM.", MutuallyExclusiveSet = "Commands")]
         public bool Resume;
 
+        [Option(null, "savestate", HelpText = "Saves state and stops a VM.", MutuallyExclusiveSet = "Commands")]
+        public bool SaveState;
+
         [Option(null, "takesnapshot", HelpText = "Takes a snapshot with the specified name.", MutuallyExclusiveSet = "Commands")]
         public bool TakeSnapshot;
 

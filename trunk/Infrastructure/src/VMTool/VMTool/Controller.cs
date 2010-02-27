@@ -268,6 +268,13 @@ namespace VMTool
             GetClient().Resume(request);
         }
 
+        public void SaveState()
+        {
+            Log(string.Format("Saving state and stopping VM '{0}'.", vm));
+            SaveStateRequest request = new SaveStateRequest() { Vm = vm };
+            GetClient().SaveState(request);
+        }
+
         public void TakeSnapshot(string newSnapshotName)
         {
             Log(string.Format("Taking snapshot of VM '{0}' called '{1}'.", vm, newSnapshotName));

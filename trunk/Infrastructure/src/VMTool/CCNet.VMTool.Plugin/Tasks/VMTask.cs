@@ -80,10 +80,21 @@ namespace CCNet.VMTool.Plugin.Tasks
                 new CCNetController(profile.Host, profile.Port, profile.VM, profile.Snapshot)))
             {
                 Status status = remoteContext.Controller.GetStatus();
-                if (status != Status.OFF)
-                    remoteContext.Controller.PowerOff();
 
-                remoteContext.Controller.Start();
+                if (profile.Snapshot != null)
+                {
+                    if (status == Status.RUNNING || status == Status.PAUSED)
+                        remoteContext.Controller.PowerOff();
+
+                    remoteContext.Controller.Start();
+                }
+                else
+                {
+                    if (status == Status.PAUSED)
+                        remoteContext.Controller.Resume();
+                    else if (status == Status.OFF || status == Status.SAVED)
+                        remoteContext.Controller.Start();
+                }
 
                 try
                 {
@@ -96,7 +107,10 @@ namespace CCNet.VMTool.Plugin.Tasks
                 }
                 finally
                 {
-                    remoteContext.Controller.PowerOff();
+                    if (profile.Snapshot != null)
+                        remoteContext.Controller.PowerOff();
+                    else
+                        remoteContext.Controller.SaveState();
                 }
             }
 
