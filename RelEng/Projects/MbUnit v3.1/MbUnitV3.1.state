@@ -3,13 +3,13 @@
   <ProjectName>MbUnit v3.1</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/MbUnit+v3.1/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>3.1.469.0</Label>
+  <Label>3.1.487.0</Label>
   <WorkingDirectory>C:\RelEng\Projects\MbUnit v3.1\Work</WorkingDirectory>
   <ArtifactDirectory>C:\RelEng\Projects\MbUnit v3.1\Artifacts</ArtifactDirectory>
-  <Status>Success</Status>
-  <StartTime>2010-02-06T03:05:19.719-08:00</StartTime>
-  <EndTime>2010-02-06T03:38:16.484625-08:00</EndTime>
-  <LastIntegrationStatus>Failure</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>3.1.469.0</LastSuccessfulIntegrationLabel>
+  <Status>Failure</Status>
+  <StartTime>2010-02-26T02:30:00.1107122-08:00</StartTime>
+  <EndTime>2010-02-26T03:06:04.8919622-08:00</EndTime>
+  <LastIntegrationStatus>Success</LastIntegrationStatus>
+  <LastSuccessfulIntegrationLabel>3.1.486.0</LastSuccessfulIntegrationLabel>
   <FailureUsers />
 </IntegrationResult>

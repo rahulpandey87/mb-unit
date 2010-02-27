@@ -3,13 +3,13 @@
   <ProjectName>MetaBuild</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/MetaBuild/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>0.0.1.153</Label>
+  <Label>0.0.1.172</Label>
   <WorkingDirectory>C:\RelEng\Projects\MetaBuild\Work</WorkingDirectory>
   <ArtifactDirectory>C:\RelEng\Projects\MetaBuild\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2010-02-06T04:30:00.12525-08:00</StartTime>
-  <EndTime>2010-02-06T04:30:04.547125-08:00</EndTime>
+  <StartTime>2010-02-26T04:30:00.2044622-08:00</StartTime>
+  <EndTime>2010-02-26T04:30:08.9544622-08:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>0.0.1.153</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>0.0.1.172</LastSuccessfulIntegrationLabel>
   <FailureUsers />
 </IntegrationResult>

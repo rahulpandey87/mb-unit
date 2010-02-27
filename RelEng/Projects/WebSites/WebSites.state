@@ -2,14 +2,14 @@
 <IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ProjectName>WebSites</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/WebSites/ViewLatestBuildReport.aspx</ProjectUrl>
-  <BuildCondition>IfModificationExists</BuildCondition>
-  <Label>168</Label>
+  <BuildCondition>ForceBuild</BuildCondition>
+  <Label>190</Label>
   <WorkingDirectory>C:\RelEng\Projects\WebSites\Work</WorkingDirectory>
   <ArtifactDirectory>C:\RelEng\Projects\WebSites\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2010-02-06T20:18:26.9065-08:00</StartTime>
-  <EndTime>2010-02-06T20:19:37.00025-08:00</EndTime>
+  <StartTime>2010-02-26T04:00:00.1888372-08:00</StartTime>
+  <EndTime>2010-02-26T04:00:24.0638372-08:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>168</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>190</LastSuccessfulIntegrationLabel>
   <FailureUsers />
 </IntegrationResult>
