@@ -7,8 +7,8 @@
   <WorkingDirectory>C:\RelEng\Projects\MbUnit v3 (Mono)\Work</WorkingDirectory>
   <ArtifactDirectory>C:\RelEng\Projects\MbUnit v3 (Mono)\Artifacts</ArtifactDirectory>
   <Status>Exception</Status>
-  <StartTime>2009-12-29T12:05:44.410203-08:00</StartTime>
-  <EndTime>2009-12-29T12:05:47.472703-08:00</EndTime>
+  <StartTime>2010-02-17T00:59:27.441441-08:00</StartTime>
+  <EndTime>2010-02-17T00:59:29.1055035-08:00</EndTime>
   <LastIntegrationStatus>Exception</LastIntegrationStatus>
   <LastSuccessfulIntegrationLabel>UNKNOWN</LastSuccessfulIntegrationLabel>
   <FailureUsers>
