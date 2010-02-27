@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectName>MbUnit v3 (Mono)</ProjectName>
+  <ProjectUrl>http://ccnet.gallio.org/server/local/project/MbUnit+v3+(Mono)/ViewLatestBuildReport.aspx</ProjectUrl>
+  <BuildCondition>ForceBuild</BuildCondition>
+  <Label>0.0.7.1</Label>
+  <WorkingDirectory>C:\RelEng\Projects\MbUnit v3 (Mono)\Work</WorkingDirectory>
+  <ArtifactDirectory>C:\RelEng\Projects\MbUnit v3 (Mono)\Artifacts</ArtifactDirectory>
+  <Status>Exception</Status>
+  <StartTime>2010-02-17T00:59:27.441441-08:00</StartTime>
+  <EndTime>2010-02-17T00:59:29.1055035-08:00</EndTime>
+  <LastIntegrationStatus>Exception</LastIntegrationStatus>
+  <LastSuccessfulIntegrationLabel>UNKNOWN</LastSuccessfulIntegrationLabel>
+  <FailureUsers>
+    <anyType xsi:type="xsd:string">jeff.brown</anyType>
+    <anyType xsi:type="xsd:string">Yann.Trevin@gmail.com</anyType>
+    <anyType xsi:type="xsd:string">grahamrhay</anyType>
+    <anyType xsi:type="xsd:string">fgretief</anyType>
+    <anyType xsi:type="xsd:string">yann.trevin@gmail.com</anyType>
+  </FailureUsers>
+</IntegrationResult>

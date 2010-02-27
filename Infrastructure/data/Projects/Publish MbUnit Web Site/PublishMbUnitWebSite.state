@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectName>Publish MbUnit Web Site</ProjectName>
+  <ProjectUrl>http://ccnet.gallio.org/server/local/project/Publish+MbUnit+Web+Site/ViewLatestBuildReport.aspx</ProjectUrl>
+  <BuildCondition>ForceBuild</BuildCondition>
+  <Label>190</Label>
+  <WorkingDirectory>C:\RelEng\Projects\Publish MbUnit Web Site\Work</WorkingDirectory>
+  <ArtifactDirectory>C:\RelEng\Projects\Publish MbUnit Web Site\Artifacts</ArtifactDirectory>
+  <Status>Success</Status>
+  <StartTime>2010-02-26T04:00:30.0325872-08:00</StartTime>
+  <EndTime>2010-02-26T04:00:33.9075872-08:00</EndTime>
+  <LastIntegrationStatus>Success</LastIntegrationStatus>
+  <LastSuccessfulIntegrationLabel>190</LastSuccessfulIntegrationLabel>
+  <FailureUsers />
+</IntegrationResult>
