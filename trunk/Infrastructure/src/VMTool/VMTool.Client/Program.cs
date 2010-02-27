@@ -7,6 +7,7 @@ using CommandLine;
 using Thrift.Transport;
 using VMTool.Thrift;
 using System.IO;
+using VMTool.Schema;
 
 namespace VMTool.Client
 {
@@ -20,6 +21,28 @@ namespace VMTool.Client
                 var parser = new CommandLineParser();
                 if (!parser.ParseArguments(args, options, Console.Error))
                     return 1;
+
+                if (options.Configuration != null && options.Profile != null)
+                {
+                    Configuration configuration = ConfigurationFileHelper.LoadConfiguration(options.Configuration);
+                    Profile profile = configuration.GetProfileById(options.Profile);
+                    if (profile == null)
+                    {
+                        Console.Error.WriteLine("Profile not found in configuration file.");
+                        return 1;
+                    }
+
+                    options.Host = profile.Host;
+                    options.Port = profile.Port;
+                    options.VM = profile.VM;
+                    options.Snapshot = profile.Snapshot;
+                }
+
+                if (options.Host == null)
+                {
+                    Console.Error.WriteLine("Must specify --host or --configuration and --profile.");
+                    return 1;
+                }
 
                 Command command = CreateCommand(options);
                 if (command == null)
@@ -79,6 +102,8 @@ namespace VMTool.Client
                 return new ResumeCommand();
             else if (options.TakeSnapshot)
                 return new TakeSnapshotCommand();
+            else if (options.GetStatus)
+                return new GetStatusCommand();
             else if (options.GetIP)
                 return new GetIPCommand();
             else
@@ -106,7 +131,7 @@ namespace VMTool.Client
             }
         }
 
-        private abstract class VMAndOptionalSnapshotCommand : Command
+        private abstract class VMCommand : Command
         {
             public override bool Validate(Options options)
             {
@@ -123,16 +148,7 @@ namespace VMTool.Client
             }
         }
 
-        private abstract class VMOnlyCommand : Command
-        {
-            public override bool Validate(Options options)
-            {
-                return Check(options.VM != null, "--vm required for this command.")
-                    && Check(options.Snapshot == null, "--snapshot invalid for this command.");
-            }
-        }
-
-        private class StartCommand : VMAndOptionalSnapshotCommand
+        private class StartCommand : VMCommand
         {
             public override void Execute(VMToolService.Client client, Options options)
             {
@@ -146,7 +162,7 @@ namespace VMTool.Client
             }
         }
 
-        private class PowerOffCommand : VMOnlyCommand
+        private class PowerOffCommand : VMCommand
         {
             public override void Execute(VMToolService.Client client, Options options)
             {
@@ -159,7 +175,7 @@ namespace VMTool.Client
             }
         }
 
-        private class ShutdownCommand : VMOnlyCommand
+        private class ShutdownCommand : VMCommand
         {
             public override void Execute(VMToolService.Client client, Options options)
             {
@@ -172,7 +188,7 @@ namespace VMTool.Client
             }
         }
 
-        private class PauseCommand : VMOnlyCommand
+        private class PauseCommand : VMCommand
         {
             public override void Execute(VMToolService.Client client, Options options)
             {
@@ -185,7 +201,7 @@ namespace VMTool.Client
             }
         }
 
-        private class ResumeCommand : VMOnlyCommand
+        private class ResumeCommand : VMCommand
         {
             public override void Execute(VMToolService.Client client, Options options)
             {
@@ -212,7 +228,22 @@ namespace VMTool.Client
             }
         }
 
-        private class GetIPCommand : VMOnlyCommand
+        private class GetStatusCommand : VMCommand
+        {
+            public override void Execute(VMToolService.Client client, Options options)
+            {
+                var req = new GetStatusRequest()
+                {
+                    Vm = options.VM
+                };
+
+                GetStatusResponse response = client.GetStatus(req);
+
+                Console.Out.WriteLine(response.Status);
+            }
+        }
+
+        private class GetIPCommand : VMCommand
         {
             public override void Execute(VMToolService.Client client, Options options)
             {

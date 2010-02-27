@@ -37,25 +37,43 @@
     <DocumentationFile>bin\CCNet.VMTool.Plugin.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NetReflector">
+      <HintPath>..\..\..\public\CCNet\Server\NetReflector.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="ThoughtWorks.CruiseControl.Core">
+      <HintPath>..\..\..\public\CCNet\Server\ThoughtWorks.CruiseControl.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ThoughtWorks.CruiseControl.Remote">
+      <HintPath>..\..\..\public\CCNet\Server\ThoughtWorks.CruiseControl.Remote.dll</HintPath>
+    </Reference>
     <Reference Include="Thrift">
       <HintPath>..\..\..\tools\Thrift\bin\Thrift.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\RemoteContextException.cs" />
+    <Compile Include="Core\RemoteExecutionEnvironment.cs" />
+    <Compile Include="Core\RemoteProcessExecutor.cs" />
+    <Compile Include="Core\RemoteShadowCopier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tasks\RemoteExecutableTask.cs" />
+    <Compile Include="Tasks\RemoteMsBuildTask.cs" />
+    <Compile Include="Core\RemoteContext.cs" />
+    <Compile Include="Tasks\VMTask.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VMTool.Client\VMTool.Client.csproj">
-      <Project>{21B41CBA-02DF-4093-ADD4-55BECE00DE7E}</Project>
-      <Name>VMTool.Client</Name>
+    <ProjectReference Include="..\VMTool\VMTool.csproj">
+      <Project>{887C2D02-1E3D-4E9C-BB01-63DD4642F20D}</Project>
+      <Name>VMTool</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
