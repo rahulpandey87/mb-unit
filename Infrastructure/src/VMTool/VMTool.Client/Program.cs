@@ -102,6 +102,8 @@ namespace VMTool.Client
                 return new PauseCommand();
             else if (options.Resume)
                 return new ResumeCommand();
+            else if (options.SaveState)
+                return new SaveStateCommand();
             else if (options.TakeSnapshot)
                 return new TakeSnapshotCommand();
             else if (options.GetStatus)
@@ -188,6 +190,15 @@ namespace VMTool.Client
             public override int Execute(ClientController controller, Options options)
             {
                 controller.Resume();
+                return 0;
+            }
+        }
+
+        private class SaveStateCommand : VMCommand
+        {
+            public override int Execute(ClientController controller, Options options)
+            {
+                controller.SaveState();
                 return 0;
             }
         }

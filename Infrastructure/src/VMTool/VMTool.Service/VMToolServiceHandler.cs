@@ -132,6 +132,26 @@ namespace VMTool.Service
             return new ResumeResponse();
         }
 
+        public SaveStateResponse SaveState(SaveStateRequest request)
+        {
+            string output;
+            int exitCode = ExecuteVBoxCommand("VBoxManage.exe",
+                string.Format("controlvm \"{0}\" savestate", request.Vm),
+                TimeSpan.FromSeconds(30),
+                out output);
+
+            if (exitCode != 0)
+            {
+                throw new OperationFailedException()
+                {
+                    Why = "Failed to save the state and stop the virtual machine.",
+                    Details = ErrorDetails(exitCode, output)
+                };
+            }
+
+            return new SaveStateResponse();
+        }
+
         public TakeSnapshotResponse TakeSnapshot(TakeSnapshotRequest request)
         {
             string output;
@@ -183,6 +203,9 @@ namespace VMTool.Service
                     break;
                 case "paused":
                     status = Status.PAUSED;
+                    break;
+                case "saved":
+                    status = Status.SAVED;
                     break;
                 default:
                     status = Status.UNKNOWN;

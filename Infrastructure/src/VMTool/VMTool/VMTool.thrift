@@ -50,6 +50,14 @@ struct ResumeRequest
 
 struct ResumeResponse { }
 
+# Save State
+struct SaveStateRequest
+{
+	1: required string vm
+}
+
+struct SaveStateResponse { }
+
 # Take Snapshot
 struct TakeSnapshotRequest
 {
@@ -65,7 +73,8 @@ enum Status
 	UNKNOWN,
 	OFF,
 	RUNNING,
-	PAUSED
+	PAUSED,
+	SAVED
 }
 
 struct GetStatusRequest
@@ -97,6 +106,7 @@ service VMToolService
 	ShutdownResponse Shutdown(1: ShutdownRequest request) throws(1: OperationFailedException ex),
 	PauseResponse Pause(1: PauseRequest request) throws(1: OperationFailedException ex),
 	ResumeResponse Resume(1: ResumeRequest request) throws(1: OperationFailedException ex),
+	SaveStateResponse SaveState(1: SaveStateRequest request) throws(1: OperationFailedException ex),
 	TakeSnapshotResponse TakeSnapshot(1: TakeSnapshotRequest request) throws(1: OperationFailedException ex),
 	GetStatusResponse GetStatus(1: GetStatusRequest request) throws(1: OperationFailedException ex),
 	GetIPResponse GetIP(1: GetIPRequest request) throws(1: OperationFailedException ex),
