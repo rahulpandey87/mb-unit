@@ -45,7 +45,7 @@ namespace VMTool.Service
                 throw new OperationFailedException()
                 {
                     Why = "Failed to start the virtual machine.",
-                    Details = output
+                    Details = ErrorDetails(exitCode, output)
                 };
             }
 
@@ -65,7 +65,7 @@ namespace VMTool.Service
                 throw new OperationFailedException()
                 {
                     Why = "Failed to power off the virtual machine.",
-                    Details = output
+                    Details = ErrorDetails(exitCode, output)
                 };
             }
 
@@ -85,7 +85,7 @@ namespace VMTool.Service
                 throw new OperationFailedException()
                 {
                     Why = "Failed to shutdown the virtual machine.",
-                    Details = output
+                    Details = ErrorDetails(exitCode, output)
                 };
             }
 
@@ -105,7 +105,7 @@ namespace VMTool.Service
                 throw new OperationFailedException()
                 {
                     Why = "Failed to pause the virtual machine.",
-                    Details = output
+                    Details = ErrorDetails(exitCode, output)
                 };
             }
 
@@ -125,7 +125,7 @@ namespace VMTool.Service
                 throw new OperationFailedException()
                 {
                     Why = "Failed to resume the virtual machine.",
-                    Details = output
+                    Details = ErrorDetails(exitCode, output)
                 };
             }
 
@@ -145,11 +145,54 @@ namespace VMTool.Service
                 throw new OperationFailedException()
                 {
                     Why = "Failed to take snapshot.",
-                    Details = output
+                    Details = ErrorDetails(exitCode, output)
                 };
             }
 
             return new TakeSnapshotResponse();
+        }
+
+        public GetStatusResponse GetStatus(GetStatusRequest request)
+        {
+            string output;
+            int exitCode = ExecuteVBoxCommand("VBoxManage.exe",
+                string.Format("showvminfo \"{0}\"", request.Vm),
+                TimeSpan.FromSeconds(30),
+                out output);
+
+            Match match = Regex.Match(output, @"State: *([a-zA-Z ]+)");
+
+            if (exitCode != 0 || !match.Success)
+            {
+                throw new OperationFailedException()
+                {
+                    Why = "Failed to get the status of the virtual machine.",
+                    Details = ErrorDetails(exitCode, output)
+                };
+            }
+
+            Status status;
+            string statusString = match.Groups[1].Value.Trim();
+            switch (statusString)
+            {
+                case "powered off":
+                    status = Status.OFF;
+                    break;
+                case "running":
+                    status = Status.RUNNING;
+                    break;
+                case "paused":
+                    status = Status.PAUSED;
+                    break;
+                default:
+                    status = Status.UNKNOWN;
+                    break;
+            }
+
+            return new GetStatusResponse()
+            {
+                Status = status
+            };
         }
 
         public GetIPResponse GetIP(GetIPRequest request)
@@ -167,7 +210,7 @@ namespace VMTool.Service
                 throw new OperationFailedException()
                 {
                     Why = "Failed to get the IP address of the virtual machine's primary network interface.",
-                    Details = output
+                    Details = ErrorDetails(exitCode, output)
                 };
             }
 
@@ -245,6 +288,11 @@ namespace VMTool.Service
             }
 
             return exitCode;
+        }
+
+        private static string ErrorDetails(int exitCode, string output)
+        {
+            return output + "\nExit Code: " + exitCode;
         }
     }
 }

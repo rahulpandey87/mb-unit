@@ -59,6 +59,25 @@ struct TakeSnapshotRequest
 
 struct TakeSnapshotResponse { }
 
+# Get Status
+enum Status
+{
+	UNKNOWN,
+	OFF,
+	RUNNING,
+	PAUSED
+}
+
+struct GetStatusRequest
+{
+	1: required string vm
+}
+
+struct GetStatusResponse
+{
+	1: required Status status
+}
+
 # Get IP
 struct GetIPRequest
 {
@@ -79,5 +98,6 @@ service VMToolService
 	PauseResponse Pause(1: PauseRequest request) throws(1: OperationFailedException ex),
 	ResumeResponse Resume(1: ResumeRequest request) throws(1: OperationFailedException ex),
 	TakeSnapshotResponse TakeSnapshot(1: TakeSnapshotRequest request) throws(1: OperationFailedException ex),
+	GetStatusResponse GetStatus(1: GetStatusRequest request) throws(1: OperationFailedException ex),
 	GetIPResponse GetIP(1: GetIPRequest request) throws(1: OperationFailedException ex),
 }
