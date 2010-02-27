@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>CruiseControl.NET : MsBuild Task</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            CruiseControl.NET : MsBuild Task
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Dec 06, 2009 by <font color="#0050B2">csut017</font>.
+				    </div>
+
+				    <h1><a name="MsBuildTask-MSBuildTask"></a>MSBuild Task</h1>
+
+<p>The &lt;msbuild&gt; task is used to execute MsBuild projects, which are the default project format for Visual Studio 2005 projects and can also be compiled by using the MSBuild application that ships with the .NET 2 Framework.  <br/>
+In order to work with the results of MsBuild it is important to use a custom xml logger to format the build results. For details on this, and a tutorial on how to use the task, see <a href="Using CruiseControl.NET with MSBuild.html" title="Using CruiseControl.NET with MSBuild">Using CruiseControl.NET with MSBuild</a>.  </p>
+
+
+<h2><a name="MsBuildTask-Version"></a>Version</h2>
+
+<p>Available from version 1.0</p>
+
+<h2><a name="MsBuildTask-Examples"></a>Examples</h2>
+
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeHeader panelHeader" style="border-bottom-width: 1px;border-bottom-style: solid;background-color: #ADD6FF;"><b>Minimalist example</b></div><div class="codeContent panelContent">
+<pre class="code-xml"><span class="code-tag">&lt;msbuild /&gt;</span></pre>
+</div></div>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeHeader panelHeader" style="border-bottom-width: 1px;border-bottom-style: solid;background-color: #ADD6FF;"><b>Full example</b></div><div class="codeContent panelContent">
+<pre class="code-xml"><span class="code-tag">&lt;msbuild&gt;</span>
+  <span class="code-tag">&lt;executable&gt;</span>C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\MSBuild.exe<span class="code-tag">&lt;/executable&gt;</span>
+  <span class="code-tag">&lt;workingDirectory&gt;</span>C:\dev\ccnet<span class="code-tag">&lt;/workingDirectory&gt;</span>
+  <span class="code-tag">&lt;projectFile&gt;</span>CCNet.sln<span class="code-tag">&lt;/projectFile&gt;</span>
+  <span class="code-tag">&lt;buildArgs&gt;</span>/noconsolelogger /p:Configuration=Debug /v:diag<span class="code-tag">&lt;/buildArgs&gt;</span>
+  <span class="code-tag">&lt;targets&gt;</span>Build;Test<span class="code-tag">&lt;/targets&gt;</span>
+  <span class="code-tag">&lt;timeout&gt;</span>900<span class="code-tag">&lt;/timeout&gt;</span>
+  <span class="code-tag">&lt;logger&gt;</span>C:\Program Files\CruiseControl.NET\server\ThoughtWorks.CruiseControl.MsBuild.dll<span class="code-tag">&lt;/logger&gt;</span>
+<span class="code-tag">&lt;/msbuild&gt;</span></pre>
+</div></div>
+
+
+<h2><a name="MsBuildTask-ConfigurationElements"></a>Configuration Elements</h2>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Element </th>
+<th class='confluenceTh'> Description </th>
+<th class='confluenceTh'> Type </th>
+<th class='confluenceTh'> Required </th>
+<th class='confluenceTh'> Default </th>
+<th class='confluenceTh'> Version </th>
+</tr>
+<tr>
+<td class='confluenceTd'> buildArgs </td>
+<td class='confluenceTd'> Any extra arguments to pass through to MSBuild.   </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> <em>None</em> </td>
+<td class='confluenceTd'> 1.0 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> description </td>
+<td class='confluenceTd'> Description used for the visualisation of the buildstage, if left empty the process name will be shown.   </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> The task/publisher name. </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> dynamicValues </td>
+<td class='confluenceTd'> The dynamic values to use for the task.   </td>
+<td class='confluenceTd'> <a href="Dynamic Values.html" title="Dynamic Values">Dynamic Values</a> array </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> <em>None</em> </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> executable </td>
+<td class='confluenceTd'> The location of the MSBuild.exe executable.   </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> MSBuild with .NET Framework, xbuild on Unix with Mono. </td>
+<td class='confluenceTd'> 1.0 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> logger </td>
+<td class='confluenceTd'> The full path to the assembly containing the custom logger to use. Arguments can be passed to the logger by appending them after the logger name separated by a semicolon. Only if the assembly contains more than one logger implementation you need to specify the logger class (see MSBuild reference): [LoggerClass,]LoggerAssembly[;LoggerParameters]   </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> ThoughtWorks.CruiseControl.MsBuild.XmlLogger, ThoughtWorks.CruiseControl.MsBuild.dll </td>
+<td class='confluenceTd'> 1.0 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> projectFile </td>
+<td class='confluenceTd'> The name of the build project to run, relative to the workingDirectory.   </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Default MSBuild file. </td>
+<td class='confluenceTd'> 1.0 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> targets </td>
+<td class='confluenceTd'> A semicolon&#45;separated list of the targets to run.   </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Default project target. </td>
+<td class='confluenceTd'> 1.0 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> timeout </td>
+<td class='confluenceTd'> Number of seconds to wait before assuming that the process has hung and should be killed.   </td>
+<td class='confluenceTd'> Int32 </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> 600 </td>
+<td class='confluenceTd'> 1.0 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> workingDirectory </td>
+<td class='confluenceTd'> The directory to run MSBuild in &#45; this is generally the directory containing your build project. If relative, is a subdirectory of the Project Working Directory.   </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Project Working Directory </td>
+<td class='confluenceTd'> 1.0 </td>
+</tr>
+</tbody></table>
+
+<h2><a name="MsBuildTask-Notes"></a>Notes</h2>
+
+<p>Many thanks to Szymon Kobalczyk for helping out with this part of CruiseControl.NET.  </p>
+
+
+<div class='panelMacro'><table class='infoMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b>Automatically Generated</b><br />
+<p>Documentation generated on Sunday, 6 Dec 2009 at 2:09:32 AM</p></td></tr></table></div>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="http://confluence.public.thoughtworks.org//images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Jan 30, 2010 19:06</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>
