@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" scmError="false">
   <ProjectName>Gallio Book</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/Gallio+Book/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>604</Label>
-  <WorkingDirectory>C:\RelEng\Projects\Gallio Book\Work</WorkingDirectory>
-  <ArtifactDirectory>C:\RelEng\Projects\Gallio Book\Artifacts</ArtifactDirectory>
+  <Label>608</Label>
+  <Parameters>
+    <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\Gallio Book\Artifacts" />
+    <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
+    <NameValuePair name="$CCNetBuildDate" value="2010-02-27" />
+    <NameValuePair name="$CCNetBuildTime" value="03:08:54" />
+    <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
+    <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
+    <NameValuePair name="$CCNetLabel" value="607" />
+    <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
+    <NameValuePair name="$CCNetListenerFile" value="D:\Projects\Gallio Book\Artifacts\Gallio Book_ListenFile.xml" />
+    <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
+    <NameValuePair name="$CCNetNumericLabel" value="607" />
+    <NameValuePair name="$CCNetProject" value="Gallio Book" />
+    <NameValuePair name="$CCNetProjectUrl" value="http://ccnet.gallio.org/server/local/project/Gallio+Book/ViewLatestBuildReport.aspx" />
+    <NameValuePair name="$CCNetRequestSource" value="GALLIOVM01" />
+    <NameValuePair name="$CCNetUser" value="" />
+    <NameValuePair name="$CCNetWorkingDirectory" value="D:\Projects\Gallio Book\Work" />
+  </Parameters>
+  <WorkingDirectory>D:\Projects\Gallio Book\Work</WorkingDirectory>
+  <ArtifactDirectory>D:\Projects\Gallio Book\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2010-02-26T03:30:00.1107122-08:00</StartTime>
-  <EndTime>2010-02-26T03:31:44.1419622-08:00</EndTime>
+  <StartTime>2010-02-27T03:08:54.7867337-08:00</StartTime>
+  <EndTime>2010-02-27T03:09:28.4117337-08:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>604</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>608</LastSuccessfulIntegrationLabel>
   <FailureUsers />
+  <lastBuild>Success</lastBuild>
+  <SourceControl name="SVN:LastRevision:http://mb-unit.googlecode.com/svn/trunk/Book" />
 </IntegrationResult>
