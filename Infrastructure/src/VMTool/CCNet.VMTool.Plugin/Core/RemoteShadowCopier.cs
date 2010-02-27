@@ -12,7 +12,7 @@ namespace CCNet.VMTool.Plugin.Core
         {
             var localShadowCopier = new DefaultShadowCopier();
             string localFilePath = localShadowCopier.RetrieveFilePath(fileName);
-            return RemoteContext.GetRemoteContext().ShadowCopy(localFilePath);
+            return RemoteContext.GetRemoteContext().Controller.ShadowCopy(localFilePath);
         }
     }
 }

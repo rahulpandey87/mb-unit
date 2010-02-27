@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\CCNetController.cs" />
     <Compile Include="Core\RemoteContextException.cs" />
     <Compile Include="Core\RemoteExecutionEnvironment.cs" />
     <Compile Include="Core\RemoteProcessExecutor.cs" />

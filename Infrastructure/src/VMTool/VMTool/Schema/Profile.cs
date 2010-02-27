@@ -37,8 +37,6 @@ namespace VMTool.Schema
                 throw new ConfigurationFileException(string.Format("Profile '{0}' is missing the 'host' element.", Id));
             if (VM == null)
                 throw new ConfigurationFileException(string.Format("Profile '{0}' is missing the 'vm' element.", Id));
-            if (Snapshot == null)
-                throw new ConfigurationFileException(string.Format("Profile '{0}' is missing the 'snapshot' element.", Id));
         }
     }
 }

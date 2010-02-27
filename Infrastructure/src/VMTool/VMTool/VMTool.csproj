@@ -52,6 +52,7 @@
     <Compile Include="ConfigurationFileException.cs" />
     <Compile Include="ConfigurationFileHelper.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controller.cs" />
     <Compile Include="Schema\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schema\Profile.cs" />
