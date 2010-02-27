@@ -1,10 +1,10 @@
 <!ENTITY HostName 'http://ccnet.gallio.org/'>
 
-<!ENTITY CCNetRoot 'C:\RelEng\CCNet'>
+<!ENTITY CCNetRoot 'C:\Infrastructure\ccnet'>
 
-<!ENTITY ProjectRoot 'C:\RelEng\Projects'>
+<!ENTITY ProjectRoot 'D:\Projects'>
 
-<!ENTITY DistributablesRoot 'C:\RelEng\Distributables'>
+<!ENTITY DistributablesRoot 'D:\Distributables'>
 
 <!ENTITY SVNRoot 'http://mb-unit.googlecode.com/svn'>
 
@@ -25,8 +25,16 @@
       -->
     </users>
     <groups>
-      <group name="buildmasters" notification="always" /> 
-      <group name="developers" notification="change" /> 
+      <group name="buildmasters"> 
+		<notifications>
+			<notificationType>Always</notificationType>
+		</notifications>
+	  </group>
+      <group name="developers"> 
+		<notifications>
+			<notificationType>Change</notificationType>
+		</notifications>
+	  </group>
     </groups>
     <!--
     <converters>

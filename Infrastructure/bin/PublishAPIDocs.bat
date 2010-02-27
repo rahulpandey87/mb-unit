@@ -5,7 +5,7 @@ REM
 setlocal
 set REMOTERSYNC=%~dp0RemoteRSync.bat
 set TARGET=C:\Inetpub\www.gallio.org\api
-set BASE=C:\Infrastructure\data\Distributables\APIDocs
+set BASE=D:\Distributables\APIDocs
 
 set VERSION=%~1
 if not defined VERSION (
