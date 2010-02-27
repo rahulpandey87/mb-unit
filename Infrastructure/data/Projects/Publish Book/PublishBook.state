@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" scmError="false">
   <ProjectName>Publish Book</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/Publish+Book/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>604</Label>
-  <WorkingDirectory>C:\RelEng\Projects\Publish Book\Work</WorkingDirectory>
-  <ArtifactDirectory>C:\RelEng\Projects\Publish Book\Artifacts</ArtifactDirectory>
+  <Label>608</Label>
+  <Parameters>
+    <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\Publish Book\Artifacts" />
+    <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
+    <NameValuePair name="$CCNetBuildDate" value="2010-02-27" />
+    <NameValuePair name="$CCNetBuildTime" value="03:09:31" />
+    <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
+    <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
+    <NameValuePair name="$CCNetLabel" value="607" />
+    <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
+    <NameValuePair name="$CCNetListenerFile" value="D:\Projects\Publish Book\Artifacts\Publish Book_ListenFile.xml" />
+    <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
+    <NameValuePair name="$CCNetNumericLabel" value="607" />
+    <NameValuePair name="$CCNetProject" value="Publish Book" />
+    <NameValuePair name="$CCNetProjectUrl" value="http://ccnet.gallio.org/server/local/project/Publish+Book/ViewLatestBuildReport.aspx" />
+    <NameValuePair name="$CCNetRequestSource" value="GALLIOVM01" />
+    <NameValuePair name="$CCNetUser" value="" />
+    <NameValuePair name="$CCNetWorkingDirectory" value="D:\Projects\Publish Book\Work" />
+  </Parameters>
+  <WorkingDirectory>D:\Projects\Publish Book\Work</WorkingDirectory>
+  <ArtifactDirectory>D:\Projects\Publish Book\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2010-02-26T03:31:45.7044622-08:00</StartTime>
-  <EndTime>2010-02-26T03:31:56.5950872-08:00</EndTime>
+  <StartTime>2010-02-27T03:09:31.3023587-08:00</StartTime>
+  <EndTime>2010-02-27T03:09:34.7398587-08:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>604</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>608</LastSuccessfulIntegrationLabel>
   <FailureUsers />
+  <lastBuild>Success</lastBuild>
 </IntegrationResult>
