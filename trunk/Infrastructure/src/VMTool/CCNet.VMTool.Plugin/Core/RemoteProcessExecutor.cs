@@ -10,7 +10,7 @@ namespace CCNet.VMTool.Plugin.Core
     {
         public override ProcessResult Execute(ProcessInfo processInfo)
         {
-            return RemoteContext.GetRemoteContext().Execute(processInfo, OnProcessOutput);
+            return RemoteContext.GetRemoteContext().Controller.RemoteExecute(processInfo, OnProcessOutput);
         }
     }
 }

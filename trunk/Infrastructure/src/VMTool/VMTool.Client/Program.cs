@@ -8,6 +8,7 @@ using Thrift.Transport;
 using VMTool.Thrift;
 using System.IO;
 using VMTool.Schema;
+using System.Collections.Specialized;
 
 namespace VMTool.Client
 {
@@ -22,6 +23,24 @@ namespace VMTool.Client
                 if (!parser.ParseArguments(args, options, Console.Error))
                     return 1;
 
+                Command command = CreateCommand(options);
+                if (command == null)
+                {
+                    Console.Error.WriteLine("Must specify a command.");
+                    return 1;
+                }
+
+                bool haveHost = options.Host != null;
+                bool haveProfile = options.Configuration != null || options.Profile != null;
+                if (haveHost && haveProfile
+                    || ! haveHost && ! haveProfile
+                    || (options.Configuration != null) != (options.Profile != null))
+                {
+                    Console.Error.WriteLine("Must specify either --host or both --configuration and --profile.");
+                    return 1;
+                }
+
+                ClientController controller;
                 if (options.Configuration != null && options.Profile != null)
                 {
                     Configuration configuration = ConfigurationFileHelper.LoadConfiguration(options.Configuration);
@@ -32,37 +51,24 @@ namespace VMTool.Client
                         return 1;
                     }
 
-                    options.Host = profile.Host;
-                    options.Port = profile.Port;
-                    options.VM = profile.VM;
-                    options.Snapshot = profile.Snapshot;
+                    controller = new ClientController(profile.Host, profile.Port, profile.VM, profile.Snapshot);
                 }
-
-                if (options.Host == null)
+                else
                 {
-                    Console.Error.WriteLine("Must specify --host or --configuration and --profile.");
-                    return 1;
+                    controller = new ClientController(options.Host, options.Port, options.VM, options.Snapshot);
                 }
 
-                Command command = CreateCommand(options);
-                if (command == null)
-                {
-                    Console.Error.WriteLine("Must specify a command.");
-                    return 1;
-                }
+                controller.Quiet = options.Quiet;
 
-                if (! command.Validate(options))
-                    return 1;
-
-                TTransport transport = new TSocket(options.Host, options.Port);
                 try
                 {
-                    TProtocol protocol = new TBinaryProtocol(transport);
-                    VMToolService.Client client = new VMToolService.Client(protocol);
+                    using (controller)
+                    {
+                        if (!command.Validate(controller, options))
+                            return 1;
 
-                    transport.Open();
-
-                    command.Execute(client, options);
+                        return command.Execute(controller, options);
+                    }
                 }
                 catch (OperationFailedException ex)
                 {
@@ -74,12 +80,8 @@ namespace VMTool.Client
                         Console.Error.WriteLine("Details:");
                         Console.Error.WriteLine(ex.Details);
                     }
+                    return 1;
                 }
-                finally
-                {
-                    transport.Close();
-                }
-                return 0;
             }
             catch (Exception ex)
             {
@@ -106,18 +108,24 @@ namespace VMTool.Client
                 return new GetStatusCommand();
             else if (options.GetIP)
                 return new GetIPCommand();
+            else if (options.Execute)
+                return new ExecuteCommand();
+            else if (options.CopyToVM)
+                return new CopyToVMCommand();
+            else if (options.CopyFromVM)
+                return new CopyFromVMCommand();
             else
                 return null;
         }
 
         private abstract class Command
         {
-            public virtual bool Validate(Options options)
+            public virtual bool Validate(ClientController controller, Options options)
             {
                 return true;
             }
 
-            public abstract void Execute(VMToolService.Client client, Options options);
+            public abstract int Execute(ClientController controller, Options options);
 
             protected static bool Check(bool condition, string message)
             {
@@ -133,128 +141,163 @@ namespace VMTool.Client
 
         private abstract class VMCommand : Command
         {
-            public override bool Validate(Options options)
+            public override bool Validate(ClientController controller, Options options)
             {
-                return Check(options.VM != null, "--vm required for this command.");
-            }
-        }
-
-        private abstract class VMAndSnapshotCommand : Command
-        {
-            public override bool Validate(Options options)
-            {
-                return Check(options.VM != null, "--vm required for this command.")
-                    && Check(options.Snapshot != null, "--snapshot required for this command.");
+                return Check(controller.VM != null, "--vm or --profile required for this command.");
             }
         }
 
         private class StartCommand : VMCommand
         {
-            public override void Execute(VMToolService.Client client, Options options)
+            public override int Execute(ClientController controller, Options options)
             {
-                var req = new StartRequest()
-                {
-                    Vm = options.VM,
-                    Snapshot = options.Snapshot
-                };
-
-                client.Start(req);
+                controller.Start();
+                return 0;
             }
         }
 
         private class PowerOffCommand : VMCommand
         {
-            public override void Execute(VMToolService.Client client, Options options)
+            public override int Execute(ClientController controller, Options options)
             {
-                var req = new PowerOffRequest()
-                {
-                    Vm = options.VM
-                };
-
-                client.PowerOff(req);
+                controller.PowerOff();
+                return 0;
             }
         }
 
         private class ShutdownCommand : VMCommand
         {
-            public override void Execute(VMToolService.Client client, Options options)
+            public override int Execute(ClientController controller, Options options)
             {
-                var req = new ShutdownRequest()
-                {
-                    Vm = options.VM
-                };
-
-                client.Shutdown(req);
+                controller.Shutdown();
+                return 0;
             }
         }
 
         private class PauseCommand : VMCommand
         {
-            public override void Execute(VMToolService.Client client, Options options)
+            public override int Execute(ClientController controller, Options options)
             {
-                var req = new PauseRequest()
-                {
-                    Vm = options.VM
-                };
-
-                client.Pause(req);
+                controller.Pause();
+                return 0;
             }
         }
 
         private class ResumeCommand : VMCommand
         {
-            public override void Execute(VMToolService.Client client, Options options)
+            public override int Execute(ClientController controller, Options options)
             {
-                var req = new ResumeRequest()
-                {
-                    Vm = options.VM
-                };
-
-                client.Resume(req);
+                controller.Resume();
+                return 0;
             }
         }
 
-        private class TakeSnapshotCommand : VMAndSnapshotCommand
+        private class TakeSnapshotCommand : VMCommand
         {
-            public override void Execute(VMToolService.Client client, Options options)
+            public override bool Validate(ClientController controller, Options options)
             {
-                var req = new TakeSnapshotRequest()
-                {
-                    Vm = options.VM,
-                    SnapshotName = options.Snapshot
-                };
+                return base.Validate(controller, options)
+                    && Check(options.Values != null && options.Values.Count == 1,
+                    "Missing new snapshot name.");
+            }
 
-                client.TakeSnapshot(req);
+            public override int Execute(ClientController controller, Options options)
+            {
+                controller.TakeSnapshot(options.Values[0]);
+                return 0;
             }
         }
 
         private class GetStatusCommand : VMCommand
         {
-            public override void Execute(VMToolService.Client client, Options options)
+            public override int Execute(ClientController controller, Options options)
             {
-                var req = new GetStatusRequest()
-                {
-                    Vm = options.VM
-                };
-
-                GetStatusResponse response = client.GetStatus(req);
-
-                Console.Out.WriteLine(response.Status);
+                Status status = controller.GetStatus();
+                Console.Out.WriteLine(status);
+                return 0;
             }
         }
 
         private class GetIPCommand : VMCommand
         {
-            public override void Execute(VMToolService.Client client, Options options)
+            public override int Execute(ClientController controller, Options options)
             {
-                var req = new GetIPRequest()
+                string ip = controller.GetIP();
+                Console.Out.WriteLine(ip);
+                return 0;
+            }
+        }
+
+        private class ExecuteCommand : VMCommand
+        {
+            public override bool Validate(ClientController controller, Options options)
+            {
+                return base.Validate(controller, options)
+                    && Check(options.Values != null && options.Values.Count >= 1,
+                    "Missing command to execute.");
+            }
+
+            public override int Execute(ClientController controller, Options options)
+            {
+                StringDictionary environmentVariables = null;
+                if (options.EnvironmentVariables != null)
                 {
-                    Vm = options.VM
-                };
+                    environmentVariables = new StringDictionary();
+                    foreach (string v in options.EnvironmentVariables)
+                    {
+                        int equalsPos = v.IndexOf('=');
+                        if (equalsPos < 0)
+                            environmentVariables[v] = "";
+                        else
+                            environmentVariables[v.Substring(0, equalsPos)] = v.Substring(equalsPos + 1);
+                    }
+                }
 
-                GetIPResponse response = client.GetIP(req);
+                string executable = options.Values[0];
+                StringBuilder arguments = new StringBuilder();
+                for (int i = 1; i < options.Values.Count; i++)
+                {
+                    if (i != 1)
+                        arguments.Append(" ");
+                    arguments.Append("\"").Append(options.Values[i]).Append("\"");
+                }
 
-                Console.Out.WriteLine(response.Ip);
+                return controller.RemoteExecute(executable, arguments.ToString(), options.WorkingDirectory,
+                    environmentVariables,
+                    line => Console.Out.WriteLine(line),
+                    line => Console.Error.WriteLine(line));
+            }
+        }
+
+        private class CopyToVMCommand : VMCommand
+        {
+            public override bool Validate(ClientController controller, Options options)
+            {
+                return base.Validate(controller, options)
+                    && Check(options.Values != null && options.Values.Count == 2,
+                    "Missing local or remote files to copy.");
+            }
+
+            public override int Execute(ClientController controller, Options options)
+            {
+                controller.CopyToVM(options.Values[0], options.Values[1], options.Recursive);
+                return 0;
+            }
+        }
+
+        private class CopyFromVMCommand : VMCommand
+        {
+            public override bool Validate(ClientController controller, Options options)
+            {
+                return base.Validate(controller, options)
+                    && Check(options.Values != null && options.Values.Count == 2,
+                    "Missing local or remote files to copy.");
+            }
+
+            public override int Execute(ClientController controller, Options options)
+            {
+                controller.CopyFromVM(options.Values[0], options.Values[1], options.Recursive);
+                return 0;
             }
         }
     }

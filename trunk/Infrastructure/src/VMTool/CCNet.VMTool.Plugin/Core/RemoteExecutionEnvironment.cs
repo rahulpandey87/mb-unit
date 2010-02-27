@@ -25,14 +25,14 @@ namespace CCNet.VMTool.Plugin.Core
 
         public bool IsRunningOnWindows
         {
-            get { return RemoteContext.GetRemoteContext().IsWindows; }
+            get { return RemoteContext.GetRemoteContext().Controller.IsWindows; }
         }
 
         public string RuntimeDirectory
         {
             get
             {
-                if (RemoteContext.GetRemoteContext().IsWindows)
+                if (RemoteContext.GetRemoteContext().Controller.IsWindows)
                     return @"C:\Windows\Microsoft.Net\Framework\v2.0.50727";
                 throw new NotSupportedException();
             }

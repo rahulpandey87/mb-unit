@@ -77,13 +77,13 @@ namespace CCNet.VMTool.Plugin.Tasks
                 throw new BuilderException(this, string.Format("Did not find profile '{0}' in configuration file '{1}'.", Profile, configurationFullPath));
 
             using (RemoteContext remoteContext = new RemoteContext(
-                profile.Host, profile.Port, profile.VM, profile.Snapshot))
+                new CCNetController(profile.Host, profile.Port, profile.VM, profile.Snapshot)))
             {
-                Status status = remoteContext.GetStatus();
+                Status status = remoteContext.Controller.GetStatus();
                 if (status != Status.OFF)
-                    remoteContext.PowerOff();
+                    remoteContext.Controller.PowerOff();
 
-                remoteContext.Start();
+                remoteContext.Controller.Start();
 
                 try
                 {
@@ -96,7 +96,7 @@ namespace CCNet.VMTool.Plugin.Tasks
                 }
                 finally
                 {
-                    remoteContext.PowerOff();
+                    remoteContext.Controller.PowerOff();
                 }
             }
 
