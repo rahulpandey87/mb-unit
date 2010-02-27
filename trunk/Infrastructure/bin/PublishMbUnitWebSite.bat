@@ -5,7 +5,7 @@ REM
 setlocal
 set REMOTERSYNC=%~dp0RemoteRSync.bat
 set TARGET=C:\Inetpub\www.mbunit.com\main
-set BASE=C:\Infrastructure\data\Distributables
+set BASE=D:\Distributables
 
 set VERSION=%~1
 if not defined VERSION (
