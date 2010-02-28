@@ -169,56 +169,14 @@ namespace VMTool.Core
             return response.Status;
         }
 
-        public int LocalExecute(string executable, string arguments, string workingDirectory,
+        public int Execute(string executable, string arguments, string workingDirectory,
             IDictionary<string, string> environmentVariables,
-            LineHandler stdoutHandler, LineHandler stderrHandler)
-        {
-            LogExecute("Executing local command: ", executable, arguments, workingDirectory, environmentVariables);
-
-            return InternalExecute(executable, arguments, workingDirectory, environmentVariables, stdoutHandler, stderrHandler);
-        }
-
-        public int RemoteExecute(string executable, string arguments, string workingDirectory,
-            IDictionary<string, string> environmentVariables,
-            LineHandler stdoutHandler, LineHandler stderrHandler)
+            LineHandler stdoutHandler, LineHandler stderrHandler, TimeSpan? timeout)
         {
             CheckProfileCanResolveSlave();
 
-            LogExecute("Executing remote command: ", executable, arguments, workingDirectory, environmentVariables);
-
-            ExecuteRequest request = new ExecuteRequest();
-            request.Executable = executable;
-            if (arguments.Length != 0)
-                request.Arguments = arguments;
-            if (workingDirectory != null)
-                request.WorkingDirectory = workingDirectory;
-            if (environmentVariables != null)
-                request.EnvironmentVariables = new Dictionary<string, string>(environmentVariables);
-
-            ExecuteResponse response = GetSlaveClient().Execute(request,
-                stream =>
-                {
-                    if (stream.__isset.stdoutLine)
-                        stdoutHandler(stream.StdoutLine);
-                    if (stream.__isset.stderrLine)
-                        stderrHandler(stream.StderrLine);
-                });
-            return response.ExitCode;
-        }
-
-        protected virtual int InternalExecute(string executable, string arguments, string workingDirectory,
-            IDictionary<string, string> environmentVariables,
-            LineHandler stdoutHandler, LineHandler stderrHandler)
-        {
-            return ProcessUtil.Execute(executable, arguments, workingDirectory, environmentVariables,
-                stdoutHandler, stderrHandler, null);
-        }
-
-        protected void LogExecute(string heading, string executable, string arguments,
-            string workingDirectory, IDictionary<string, string> environmentVariables)
-        {
             StringBuilder message = new StringBuilder();
-            message.AppendLine(heading);
+            message.AppendLine("Executing remote command: ");
             message.AppendFormat("  Executable  : {0}\n", executable);
             message.AppendFormat("  Arguments   : {0}\n", arguments);
 
@@ -233,6 +191,27 @@ namespace VMTool.Core
             }
 
             Log(message.ToString());
+
+            ExecuteRequest request = new ExecuteRequest();
+            request.Executable = executable;
+            if (arguments.Length != 0)
+                request.Arguments = arguments;
+            if (workingDirectory != null)
+                request.WorkingDirectory = workingDirectory;
+            if (environmentVariables != null)
+                request.EnvironmentVariables = new Dictionary<string, string>(environmentVariables);
+            if (timeout.HasValue)
+                request.Timeout = (int) timeout.Value.TotalSeconds;
+
+            ExecuteResponse response = GetSlaveClient().Execute(request,
+                stream =>
+                {
+                    if (stream.__isset.stdoutLine)
+                        stdoutHandler(stream.StdoutLine);
+                    if (stream.__isset.stderrLine)
+                        stderrHandler(stream.StderrLine);
+                });
+            return response.ExitCode;
         }
 
         public string ShadowCopy(string localFilePath)

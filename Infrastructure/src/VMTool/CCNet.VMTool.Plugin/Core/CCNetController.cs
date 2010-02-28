@@ -15,8 +15,6 @@ namespace CCNet.VMTool.Plugin.Core
     {
         public delegate void OnProcessOutput(ProcessOutputEventArgs e);
 
-        private ProcessResult lastProcessResult;
-
         public CCNetController(Profile profile)
             : base(profile)
         {
@@ -42,39 +40,32 @@ namespace CCNet.VMTool.Plugin.Core
 
                 filteredEnvironmentVariables.Add(name, value);
 			}
-		
-            base.RemoteExecute(processInfo.FileName,
+
+            StringBuilder stdoutBuilder = new StringBuilder();
+            StringBuilder stderrBuilder = new StringBuilder();
+
+            int exitCode = Execute(processInfo.FileName,
                 processInfo.Arguments,
                 string.IsNullOrEmpty(processInfo.WorkingDirectory) ? null : processInfo.WorkingDirectory,
                 filteredEnvironmentVariables,
-                line => output(new ProcessOutputEventArgs(ProcessOutputType.StandardOutput, line)),
-                line => output(new ProcessOutputEventArgs(ProcessOutputType.ErrorOutput, line)));
+                line =>
+                    {
+                        stdoutBuilder.AppendLine(line);
+                        output(new ProcessOutputEventArgs(ProcessOutputType.StandardOutput, line));
+                    },
+                line =>
+                    {
+                        stderrBuilder.AppendLine(line);
+                        output(new ProcessOutputEventArgs(ProcessOutputType.ErrorOutput, line));
+                    },
+                TimeSpan.FromMilliseconds(processInfo.TimeOut));
 
-            return lastProcessResult;
-        }
-
-        protected override int InternalExecute(string executable, string arguments, string workingDirectory,
-            IDictionary<string, string> environmentVariables, LineHandler stdoutHandler, LineHandler stderrHandler)
-        {
-            PrivateArguments privateArgs = new PrivateArguments(arguments);
-            ProcessInfo processInfo = new ProcessInfo(executable, privateArgs, workingDirectory);
-
-            if (environmentVariables != null)
-            {
-                foreach (KeyValuePair<string, string> entry in environmentVariables)
-                    processInfo.EnvironmentVariables.Add((string)entry.Key, (string)entry.Value);
-            }
-
-            ProcessExecutor localProcessExecutor = new ProcessExecutor();
-            localProcessExecutor.ProcessOutput += (sender, e) =>
-            {
-                if (e.OutputType == ProcessOutputType.StandardOutput)
-                    stdoutHandler(e.Data);
-                else
-                    stderrHandler(e.Data);
-            };
-            lastProcessResult = localProcessExecutor.Execute(processInfo);
-            return lastProcessResult.ExitCode;
+            return new ProcessResult(
+                stdoutBuilder.ToString(),
+                stderrBuilder.ToString(),
+                exitCode,
+                exitCode == -1,
+                ! processInfo.ProcessSuccessful(exitCode));
         }
     }
 }

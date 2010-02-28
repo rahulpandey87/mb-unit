@@ -155,7 +155,8 @@ namespace VMTool.Client
                     && CheckUnusedRecursive(options)
                     && CheckUnusedForce(options)
                     && CheckUnusedEnvironmentVariables(options)
-                    && CheckUnusedWorkingDirectory(options);
+                    && CheckUnusedWorkingDirectory(options)
+                    && CheckUnusedTimeout(options);
             }
 
             public abstract int Execute(ClientController controller, ClientOptions options);
@@ -188,6 +189,12 @@ namespace VMTool.Client
             {
                 return Check(options.WorkingDirectory == null,
                     "--dir is not used by this command.");
+            }
+
+            protected virtual bool CheckUnusedTimeout(ClientOptions options)
+            {
+                return Check(options.Timeout == 0,
+                    "--timeout is not used by this command.");
             }
 
             protected static bool Check(bool condition, string message)
@@ -317,6 +324,11 @@ namespace VMTool.Client
                 return true;
             }
 
+            protected override bool CheckUnusedTimeout(ClientOptions options)
+            {
+                return true;
+            }
+
             public override int Execute(ClientController controller, ClientOptions options)
             {
                 Dictionary<string, string> environmentVariables = null;
@@ -347,10 +359,11 @@ namespace VMTool.Client
                         arguments.Append(argument);
                 }
 
-                return controller.RemoteExecute(executable, arguments.ToString(), options.WorkingDirectory,
+                return controller.Execute(executable, arguments.ToString(), options.WorkingDirectory,
                     environmentVariables,
                     line => Console.Out.WriteLine(line),
-                    line => Console.Error.WriteLine(line));
+                    line => Console.Error.WriteLine(line),
+                    options.Timeout <= 0 ? (TimeSpan?)null : TimeSpan.FromSeconds(options.Timeout));
             }
 
             private static bool ShouldArgumentBeQuoted(string arg)
