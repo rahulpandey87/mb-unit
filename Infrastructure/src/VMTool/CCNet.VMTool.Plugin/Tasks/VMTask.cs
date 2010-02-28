@@ -70,7 +70,7 @@ namespace CCNet.VMTool.Plugin.Tasks
         protected override bool Execute(IIntegrationResult result)
         {
             result.BuildProgressInformation.SignalStartRunTask(
-                string.Format("Starting VM profile '{0}' declared in configuration file '{1}'.",
+                string.Format("Starting virtual machine profile '{0}' declared in configuration file '{1}'.",
                 Profile, Configuration));
 
             string configurationFullPath = result.BaseFromWorkingDirectory(Configuration);
