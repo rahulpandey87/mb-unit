@@ -17,23 +17,22 @@ namespace CCNet.VMTool.Plugin.Tasks
     [ReflectorType("vm")]
     public class VMTask : TaskBase
     {
-        /// <summary>
-        /// The path of a configuration file in the workspace.
-        /// </summary>
+        public VMTask()
+        {
+            ConnectionTimeout = Constants.DefaultConnectionTimeoutSeconds;
+        }
+
         [ReflectorProperty("configuration", Required = true)]
         public string Configuration { get; set; }
 
-        /// <summary>
-        /// The profile id of the VM to manipulate.
-        /// </summary>
         [ReflectorProperty("profile", Required = true)]
         public string Profile { get; set; }
 
-        /// <summary>
-        /// Tasks to perform while the VM is running.  May include both local and remote tasks.
-        /// </summary>
         [ReflectorProperty("tasks")]
         public ITask[] Tasks { get; set; }
+
+        [ReflectorProperty("connectionTimeout")]
+        public int ConnectionTimeout { get; set; }
 
         protected override bool Execute(IIntegrationResult result)
         {
@@ -52,6 +51,8 @@ namespace CCNet.VMTool.Plugin.Tasks
 
             using (CCNetController controller = new CCNetController(profile))
             {
+                controller.ConnectionTimeout = TimeSpan.FromSeconds(ConnectionTimeout);
+
                 using (RemoteContext remoteContext = new RemoteContext(controller))
                 {
                     Status status = remoteContext.Controller.GetStatus();

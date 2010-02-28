@@ -19,6 +19,7 @@ namespace VMTool.Core
         private VMToolMaster.Client masterClientLazy;
         private VMToolSlaveCustom.Client slaveClientLazy;
         private string ipLazy;
+        private TimeSpan connectionTimeout;
 
         public Controller(Profile profile)
         {
@@ -26,6 +27,7 @@ namespace VMTool.Core
                 throw new ArgumentNullException("profile");
 
             this.profile = profile;
+            connectionTimeout = TimeSpan.FromSeconds(Constants.DefaultConnectionTimeoutSeconds);
         }
 
         public void Dispose()
@@ -46,6 +48,12 @@ namespace VMTool.Core
         public Profile Profile
         {
             get { return profile; }
+        }
+
+        public TimeSpan ConnectionTimeout
+        {
+            get { return connectionTimeout; }
+            set { connectionTimeout = value; }
         }
 
         public bool IsWindows
@@ -338,9 +346,8 @@ namespace VMTool.Core
 
                 Log(string.Format("Connecting to master server '{0}:{1}'.", profile.Master, profile.MasterPort));
 
-                TTransport transport = new TSocket(profile.Master, profile.MasterPort);
+                TTransport transport = OpenTransport(profile.Master, profile.MasterPort);
                 TProtocol protocol = new TBinaryProtocol(transport);
-                transport.Open();
                 masterClientLazy = new VMToolMaster.Client(protocol);
             }
 
@@ -356,13 +363,38 @@ namespace VMTool.Core
                 string slave = profile.Slave != null ? profile.Slave : GetIP();
                 Log(string.Format("Connecting to slave server '{0}:{1}'.", slave, profile.SlavePort));
 
-                TTransport transport = new TSocket(slave, profile.SlavePort);
+                TTransport transport = OpenTransport(slave, profile.SlavePort);
                 TProtocol protocol = new TBinaryProtocol(transport);
-                transport.Open();
                 slaveClientLazy = new VMToolSlaveCustom.Client(protocol);
             }
 
             return slaveClientLazy;
+        }
+
+        private TTransport OpenTransport(string hostname, int port)
+        {
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            for (int i = 1; ; i++)
+            {
+                try
+                {
+                    TTransport transport = new TSocket(hostname, port);
+                    transport.Open();
+                    return transport;
+                }
+                catch (Exception ex)
+                {
+                    if (stopwatch.Elapsed > connectionTimeout)
+                    {
+                        throw new OperationFailedException()
+                        {
+                            Why = string.Format("Timed out attempting to connect after {0} tries in over {1} seconds.",
+                                i, connectionTimeout.TotalSeconds),
+                            Details = ex.Message
+                        };
+                    }
+                }
+            }
         }
 
         protected virtual void Log(string message)

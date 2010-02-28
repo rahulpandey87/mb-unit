@@ -12,5 +12,8 @@ namespace VMTool
 
         public const int DefaultSlavePort = 3832;
         public const string DefaultSlavePortString = "3832";
+
+        public const int DefaultConnectionTimeoutSeconds = 30;
+        public const string DefaultConnectionTimeoutSecondsString = "30";
     }
 }
