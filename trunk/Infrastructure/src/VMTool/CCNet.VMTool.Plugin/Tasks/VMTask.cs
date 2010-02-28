@@ -60,7 +60,13 @@ namespace CCNet.VMTool.Plugin.Tasks
 
         [ReflectorProperty("stopAction", Required = false)]
         public StopAction ConfiguredStopAction { get; set; }
-		
+
+        [ReflectorProperty("remoteArtifactDirectory", Required = false)]
+        public string RemoteArtifactDirectory { get; set; }
+
+        [ReflectorProperty("remoteWorkingDirectory", Required = false)]
+        public string RemoteWorkingDirectory { get; set; }
+
         protected override bool Execute(IIntegrationResult result)
         {
             result.BuildProgressInformation.SignalStartRunTask(
@@ -82,6 +88,9 @@ namespace CCNet.VMTool.Plugin.Tasks
 
                 using (RemoteContext remoteContext = new RemoteContext(controller))
                 {
+                    remoteContext.RemoteArtifactDirectory = RemoteArtifactDirectory;
+                    remoteContext.RemoteWorkingDirectory = RemoteWorkingDirectory;
+
                     Status status = controller.GetStatus();
 
 					switch (ConfiguredStartAction)
@@ -105,8 +114,14 @@ namespace CCNet.VMTool.Plugin.Tasks
                         foreach (ITask task in Tasks)
                         {
                             IIntegrationResult subResult = result.Clone();
-                            task.Run(subResult);
-                            result.Merge(subResult);
+                            try
+                            {
+                                task.Run(subResult);
+                            }
+                            finally
+                            {
+                                result.Merge(subResult);
+                            }
                         }
                     }
                     finally

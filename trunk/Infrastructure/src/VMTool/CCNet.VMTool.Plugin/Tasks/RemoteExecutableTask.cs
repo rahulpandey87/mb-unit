@@ -17,6 +17,11 @@ namespace CCNet.VMTool.Plugin.Tasks
         {
         }
 
+        protected override bool Execute(IIntegrationResult result)
+        {
+            return RemoteContext.GetRemoteContext().RunWithRemoteResult(base.Execute, result);
+        }
+
         protected override string GetProcessBaseDirectory(IIntegrationResult result)
         {
             return ConfiguredBaseDirectory ?? "";

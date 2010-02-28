@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Collections;
 using System.IO;
 using VMTool;
+using ThoughtWorks.CruiseControl.Core;
 
 namespace CCNet.VMTool.Plugin.Core
 {
@@ -56,6 +57,28 @@ namespace CCNet.VMTool.Plugin.Core
         public CCNetController Controller
         {
             get { return controller; }
+        }
+
+        public string RemoteArtifactDirectory { get; set; }
+
+        public string RemoteWorkingDirectory { get; set; }
+
+        public bool RunWithRemoteResult(Func<IIntegrationResult, bool> action, IIntegrationResult result)
+        {
+            IIntegrationResult remoteResult = result.Clone();
+            if (RemoteArtifactDirectory != null)
+                remoteResult.ArtifactDirectory = RemoteArtifactDirectory;
+            if (RemoteWorkingDirectory != null)
+                remoteResult.WorkingDirectory = RemoteWorkingDirectory;
+
+            try
+            {
+                return action(remoteResult);
+            }
+            finally
+            {
+                result.Merge(remoteResult);
+            }
         }
     }
 }
