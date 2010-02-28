@@ -53,8 +53,15 @@ namespace CCNet.VMTool.Plugin.Core
 
         public ProcessResult RemoteExecute(ProcessInfo processInfo, OnProcessOutput output)
         {
+			StringDictionary filteredEnvironmentVariables = new StringDictionary();
+			foreach (DictionaryEntry entry in processInfo.EnvironmentVariables)
+			{
+				if (((string) entry.Key).StartsWith("ccnet", StringComparison.InvariantCultureIgnoreCase))
+					filteredEnvironmentVariables.Add((string)entry.Key, (string)entry.Value);
+			}
+		
             base.RemoteExecute(processInfo.FileName, processInfo.Arguments, processInfo.WorkingDirectory,
-                processInfo.EnvironmentVariables,
+                filteredEnvironmentVariables,
                 line => output(new ProcessOutputEventArgs(ProcessOutputType.StandardOutput, line)),
                 line => output(new ProcessOutputEventArgs(ProcessOutputType.ErrorOutput, line)));
 

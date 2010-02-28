@@ -8,9 +8,10 @@ namespace CCNet.VMTool.Plugin.Core
 {
     public class RemoteShadowCopier : IShadowCopier
     {
+		private readonly IShadowCopier localShadowCopier = new DefaultShadowCopier();
+	
         public string RetrieveFilePath(string fileName)
         {
-            var localShadowCopier = new DefaultShadowCopier();
             string localFilePath = localShadowCopier.RetrieveFilePath(fileName);
             return RemoteContext.GetRemoteContext().Controller.ShadowCopy(localFilePath);
         }

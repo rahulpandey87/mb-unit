@@ -40,11 +40,21 @@ namespace CCNet.VMTool.Plugin.Core
 
         public static RemoteContext GetRemoteContext()
         {
-            var context = CallContext.GetData(CallContextSlot) as RemoteContext;
+            RemoteContext context = GetRemoteContextOrNullIfNone();
             if (context == null)
                 throw new RemoteContextException("There is no remote context.  Is the task nested within a <vm> element?");
             return context;
         }
+		
+		public static bool HasRemoteContext()
+		{
+			return GetRemoteContextOrNullIfNone() != null;
+		}
+		
+		private static RemoteContext GetRemoteContextOrNullIfNone()
+		{
+			return CallContext.GetData(CallContextSlot) as RemoteContext;
+		}
 
         public CCNetController Controller
         {

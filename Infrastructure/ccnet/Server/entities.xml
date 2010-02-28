@@ -8,6 +8,14 @@
 
 <!ENTITY SVNRoot 'http://mb-unit.googlecode.com/svn'>
 
+<!ENTITY WindowsPrologue '
+  <script>net use P: \\192.168.128.201\Projects /persistent:no >nul 2>nul</script>
+  <script>net use Q: \\192.168.128.201\CCNet /persistent:no >nul 2>nul</script>'>
+  
+<!ENTITY WindowsSubstitutions '
+  <substitution orig="&ProjectRoot;" replacement="P:" />
+  <substitution orig="&CCNetRoot;" replacement="Q:" />'>
+  
 <!ENTITY ExternalLinks '
   <externalLinks>
     <externalLink name="Distributables" url="/Distributables" />
