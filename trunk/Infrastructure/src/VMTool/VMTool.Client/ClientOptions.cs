@@ -48,6 +48,9 @@ namespace VMTool.Client
         [Option(null, "force", HelpText = "(copytovm, copyfromvm) Overwrites files if they already exist.")]
         public bool Force;
 
+        [Option(null, "connectionTimeout", HelpText = "Connection timeout in seconds.  Default is " + Constants.DefaultConnectionTimeoutSecondsString + ".")]
+        public int ConnectionTimeout = Constants.DefaultConnectionTimeoutSeconds;
+
         [ValueList(typeof(List<string>))]
         public IList<string> Values;
 

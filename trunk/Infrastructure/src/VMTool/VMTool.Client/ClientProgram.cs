@@ -80,6 +80,7 @@ namespace VMTool.Client
                 using (var controller = new ClientController(profile))
                 {
                     controller.Quiet = options.Quiet;
+                    controller.ConnectionTimeout = TimeSpan.FromSeconds(options.ConnectionTimeout);
 
                     try
                     {
