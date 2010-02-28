@@ -2,18 +2,19 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{40A8D38D-18A8-4507-B8EF-0CBC3BE5E06A}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{72988FFA-CFBB-4567-AF0F-4529A7793688}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CCNet.VMTool.Plugin</RootNamespace>
-    <AssemblyName>CCNet.VMTool.Plugin</AssemblyName>
+    <RootNamespace>VMTool.Master</RootNamespace>
+    <AssemblyName>VMTool.Master</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,9 +24,10 @@
     <WarningLevel>4</WarningLevel>
     <NoWarn>1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\CCNet.VMTool.Plugin.XML</DocumentationFile>
+    <DocumentationFile>bin\VMTool.Master.XML</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
@@ -34,41 +36,39 @@
     <WarningLevel>4</WarningLevel>
     <NoWarn>1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\CCNet.VMTool.Plugin.XML</DocumentationFile>
+    <DocumentationFile>bin\VMTool.Master.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NetReflector">
-      <HintPath>..\..\..\ccnet\CCNet\Server\NetReflector.dll</HintPath>
+    <Reference Include="CommandLine">
+      <HintPath>..\..\..\tools\CommandLine\CommandLine.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\tools\log4net\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
-    <Reference Include="ThoughtWorks.CruiseControl.Core">
-      <HintPath>..\..\..\ccnet\CCNet\Server\ThoughtWorks.CruiseControl.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="ThoughtWorks.CruiseControl.Remote">
-      <HintPath>..\..\..\ccnet\CCNet\Server\ThoughtWorks.CruiseControl.Remote.dll</HintPath>
-    </Reference>
     <Reference Include="Thrift">
       <HintPath>..\..\..\tools\Thrift\bin\Thrift.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\CCNetController.cs" />
-    <Compile Include="Core\RemoteContextException.cs" />
-    <Compile Include="Core\RemoteExecutionEnvironment.cs" />
-    <Compile Include="Core\RemoteProcessExecutor.cs" />
-    <Compile Include="Core\RemoteShadowCopier.cs" />
+    <Compile Include="MasterOptions.cs" />
+    <Compile Include="MasterProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tasks\RemoteCopyFromVMTask.cs" />
-    <Compile Include="Tasks\RemoteCopyToVMTask.cs" />
-    <Compile Include="Tasks\RemoteExecutableTask.cs" />
-    <Compile Include="Tasks\RemoteMsBuildTask.cs" />
-    <Compile Include="Core\RemoteContext.cs" />
-    <Compile Include="Tasks\VMTask.cs" />
+    <Compile Include="MasterServer.cs" />
+    <Compile Include="MasterService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MasterServiceHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VMTool\VMTool.csproj">
@@ -76,7 +76,9 @@
       <Name>VMTool</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

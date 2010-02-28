@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 
-namespace VMTool
+namespace VMTool.Schema
 {
     [Serializable]
     public class ConfigurationFileException : Exception

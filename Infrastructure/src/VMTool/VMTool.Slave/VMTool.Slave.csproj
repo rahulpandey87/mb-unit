@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DFA4ABE0-0A5A-4186-A1E8-5E73A215767B}</ProjectGuid>
+    <ProjectGuid>{D2658269-B482-4001-92CB-BAAB2BF70764}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VMTool.Service</RootNamespace>
-    <AssemblyName>VMTool.Service</AssemblyName>
+    <RootNamespace>VMTool.Slave</RootNamespace>
+    <AssemblyName>VMTool.Slave</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -24,7 +24,7 @@
     <WarningLevel>4</WarningLevel>
     <NoWarn>1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\VMTool.Service.XML</DocumentationFile>
+    <DocumentationFile>bin\VMTool.Slave.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,14 +36,13 @@
     <WarningLevel>4</WarningLevel>
     <NoWarn>1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\VMTool.Service.XML</DocumentationFile>
+    <DocumentationFile>bin\VMTool.Slave.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommandLine, Version=1.7.10.5, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="CommandLine">
       <HintPath>..\..\..\tools\CommandLine\CommandLine.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
@@ -62,25 +61,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Options.cs" />
-    <Compile Include="Service.cs">
+    <Compile Include="SlaveOptions.cs" />
+    <Compile Include="SlaveProgram.cs" />
+    <Compile Include="SlaveServer.cs" />
+    <Compile Include="SlaveService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Service.Designer.cs">
-      <DependentUpon>Service.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="SlaveServiceHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VMToolServiceHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VMTool\VMTool.csproj">
       <Project>{887C2D02-1E3D-4E9C-BB01-63DD4642F20D}</Project>
       <Name>VMTool</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

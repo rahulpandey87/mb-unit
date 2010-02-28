@@ -14,34 +14,6 @@ using CCNet.VMTool.Plugin.Core;
 
 namespace CCNet.VMTool.Plugin.Tasks
 {
-    /// <summary>
-    /// Starts a VM snapshot, runs a sequence of (possibly remote) tasks,
-    /// then powers off the VM.
-    /// </summary>
-    /// <example>
-    /// <![CDATA[
-    /// <!-- CCNet configuration -->
-    /// <vm configuration="vm-config-file.xml" profile="Windows 2003 x86">
-    ///   <tasks>
-    ///     <remote-copy ... />
-    ///     <remote-msbuild ... />
-    ///     <remote-copy ... />
-    ///   </tasks>
-    /// </vm>
-    /// 
-    /// <!-- Config file -->
-    /// <configuration>
-    ///   <profiles>
-    ///     <profile id="Windows 2003 x86">
-    ///       <host>192.168.128.2</host>
-    ///       <port>3831</port>
-    ///       <vm>Gallio Build Agent - Windows 2003 x86, Everything</vm>
-    ///       <snapshot>Revision 1</snapshot>
-    ///     </profile>
-    ///   </profiles>
-    /// </configuration>
-    /// ]]>
-    /// </example>
     [ReflectorType("vm")]
     public class VMTask : TaskBase
     {
@@ -71,46 +43,50 @@ namespace CCNet.VMTool.Plugin.Tasks
 
             string configurationFullPath = result.BaseFromWorkingDirectory(Configuration);
 
-            Configuration configuration = ConfigurationFileHelper.LoadConfiguration(configurationFullPath);
-            Profile profile = configuration.GetProfileById(Profile);
-            if (profile == null)
+            XmlConfiguration xmlConfiguration = ConfigurationFileHelper.LoadConfiguration(configurationFullPath);
+            XmlProfile xmlProfile = xmlConfiguration.GetProfileById(Profile);
+            if (xmlProfile == null)
                 throw new BuilderException(this, string.Format("Did not find profile '{0}' in configuration file '{1}'.", Profile, configurationFullPath));
 
-            using (RemoteContext remoteContext = new RemoteContext(
-                new CCNetController(profile.Host, profile.Port, profile.VM, profile.Snapshot)))
+            global::VMTool.Core.Profile profile = xmlProfile.ToProfile();
+
+            using (CCNetController controller = new CCNetController(profile))
             {
-                Status status = remoteContext.Controller.GetStatus();
-
-                if (profile.Snapshot != null)
+                using (RemoteContext remoteContext = new RemoteContext(controller))
                 {
-                    if (status == Status.RUNNING || status == Status.PAUSED)
-                        remoteContext.Controller.PowerOff();
+                    Status status = remoteContext.Controller.GetStatus();
 
-                    remoteContext.Controller.Start();
-                }
-                else
-                {
-                    if (status == Status.PAUSED)
-                        remoteContext.Controller.Resume();
-                    else if (status == Status.OFF || status == Status.SAVED)
-                        remoteContext.Controller.Start();
-                }
-
-                try
-                {
-                    foreach (ITask task in Tasks)
+                    if (xmlProfile.Snapshot != null)
                     {
-                        IIntegrationResult subResult = result.Clone();
-                        task.Run(subResult);
-                        result.Merge(subResult);
+                        if (status == Status.RUNNING || status == Status.PAUSED)
+                            remoteContext.Controller.PowerOff();
+
+                        remoteContext.Controller.Start();
                     }
-                }
-                finally
-                {
-                    if (profile.Snapshot != null)
-                        remoteContext.Controller.PowerOff();
                     else
-                        remoteContext.Controller.SaveState();
+                    {
+                        if (status == Status.PAUSED)
+                            remoteContext.Controller.Resume();
+                        else if (status == Status.OFF || status == Status.SAVED)
+                            remoteContext.Controller.Start();
+                    }
+
+                    try
+                    {
+                        foreach (ITask task in Tasks)
+                        {
+                            IIntegrationResult subResult = result.Clone();
+                            task.Run(subResult);
+                            result.Merge(subResult);
+                        }
+                    }
+                    finally
+                    {
+                        if (xmlProfile.Snapshot != null)
+                            remoteContext.Controller.PowerOff();
+                        else
+                            remoteContext.Controller.SaveState();
+                    }
                 }
             }
 

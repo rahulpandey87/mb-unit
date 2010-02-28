@@ -5,20 +5,20 @@ using System.Text;
 using CommandLine;
 using CommandLine.Text;
 
-namespace VMTool.Service
+namespace VMTool.Slave
 {
-    public class Options
+    public class SlaveOptions
     {
         [Option("d", "debug", HelpText="Run in debug mode as a console application.")]
         public bool Debug;
 
-        [Option("p", "port", HelpText = "The port number.  Default is 3831.")]
-        public int Port = 3831;
+        [Option("p", "port", HelpText = "The port number.  Default is " + Constants.DefaultSlavePortString + ".")]
+        public int Port = Constants.DefaultSlavePort;
 
         [HelpOption(null, "help", HelpText = "Display help text.")]
         public string GetUsage()
         {
-            var helpText = new HelpText("VMTool Service");
+            var helpText = new HelpText("VMTool Slave");
             helpText.AddOptions(this);
             return helpText.ToString();
         }
