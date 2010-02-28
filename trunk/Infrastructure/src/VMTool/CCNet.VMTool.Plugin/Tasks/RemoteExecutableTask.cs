@@ -6,6 +6,7 @@ using ThoughtWorks.CruiseControl.Core.Tasks;
 using Exortech.NetReflector;
 using CCNet.VMTool.Plugin.Core;
 using ThoughtWorks.CruiseControl.Core;
+using ThoughtWorks.CruiseControl.Core.Util;
 
 namespace CCNet.VMTool.Plugin.Tasks
 {
@@ -17,14 +18,14 @@ namespace CCNet.VMTool.Plugin.Tasks
         {
         }
 
-        protected override bool Execute(IIntegrationResult result)
+        protected override ProcessInfo CreateProcessInfo(IIntegrationResult result)
         {
-            return RemoteContext.GetRemoteContext().RunWithRemoteResult(base.Execute, result);
+            return RemoteContext.GetRemoteContext().RunWithRemoteResult(base.CreateProcessInfo, result);
         }
 
         protected override string GetProcessBaseDirectory(IIntegrationResult result)
         {
-            return ConfiguredBaseDirectory ?? "";
+            return ConfiguredBaseDirectory ?? RemoteContext.GetRemoteContext().RemoteWorkingDirectory  ?? "";
         }
     }
 }
