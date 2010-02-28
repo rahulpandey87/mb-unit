@@ -48,6 +48,9 @@ namespace VMTool.Client
         [Option(null, "force", HelpText = "(copytovm, copyfromvm) Overwrites files if they already exist.")]
         public bool Force;
 
+        [Option(null, "timeout", HelpText = "(execute) Command timeout in seconds.  Default is none.")]
+        public int Timeout = 0;
+
         [Option(null, "connectionTimeout", HelpText = "Connection timeout in seconds.  Default is " + Constants.DefaultConnectionTimeoutSecondsString + ".")]
         public int ConnectionTimeout = Constants.DefaultConnectionTimeoutSeconds;
 
@@ -70,7 +73,7 @@ namespace VMTool.Client
             helpText.AddPreOptionsLine("  getstatus");
             helpText.AddPreOptionsLine("  getip");
             helpText.AddPreOptionsLine("  execute <command> <args...> [--dir <working dir>]");
-            helpText.AddPreOptionsLine("      [--env <var>=<value>...]");
+            helpText.AddPreOptionsLine("      [--env <var>=<value>...] [--timeout <seconds>]");
             helpText.AddPreOptionsLine("  copytovm <local file glob> <remote file> [--recursive] [--force]");
             helpText.AddPreOptionsLine("  copyfromvm <remote file glob> <local file> [--recursive] [--force]");
             helpText.AddPreOptionsLine("");

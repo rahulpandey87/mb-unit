@@ -120,7 +120,8 @@ struct ExecuteRequest
 	1: required string executable,
 	2: optional string arguments,
 	3: optional string workingDirectory,
-	4: optional map<string, string> environmentVariables
+	4: optional map<string, string> environmentVariables,
+	5: optional i32 timeout // seconds
 }
 
 struct ExecuteResponse

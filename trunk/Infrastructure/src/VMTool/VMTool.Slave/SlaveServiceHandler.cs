@@ -22,6 +22,8 @@ namespace VMTool.Slave
             message.AppendFormat("Execute:\n  Executable: {0}", request.Executable);
             if (request.__isset.arguments)
                 message.AppendFormat("\n  Arguments: {0}", request.Arguments);
+            if (request.__isset.timeout)
+                message.AppendFormat("\n  Timeout: {0} seconds", request.Timeout);
             if (request.__isset.workingDirectory)
                 message.AppendFormat("\n  WorkingDirectory: {0}", request.WorkingDirectory);
             if (request.__isset.environmentVariables)
@@ -41,7 +43,7 @@ namespace VMTool.Slave
                     request.__isset.environmentVariables ? request.EnvironmentVariables : null,
                     line => stream(new ExecuteStream() { StdoutLine = line }),
                     line => stream(new ExecuteStream() { StderrLine = line }),
-                    null);
+                    request.__isset.timeout ? TimeSpan.FromSeconds(request.Timeout) : (TimeSpan?) null);
             }
             catch (Exception ex)
             {
