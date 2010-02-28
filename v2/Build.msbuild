@@ -23,6 +23,7 @@
     <HTMLHelpCompilerPath>$(ProgramFiles)\HTML Help Workshop\hhc.exe</HTMLHelpCompilerPath>
     <NSISPath>$(ProgramFiles)\NSIS\makensis.exe</NSISPath>
     <SourceServerIndexerPath>$(ProgramFiles)\Debugging Tools for Windows\sdk\srcsrv\ssindex.cmd</SourceServerIndexerPath>
+    <SourceServerIndexerPath Condition="! Exists('$(SourceServerIndexerPath)')">$(ProgramFiles)\Debugging Tools for Windows (x86)\srcsrv\ssindex.cmd</SourceServerIndexerPath>
 
     <CSharpProperties>
       Configuration=Release;
