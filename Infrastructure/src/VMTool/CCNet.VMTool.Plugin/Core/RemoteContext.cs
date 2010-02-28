@@ -63,7 +63,7 @@ namespace CCNet.VMTool.Plugin.Core
 
         public string RemoteWorkingDirectory { get; set; }
 
-        public bool RunWithRemoteResult(Func<IIntegrationResult, bool> action, IIntegrationResult result)
+        public T RunWithRemoteResult<T>(Func<IIntegrationResult, T> action, IIntegrationResult result)
         {
             IIntegrationResult remoteResult = result.Clone();
             if (RemoteArtifactDirectory != null)
