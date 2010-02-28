@@ -5,6 +5,7 @@ using System.Text;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using Exortech.NetReflector;
 using CCNet.VMTool.Plugin.Core;
+using ThoughtWorks.CruiseControl.Core;
 
 namespace CCNet.VMTool.Plugin.Tasks
 {
@@ -14,6 +15,11 @@ namespace CCNet.VMTool.Plugin.Tasks
         public RemoteExecutableTask() :
             base(new RemoteProcessExecutor())
         {
+        }
+
+        protected override string GetProcessBaseDirectory(IIntegrationResult result)
+        {
+            return ConfiguredBaseDirectory ?? "";
         }
     }
 }

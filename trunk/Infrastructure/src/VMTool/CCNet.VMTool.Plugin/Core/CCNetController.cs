@@ -43,7 +43,9 @@ namespace CCNet.VMTool.Plugin.Core
                 filteredEnvironmentVariables.Add(name, value);
 			}
 		
-            base.RemoteExecute(processInfo.FileName, processInfo.Arguments, processInfo.WorkingDirectory,
+            base.RemoteExecute(processInfo.FileName,
+                processInfo.Arguments,
+                string.IsNullOrEmpty(processInfo.WorkingDirectory) ? null : processInfo.WorkingDirectory,
                 filteredEnvironmentVariables,
                 line => output(new ProcessOutputEventArgs(ProcessOutputType.StandardOutput, line)),
                 line => output(new ProcessOutputEventArgs(ProcessOutputType.ErrorOutput, line)));
