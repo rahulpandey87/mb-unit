@@ -5,7 +5,7 @@ REM CCNet server directory.
 setlocal
 set SRC_DIR=%~dp0
 set BIN_DIR=%SRC_DIR%..\bin
-set CCNET_SERVER_DIR=%SRC_DIR%..\public\CCNet\Server
+set CCNET_SERVER_DIR=%SRC_DIR%..\ccnet\Server
 
 echo Building projects.
 %SystemRoot%\Microsoft.Net\Framework\v3.5\msbuild.exe "%SRC_DIR%VMTool\VMTool.sln"

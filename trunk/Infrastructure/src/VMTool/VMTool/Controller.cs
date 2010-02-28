@@ -329,8 +329,7 @@ namespace VMTool
 
         private static string EscapeLiteralForUnix(string str)
         {
-            return str.Replace(@"\", @"\\")
-                .Replace(" ", @"\ ");
+            return str.Replace(@"\", @"\\");
         }
 
         private static string ToCygwinPath(string str)
