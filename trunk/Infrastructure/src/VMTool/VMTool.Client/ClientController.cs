@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections.Specialized;
+using VMTool.Core;
 
 namespace VMTool.Client
 {
     public class ClientController : Controller
     {
-        public ClientController(string host, int port, string vm, string snapshot)
-            : base(host, port, vm, snapshot)
+        public ClientController(Profile profile)
+            : base(profile)
         {
         }
 

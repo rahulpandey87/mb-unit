@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using VMTool.Schema;
 using System.Xml.Serialization;
 using System.IO;
 
-namespace VMTool
+namespace VMTool.Schema
 {
     public static class ConfigurationFileHelper
     {
-        public static Configuration LoadConfiguration(string filePath)
+        public static XmlConfiguration LoadConfiguration(string filePath)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(Configuration));
+            XmlSerializer serializer = new XmlSerializer(typeof(XmlConfiguration));
             try
             {
-                Configuration configuration;
+                XmlConfiguration configuration;
                 using (StreamReader reader = new StreamReader(filePath))
-                    configuration = (Configuration)serializer.Deserialize(reader);
+                    configuration = (XmlConfiguration)serializer.Deserialize(reader);
 
                 configuration.Validate();
                 return configuration;

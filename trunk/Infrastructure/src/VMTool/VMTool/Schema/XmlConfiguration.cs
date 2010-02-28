@@ -8,13 +8,13 @@ namespace VMTool.Schema
 {
     [XmlType]
     [XmlRoot("configuration")]
-    public class Configuration
+    public class XmlConfiguration
     {
         [XmlArray("profiles", IsNullable = false)]
         [XmlArrayItem("profile", IsNullable = false)]
-        public Profile[] Profiles { get; set; }
+        public XmlProfile[] Profiles { get; set; }
 
-        public Profile GetProfileById(string id)
+        public XmlProfile GetProfileById(string id)
         {
             return Profiles.Where(p => p.Id == id).SingleOrDefault();
         }
@@ -22,9 +22,11 @@ namespace VMTool.Schema
         public void Validate()
         {
             if (Profiles == null)
-                throw new ConfigurationFileException("Profiles must not be null.");
+                throw new ConfigurationFileException("Profiles array must not be null.");
+            if (Profiles.Contains(null))
+                throw new ConfigurationFileException("Profiles array must not contain null.");
 
-            foreach (Profile profile in Profiles)
+            foreach (XmlProfile profile in Profiles)
                 profile.Validate();
         }
     }

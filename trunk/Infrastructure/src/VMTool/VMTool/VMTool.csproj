@@ -49,19 +49,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigurationFileException.cs" />
-    <Compile Include="ConfigurationFileHelper.cs" />
+    <Compile Include="Core\FileUtil.cs" />
+    <Compile Include="Core\LineHandler.cs" />
+    <Compile Include="Core\ProcessRunner.cs" />
+    <Compile Include="Core\Profile.cs" />
+    <Compile Include="Schema\ConfigurationFileException.cs" />
+    <Compile Include="Schema\ConfigurationFileHelper.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Controller.cs" />
-    <Compile Include="Schema\Configuration.cs" />
+    <Compile Include="Core\Controller.cs" />
+    <Compile Include="Schema\XmlConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Schema\Profile.cs" />
-    <Compile Include="VMTool.thrift.cs">
+    <Compile Include="Schema\XmlProfile.cs" />
+    <Compile Include="Thrift\VMTool.thrift.cs">
       <DependentUpon>VMTool.thrift</DependentUpon>
     </Compile>
+    <Compile Include="Thrift\VMToolSlaveCustom.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="VMTool.thrift" />
+    <None Include="Thrift\VMTool.thrift" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -18,10 +18,13 @@ namespace CCNet.VMTool.Plugin.Core
     {
         private const string CallContextSlot = "VMTool.RemoteContext";
 
-        private CCNetController controller;
+        private readonly CCNetController controller;
 
         public RemoteContext(CCNetController controller)
         {
+            if (controller == null)
+                throw new ArgumentNullException("controller");
+
             this.controller = controller;
 
             CallContext.SetData(CallContextSlot, this);
@@ -29,12 +32,6 @@ namespace CCNet.VMTool.Plugin.Core
 
         public void Dispose()
         {
-            if (controller != null)
-            {
-                controller.Dispose();
-                controller = null;
-            }
-
             CallContext.FreeNamedDataSlot(CallContextSlot);
         }
 
@@ -58,12 +55,7 @@ namespace CCNet.VMTool.Plugin.Core
 
         public CCNetController Controller
         {
-            get
-            {
-                if (controller == null)
-                    throw new ObjectDisposedException("The remote context has been disposed.");
-                return controller;
-            }
+            get { return controller; }
         }
     }
 }

@@ -7,15 +7,22 @@ using System.Diagnostics;
 using System.IO;
 using log4net;
 using System.Text.RegularExpressions;
+using VMTool.Core;
 
-namespace VMTool.Service
+namespace VMTool.Master
 {
-    public class VMToolServiceHandler : VMToolService.Iface
+    public class MasterServiceHandler : VMToolMaster.Iface
     {
-        private readonly static ILog log = LogManager.GetLogger(typeof(VMToolServiceHandler));
+        private readonly static ILog log = LogManager.GetLogger(typeof(MasterServiceHandler));
 
         public StartResponse Start(StartRequest request)
         {
+            StringBuilder message = new StringBuilder();
+            message.AppendFormat("Start:\n  VM: {0}", request.Vm);
+            if (request.__isset.snapshot)
+                message.AppendFormat("\n  Snapshot: {0}", request.Snapshot);
+            log.Info(message.ToString());
+
             string output;
             int exitCode;
 
@@ -27,11 +34,7 @@ namespace VMTool.Service
                     out output);
                 if (exitCode != 0)
                 {
-                    throw new OperationFailedException()
-                    {
-                        Why = "Failed to restore the snapshot.",
-                        Details = output
-                    };
+                    throw OperationFailed("Failed to restore the snapshot.", output);
                 }
             }
 
@@ -42,11 +45,9 @@ namespace VMTool.Service
 
             if (exitCode != 0)
             {
-                throw new OperationFailedException()
-                {
-                    Why = "Failed to start the virtual machine.",
-                    Details = ErrorDetails(exitCode, output)
-                };
+                throw OperationFailed(
+                    "Failed to start the virtual machine.", 
+                    ErrorDetails(exitCode, output));
             }
 
             return new StartResponse();
@@ -54,6 +55,8 @@ namespace VMTool.Service
 
         public PowerOffResponse PowerOff(PowerOffRequest request)
         {
+            log.InfoFormat("PowerOff:\n  VM: {0}", request.Vm);
+
             string output;
             int exitCode = ExecuteVBoxCommand("VBoxManage.exe",
                 string.Format("controlvm \"{0}\" poweroff", request.Vm),
@@ -62,11 +65,9 @@ namespace VMTool.Service
 
             if (exitCode != 0)
             {
-                throw new OperationFailedException()
-                {
-                    Why = "Failed to power off the virtual machine.",
-                    Details = ErrorDetails(exitCode, output)
-                };
+                throw OperationFailed(
+                    "Failed to power off the virtual machine.", 
+                    ErrorDetails(exitCode, output));
             }
 
             return new PowerOffResponse();
@@ -74,6 +75,8 @@ namespace VMTool.Service
 
         public ShutdownResponse Shutdown(ShutdownRequest request)
         {
+            log.InfoFormat("Shutdown:\n  VM: {0}", request.Vm);
+
             string output;
             int exitCode = ExecuteVBoxCommand("VBoxManage.exe",
                 string.Format("controlvm \"{0}\" acpipowerbutton", request.Vm),
@@ -82,11 +85,9 @@ namespace VMTool.Service
 
             if (exitCode != 0)
             {
-                throw new OperationFailedException()
-                {
-                    Why = "Failed to shutdown the virtual machine.",
-                    Details = ErrorDetails(exitCode, output)
-                };
+                throw OperationFailed(
+                    "Failed to shutdown the virtual machine.", 
+                    ErrorDetails(exitCode, output));
             }
 
             return new ShutdownResponse();
@@ -94,6 +95,8 @@ namespace VMTool.Service
 
         public PauseResponse Pause(PauseRequest request)
         {
+            log.InfoFormat("Pause:\n  VM: {0}", request.Vm);
+
             string output;
             int exitCode = ExecuteVBoxCommand("VBoxManage.exe",
                 string.Format("controlvm \"{0}\" pause", request.Vm),
@@ -102,11 +105,9 @@ namespace VMTool.Service
 
             if (exitCode != 0)
             {
-                throw new OperationFailedException()
-                {
-                    Why = "Failed to pause the virtual machine.",
-                    Details = ErrorDetails(exitCode, output)
-                };
+                throw OperationFailed(
+                    "Failed to pause the virtual machine.", 
+                    ErrorDetails(exitCode, output));
             }
 
             return new PauseResponse();
@@ -114,6 +115,8 @@ namespace VMTool.Service
 
         public ResumeResponse Resume(ResumeRequest request)
         {
+            log.InfoFormat("Resume:\n  VM: {0}", request.Vm);
+
             string output;
             int exitCode = ExecuteVBoxCommand("VBoxManage.exe",
                 string.Format("controlvm \"{0}\" resume", request.Vm),
@@ -122,11 +125,9 @@ namespace VMTool.Service
 
             if (exitCode != 0)
             {
-                throw new OperationFailedException()
-                {
-                    Why = "Failed to resume the virtual machine.",
-                    Details = ErrorDetails(exitCode, output)
-                };
+                throw OperationFailed(
+                    "Failed to resume the virtual machine.",
+                    ErrorDetails(exitCode, output));
             }
 
             return new ResumeResponse();
@@ -134,6 +135,8 @@ namespace VMTool.Service
 
         public SaveStateResponse SaveState(SaveStateRequest request)
         {
+            log.InfoFormat("SaveState:\n  VM: {0}", request.Vm);
+
             string output;
             int exitCode = ExecuteVBoxCommand("VBoxManage.exe",
                 string.Format("controlvm \"{0}\" savestate", request.Vm),
@@ -142,11 +145,9 @@ namespace VMTool.Service
 
             if (exitCode != 0)
             {
-                throw new OperationFailedException()
-                {
-                    Why = "Failed to save the state and stop the virtual machine.",
-                    Details = ErrorDetails(exitCode, output)
-                };
+                throw OperationFailed(
+                    "Failed to save the state and stop the virtual machine.",
+                    ErrorDetails(exitCode, output));
             }
 
             return new SaveStateResponse();
@@ -154,6 +155,8 @@ namespace VMTool.Service
 
         public TakeSnapshotResponse TakeSnapshot(TakeSnapshotRequest request)
         {
+            log.InfoFormat("TakeSnapshot:\n  VM: {0}\n  SnapshotName: {1}", request.Vm, request.SnapshotName);
+
             string output;
             int exitCode = ExecuteVBoxCommand("VBoxManage.exe",
                 string.Format("snapshot \"{0}\" take \"{1}\"", request.Vm, request.SnapshotName),
@@ -162,11 +165,9 @@ namespace VMTool.Service
 
             if (exitCode != 0)
             {
-                throw new OperationFailedException()
-                {
-                    Why = "Failed to take snapshot.",
-                    Details = ErrorDetails(exitCode, output)
-                };
+                throw OperationFailed(
+                    "Failed to take snapshot.",
+                    ErrorDetails(exitCode, output));
             }
 
             return new TakeSnapshotResponse();
@@ -174,6 +175,8 @@ namespace VMTool.Service
 
         public GetStatusResponse GetStatus(GetStatusRequest request)
         {
+            log.InfoFormat("GetStatus:\n  VM: {0}", request.Vm);
+
             string output;
             int exitCode = ExecuteVBoxCommand("VBoxManage.exe",
                 string.Format("showvminfo \"{0}\"", request.Vm),
@@ -184,11 +187,9 @@ namespace VMTool.Service
 
             if (exitCode != 0 || !match.Success)
             {
-                throw new OperationFailedException()
-                {
-                    Why = "Failed to get the status of the virtual machine.",
-                    Details = ErrorDetails(exitCode, output)
-                };
+                throw OperationFailed(
+                    "Failed to get the status of the virtual machine.",
+                    ErrorDetails(exitCode, output));
             }
 
             Status status;
@@ -220,6 +221,8 @@ namespace VMTool.Service
 
         public GetIPResponse GetIP(GetIPRequest request)
         {
+            log.InfoFormat("GetIP:\n  VM: {0}", request.Vm);
+
             string output;
             int exitCode = ExecuteVBoxCommand("VBoxManage.exe",
                 string.Format("guestproperty get \"{0}\" /VirtualBox/GuestInfo/Net/0/V4/IP", request.Vm),
@@ -230,11 +233,9 @@ namespace VMTool.Service
 
             if (exitCode != 0 || ! match.Success)
             {
-                throw new OperationFailedException()
-                {
-                    Why = "Failed to get the IP address of the virtual machine's primary network interface.",
-                    Details = ErrorDetails(exitCode, output)
-                };
+                throw OperationFailed(
+                    "Failed to get the IP address of the virtual machine's primary network interface.",
+                    ErrorDetails(exitCode, output));
             }
 
             string ip = match.Groups[1].Value;
@@ -249,50 +250,29 @@ namespace VMTool.Service
             string installPath = Environment.GetEnvironmentVariable("VBOX_INSTALL_PATH");
             if (installPath == null)
             {
-                throw new OperationFailedException()
-                {
-                    Why = "Server misconfigured: VBOX_INSTALL_PATH environment variable missing."
-                };
+                throw OperationFailed(
+                    "Server misconfigured: VBOX_INSTALL_PATH environment variable missing.",
+                    null);
             }
 
-            var startInfo = new ProcessStartInfo()
-            {
-                FileName = Path.Combine(installPath, fileName),
-                Arguments = args,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true,
-                UseShellExecute = false
-            };
+            string executable = Path.Combine(installPath, fileName);
 
-            log.InfoFormat("Running command: {0} {1}", startInfo.FileName, startInfo.Arguments);
+            log.InfoFormat("Running command: {0} {1}", executable, args);
 
             var outputBuilder = new StringBuilder();
             int exitCode;
             try
             {
-                var process = Process.Start(startInfo);
-                process.OutputDataReceived += (sender, e) => outputBuilder.AppendLine(e.Data);
-                process.ErrorDataReceived += (sender, e) => outputBuilder.AppendLine(e.Data);
-                process.BeginOutputReadLine();
-                process.BeginErrorReadLine();
-
-                if (process.WaitForExit((int) timeout.TotalMilliseconds))
-                    exitCode = process.ExitCode;
-                else
-                    exitCode = -1;
-
-                process.CancelOutputRead();
-                process.CancelErrorRead();
+                exitCode = ProcessUtil.Execute(executable, args, null, null,
+                    line => outputBuilder.AppendLine(line),
+                    line => outputBuilder.AppendLine(line),
+                    timeout);
             }
             catch (Exception ex)
             {
-                throw new OperationFailedException()
-                {
-                    Why = string.Format("Error while running command on server: {0} {1}",
-                        startInfo.FileName, startInfo.Arguments),
-                    Details = ex.Message
-                };
+                throw OperationFailed(
+                    string.Format("Error while running command on server: {0} {1}", executable, args),
+                    ex.Message);
             }
 
             output = outputBuilder.ToString();
@@ -302,15 +282,23 @@ namespace VMTool.Service
 
             if (exitCode == -1)
             {
-                throw new OperationFailedException()
-                {
-                    Why = string.Format("Timed out waiting for command to complete after {0}ms: {1} {2}",
-                        timeout.TotalMilliseconds, startInfo.FileName, startInfo.Arguments),
-                    Details = output
-                };
+                throw OperationFailed(
+                    string.Format("Timed out waiting for command to complete after {0}ms: {1} {2}",
+                        timeout.TotalMilliseconds, executable, args),
+                    output);
             }
 
             return exitCode;
+        }
+
+        private static OperationFailedException OperationFailed(string why, string details)
+        {
+            log.ErrorFormat("Operation failed: {0}", why);
+
+            var ex = new OperationFailedException() { Why = why };
+            if (details != null)
+                ex.Details = details;
+            return ex;
         }
 
         private static string ErrorDetails(int exitCode, string output)

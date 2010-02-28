@@ -11,12 +11,21 @@ echo Building projects.
 %SystemRoot%\Microsoft.Net\Framework\v3.5\msbuild.exe "%SRC_DIR%VMTool\VMTool.sln"
 echo.
 
-echo Copying client.
-copy /y "%SRC_DIR%VMTool\VMTool.Client\bin\*.dll" "%BIN_DIR%"
-copy /y "%SRC_DIR%VMTool\VMTool.Client\bin\*.exe" "%BIN_DIR%"
-copy /y "%SRC_DIR%VMTool\VMTool.Client\bin\*.exe.config" "%BIN_DIR%"
+echo Copying client, master and slave.
+copy /y "%SRC_DIR%VMTool\VMTool.Client\bin\CommandLine.dll" "%BIN_DIR%"
+copy /y "%SRC_DIR%VMTool\VMTool.Client\bin\Thrift.dll" "%BIN_DIR%"
+copy /y "%SRC_DIR%VMTool\VMTool.Client\bin\VMTool.dll" "%BIN_DIR%"
+copy /y "%SRC_DIR%VMTool\VMTool.Client\bin\VMTool.Client.exe" "%BIN_DIR%"
+copy /y "%SRC_DIR%VMTool\VMTool.Client\bin\VMTool.Client.exe.config" "%BIN_DIR%"
+copy /y "%SRC_DIR%VMTool\VMTool.Master\bin\log4net.dll" "%BIN_DIR%"
+copy /y "%SRC_DIR%VMTool\VMTool.Master\bin\VMTool.Master.exe" "%BIN_DIR%"
+copy /y "%SRC_DIR%VMTool\VMTool.Master\bin\VMTool.Master.exe.config" "%BIN_DIR%"
+copy /y "%SRC_DIR%VMTool\VMTool.Slave\bin\VMTool.Slave.exe" "%BIN_DIR%"
+copy /y "%SRC_DIR%VMTool\VMTool.Slave\bin\VMTool.Slave.exe.config" "%BIN_DIR%"
 echo.
 
 echo Copying CCNet server plugin.
-copy /y "%SRC_DIR%VMTool\CCNet.VMTool.Plugin\bin\*.dll" "%CCNET_SERVER_DIR%"
+copy /y "%SRC_DIR%VMTool\CCNet.VMTool.Plugin\bin\Thrift.dll" "%CCNET_SERVER_DIR%"
+copy /y "%SRC_DIR%VMTool\CCNet.VMTool.Plugin\bin\VMTool.dll" "%CCNET_SERVER_DIR%"
+copy /y "%SRC_DIR%VMTool\CCNet.VMTool.Plugin\bin\CCNet.VMTool.Plugin.dll" "%CCNET_SERVER_DIR%"
 echo.

@@ -6,6 +6,8 @@ using VMTool;
 using ThoughtWorks.CruiseControl.Core.Util;
 using System.Collections.Specialized;
 using System.Collections;
+using VMTool.Core;
+using System.Diagnostics;
 
 namespace CCNet.VMTool.Plugin.Core
 {
@@ -15,8 +17,8 @@ namespace CCNet.VMTool.Plugin.Core
 
         private ProcessResult lastProcessResult;
 
-        public CCNetController(string host, int port, string vm, string snapshot)
-            : base(host, port, vm, snapshot)
+        public CCNetController(Profile profile)
+            : base(profile)
         {
         }
 
@@ -25,39 +27,20 @@ namespace CCNet.VMTool.Plugin.Core
             ThoughtWorks.CruiseControl.Core.Util.Log.Info(message);
         }
 
-        public override int LocalExecute(string executable, string arguments, string workingDirectory,
-            StringDictionary environmentVariables, LineHandler stdoutHandler, LineHandler stderrHandler)
-        {
-            LogExecute("Executing local command: ", executable, arguments, workingDirectory, environmentVariables);
-
-            PrivateArguments privateArgs = new PrivateArguments(arguments);
-            ProcessInfo processInfo = new ProcessInfo(executable, privateArgs, workingDirectory);
-
-            if (environmentVariables != null)
-            {
-                foreach (DictionaryEntry entry in environmentVariables)
-                    processInfo.EnvironmentVariables.Add((string)entry.Key, (string)entry.Value);
-            }
-
-            ProcessExecutor localProcessExecutor = new ProcessExecutor();
-            localProcessExecutor.ProcessOutput += (sender, e) =>
-                {
-                    if (e.OutputType == ProcessOutputType.StandardOutput)
-                        stdoutHandler(e.Data);
-                    else
-                        stderrHandler(e.Data);
-                };
-            lastProcessResult = localProcessExecutor.Execute(processInfo);
-            return lastProcessResult.ExitCode;
-        }
-
         public ProcessResult RemoteExecute(ProcessInfo processInfo, OnProcessOutput output)
         {
-			StringDictionary filteredEnvironmentVariables = new StringDictionary();
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+
+			var filteredEnvironmentVariables = new Dictionary<string, string>();
 			foreach (DictionaryEntry entry in processInfo.EnvironmentVariables)
 			{
-				if (((string) entry.Key).StartsWith("ccnet", StringComparison.InvariantCultureIgnoreCase))
-					filteredEnvironmentVariables.Add((string)entry.Key, (string)entry.Value);
+                string name = (string)entry.Key;
+                string value = (string)entry.Value;
+
+                if (startInfo.EnvironmentVariables[name] == value)
+                    continue; // skip locally defined variables
+
+                filteredEnvironmentVariables.Add(name, value);
 			}
 		
             base.RemoteExecute(processInfo.FileName, processInfo.Arguments, processInfo.WorkingDirectory,
@@ -66,6 +49,30 @@ namespace CCNet.VMTool.Plugin.Core
                 line => output(new ProcessOutputEventArgs(ProcessOutputType.ErrorOutput, line)));
 
             return lastProcessResult;
+        }
+
+        protected override int InternalExecute(string executable, string arguments, string workingDirectory,
+            IDictionary<string, string> environmentVariables, LineHandler stdoutHandler, LineHandler stderrHandler)
+        {
+            PrivateArguments privateArgs = new PrivateArguments(arguments);
+            ProcessInfo processInfo = new ProcessInfo(executable, privateArgs, workingDirectory);
+
+            if (environmentVariables != null)
+            {
+                foreach (KeyValuePair<string, string> entry in environmentVariables)
+                    processInfo.EnvironmentVariables.Add((string)entry.Key, (string)entry.Value);
+            }
+
+            ProcessExecutor localProcessExecutor = new ProcessExecutor();
+            localProcessExecutor.ProcessOutput += (sender, e) =>
+            {
+                if (e.OutputType == ProcessOutputType.StandardOutput)
+                    stdoutHandler(e.Data);
+                else
+                    stderrHandler(e.Data);
+            };
+            lastProcessResult = localProcessExecutor.Execute(processInfo);
+            return lastProcessResult.ExitCode;
         }
     }
 }
