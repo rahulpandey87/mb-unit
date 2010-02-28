@@ -20,7 +20,7 @@ namespace CCNet.VMTool.Plugin.Tasks
 
         protected override ProcessInfo CreateProcessInfo(IIntegrationResult result)
         {
-            return RemoteContext.GetRemoteContext().RunWithRemoteResult(base.CreateProcessInfo, result);
+            return RemoteContext.GetRemoteContext().RunWithRemoteResult<ProcessInfo>(base.CreateProcessInfo, result);
         }
 
         protected override string GetProcessBaseDirectory(IIntegrationResult result)
