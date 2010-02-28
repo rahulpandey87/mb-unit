@@ -18,10 +18,10 @@ namespace CCNet.VMTool.Plugin.Tasks
         [ReflectorProperty("dest", Required = true)]
         public string Destination { get; set; }
 
-        [ReflectorProperty("recursive")]
+        [ReflectorProperty("recursive", Required = false)]
         public bool Recursive { get; set; }
 
-        [ReflectorProperty("force")]
+        [ReflectorProperty("force", Required = false)]
         public bool Force { get; set; }
 
         protected override bool Execute(IIntegrationResult result)
