@@ -10,6 +10,7 @@ using VMTool.Thrift;
 using Thrift.Transport;
 using Thrift.Server;
 using log4net;
+using System.Threading;
 
 namespace VMTool.Slave
 {
@@ -29,7 +30,7 @@ namespace VMTool.Slave
 
         protected override void OnStart(string[] args)
         {
-            server.Run();
+            new Thread(() => server.Run()).Start();
         }
 
         protected override void OnStop()
