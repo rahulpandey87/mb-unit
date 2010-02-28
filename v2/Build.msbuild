@@ -121,7 +121,7 @@
 
   <Target Name="BuildInstaller"
           DependsOnTargets="CreateBuildDir">
-    <Warning Text="The NSIS tools must be installed to generate the installer.  Look in libs\Setup Files for the NSIS installer."
+    <Warning Text="The NSIS tools must be installed to generate the installer.  Look in tools for the NSIS installer."
              Condition="! Exists('$(NSISPath)')" />
 
     <Exec Command="&quot;$(NSISPath)&quot; /V2 /NOCONFIG /DVERSION=$(Version) /DROOTDIR=&quot;$(RootDir)&quot; &quot;$(SourceDir)\installer\MbUnit.nsi&quot;"
@@ -149,10 +149,10 @@
     <Message Text="Building Docs..."
              Importance="High" />
 
-    <Error Text="Sandcastle and Sandcastle Help File Builder must be installed to generate documentation.  To only generate Xml Intellisense docs without Sandcastle, build with 'BuildNoSandcastle.bat'.  Be sure to also install the Sandcastle Styles patches.  Look in tools\Setup Files for the Sandcastle installers and patches."
+    <Error Text="Sandcastle and Sandcastle Help File Builder must be installed to generate documentation.  To only generate Xml Intellisense docs without Sandcastle, build with 'BuildNoSandcastle.bat'.  Be sure to also install the Sandcastle Styles patches.  Look in tools for the Sandcastle installers and patches."
            Condition="! Exists('$(SandcastlePath)') or ! Exists('$(SandcastleHelpFileBuilderPath)')" />
 
-    <Error Text="Microsoft HTML Help Workshop must be installed so that Compiled HTML help (CHM) documentation can be generated.  Look in tools\Setup Files for the Microsoft HTML Help Workshop installer."
+    <Error Text="Microsoft HTML Help Workshop must be installed so that Compiled HTML help (CHM) documentation can be generated.  Download the Microsoft HTML Help Workshop installer from Microsoft."
            Condition="! Exists('$(HTMLHelpCompilerPath)')" />
 
     <CreateProperty Value="@(DocumentedAssembly->'&lt;DocumentationSource sourceFile=&quot;%(FullPath)&quot; /&gt;&lt;DocumentationSource sourceFile=&quot;%(RootDir)%(Directory)%(Filename).xml&quot; /&gt;', '')">
