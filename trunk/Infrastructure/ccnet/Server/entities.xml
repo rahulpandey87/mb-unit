@@ -53,11 +53,11 @@
 
 <!ENTITY MSBuildLogger '<logger>Kobush.Build.Logging.XmlLogger,&CCNetRoot;\server\Kobush.Build.dll</logger>'>
 
-<!ENTITY RemoteMSBuildLogger '<logger>Kobush.Build.Logging.XmlLogger,Q:\server\Kobush.Build.dll</logger>'>
+<!ENTITY RemoteMSBuildLogger '<logger>Kobush.Build.Logging.XmlLogger,Q:\ccnet\server\Kobush.Build.dll</logger>'>
 
 <!ENTITY MapNetworkDrives '
   <remote-exec>
     <executable>cmd</executable>
-	<buildArgs>/c net use P: \\192.168.128.201\Projects 2>nul &amp; net use Q: \\192.168.128.201\CCNet 2>nul</buildArgs>
-	<successExitCodes>0,2</successExitCodes>	
+	<buildArgs>/c net use P: \\192.168.128.201\Projects 2>nul &amp; net use Q: \\192.168.128.201\Infrastructure 2>nul &amp; net use R: \\192.168.128.201\Distributables 2>nul</buildArgs>
+	<successExitCodes>0,2</successExitCodes>
   </remote-exec>'>

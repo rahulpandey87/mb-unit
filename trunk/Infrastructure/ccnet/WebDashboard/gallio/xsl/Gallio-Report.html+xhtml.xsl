@@ -22,14 +22,19 @@
                 xmlns:g="http://www.gallio.org/"
                 xmlns="http://www.w3.org/1999/xhtml">
   <xsl:template match="g:report" mode="xhtml-document">
+    <xsl:param name="contentType" select="text/xhtml+xml" />
+    
     <html xml:lang="en" lang="en" dir="ltr">
       <xsl:comment> saved from url=(0014)about:internet </xsl:comment><xsl:text>&#13;&#10;</xsl:text>
       <head>
+        <meta http-equiv="Content-Type" content="{$contentType}; charset=utf-8" />
         <title>Gallio Test Report</title>
         <link rel="stylesheet" type="text/css" href="{$cssDir}Gallio-Report.css" />
         <link rel="stylesheet" type="text/css" href="{$cssDir}Gallio-Report.generated.css" />
         <script type="text/javascript" src="{$jsDir}Gallio-Report.js" />
-        <script type="text/javascript" src="{$jsDir}swfobject.js" />
+        <xsl:if test="g:testPackageRun//g:testStepRun/g:testLog/g:attachments/g:attachment[@contentType='video/x-flv']">
+          <script type="text/javascript" src="{$jsDir}swfobject.js" />
+        </xsl:if>
         <style type="text/css">
 html
 {
@@ -40,12 +45,17 @@ html
       <body class="gallio-report">
         <xsl:apply-templates select="." mode="xhtml-body" />
       </body>
+      <script type="text/javascript">reportLoaded();</script>
     </html>
   </xsl:template>
   
   <xsl:template match="g:report" mode="html-document">
     <xsl:call-template name="strip-namespace">
-      <xsl:with-param name="nodes"><xsl:apply-templates select="." mode="xhtml-document" /></xsl:with-param>
+      <xsl:with-param name="nodes">
+        <xsl:apply-templates select="." mode="xhtml-document">
+          <xsl:with-param name="contentType" select="text/html" />
+        </xsl:apply-templates>
+      </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
@@ -67,10 +77,13 @@ html
 }
       </style>
       <script type="text/javascript" src="{$jsDir}Gallio-Report.js" />
-      <script type="text/javascript" src="{$jsDir}swfobject.js" />
+      <xsl:if test="g:testPackageRun//g:testStepRun/g:testLog/g:attachments/g:attachment[@contentType='video/x-flv']">
+        <script type="text/javascript" src="{$jsDir}swfobject.js" />
+      </xsl:if>
 
       <xsl:apply-templates select="." mode="xhtml-body" />
     </div>
+    <script type="text/javascript">reportLoaded();</script>
   </xsl:template>
 
   <xsl:template match="g:report" mode="html-fragment">
@@ -88,8 +101,9 @@ html
     </div>
     <div id="Content" class="content">
       <iframe id="_asyncLoadFrame" src="about:blank" style="border: 0px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; width: 0px; height: 0px; display: none;" onload="_asyncLoadFrameOnLoad()" />
+      
       <xsl:apply-templates select="g:testPackageRun" mode="statistics" />
-      <xsl:apply-templates select="g:testPackageConfig" mode="assemblies" />
+      <xsl:apply-templates select="g:testPackage" mode="files" />
       <xsl:apply-templates select="g:testModel/g:annotations" mode="annotations"/>
       <xsl:apply-templates select="g:testPackageRun" mode="summary"/>
       <xsl:apply-templates select="g:testPackageRun" mode="details"/>
@@ -97,12 +111,12 @@ html
     </div>
   </xsl:template>
   
-  <xsl:template match="g:testPackageConfig" mode="assemblies">
-    <div id="Assemblies" class="section">
-      <h2>Assemblies</h2>
+  <xsl:template match="g:testPackage" mode="files">
+    <div id="Files" class="section">
+      <h2>Files</h2>
       <div class="section-content">
         <ul>
-          <xsl:for-each select="g:assemblyFiles/g:assemblyFile">
+          <xsl:for-each select="g:files/g:file">
             <li><xsl:call-template name="print-text-with-breaks"><xsl:with-param name="text" select="text()" /></xsl:call-template></li>
           </xsl:for-each>
         </ul>
@@ -392,7 +406,7 @@ html
 
         <div id="detailPanel-{$id}" class="panel">
           <xsl:choose>
-            <xsl:when test="$nestingLevel = 1 or $nestingLevel = 2">
+            <xsl:when test="$nestingLevel = 1">
               <table class="statistics-table">
                 <tr class="alternate-row">
                   <td class="statistics-label-cell">Results:</td>
@@ -594,12 +608,12 @@ html
       <xsl:when test="$attachmentBrokerUrl != ''">
         <xsl:variable name="attachmentBrokerQuery"><xsl:value-of select="$attachmentBrokerUrl"/>testStepId=<xsl:value-of select="../../../g:testStep/@id"/>&amp;attachmentName=<xsl:value-of select="@name"/></xsl:variable>
         
-        <a href="{$attachmentBrokerQuery}"><xsl:value-of select="@name" /></a>
+        <a href="{$attachmentBrokerQuery}" class="attachmentLink"><xsl:value-of select="@name" /></a>
       </xsl:when>
       <xsl:when test="@contentDisposition = 'link'">
         <xsl:variable name="attachmentUri"><xsl:call-template name="path-to-uri"><xsl:with-param name="path" select="@contentPath" /></xsl:call-template></xsl:variable>
         
-        <a href="{$attachmentUri}"><xsl:value-of select="@name" /></a>
+        <a href="{$attachmentUri}" class="attachmentLink"><xsl:value-of select="@name" /></a>
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="@name" /> (n/a)
@@ -783,7 +797,7 @@ html
     <xsl:param name="name" />
     <xsl:param name="uri" />
 
-    <xsl:text>Attachment: </xsl:text><a href="{$uri}"><xsl:value-of select="$name" /></a>
+    <xsl:text>Attachment: </xsl:text><a href="{$uri}" class="attachmentLink"><xsl:value-of select="$name" /></a>
   </xsl:template>
   
   <xsl:template name="embed-attachment-image-from-uri">
@@ -792,7 +806,7 @@ html
     <xsl:param name="uri" />
 
     <div id="{$id}" class="logStreamEmbed">
-      <a href="{$uri}">
+      <a href="{$uri}" class="attachmentLink">
         <img class="embeddedImage" src="{$uri}" alt="Attachment: {$name}" />
       </a>
     </div>
@@ -823,7 +837,7 @@ html
         <xsl:with-param name="uri" select="$uri" />
       </xsl:call-template>
     </div>
-    <script type="text/javascript">setInnerTextFromUri('<xsl:value-of select="$id"/>', '<xsl:value-of select="$uri"/>');</script>
+    <script type="text/javascript">setPreformattedTextFromUri('<xsl:value-of select="$id"/>', '<xsl:value-of select="$uri"/>');</script>
   </xsl:template>
 
   <xsl:template name="embed-attachment-flashvideo-from-uri">
@@ -904,7 +918,7 @@ html
       </xsl:call-template>
       <div id="{$id}-hidden" class="logHiddenData"><xsl:value-of select="$content"/></div>
     </div>
-    <script type="text/javascript">setInnerTextFromHiddenData('<xsl:value-of select="$id"/>');</script>
+    <script type="text/javascript">setPreformattedTextFromHiddenData('<xsl:value-of select="$id"/>');</script>
   </xsl:template>
 
   <xsl:template name="icon">

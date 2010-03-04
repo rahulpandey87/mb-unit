@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Collections;
+using System.Threading;
 
 namespace VMTool.Core
 {
@@ -35,9 +36,12 @@ namespace VMTool.Core
                     startInfo.EnvironmentVariables.Add(entry.Key, entry.Value);
             }
 
+			var stdoutDoneEvent = new ManualResetEvent(false);
+			var stderrDoneEvent = new ManualResetEvent(false);
+			
             Process process = Process.Start(startInfo);
-            process.OutputDataReceived += (sender, e) => { if (e.Data != null) stdoutHandler(e.Data); };
-            process.ErrorDataReceived += (sender, e) => { if (e.Data != null) stderrHandler(e.Data); };
+            process.OutputDataReceived += (sender, e) => HandleLine(e.Data, stdoutHandler, stdoutDoneEvent);
+            process.ErrorDataReceived += (sender, e) => HandleLine(e.Data, stderrHandler, stderrDoneEvent);
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
             if (timeout.HasValue)
@@ -62,8 +66,23 @@ namespace VMTool.Core
             {
                 process.WaitForExit();
             }
-
+			
+			// Wait for all of the data to be read.
+			stdoutDoneEvent.WaitOne(500);
+			stderrDoneEvent.WaitOne(500);
             return process.ExitCode;
         }
+		
+		private static void HandleLine(string line, LineHandler handler, ManualResetEvent doneEvent)
+		{
+			if (line == null)
+			{
+				doneEvent.Set();
+			}
+			else			
+			{
+				handler(line);
+			}
+		}
     }
 }
