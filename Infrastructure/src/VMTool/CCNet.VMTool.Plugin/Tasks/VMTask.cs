@@ -12,6 +12,7 @@ using VMTool.Core;
 using Thrift.Protocol;
 using Thrift.Transport;
 using CCNet.VMTool.Plugin.Core;
+using ThoughtWorks.CruiseControl.Remote;
 
 namespace CCNet.VMTool.Plugin.Tasks
 {
@@ -70,7 +71,7 @@ namespace CCNet.VMTool.Plugin.Tasks
         protected override bool Execute(IIntegrationResult result)
         {
             result.BuildProgressInformation.SignalStartRunTask(
-                string.Format("Starting virtual machine profile '{0}' declared in configuration file '{1}'.",
+                string.Format("Running virtual machine profile '{0}' declared in configuration file '{1}'.",
                 Profile, Configuration));
 
             string configurationFullPath = result.BaseFromWorkingDirectory(Configuration);
@@ -122,6 +123,9 @@ namespace CCNet.VMTool.Plugin.Tasks
                             {
                                 result.Merge(subResult);
                             }
+							
+							if (result.Status != IntegrationStatus.Success)
+								break;
                         }
                     }
                     finally
