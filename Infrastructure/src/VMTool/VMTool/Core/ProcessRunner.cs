@@ -36,24 +36,19 @@ namespace VMTool.Core
                     startInfo.EnvironmentVariables.Add(entry.Key, entry.Value);
             }
 
-			var stdoutDoneEvent = new ManualResetEvent(false);
-			var stderrDoneEvent = new ManualResetEvent(false);
-			
             Process process = Process.Start(startInfo);
-            process.OutputDataReceived += (sender, e) => HandleLine(e.Data, stdoutHandler, stdoutDoneEvent);
-            process.ErrorDataReceived += (sender, e) => HandleLine(e.Data, stderrHandler, stderrDoneEvent);
+            process.OutputDataReceived += (sender, e) => HandleLine(e.Data, stdoutHandler);
+            process.ErrorDataReceived += (sender, e) => HandleLine(e.Data, stderrHandler);
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
             if (timeout.HasValue)
             {
                 if (!process.WaitForExit((int)timeout.Value.TotalMilliseconds))
                 {
-                    process.CancelOutputRead();
-                    process.CancelErrorRead();
-
                     try
                     {
                         process.Kill();
+						process.WaitForExit();
                     }
                     catch (Exception)
                     {
@@ -62,27 +57,17 @@ namespace VMTool.Core
                     throw new TimeoutException(string.Format("Timed out process execution after {0} seconds.", timeout.Value.TotalSeconds));
                 }
             }
-            else
-            {
-                process.WaitForExit();
-            }
 			
-			// Wait for all of the data to be read.
-			stdoutDoneEvent.WaitOne(500);
-			stderrDoneEvent.WaitOne(500);
+			// Wait for exit and for all output to be spooled.
+			// Calling WaitForExit with a timeout is insufficient.
+            process.WaitForExit();
             return process.ExitCode;
         }
 		
-		private static void HandleLine(string line, LineHandler handler, ManualResetEvent doneEvent)
+		private static void HandleLine(string line, LineHandler handler)
 		{
-			if (line == null)
-			{
-				doneEvent.Set();
-			}
-			else			
-			{
+			if (line != null)
 				handler(line);
-			}
 		}
     }
 }
