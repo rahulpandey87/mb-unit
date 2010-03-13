@@ -53,6 +53,9 @@ namespace CCNet.VMTool.Plugin.Tasks
         [ReflectorProperty("tasks", Required = true)]
         public ITask[] Tasks { get; set; }
 
+        [ReflectorProperty("publishers", Required = false)]
+        public ITask[] Publishers { get; set; }
+		
         [ReflectorProperty("connectionTimeout", Required = false)]
         public int ConnectionTimeout { get; set; }
 
@@ -112,21 +115,24 @@ namespace CCNet.VMTool.Plugin.Tasks
 
                     try
                     {
-                        foreach (ITask task in Tasks)
-                        {
-                            IIntegrationResult subResult = result.Clone();
-                            try
-                            {
-                                task.Run(subResult);
-                            }
-                            finally
-                            {
-                                result.Merge(subResult);
-                            }
-							
-							if (result.Status != IntegrationStatus.Success)
-								break;
-                        }
+						if (Tasks != null)
+						{
+							foreach (ITask task in Tasks)
+							{
+								RunTaskAndMergeResult(task, result);
+								
+								if (result.Status != IntegrationStatus.Success)
+									break;
+							}
+						}
+						
+						if (Publishers != null)
+						{
+							foreach (ITask task in Publishers)
+							{
+								RunTaskAndMergeResult(task, result);
+							}
+						}
                     }
                     finally
                     {
@@ -157,6 +163,19 @@ namespace CCNet.VMTool.Plugin.Tasks
 
             return true;
         }
+		
+		private static void RunTaskAndMergeResult(ITask task, IIntegrationResult result)
+		{
+			IIntegrationResult subResult = result.Clone();
+			try
+			{
+				task.Run(subResult);
+			}
+			finally
+			{
+				result.Merge(subResult);
+			}
+		}
 		
 		private static void Restart(Controller controller, Status status)
 		{
