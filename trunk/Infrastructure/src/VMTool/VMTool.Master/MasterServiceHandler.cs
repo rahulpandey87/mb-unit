@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using VMTool.Thrift;
 using System.Diagnostics;
 using System.IO;
@@ -14,6 +15,10 @@ namespace VMTool.Master
     public class MasterServiceHandler : VMToolMaster.Iface
     {
         private readonly static ILog log = LogManager.GetLogger(typeof(MasterServiceHandler));
+        
+        private delegate bool RetryAction(bool lastRetry);
+        private const int RetryDelayMillis = 2000;
+        private const int MaxRetries = 15;
 
         public StartResponse Start(StartRequest request)
         {
@@ -177,41 +182,51 @@ namespace VMTool.Master
         {
             log.InfoFormat("GetStatus:\n  VM: {0}", request.Vm);
 
-            string output;
-            int exitCode = ExecuteVBoxCommand("VBoxManage.exe",
-                string.Format("showvminfo \"{0}\"", request.Vm),
-                TimeSpan.FromSeconds(30),
-                out output);
-
-            Match match = Regex.Match(output, @"State: *([a-zA-Z ]+)");
-
-            if (exitCode != 0 || !match.Success)
+            Status status = Status.UNKNOWN;
+            Retry((lastRetry) =>
             {
-                throw OperationFailed(
-                    "Failed to get the status of the virtual machine.",
-                    ErrorDetails(exitCode, output));
-            }
+                string output;
+                int exitCode = ExecuteVBoxCommand("VBoxManage.exe",
+                    string.Format("showvminfo \"{0}\"", request.Vm),
+                    TimeSpan.FromSeconds(30),
+                    out output);
 
-            Status status;
-            string statusString = match.Groups[1].Value.Trim();
-            switch (statusString)
-            {
-                case "powered off":
-                    status = Status.OFF;
-                    break;
-                case "running":
-                    status = Status.RUNNING;
-                    break;
-                case "paused":
-                    status = Status.PAUSED;
-                    break;
-                case "saved":
-                    status = Status.SAVED;
-                    break;
-                default:
-                    status = Status.UNKNOWN;
-                    break;
-            }
+                Match match = Regex.Match(output, @"State: *([a-zA-Z ]+)");
+
+                if (exitCode != 0 || ! match.Success)
+                {
+                    if (exitCode != 0 || lastRetry)
+                        throw OperationFailed(
+                            "Failed to get the status of the virtual machine.",
+                            ErrorDetails(exitCode, output));
+                    else
+                        return false;
+                }
+                
+                string statusString = match.Groups[1].Value.Trim();
+                switch (statusString)
+                {
+                    case "powered off":
+                        status = Status.OFF;
+                        break;
+                    case "running":
+                        status = Status.RUNNING;
+                        break;
+                    case "paused":
+                        status = Status.PAUSED;
+                        break;
+                    case "saved":
+                        status = Status.SAVED;
+                        break;
+                    default:
+                        status = Status.UNKNOWN;
+                        if (! lastRetry)
+                            return false;
+                        break;
+                }
+                
+                return true;
+            });
 
             return new GetStatusResponse()
             {
@@ -223,22 +238,31 @@ namespace VMTool.Master
         {
             log.InfoFormat("GetIP:\n  VM: {0}", request.Vm);
 
-            string output;
-            int exitCode = ExecuteVBoxCommand("VBoxManage.exe",
-                string.Format("guestproperty get \"{0}\" /VirtualBox/GuestInfo/Net/0/V4/IP", request.Vm),
-                TimeSpan.FromSeconds(30),
-                out output);
-
-            Match match = Regex.Match(output, @"Value: ([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)");
-
-            if (exitCode != 0 || ! match.Success)
+            string ip = null;
+            Retry((lastRetry) =>
             {
-                throw OperationFailed(
-                    "Failed to get the IP address of the virtual machine's primary network interface.",
-                    ErrorDetails(exitCode, output));
-            }
+                string output;
+                int exitCode = ExecuteVBoxCommand("VBoxManage.exe",
+                    string.Format("guestproperty get \"{0}\" /VirtualBox/GuestInfo/Net/0/V4/IP", request.Vm),
+                    TimeSpan.FromSeconds(30),
+                    out output);
 
-            string ip = match.Groups[1].Value;
+                Match match = Regex.Match(output, @"Value: ([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)");
+
+                if (exitCode != 0 || ! match.Success)
+                {
+                    if (exitCode != 0 || lastRetry)
+                        throw OperationFailed(
+                            "Failed to get the IP address of the virtual machine's primary network interface.",
+                            ErrorDetails(exitCode, output));
+                    else
+                        return false;
+                }
+                
+                ip = match.Groups[1].Value;
+                return true;
+            });
+
             return new GetIPResponse()
             {
                 Ip = ip
@@ -304,6 +328,19 @@ namespace VMTool.Master
         private static string ErrorDetails(int exitCode, string output)
         {
             return output + "\nExit Code: " + exitCode;
+        }
+        
+        private static bool Retry(RetryAction action)
+        {
+            for (int i = 0; ; i++)
+            {
+                bool lastRetry = i == MaxRetries;
+                if (action(lastRetry))
+                    return true;
+                if (lastRetry)
+                    return false;
+                Thread.Sleep(RetryDelayMillis);
+            }
         }
     }
 }
