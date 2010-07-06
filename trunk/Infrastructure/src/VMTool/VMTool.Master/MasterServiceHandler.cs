@@ -8,6 +8,8 @@ using System.Diagnostics;
 using System.IO;
 using log4net;
 using System.Text.RegularExpressions;
+using System.Management;
+using System.Globalization;
 using VMTool.Core;
 
 namespace VMTool.Master
@@ -43,19 +45,72 @@ namespace VMTool.Master
                 }
             }
 
-            exitCode = ExecuteVBoxCommand("VBoxManage.exe",
-                string.Format("startvm \"{0}\"", request.Vm),
-                TimeSpan.FromSeconds(30),
-                out output);
-
-            if (exitCode != 0)
+            Retry((lastRetry) =>
             {
-                throw OperationFailed(
-                    "Failed to start the virtual machine.", 
-                    ErrorDetails(exitCode, output));
-            }
+                exitCode = ExecuteVBoxCommand("VBoxManage.exe",
+                    string.Format("startvm \"{0}\"", request.Vm),
+                    TimeSpan.FromSeconds(30),
+                    out output);
+
+                if (exitCode != 0
+                    || output.Contains("E_FAIL")
+                    || output.Contains("VBOX_E_INVALID_OBJECT_STATE"))
+                {
+                    // Sometimes VirtualBox hangs with a VM in a saved state but not completely
+                    // powered off.  When this happens, we need to forcibly kill the VM process.
+                    if (! lastRetry)
+                    {
+                        Status status = GetVmStatus(request.Vm, false);
+                        if (status == Status.SAVED || status == Status.OFF)
+                        {
+                            if (KillHungVm(request.Vm))
+                                return false;
+                        }
+                    }
+                
+                    throw OperationFailed(
+                        "Failed to start the virtual machine.", 
+                        ErrorDetails(exitCode, output));
+                }
+                
+                return true;
+            });
 
             return new StartResponse();
+        }
+        
+        private bool KillHungVm(string vm)
+        {
+            log.InfoFormat("Forcibly killing VM due to an apparent VirtualBox hang: {0}", vm);
+            
+            string commandLineArg = "--comment \"" + vm + "\"";
+            
+            bool found = false;
+            var searcher = new ManagementObjectSearcher("SELECT ProcessId, CommandLine from Win32_Process WHERE Name='VirtualBox.exe'");
+            foreach (ManagementObject result in searcher.Get())
+            {
+                string commandLine = (string) result["CommandLine"];
+                if (commandLine.Contains(commandLineArg))
+                {
+                    int processId = (int) (uint) result["ProcessId"];
+                    
+                    log.InfoFormat("Killing VirtualBox process {0}", processId);
+                    try
+                    {
+                        Process process = Process.GetProcessById(processId);
+                        process.Kill();
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        log.Warn("Could not kill VirtualBox process.", ex);
+                    }
+                    found = true;
+                }
+            }
+            
+            if (! found)
+                log.Warn("Could not find associated VirtualBox process in order to kill it.");
+            return found;
         }
 
         public PowerOffResponse PowerOff(PowerOffRequest request)
@@ -181,13 +236,23 @@ namespace VMTool.Master
         public GetStatusResponse GetStatus(GetStatusRequest request)
         {
             log.InfoFormat("GetStatus:\n  VM: {0}", request.Vm);
+            
+            Status status = GetVmStatus(request.Vm, true);
+            
+            return new GetStatusResponse()
+            {
+                Status = status
+            };
+        }
 
+        private Status GetVmStatus(string vm, bool throwOnError)
+        {
             Status status = Status.UNKNOWN;
             Retry((lastRetry) =>
             {
                 string output;
                 int exitCode = ExecuteVBoxCommand("VBoxManage.exe",
-                    string.Format("showvminfo \"{0}\"", request.Vm),
+                    string.Format("showvminfo \"{0}\"", vm),
                     TimeSpan.FromSeconds(30),
                     out output);
 
@@ -195,7 +260,7 @@ namespace VMTool.Master
 
                 if (exitCode != 0 || ! match.Success)
                 {
-                    if (exitCode != 0 || lastRetry)
+                    if (throwOnError && (exitCode != 0 || lastRetry))
                         throw OperationFailed(
                             "Failed to get the status of the virtual machine.",
                             ErrorDetails(exitCode, output));
@@ -228,10 +293,7 @@ namespace VMTool.Master
                 return true;
             });
 
-            return new GetStatusResponse()
-            {
-                Status = status
-            };
+            return status;
         }
 
         public GetIPResponse GetIP(GetIPRequest request)
