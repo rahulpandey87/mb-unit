@@ -2,33 +2,33 @@
 <IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" scmError="false">
   <ProjectName>MetaBuild</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/MetaBuild/ViewLatestBuildReport.aspx</ProjectUrl>
-  <BuildCondition>ForceBuild</BuildCondition>
-  <Label>0.0.1.173</Label>
+  <BuildCondition>IfModificationExists</BuildCondition>
+  <Label>0.0.1.293</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\MetaBuild\Artifacts" />
-    <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
-    <NameValuePair name="$CCNetBuildDate" value="2010-02-27" />
-    <NameValuePair name="$CCNetBuildTime" value="03:12:32" />
+    <NameValuePair name="$CCNetBuildCondition" value="IfModificationExists" />
+    <NameValuePair name="$CCNetBuildDate" value="2010-07-06" />
+    <NameValuePair name="$CCNetBuildTime" value="07:47:49" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="0.0.1.172" />
+    <NameValuePair name="$CCNetLabel" value="0.0.1.293" />
     <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\MetaBuild\Artifacts\MetaBuild_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
-    <NameValuePair name="$CCNetNumericLabel" value="172" />
+    <NameValuePair name="$CCNetNumericLabel" value="293" />
     <NameValuePair name="$CCNetProject" value="MetaBuild" />
     <NameValuePair name="$CCNetProjectUrl" value="http://ccnet.gallio.org/server/local/project/MetaBuild/ViewLatestBuildReport.aspx" />
-    <NameValuePair name="$CCNetRequestSource" value="GALLIOVM01" />
+    <NameValuePair name="$CCNetRequestSource" value="continuous" />
     <NameValuePair name="$CCNetUser" value="" />
     <NameValuePair name="$CCNetWorkingDirectory" value="D:\Projects\MetaBuild\Work" />
   </Parameters>
   <WorkingDirectory>D:\Projects\MetaBuild\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\MetaBuild\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2010-02-27T03:12:32.7086087-08:00</StartTime>
-  <EndTime>2010-02-27T03:12:38.0054837-08:00</EndTime>
+  <StartTime>2010-07-06T07:47:49.3694836-07:00</StartTime>
+  <EndTime>0001-01-01T00:00:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>0.0.1.173</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>0.0.1.293</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
   <SourceControl name="SVN:LastRevision:http://metabuild.googlecode.com/svn/trunk" />

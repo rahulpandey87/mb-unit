@@ -2,33 +2,33 @@
 <IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" scmError="false">
   <ProjectName>WebSites</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/WebSites/ViewLatestBuildReport.aspx</ProjectUrl>
-  <BuildCondition>ForceBuild</BuildCondition>
-  <Label>193</Label>
+  <BuildCondition>IfModificationExists</BuildCondition>
+  <Label>315</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\WebSites\Artifacts" />
-    <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
-    <NameValuePair name="$CCNetBuildDate" value="2010-02-27" />
-    <NameValuePair name="$CCNetBuildTime" value="03:08:56" />
+    <NameValuePair name="$CCNetBuildCondition" value="IfModificationExists" />
+    <NameValuePair name="$CCNetBuildDate" value="2010-07-06" />
+    <NameValuePair name="$CCNetBuildTime" value="07:46:44" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="192" />
+    <NameValuePair name="$CCNetLabel" value="315" />
     <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\WebSites\Artifacts\WebSites_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
-    <NameValuePair name="$CCNetNumericLabel" value="192" />
+    <NameValuePair name="$CCNetNumericLabel" value="315" />
     <NameValuePair name="$CCNetProject" value="WebSites" />
     <NameValuePair name="$CCNetProjectUrl" value="http://ccnet.gallio.org/server/local/project/WebSites/ViewLatestBuildReport.aspx" />
-    <NameValuePair name="$CCNetRequestSource" value="GALLIOVM01" />
+    <NameValuePair name="$CCNetRequestSource" value="continuous" />
     <NameValuePair name="$CCNetUser" value="" />
     <NameValuePair name="$CCNetWorkingDirectory" value="D:\Projects\WebSites\Work" />
   </Parameters>
   <WorkingDirectory>D:\Projects\WebSites\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\WebSites\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2010-02-27T03:08:56.7711087-08:00</StartTime>
-  <EndTime>2010-02-27T03:09:22.9273587-08:00</EndTime>
+  <StartTime>2010-07-06T07:46:44.0101086-07:00</StartTime>
+  <EndTime>0001-01-01T00:00:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>193</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>315</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
   <SourceControl name="SVN:LastRevision:http://mb-unit.googlecode.com/svn/trunk/WebSites" />

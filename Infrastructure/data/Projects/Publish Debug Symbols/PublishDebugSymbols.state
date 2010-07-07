@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" scmError="false">
-  <ProjectName>Publish API Docs</ProjectName>
-  <ProjectUrl>http://ccnet.gallio.org/server/local/project/Publish+API+Docs/ViewLatestBuildReport.aspx</ProjectUrl>
+  <ProjectName>Publish Debug Symbols</ProjectName>
+  <ProjectUrl>http://ccnet.gallio.org/server/local/project/Publish+Debug+Symbols/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
   <Label>3.2.484.0</Label>
   <Parameters>
-    <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\Publish API Docs\Artifacts" />
+    <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\Publish Debug Symbols\Artifacts" />
     <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
     <NameValuePair name="$CCNetBuildDate" value="2010-07-02" />
-    <NameValuePair name="$CCNetBuildTime" value="00:20:53" />
+    <NameValuePair name="$CCNetBuildTime" value="00:20:40" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
     <NameValuePair name="$CCNetLabel" value="3.2.484.0" />
     <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
-    <NameValuePair name="$CCNetListenerFile" value="D:\Projects\Publish API Docs\Artifacts\Publish API Docs_ListenFile.xml" />
+    <NameValuePair name="$CCNetListenerFile" value="D:\Projects\Publish Debug Symbols\Artifacts\Publish Debug Symbols_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetNumericLabel" value="0" />
-    <NameValuePair name="$CCNetProject" value="Publish API Docs" />
-    <NameValuePair name="$CCNetProjectUrl" value="http://ccnet.gallio.org/server/local/project/Publish+API+Docs/ViewLatestBuildReport.aspx" />
+    <NameValuePair name="$CCNetProject" value="Publish Debug Symbols" />
+    <NameValuePair name="$CCNetProjectUrl" value="http://ccnet.gallio.org/server/local/project/Publish+Debug+Symbols/ViewLatestBuildReport.aspx" />
     <NameValuePair name="$CCNetRequestSource" value="IntervalTrigger" />
     <NameValuePair name="$CCNetUser" value="" />
-    <NameValuePair name="$CCNetWorkingDirectory" value="D:\Projects\Publish API Docs\Work" />
+    <NameValuePair name="$CCNetWorkingDirectory" value="D:\Projects\Publish Debug Symbols\Work" />
   </Parameters>
-  <WorkingDirectory>D:\Projects\Publish API Docs\Work</WorkingDirectory>
-  <ArtifactDirectory>D:\Projects\Publish API Docs\Artifacts</ArtifactDirectory>
+  <WorkingDirectory>D:\Projects\Publish Debug Symbols\Work</WorkingDirectory>
+  <ArtifactDirectory>D:\Projects\Publish Debug Symbols\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2010-07-02T00:20:53.2830625-07:00</StartTime>
-  <EndTime>2010-07-02T00:21:00.5799375-07:00</EndTime>
+  <StartTime>2010-07-02T00:20:40.1736875-07:00</StartTime>
+  <EndTime>2010-07-02T00:20:47.8143125-07:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
   <LastSuccessfulIntegrationLabel>3.2.484.0</LastSuccessfulIntegrationLabel>
   <FailureUsers />

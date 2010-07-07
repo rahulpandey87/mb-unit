@@ -3,32 +3,32 @@
   <ProjectName>MbUnit v2</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/MbUnit+v2/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>2.4.2.821</Label>
+  <Label>2.4.2.923</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\MbUnit v2\Artifacts" />
     <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
-    <NameValuePair name="$CCNetBuildDate" value="2010-02-27" />
-    <NameValuePair name="$CCNetBuildTime" value="03:16:20" />
+    <NameValuePair name="$CCNetBuildDate" value="2010-07-06" />
+    <NameValuePair name="$CCNetBuildTime" value="03:00:00" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="2.4.2.820" />
-    <NameValuePair name="$CCNetLastIntegrationStatus" value="Exception" />
+    <NameValuePair name="$CCNetLabel" value="2.4.2.922" />
+    <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\MbUnit v2\Artifacts\MbUnit v2_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
-    <NameValuePair name="$CCNetNumericLabel" value="820" />
+    <NameValuePair name="$CCNetNumericLabel" value="922" />
     <NameValuePair name="$CCNetProject" value="MbUnit v2" />
     <NameValuePair name="$CCNetProjectUrl" value="http://ccnet.gallio.org/server/local/project/MbUnit+v2/ViewLatestBuildReport.aspx" />
-    <NameValuePair name="$CCNetRequestSource" value="GALLIOVM01" />
+    <NameValuePair name="$CCNetRequestSource" value="nightly" />
     <NameValuePair name="$CCNetUser" value="" />
     <NameValuePair name="$CCNetWorkingDirectory" value="D:\Projects\MbUnit v2\Work" />
   </Parameters>
   <WorkingDirectory>D:\Projects\MbUnit v2\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\MbUnit v2\Artifacts</ArtifactDirectory>
-  <Status>Exception</Status>
-  <StartTime>2010-02-27T03:16:20.0054837-08:00</StartTime>
-  <EndTime>2010-02-27T03:16:28.5523587-08:00</EndTime>
-  <LastIntegrationStatus>Exception</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>2.4.2.818</LastSuccessfulIntegrationLabel>
+  <Status>Success</Status>
+  <StartTime>2010-07-06T03:00:00.1190923-07:00</StartTime>
+  <EndTime>2010-07-06T03:13:14.4472573-07:00</EndTime>
+  <LastIntegrationStatus>Success</LastIntegrationStatus>
+  <LastSuccessfulIntegrationLabel>2.4.2.923</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
   <SourceControl name="SVN:LastRevision:http://mb-unit.googlecode.com/svn/trunk/v2" />
