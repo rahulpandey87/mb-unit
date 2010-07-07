@@ -3,32 +3,32 @@
   <ProjectName>Publish Book</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/Publish+Book/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>608</Label>
+  <Label>663</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\Publish Book\Artifacts" />
     <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
-    <NameValuePair name="$CCNetBuildDate" value="2010-02-27" />
-    <NameValuePair name="$CCNetBuildTime" value="03:09:31" />
+    <NameValuePair name="$CCNetBuildDate" value="2010-07-06" />
+    <NameValuePair name="$CCNetBuildTime" value="03:30:44" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="607" />
-    <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
+    <NameValuePair name="$CCNetLabel" value="662" />
+    <NameValuePair name="$CCNetLastIntegrationStatus" value="Failure" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\Publish Book\Artifacts\Publish Book_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
-    <NameValuePair name="$CCNetNumericLabel" value="607" />
+    <NameValuePair name="$CCNetNumericLabel" value="662" />
     <NameValuePair name="$CCNetProject" value="Publish Book" />
     <NameValuePair name="$CCNetProjectUrl" value="http://ccnet.gallio.org/server/local/project/Publish+Book/ViewLatestBuildReport.aspx" />
-    <NameValuePair name="$CCNetRequestSource" value="GALLIOVM01" />
+    <NameValuePair name="$CCNetRequestSource" value="IntervalTrigger" />
     <NameValuePair name="$CCNetUser" value="" />
     <NameValuePair name="$CCNetWorkingDirectory" value="D:\Projects\Publish Book\Work" />
   </Parameters>
   <WorkingDirectory>D:\Projects\Publish Book\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\Publish Book\Artifacts</ArtifactDirectory>
-  <Status>Success</Status>
-  <StartTime>2010-02-27T03:09:31.3023587-08:00</StartTime>
-  <EndTime>2010-02-27T03:09:34.7398587-08:00</EndTime>
-  <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>608</LastSuccessfulIntegrationLabel>
+  <Status>Failure</Status>
+  <StartTime>2010-07-06T03:30:44.3536241-07:00</StartTime>
+  <EndTime>2010-07-06T03:30:44.3848741-07:00</EndTime>
+  <LastIntegrationStatus>Failure</LastIntegrationStatus>
+  <LastSuccessfulIntegrationLabel>650</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
 </IntegrationResult>

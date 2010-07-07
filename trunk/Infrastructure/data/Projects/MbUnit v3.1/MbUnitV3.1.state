@@ -3,15 +3,15 @@
   <ProjectName>MbUnit v3.1</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/MbUnit+v3.1/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>3.1.488.0</Label>
+  <Label>3.1.568.0</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\MbUnit v3.1\Artifacts" />
     <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
-    <NameValuePair name="$CCNetBuildDate" value="2010-02-27" />
-    <NameValuePair name="$CCNetBuildTime" value="03:16:28" />
+    <NameValuePair name="$CCNetBuildDate" value="2010-07-06" />
+    <NameValuePair name="$CCNetBuildTime" value="15:15:57" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="3.1.487.0" />
+    <NameValuePair name="$CCNetLabel" value="3.1.567.0" />
     <NameValuePair name="$CCNetLastIntegrationStatus" value="Exception" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\MbUnit v3.1\Artifacts\MbUnit v3.1_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
@@ -25,10 +25,10 @@
   <WorkingDirectory>D:\Projects\MbUnit v3.1\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\MbUnit v3.1\Artifacts</ArtifactDirectory>
   <Status>Exception</Status>
-  <StartTime>2010-02-27T03:16:28.8023587-08:00</StartTime>
-  <EndTime>2010-02-27T03:16:54.6929837-08:00</EndTime>
+  <StartTime>2010-07-06T15:15:57.959863-07:00</StartTime>
+  <EndTime>2010-07-06T15:17:32.381738-07:00</EndTime>
   <LastIntegrationStatus>Exception</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>3.1.486.0</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>3.1.514.0</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
   <SourceControl name="SVN:LastRevision:http://mb-unit.googlecode.com/svn/branches/v3.1" />
