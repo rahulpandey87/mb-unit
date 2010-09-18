@@ -1,2 +1,0 @@
-
-(function($){$.tablesorter.addWidget({id:'statusDisplay',format:function(table){$("tr.buildStatus",table.tBodies[0]).each(function(){var row=$(this);var id=row.attr('id');var linkedId='projectData'+id.substring(4);var parent=$('#'+linkedId);row.insertAfter(parent);});}});$.fn.initialiseProjectGrid=function(config){var defaultConfig={sortList:[[0,0]]};config=$.extend(defaultConfig,config||{});this.tablesorter({sortList:config.sortList,widgets:['statusDisplay']});return this;};})(jQuery);
