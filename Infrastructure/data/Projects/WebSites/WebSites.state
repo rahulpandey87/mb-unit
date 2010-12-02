@@ -2,33 +2,33 @@
 <IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" scmError="false">
   <ProjectName>WebSites</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/WebSites/ViewLatestBuildReport.aspx</ProjectUrl>
-  <BuildCondition>IfModificationExists</BuildCondition>
-  <Label>315</Label>
+  <BuildCondition>ForceBuild</BuildCondition>
+  <Label>460</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\WebSites\Artifacts" />
-    <NameValuePair name="$CCNetBuildCondition" value="IfModificationExists" />
-    <NameValuePair name="$CCNetBuildDate" value="2010-07-06" />
-    <NameValuePair name="$CCNetBuildTime" value="07:46:44" />
+    <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
+    <NameValuePair name="$CCNetBuildDate" value="2010-11-30" />
+    <NameValuePair name="$CCNetBuildTime" value="04:00:00" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="315" />
+    <NameValuePair name="$CCNetLabel" value="459" />
     <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\WebSites\Artifacts\WebSites_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
-    <NameValuePair name="$CCNetNumericLabel" value="315" />
+    <NameValuePair name="$CCNetNumericLabel" value="459" />
     <NameValuePair name="$CCNetProject" value="WebSites" />
     <NameValuePair name="$CCNetProjectUrl" value="http://ccnet.gallio.org/server/local/project/WebSites/ViewLatestBuildReport.aspx" />
-    <NameValuePair name="$CCNetRequestSource" value="continuous" />
+    <NameValuePair name="$CCNetRequestSource" value="nightly" />
     <NameValuePair name="$CCNetUser" value="" />
     <NameValuePair name="$CCNetWorkingDirectory" value="D:\Projects\WebSites\Work" />
   </Parameters>
   <WorkingDirectory>D:\Projects\WebSites\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\WebSites\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2010-07-06T07:46:44.0101086-07:00</StartTime>
-  <EndTime>0001-01-01T00:00:00</EndTime>
+  <StartTime>2010-11-30T04:00:00.185625-08:00</StartTime>
+  <EndTime>2010-11-30T04:00:37.95125-08:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>315</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>460</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
   <SourceControl name="SVN:LastRevision:http://mb-unit.googlecode.com/svn/trunk/WebSites" />

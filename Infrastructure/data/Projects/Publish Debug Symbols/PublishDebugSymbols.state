@@ -3,15 +3,15 @@
   <ProjectName>Publish Debug Symbols</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/Publish+Debug+Symbols/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>3.2.484.0</Label>
+  <Label>3.2.679.0</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\Publish Debug Symbols\Artifacts" />
     <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
-    <NameValuePair name="$CCNetBuildDate" value="2010-07-02" />
-    <NameValuePair name="$CCNetBuildTime" value="00:20:40" />
+    <NameValuePair name="$CCNetBuildDate" value="2010-11-30" />
+    <NameValuePair name="$CCNetBuildTime" value="03:44:10" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="3.2.484.0" />
+    <NameValuePair name="$CCNetLabel" value="3.2.678.0" />
     <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\Publish Debug Symbols\Artifacts\Publish Debug Symbols_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
@@ -25,10 +25,10 @@
   <WorkingDirectory>D:\Projects\Publish Debug Symbols\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\Publish Debug Symbols\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2010-07-02T00:20:40.1736875-07:00</StartTime>
-  <EndTime>2010-07-02T00:20:47.8143125-07:00</EndTime>
+  <StartTime>2010-11-30T03:44:10.045-08:00</StartTime>
+  <EndTime>2010-11-30T03:44:27.404375-08:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>3.2.484.0</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>3.2.679.0</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
 </IntegrationResult>
