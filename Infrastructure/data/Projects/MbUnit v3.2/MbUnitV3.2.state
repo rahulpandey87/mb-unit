@@ -2,33 +2,33 @@
 <IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" scmError="false">
   <ProjectName>MbUnit v3.2</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/MbUnit+v3.2/ViewLatestBuildReport.aspx</ProjectUrl>
-  <BuildCondition>ForceBuild</BuildCondition>
-  <Label>3.2.679.0</Label>
+  <BuildCondition>IfModificationExists</BuildCondition>
+  <Label>3.2.837.0</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\MbUnit v3.2\Artifacts" />
-    <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
-    <NameValuePair name="$CCNetBuildDate" value="2010-11-30" />
-    <NameValuePair name="$CCNetBuildTime" value="02:39:38" />
+    <NameValuePair name="$CCNetBuildCondition" value="IfModificationExists" />
+    <NameValuePair name="$CCNetBuildDate" value="2011-06-16" />
+    <NameValuePair name="$CCNetBuildTime" value="00:06:01" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="3.2.678.0" />
-    <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
+    <NameValuePair name="$CCNetLabel" value="3.2.837.0" />
+    <NameValuePair name="$CCNetLastIntegrationStatus" value="Exception" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\MbUnit v3.2\Artifacts\MbUnit v3.2_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetNumericLabel" value="0" />
     <NameValuePair name="$CCNetProject" value="MbUnit v3.2" />
     <NameValuePair name="$CCNetProjectUrl" value="http://ccnet.gallio.org/server/local/project/MbUnit+v3.2/ViewLatestBuildReport.aspx" />
-    <NameValuePair name="$CCNetRequestSource" value="nightly" />
+    <NameValuePair name="$CCNetRequestSource" value="continuous" />
     <NameValuePair name="$CCNetUser" value="" />
     <NameValuePair name="$CCNetWorkingDirectory" value="D:\Projects\MbUnit v3.2\Work" />
   </Parameters>
   <WorkingDirectory>D:\Projects\MbUnit v3.2\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\MbUnit v3.2\Artifacts</ArtifactDirectory>
-  <Status>Success</Status>
-  <StartTime>2010-11-30T02:39:38.779375-08:00</StartTime>
-  <EndTime>2010-11-30T03:43:50.95125-08:00</EndTime>
-  <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>3.2.679.0</LastSuccessfulIntegrationLabel>
+  <Status>Exception</Status>
+  <StartTime>2011-06-16T00:06:01.3168518-07:00</StartTime>
+  <EndTime>0001-01-01T00:00:00</EndTime>
+  <LastIntegrationStatus>Exception</LastIntegrationStatus>
+  <LastSuccessfulIntegrationLabel>3.2.834.0</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
   <SourceControl name="SVN:LastRevision:http://mb-unit.googlecode.com/svn/trunk/v3" />

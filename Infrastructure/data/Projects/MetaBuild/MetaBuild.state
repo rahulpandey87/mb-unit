@@ -3,19 +3,19 @@
   <ProjectName>MetaBuild</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/MetaBuild/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>0.0.1.434</Label>
+  <Label>0.0.1.654</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\MetaBuild\Artifacts" />
     <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
-    <NameValuePair name="$CCNetBuildDate" value="2010-11-30" />
+    <NameValuePair name="$CCNetBuildDate" value="2011-08-10" />
     <NameValuePair name="$CCNetBuildTime" value="04:30:00" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="0.0.1.433" />
+    <NameValuePair name="$CCNetLabel" value="0.0.1.653" />
     <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\MetaBuild\Artifacts\MetaBuild_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
-    <NameValuePair name="$CCNetNumericLabel" value="433" />
+    <NameValuePair name="$CCNetNumericLabel" value="653" />
     <NameValuePair name="$CCNetProject" value="MetaBuild" />
     <NameValuePair name="$CCNetProjectUrl" value="http://ccnet.gallio.org/server/local/project/MetaBuild/ViewLatestBuildReport.aspx" />
     <NameValuePair name="$CCNetRequestSource" value="nightly" />
@@ -25,10 +25,10 @@
   <WorkingDirectory>D:\Projects\MetaBuild\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\MetaBuild\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2010-11-30T04:30:00.185625-08:00</StartTime>
-  <EndTime>2010-11-30T04:30:07.17-08:00</EndTime>
+  <StartTime>2011-08-10T04:30:00.206375-07:00</StartTime>
+  <EndTime>2011-08-10T04:30:03.4095-07:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>0.0.1.434</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>0.0.1.654</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
   <SourceControl name="SVN:LastRevision:http://metabuild.googlecode.com/svn/trunk" />

@@ -3,19 +3,19 @@
   <ProjectName>Publish MbUnit v2 Docs</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/Publish+MbUnit+v2+Docs/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>2.4.2.1052</Label>
+  <Label>2.4.2.1260</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\Publish MbUnit v2 Docs\Artifacts" />
     <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
-    <NameValuePair name="$CCNetBuildDate" value="2010-11-30" />
-    <NameValuePair name="$CCNetBuildTime" value="05:08:07" />
+    <NameValuePair name="$CCNetBuildDate" value="2011-08-15" />
+    <NameValuePair name="$CCNetBuildTime" value="01:24:43" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="2.4.2.1051" />
+    <NameValuePair name="$CCNetLabel" value="2.4.2.1256" />
     <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\Publish MbUnit v2 Docs\Artifacts\Publish MbUnit v2 Docs_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
-    <NameValuePair name="$CCNetNumericLabel" value="1051" />
+    <NameValuePair name="$CCNetNumericLabel" value="1256" />
     <NameValuePair name="$CCNetProject" value="Publish MbUnit v2 Docs" />
     <NameValuePair name="$CCNetProjectUrl" value="http://ccnet.gallio.org/server/local/project/Publish+MbUnit+v2+Docs/ViewLatestBuildReport.aspx" />
     <NameValuePair name="$CCNetRequestSource" value="IntervalTrigger" />
@@ -24,11 +24,11 @@
   </Parameters>
   <WorkingDirectory>D:\Projects\Publish MbUnit v2 Docs\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\Publish MbUnit v2 Docs\Artifacts</ArtifactDirectory>
-  <Status>Success</Status>
-  <StartTime>2010-11-30T05:08:07.748125-08:00</StartTime>
-  <EndTime>2010-11-30T05:10:50.2325-08:00</EndTime>
+  <Status>Exception</Status>
+  <StartTime>2011-08-15T01:24:43.4688534-07:00</StartTime>
+  <EndTime>2011-08-15T01:34:54.1876034-07:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>2.4.2.1052</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>2.4.2.1256</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
 </IntegrationResult>
