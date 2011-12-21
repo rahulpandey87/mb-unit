@@ -1,5 +1,0 @@
-<!-- BuildRows.vm: Start -->
-#foreach ($link in $links)
-<tr><td><a href="$link.Url" class="$link.LinkClass">$translations.Translate($link.Text)</a></td></tr>
-#end
-<!-- BuildRows.vm: End -->
