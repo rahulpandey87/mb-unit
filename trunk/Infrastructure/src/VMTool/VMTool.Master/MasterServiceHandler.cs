@@ -43,6 +43,10 @@ namespace VMTool.Master
                 {
                     throw OperationFailed("Failed to restore the snapshot.", output);
                 }
+
+                // Wait a bit before starting the VM.  May help work around problems where
+                // the VM will not start due to VBOX_E_INVALID_OBJECT_STATE.
+                Thread.Sleep(10000);
             }
 
             Retry((lastRetry) =>
@@ -129,6 +133,15 @@ namespace VMTool.Master
                     "Failed to power off the virtual machine.", 
                     ErrorDetails(exitCode, output));
             }
+
+            // Wait a bit after powering off the VM to ensure that it has been completely
+            // shut down.  If we try to manipulate the VM again too promptly then we get
+            // Progress state: E_ACCESSDENIED
+            // Restoring snapshot 94c516b5-ae92-4c82-9a37-b0c0a79eddd0
+            // VBoxManage.exe: error: Snapshot operation failed. Error message: Assertion failed: [SUCCEEDED(rc)] at 'D:\tinderbox\win-4.1\src\VBox\Main\src-server\MachineImpl.cpp' (9143) in Machine::saveStorageControllers.
+            // VBoxManage.exe: error: COM RC = E_ACCESSDENIED (0x80070005).
+            // VBoxManage.exe: error: Please contact the product vendor!
+            Thread.Sleep(10000);
 
             return new PowerOffResponse();
         }
