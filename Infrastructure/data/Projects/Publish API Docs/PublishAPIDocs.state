@@ -3,15 +3,15 @@
   <ProjectName>Publish API Docs</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/Publish+API+Docs/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>3.3.417.0</Label>
+  <Label>3.3.746.0</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\Publish API Docs\Artifacts" />
     <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
-    <NameValuePair name="$CCNetBuildDate" value="2011-08-07" />
-    <NameValuePair name="$CCNetBuildTime" value="02:35:02" />
+    <NameValuePair name="$CCNetBuildDate" value="2012-06-27" />
+    <NameValuePair name="$CCNetBuildTime" value="03:02:03" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="3.3.416.0" />
+    <NameValuePair name="$CCNetLabel" value="3.3.745.0" />
     <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\Publish API Docs\Artifacts\Publish API Docs_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
@@ -25,10 +25,10 @@
   <WorkingDirectory>D:\Projects\Publish API Docs\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\Publish API Docs\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2011-08-07T02:35:02.8632508-07:00</StartTime>
-  <EndTime>2011-08-07T02:37:20.8788758-07:00</EndTime>
+  <StartTime>2012-06-27T03:02:03.8787607-07:00</StartTime>
+  <EndTime>2012-06-27T03:08:13.3631357-07:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>3.3.417.0</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>3.3.746.0</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
 </IntegrationResult>
