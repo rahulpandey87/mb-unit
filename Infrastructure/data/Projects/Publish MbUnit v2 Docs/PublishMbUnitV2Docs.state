@@ -3,32 +3,32 @@
   <ProjectName>Publish MbUnit v2 Docs</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/Publish+MbUnit+v2+Docs/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>2.4.2.1552</Label>
+  <Label>2.4.2.1592</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\Publish MbUnit v2 Docs\Artifacts" />
     <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
-    <NameValuePair name="$CCNetBuildDate" value="2012-06-26" />
-    <NameValuePair name="$CCNetBuildTime" value="03:34:35" />
+    <NameValuePair name="$CCNetBuildDate" value="2012-08-06" />
+    <NameValuePair name="$CCNetBuildTime" value="00:49:48" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="2.4.2.1551" />
-    <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
+    <NameValuePair name="$CCNetLabel" value="2.4.2.1592" />
+    <NameValuePair name="$CCNetLastIntegrationStatus" value="Exception" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\Publish MbUnit v2 Docs\Artifacts\Publish MbUnit v2 Docs_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
-    <NameValuePair name="$CCNetNumericLabel" value="1551" />
+    <NameValuePair name="$CCNetNumericLabel" value="1592" />
     <NameValuePair name="$CCNetProject" value="Publish MbUnit v2 Docs" />
     <NameValuePair name="$CCNetProjectUrl" value="http://ccnet.gallio.org/server/local/project/Publish+MbUnit+v2+Docs/ViewLatestBuildReport.aspx" />
-    <NameValuePair name="$CCNetRequestSource" value="IntervalTrigger" />
+    <NameValuePair name="$CCNetRequestSource" value="GALLIOVM01" />
     <NameValuePair name="$CCNetUser" value="" />
     <NameValuePair name="$CCNetWorkingDirectory" value="D:\Projects\Publish MbUnit v2 Docs\Work" />
   </Parameters>
   <WorkingDirectory>D:\Projects\Publish MbUnit v2 Docs\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\Publish MbUnit v2 Docs\Artifacts</ArtifactDirectory>
-  <Status>Success</Status>
-  <StartTime>2012-06-26T03:34:35.137468-07:00</StartTime>
-  <EndTime>2012-06-26T03:39:08.871843-07:00</EndTime>
-  <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>2.4.2.1552</LastSuccessfulIntegrationLabel>
+  <Status>Exception</Status>
+  <StartTime>2012-08-06T00:49:48.412375-07:00</StartTime>
+  <EndTime>2012-08-06T00:59:57.303-07:00</EndTime>
+  <LastIntegrationStatus>Exception</LastIntegrationStatus>
+  <LastSuccessfulIntegrationLabel>2.4.2.1585</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
 </IntegrationResult>

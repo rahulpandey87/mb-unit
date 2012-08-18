@@ -3,15 +3,15 @@
   <ProjectName>Publish Debug Symbols</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/Publish+Debug+Symbols/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>3.3.746.0</Label>
+  <Label>3.4.31.0</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\Publish Debug Symbols\Artifacts" />
     <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
-    <NameValuePair name="$CCNetBuildDate" value="2012-06-27" />
-    <NameValuePair name="$CCNetBuildTime" value="03:08:23" />
+    <NameValuePair name="$CCNetBuildDate" value="2012-08-03" />
+    <NameValuePair name="$CCNetBuildTime" value="03:05:24" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="3.3.745.0" />
+    <NameValuePair name="$CCNetLabel" value="3.4.30.0" />
     <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\Publish Debug Symbols\Artifacts\Publish Debug Symbols_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
@@ -25,10 +25,10 @@
   <WorkingDirectory>D:\Projects\Publish Debug Symbols\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\Publish Debug Symbols\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2012-06-27T03:08:23.7068857-07:00</StartTime>
-  <EndTime>2012-06-27T03:09:07.2693857-07:00</EndTime>
+  <StartTime>2012-08-03T03:05:24.84-07:00</StartTime>
+  <EndTime>2012-08-03T03:05:48.1525-07:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>3.3.746.0</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>3.4.31.0</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
 </IntegrationResult>

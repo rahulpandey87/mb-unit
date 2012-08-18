@@ -3,19 +3,19 @@
   <ProjectName>WebSites</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/WebSites/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>967</Label>
+  <Label>1007</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\WebSites\Artifacts" />
     <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
-    <NameValuePair name="$CCNetBuildDate" value="2012-06-27" />
+    <NameValuePair name="$CCNetBuildDate" value="2012-08-07" />
     <NameValuePair name="$CCNetBuildTime" value="04:00:00" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="966" />
+    <NameValuePair name="$CCNetLabel" value="1006" />
     <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\WebSites\Artifacts\WebSites_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
-    <NameValuePair name="$CCNetNumericLabel" value="966" />
+    <NameValuePair name="$CCNetNumericLabel" value="1006" />
     <NameValuePair name="$CCNetProject" value="WebSites" />
     <NameValuePair name="$CCNetProjectUrl" value="http://ccnet.gallio.org/server/local/project/WebSites/ViewLatestBuildReport.aspx" />
     <NameValuePair name="$CCNetRequestSource" value="nightly" />
@@ -25,10 +25,10 @@
   <WorkingDirectory>D:\Projects\WebSites\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\WebSites\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2012-06-27T04:00:00.2097285-07:00</StartTime>
-  <EndTime>2012-06-27T04:00:33.7409785-07:00</EndTime>
+  <StartTime>2012-08-07T04:00:00.1155-07:00</StartTime>
+  <EndTime>2012-08-07T04:00:40.20925-07:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>967</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>1007</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
   <SourceControl name="SVN:LastRevision:http://mb-unit.googlecode.com/svn/trunk/WebSites" />

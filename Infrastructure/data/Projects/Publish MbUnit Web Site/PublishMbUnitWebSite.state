@@ -3,19 +3,19 @@
   <ProjectName>Publish MbUnit Web Site</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/Publish+MbUnit+Web+Site/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>967</Label>
+  <Label>1007</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\Publish MbUnit Web Site\Artifacts" />
     <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
-    <NameValuePair name="$CCNetBuildDate" value="2012-06-27" />
-    <NameValuePair name="$CCNetBuildTime" value="04:00:34" />
+    <NameValuePair name="$CCNetBuildDate" value="2012-08-07" />
+    <NameValuePair name="$CCNetBuildTime" value="04:01:34" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="966" />
+    <NameValuePair name="$CCNetLabel" value="1006" />
     <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\Publish MbUnit Web Site\Artifacts\Publish MbUnit Web Site_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
-    <NameValuePair name="$CCNetNumericLabel" value="966" />
+    <NameValuePair name="$CCNetNumericLabel" value="1006" />
     <NameValuePair name="$CCNetProject" value="Publish MbUnit Web Site" />
     <NameValuePair name="$CCNetProjectUrl" value="http://ccnet.gallio.org/server/local/project/Publish+MbUnit+Web+Site/ViewLatestBuildReport.aspx" />
     <NameValuePair name="$CCNetRequestSource" value="IntervalTrigger" />
@@ -25,10 +25,10 @@
   <WorkingDirectory>D:\Projects\Publish MbUnit Web Site\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\Publish MbUnit Web Site\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2012-06-27T04:00:34.9128535-07:00</StartTime>
-  <EndTime>2012-06-27T04:00:38.3034785-07:00</EndTime>
+  <StartTime>2012-08-07T04:01:34.52175-07:00</StartTime>
+  <EndTime>2012-08-07T04:01:42.349875-07:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>967</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>1007</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
 </IntegrationResult>
