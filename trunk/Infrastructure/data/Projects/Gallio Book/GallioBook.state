@@ -3,19 +3,19 @@
   <ProjectName>Gallio Book</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/Gallio+Book/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>1299</Label>
+  <Label>1339</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\Gallio Book\Artifacts" />
     <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
-    <NameValuePair name="$CCNetBuildDate" value="2012-06-27" />
+    <NameValuePair name="$CCNetBuildDate" value="2012-08-07" />
     <NameValuePair name="$CCNetBuildTime" value="03:30:00" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="1298" />
+    <NameValuePair name="$CCNetLabel" value="1338" />
     <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\Gallio Book\Artifacts\Gallio Book_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
-    <NameValuePair name="$CCNetNumericLabel" value="1298" />
+    <NameValuePair name="$CCNetNumericLabel" value="1338" />
     <NameValuePair name="$CCNetProject" value="Gallio Book" />
     <NameValuePair name="$CCNetProjectUrl" value="http://ccnet.gallio.org/server/local/project/Gallio+Book/ViewLatestBuildReport.aspx" />
     <NameValuePair name="$CCNetRequestSource" value="nightly" />
@@ -25,10 +25,10 @@
   <WorkingDirectory>D:\Projects\Gallio Book\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\Gallio Book\Artifacts</ArtifactDirectory>
   <Status>Success</Status>
-  <StartTime>2012-06-27T03:30:00.1443857-07:00</StartTime>
-  <EndTime>2012-06-27T03:30:51.1756357-07:00</EndTime>
+  <StartTime>2012-08-07T03:30:00.14675-07:00</StartTime>
+  <EndTime>2012-08-07T03:31:40.33425-07:00</EndTime>
   <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>1299</LastSuccessfulIntegrationLabel>
+  <LastSuccessfulIntegrationLabel>1339</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
   <SourceControl name="SVN:LastRevision:http://mb-unit.googlecode.com/svn/trunk/Book" />

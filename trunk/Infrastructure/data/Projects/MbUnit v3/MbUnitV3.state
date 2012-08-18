@@ -3,16 +3,16 @@
   <ProjectName>MbUnit v3</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/MbUnit+v3/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>3.4.0.0</Label>
+  <Label>3.4.34.0</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\MbUnit v3\Artifacts" />
     <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
-    <NameValuePair name="$CCNetBuildDate" value="2012-06-27" />
+    <NameValuePair name="$CCNetBuildDate" value="2012-08-07" />
     <NameValuePair name="$CCNetBuildTime" value="01:30:00" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="3.4.745.0" />
-    <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
+    <NameValuePair name="$CCNetLabel" value="3.4.33.0" />
+    <NameValuePair name="$CCNetLastIntegrationStatus" value="Exception" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\MbUnit v3\Artifacts\MbUnit v3_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetNumericLabel" value="0" />
@@ -24,11 +24,11 @@
   </Parameters>
   <WorkingDirectory>D:\Projects\MbUnit v3\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\MbUnit v3\Artifacts</ArtifactDirectory>
-  <Status>Success</Status>
-  <StartTime>2012-06-27T01:30:00.1840441-07:00</StartTime>
-  <EndTime>2012-06-27T03:02:02.7068857-07:00</EndTime>
-  <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>3.4.0.0</LastSuccessfulIntegrationLabel>
+  <Status>Exception</Status>
+  <StartTime>2012-08-07T01:30:00.178-07:00</StartTime>
+  <EndTime>2012-08-07T03:02:51.178-07:00</EndTime>
+  <LastIntegrationStatus>Exception</LastIntegrationStatus>
+  <LastSuccessfulIntegrationLabel>3.4.31.0</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
   <SourceControl name="SVN:LastRevision:http://mb-unit.googlecode.com/svn/trunk/v3" />

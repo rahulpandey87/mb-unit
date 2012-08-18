@@ -3,19 +3,19 @@
   <ProjectName>MbUnit v2</ProjectName>
   <ProjectUrl>http://ccnet.gallio.org/server/local/project/MbUnit+v2/ViewLatestBuildReport.aspx</ProjectUrl>
   <BuildCondition>ForceBuild</BuildCondition>
-  <Label>2.4.2.1553</Label>
+  <Label>2.4.2.1594</Label>
   <Parameters>
     <NameValuePair name="$CCNetArtifactDirectory" value="D:\Projects\MbUnit v2\Artifacts" />
     <NameValuePair name="$CCNetBuildCondition" value="ForceBuild" />
-    <NameValuePair name="$CCNetBuildDate" value="2012-06-27" />
-    <NameValuePair name="$CCNetBuildTime" value="03:04:28" />
+    <NameValuePair name="$CCNetBuildDate" value="2012-08-07" />
+    <NameValuePair name="$CCNetBuildTime" value="03:04:45" />
     <NameValuePair name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <NameValuePair name="$CCNetIntegrationStatus" value="Unknown" />
-    <NameValuePair name="$CCNetLabel" value="2.4.2.1552" />
-    <NameValuePair name="$CCNetLastIntegrationStatus" value="Success" />
+    <NameValuePair name="$CCNetLabel" value="2.4.2.1593" />
+    <NameValuePair name="$CCNetLastIntegrationStatus" value="Exception" />
     <NameValuePair name="$CCNetListenerFile" value="D:\Projects\MbUnit v2\Artifacts\MbUnit v2_ListenFile.xml" />
     <NameValuePair name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
-    <NameValuePair name="$CCNetNumericLabel" value="1552" />
+    <NameValuePair name="$CCNetNumericLabel" value="1593" />
     <NameValuePair name="$CCNetProject" value="MbUnit v2" />
     <NameValuePair name="$CCNetProjectUrl" value="http://ccnet.gallio.org/server/local/project/MbUnit+v2/ViewLatestBuildReport.aspx" />
     <NameValuePair name="$CCNetRequestSource" value="nightly" />
@@ -25,10 +25,10 @@
   <WorkingDirectory>D:\Projects\MbUnit v2\Work</WorkingDirectory>
   <ArtifactDirectory>D:\Projects\MbUnit v2\Artifacts</ArtifactDirectory>
   <Status>Exception</Status>
-  <StartTime>2012-06-27T03:04:28.0818857-07:00</StartTime>
-  <EndTime>2012-06-27T03:06:08.7068857-07:00</EndTime>
-  <LastIntegrationStatus>Success</LastIntegrationStatus>
-  <LastSuccessfulIntegrationLabel>2.4.2.1552</LastSuccessfulIntegrationLabel>
+  <StartTime>2012-08-07T03:04:45.52175-07:00</StartTime>
+  <EndTime>2012-08-07T03:36:21.928-07:00</EndTime>
+  <LastIntegrationStatus>Exception</LastIntegrationStatus>
+  <LastSuccessfulIntegrationLabel>2.4.2.1592</LastSuccessfulIntegrationLabel>
   <FailureUsers />
   <lastBuild>Success</lastBuild>
   <SourceControl name="SVN:LastRevision:http://mb-unit.googlecode.com/svn/trunk/v2" />
